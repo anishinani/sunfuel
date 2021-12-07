@@ -3,26 +3,27 @@
 include("utils/helpers.php");
 
 //$dbaccess = new DbAcess();
+
 // $connection = $dbaccess->closeConnection();
 //session_start();
 
 
-class User extends DbAcess
+class User extends DbAccess
 {
 
 
 
     public function check_login($email, $password)
     {
-        $dbAccess = new DbAcess();
+        //$dbAccess = new DbAcess();
         //$helpers =  new HelperFunctions();
         //$helpers->checkEmail()
         $sql = "SELECT * FROM administrators WHERE email = ? ";
 
-        //escape string
-        $email =  $this->createConnection()->real_escape_string($email);
+        $email = $this->clean($email);
 
-        $smt = $this->createConnection()->prepare($sql);
+        $smt = $this->getConnection()->prepare($sql);
+        //$email = $this->cl
         $smt->bind_param("s", $email);
         $smt->execute();
         $results = $smt->get_result();
@@ -47,4 +48,6 @@ class User extends DbAcess
             return false;
         }
     }
+
+   
 }

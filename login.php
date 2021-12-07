@@ -40,9 +40,15 @@ if (isset($_POST['login'])) {
 			$_SESSION['gender'] = $auth['gender'];
 			$_SESSION['email'] = $auth['email'];
 			$value = $activity->logActivity($_SESSION['user'], "login", "Logged in sucessfully", $_SESSION['email'], $_SESSION['gender']);
+			//die($value);
+			// if ($value) {
+			// 	die("inserted");
+			// } else {
+			// 	die("not inserted");
+			// }
 			//var_dump($value);
-			die($value);
-			//header('location:home.php');
+			//die($value);
+			header('location:home.php');
 		}
 	}
 }

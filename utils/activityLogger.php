@@ -1,7 +1,7 @@
 <?php
 
 
-class ActivityLogger extends DbAcess
+class ActivityLogger extends DbAccess
 {
     public  function logActivity($name, $activity, $description, $email, $gender)
     {
@@ -11,12 +11,10 @@ class ActivityLogger extends DbAcess
         return $this->insert('logs', [
             'name' => $name,
             "email" => $email,
-            "ip_address" => $ip_address,
+            "ipAddress" => $ip_address,
             'activity' => $activity,
             'gender' => $gender,
-            'description' => $description,
-            'active_flag' => "1",
-            'del_flag' => "0",
+            'description' => $description
 
         ]);
     }
