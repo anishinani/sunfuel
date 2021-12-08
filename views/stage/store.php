@@ -7,25 +7,25 @@ require_once("../../utils/dbaccess.php");
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
 
-require_once('../../controllers/FuelStationController.php');
+require_once('../../controllers/StageController.php');
 
 
 //$helpers =  new HelperFunctions();
 $dbAccess =  new DbAccess();
-$fuelStation = new FuelStation();
+$stage = new  Stage();
 $helpers =  new HelperFunctions();
 $activity = new ActivityLogger();
 //unset($_SESSION['errors']);
 
 
 
-if (isset($_POST['addStation'])) {
+if (isset($_POST['addStage'])) {
 
     $_SESSION['errors'] = array();
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
-        if ($key == 'addStation' || $key == "id") {
+        if ($key == 'addStage') {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {
@@ -37,28 +37,27 @@ if (isset($_POST['addStation'])) {
     }
     //check errors and clean
 
-    if ($helpers->checkEmail($_POST['email']) == NULL) {
-        array_push($_SESSION['errors'], "invalid email format");
-    }
 
+
+    //check session array
     if (count($_SESSION['errors'])) {
 
-        header("Location:edit.php?update='" . $_POST['id'] . "'");
+        header("Location:create.php");
     }
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($fuelStation->updateInfo($_POST)) {
+        if ($stage->store($_POST)) {
             $activity->logActivity(
                 $_SESSION['user'],
-                "Updated successfullt",
-                "fuel station updated  sucessfully",
+                "Registered stage ",
+                "stage registered in sucessfully",
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
 
             //redirect
-            $_SESSION['success'] = "Fuel Station Updated  Successfully";
+            $_SESSION['success'] = "Stage Added Successfully";
             header("Location:index.php");
             //redirect
         } else {

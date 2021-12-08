@@ -4,7 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT * FROM stage ";
+$sql = "SELECT * FROM stage  INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
 
 //die("here");
 
@@ -44,11 +44,21 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['stageContactPerson'];
     $sub_array[] = $row['stageContactAddress'];
     $sub_array[] = $row['stageContactPhoneNumber'];
+    $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageStatus'];
-    $sub_array[] = '<a href="javascript:void();" data-id="' . $row['stageId'] . '" 
-     class="btn btn-info btn-sm editbtn" >Edit</a>  <a href="javascript:void();" data-id="'
-        . $row['stageId'] . '" 
-      class="btn btn-danger btn-sm deleteBtn" >Delete</a>';
+    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
+    <form action="edit.php?id="' . $row['stageId'] . '"" method="get">
+    <button type="submit" name="update"  value="' . $row['stageId'] . '"
+    class="btn btn-info btn-sm editbtn" >Edit</button>
+
+    </form>
+    <form method="POST" action="./delete.php">
+      <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
+      <button 
+    class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+
+    </form>
+    </div>';
     $data[] = $sub_array;
 }
 

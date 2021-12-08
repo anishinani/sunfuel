@@ -49,7 +49,12 @@
 
         $dbAccess =  new DbAccess();
 
-        $results  =  $dbAccess->select("fuelstation");
+        $results  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
+
+
+
+        //modify results
+
         ?>
 
 
@@ -107,6 +112,24 @@
                                             <input type="text" name="name" required class="form-control" placeholder="enter stage name" />
 
                                         </div>
+                                        <!--fuel station-->
+                                        <div class="form-group mb-3">
+                                            <div class="form-group">
+                                                <label for="my-select">Fuel Station</label>
+                                                <select id="my-select" class="form-control" name="fuelStationId">
+                                                    <option disabled selected>select station</option>
+                                                    <?php
+                                                    for ($i = 0; $i < count($results); $i++) {
+                                                    ?>
+                                                        <option value="<?= $results[$i]["fuelStationId"] ?>">
+                                                            <?= $results[$i]["fuelStationName"] ?></option>
+
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <!--fuel station-->
                                         <!--address-->
                                         <div class="form-group mb-3">
                                             <label for="">Stage Contact Person</label>
@@ -135,7 +158,7 @@
                                         <!---phone-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Register</button>
+                                            <button type="submit" class="style_button" name="addStage">Register new Stage</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>

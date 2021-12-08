@@ -48,7 +48,7 @@ class FuelStation extends DbAccess
                 'fuelStationStatus' => "on"
 
             ],
-            ["fuelStationId" => $_POST['id']]
+            ["fuelStationId" => $array['id']]
         );
     }
 }

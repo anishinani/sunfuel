@@ -3,7 +3,7 @@ session_start();
 include("../../utils/dbaccess.php");
 include("../../utils/activityLogger.php");
 
-$activity = new ActivityLogger();
+$activity =  new ActivityLogger();
 
 //die("Am here");
 
@@ -12,17 +12,17 @@ $con = $dbAccess->getConnection();
 $user_id = $_POST['id'];
 //die($user_id);
 
-$sql = "DELETE FROM fuelstation WHERE fuelStationId='$user_id'";
+$sql = "DELETE FROM stage WHERE stageId='$user_id'";
 $delQuery = mysqli_query($con, $sql);
 if ($delQuery == true) {
     $activity->logActivity(
         $_SESSION['user'],
-        "deleted fuel station ",
-        "fuel station deleted  sucessfully",
+        "deleted stage ",
+        "stage deleted in sucessfully",
         $_SESSION['email'],
         $_SESSION['gender']
     );
-    $_SESSION["success"] = "Deleted successfully";
+    $_SESSION["success"] = " Stage Deleted successfully";
     header("Location:index.php");
 } else {
     echo "There was an error";

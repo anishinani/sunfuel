@@ -117,8 +117,9 @@ $_SESSION['bool'] =  true;
                                                 <th>Contact Person</th>
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>
+                                                <th>Fuel Station Name</th>
                                                 <th>Stage Status</th>
-                                                <th>Actions</th>
+                                                <th width="100px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>

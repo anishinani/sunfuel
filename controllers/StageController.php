@@ -8,39 +8,42 @@ class Stage extends DbAccess
         $name = $array['name'];
         $address = $array['address'];
         $person = $array['person'];
-        $email = $array['email'];
         $phone = $array['phoneNumber'];
+        $id = $array["fuelStationId"];
 
-        return $this->insert("fuelstation", [
-            'fuelStationName' => $name,
-            'fuelStationAddress' => $address,
-            'fuelStationContactPerson' => $person,
-            'fuelStationContactPhone' => $phone,
-            'fuelStationContactEmail' => $email,
-            'fuelStationStatus' => "on"
+        return $this->insert(
+            "stage",
+            [
+                'stageName' => $name,
+                'stageContactAddress' => $address,
+                'stageContactPerson' => $person,
+                'stageContactPhoneNumber' => $phone,
+                'fuelStationId' => $id,
+                'stageStatus' => "Active"
 
-        ]);
+            ]
+        );
     }
-
     public function updateInfo($array)
     {
         $name = $array['name'];
         $address = $array['address'];
         $person = $array['person'];
-        $email = $array['email'];
+        $id = $array["fuelStationId"];
         $phone = $array['phoneNumber'];
+        //die($array['id']);
         return $this->update(
-            "fuelstation",
+            "stage",
             [
-                'fuelStationName' => $name,
-                'fuelStationAddress' => $address,
-                'fuelStationContactPerson' => $person,
-                'fuelStationContactPhone' => $phone,
-                'fuelStationContactEmail' => $email,
-                'fuelStationStatus' => "on"
+                'stageName' => $name,
+                'stageContactAddress' => $address,
+                'stageContactPerson' => $person,
+                'stageContactPhoneNumber' => $phone,
+                'fuelStationId' => $id,
+                'stageStatus' => "Active"
 
             ],
-            ["fuelStationId" => $_POST['id']]
+            ["stageId" => $array['id']]
         );
     }
 }
