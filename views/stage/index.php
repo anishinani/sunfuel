@@ -60,9 +60,14 @@ $_SESSION['bool'] =  true;
 
             <!--any wrong info-->
 
-            <div class="alert alert-success m-4">
-                <p>{{ $message }}</p>
-            </div>
+            <?php if (isset($_SESSION['success'])) { ?>
+                <div class="alert alert-success m-4" id="removeAlert">
+                    <p><?= $_SESSION['success']; ?></p>
+                    <img src="../../dist/img/remove.png" class="image__remove" alt="cross image" height="20px" width="20px">
+
+                </div>
+
+            <?php } ?>
 
             <!--any wrong info-->
 
@@ -72,12 +77,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Boada Users</h1>
+                            <h1>Stage</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Boada Users</li>
+                                <li class="breadcrumb-item active">Stage</li>
                             </ol>
                         </div>
                     </div>
@@ -88,12 +93,7 @@ $_SESSION['bool'] =  true;
             <section class="content">
                 <div class="container-fluid">
 
-                    <?php
-                    // $dbAccess->getConnection();
-                    // $results =  json_encode($dbAccess->select("bodauser"));
-                    //var_dump($results[0]['bodaUserName']);
 
-                    ?>
 
                     <div class="row">
                         <div class="col-12">
@@ -101,7 +101,11 @@ $_SESSION['bool'] =  true;
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                    <h3 class="card-title">Stage Table</h3>
+                                    <h4 class="float-sm-right ">
+                                        <a class="btn btn-success" href="./create.php"> Add New Stage
+                                        </a>
+                                    </h4>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

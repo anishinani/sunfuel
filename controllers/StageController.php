@@ -1,10 +1,6 @@
 <?php
 
-
-//include_once("./utils/dbaccess.php");
-
-
-class FuelStation extends DbAccess
+class Stage extends DbAccess
 {
 
     public function store($array)
@@ -14,21 +10,17 @@ class FuelStation extends DbAccess
         $person = $array['person'];
         $email = $array['email'];
         $phone = $array['phoneNumber'];
-        return $this->insert(
-            "fuelstation",
-            [
-                'fuelStationName' => $name,
-                'fuelStationAddress' => $address,
-                'fuelStationContactPerson' => $person,
-                'fuelStationContactPhone' => $phone,
-                'fuelStationContactEmail' => $email,
-                'fuelStationStatus' => "on"
 
-            ]
-        );
+        return $this->insert("fuelstation", [
+            'fuelStationName' => $name,
+            'fuelStationAddress' => $address,
+            'fuelStationContactPerson' => $person,
+            'fuelStationContactPhone' => $phone,
+            'fuelStationContactEmail' => $email,
+            'fuelStationStatus' => "on"
+
+        ]);
     }
-
-
 
     public function updateInfo($array)
     {

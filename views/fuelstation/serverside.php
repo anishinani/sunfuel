@@ -47,8 +47,12 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['fuelStationContactPhone'];
     $sub_array[] = $row['fuelStationContactEmail'];
     $sub_array[] = $row['fuelStationStatus'];
-    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;"><a href="javascript:void();" data-id="' . $row['fuelStationId'] . '" 
-     class="btn btn-info btn-sm editbtn" >Edit</a>
+    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
+     <form action="edit.php?id="' . $row['fuelStationId'] . '"" method="get">
+     <button type="submit" name="update"  value="' . $row['fuelStationId'] . '"
+     class="btn btn-info btn-sm editbtn" >Edit</button>
+
+     </form>
      <form method="POST" action="./delete.php">
        <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
        <button 
