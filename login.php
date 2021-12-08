@@ -39,6 +39,7 @@ if (isset($_POST['login'])) {
 			$_SESSION['roleId'] = $auth['role'];
 			$_SESSION['gender'] = $auth['gender'];
 			$_SESSION['email'] = $auth['email'];
+			$_SESSION['bool'] = false;
 			$value = $activity->logActivity($_SESSION['user'], "login", "Logged in sucessfully", $_SESSION['email'], $_SESSION['gender']);
 			//die($value);
 			// if ($value) {
@@ -48,7 +49,7 @@ if (isset($_POST['login'])) {
 			// }
 			//var_dump($value);
 			//die($value);
-			header('location:home.php');
+			header('location:views/home.php');
 		}
 	}
 }
