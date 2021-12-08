@@ -4,7 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT * FROM stage ";
+$sql = "SELECT * FROM fuelstation ";
 
 //die("here");
 
@@ -13,11 +13,12 @@ $total_all_rows = mysqli_num_rows($totalQuery);
 
 if (isset($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
-    $sql .= " WHERE stageName like '%" . $search_value . "%'";
-    $sql .= " OR stageContactPhoneNumber like '%" . $search_value . "%'";
-    $sql .= " OR stageContactPerson like '%" . $search_value . "%'";
-    $sql .= " OR stageContactPerson like '%" . $search_value . "%'";
-    $sql .= " OR stageStatus like '%" . $search_value . "%'";
+    $sql .= " WHERE fuelStationName like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationContactPhone like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationContactPerson like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationAddress like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationContactEmail like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationStatus like '%" . $search_value . "%'";
 }
 
 if (isset($_POST['order'])) {
@@ -25,7 +26,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY stageId asc";
+    $sql .= " ORDER BY fuelStationId asc";
 }
 
 if ($_POST['length'] != -1) {
@@ -39,16 +40,22 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
-    $sub_array[] = $row['stageId'];
-    $sub_array[] = $row['stageName'];
-    $sub_array[] = $row['stageContactPerson'];
-    $sub_array[] = $row['stageContactAddress'];
-    $sub_array[] = $row['stageContactPhoneNumber'];
-    $sub_array[] = $row['stageStatus'];
-    $sub_array[] = '<a href="javascript:void();" data-id="' . $row['stageId'] . '" 
-     class="btn btn-info btn-sm editbtn" >Edit</a>  <a href="javascript:void();" data-id="'
-        . $row['stageId'] . '" 
-      class="btn btn-danger btn-sm deleteBtn" >Delete</a>';
+    $sub_array[] = $row['fuelStationId'];
+    $sub_array[] = $row['fuelStationName'];
+    $sub_array[] = $row['fuelStationContactPerson'];
+    $sub_array[] = $row['fuelStationAddress'];
+    $sub_array[] = $row['fuelStationContactPhone'];
+    $sub_array[] = $row['fuelStationContactEmail'];
+    $sub_array[] = $row['fuelStationStatus'];
+    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;"><a href="javascript:void();" data-id="' . $row['fuelStationId'] . '" 
+     class="btn btn-info btn-sm editbtn" >Edit</a>
+     <form method="POST" action="./delete.php">
+       <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
+       <button 
+     class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+
+     </form>
+     </div>';
     $data[] = $sub_array;
 }
 

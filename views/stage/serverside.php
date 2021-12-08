@@ -16,7 +16,7 @@ if (isset($_POST['search']['value'])) {
     $sql .= " WHERE stageName like '%" . $search_value . "%'";
     $sql .= " OR stageContactPhoneNumber like '%" . $search_value . "%'";
     $sql .= " OR stageContactPerson like '%" . $search_value . "%'";
-    $sql .= " OR stageContactPerson like '%" . $search_value . "%'";
+    $sql .= " OR stageContactAddress like '%" . $search_value . "%'";
     $sql .= " OR stageStatus like '%" . $search_value . "%'";
 }
 

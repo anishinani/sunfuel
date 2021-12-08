@@ -4,9 +4,11 @@ class HelperFunctions
 
     public function checkEmptyFields($field)
     {
+        //die("The field is " . $field);
         if (empty($field)) {
-            return true;
-        } else return false;
+
+            return $field . "field is required";
+        } else return NULL;
     }
 
     public function checkDesiredLength($data, $desiredLength, $field)
@@ -52,11 +54,12 @@ class HelperFunctions
 
     public function checkNumber($number)
     {
-        $numberRegex = ' /^[\s()+-]*([0-9][\s()+-]*){9,10}$/';
-        if (preg_match($number, $numberRegex)) {
-            return $number;
+        //die("am dying" . $number);
+        //$numberRegex = "/^[0-9][0-9]$/";
+        if (preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $number) && strlen($number) == 10) {
+            return  "phone number is valid";
         } else {
-            return "The phone number must be 10 characters long";
+            return NULL;
         }
         # code...
     }

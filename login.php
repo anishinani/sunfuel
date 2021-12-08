@@ -5,10 +5,13 @@ session_start();
 require_once("utils/dbaccess.php");
 require_once('controllers/User.php');
 require_once("utils/activityLogger.php");
+require_once("utils/helpers.php");
 
 $user = new User();
 //helper functions
 $helpers  = new HelperFunctions();
+
+
 
 $activity = new ActivityLogger();
 
@@ -18,7 +21,7 @@ if (isset($_POST['login'])) {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	if ($helpers->checkEmptyFields($email) || $helpers->checkEmptyFields($password)) {
+	if ($helpers->checkEmptyFields($email) != NULL || $helpers->checkEmptyFields($password) != NULL) {
 		header('location:home.php?empty=required');
 	}
 

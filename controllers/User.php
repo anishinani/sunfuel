@@ -1,11 +1,5 @@
 <?php
-//include_once("utils/dbaccess.php");
-include("utils/helpers.php");
 
-//$dbaccess = new DbAcess();
-
-// $connection = $dbaccess->closeConnection();
-//session_start();
 
 
 class User extends DbAccess
@@ -48,6 +42,4 @@ class User extends DbAccess
             return false;
         }
     }
-
-   
 }

@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION['bool'] =  true;
+//unset($_SESSION["success"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +39,21 @@ $_SESSION['bool'] =  true;
             align-items: center !important;
             justify-content: space-evenly !important;
         }
+
+        .platform {
+            display: none !important;
+        }
+
+        .content-wrapper {
+            position: relative !important;
+        }
+
+        .image__remove {
+            position: absolute !important;
+            right: 30px !important;
+            top: 10px !important;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -60,9 +76,16 @@ $_SESSION['bool'] =  true;
 
             <!--any wrong info-->
 
-            <!-- <div class="alert alert-success m-4">
-                <p>{{ $message }}</p>
-            </div> -->
+            <?php if (isset($_SESSION['success'])) { ?>
+                <div class="alert alert-success m-4" id="removeAlert">
+                    <p><?= $_SESSION['success']; ?></p>
+                    <img src="../../dist/img/remove.png" class="image__remove" alt="cross image" height="20px" width="20px">
+
+                </div>
+
+            <?php } ?>
+
+
 
             <!--any wrong info-->
 
@@ -102,6 +125,10 @@ $_SESSION['bool'] =  true;
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Fuel Station Table</h3>
+                                    <h4 class="float-sm-right ">
+                                        <a class="btn btn-success" href="./create.php"> Add New Station
+                                        </a>
+                                    </h4>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -115,7 +142,7 @@ $_SESSION['bool'] =  true;
                                                 <th>Contact Phone Number</th>
                                                 <th>Contact Email</th>
                                                 <th>Stage Status</th>
-                                                <th>Actions</th>
+                                                <th width="130px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -173,8 +200,21 @@ $_SESSION['bool'] =  true;
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
     <!-- Page specific script -->
-    <script>
 
+    <!--hide alert--->
+    <script type="text/javascript">
+        $(function() {
+            $('.image__remove').click(function() {
+                //alert('clicked')
+                // $("#content-wrap").addClass('platform');
+                $("#removeAlert").addClass('platform');
+
+            })
+        })
+    </script>
+    <!--hide alert-->
+
+    <script>
         $(document).ready(function() {
             $('#example').DataTable({
                 "fnCreatedRow": function(nRow, aData, iDataIndex) {
@@ -196,6 +236,9 @@ $_SESSION['bool'] =  true;
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+
+
 
 
 </body>
