@@ -49,7 +49,7 @@
         $dbAccess =  new DbAccess();
 
         $permissions = $dbAccess->select("permissions", ["permissionId", "permissionName"]);
-        //var_dump($permissions);
+        var_dump($permissions);
 
         // $permissions =  
         ?>

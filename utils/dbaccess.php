@@ -6,7 +6,7 @@ class DbAccess
     private $mysqlKeyWords;
     private $host = 'localhost';
     private $username = 'root';
-    private $password = '!Log10tan10';
+    private $password = '';
     private $database = 'bodacredit';
 
 
@@ -248,7 +248,7 @@ class DbAccess
         $table =  $this->clean($table);
         $row =  $this->clean($row);
         if (empty($table)) {
-            return NULL;
+            return 0;
         }
         $sql = "SELECT COUNT($row) AS total FROM $table";
         $results = mysqli_query($this->conn, $sql);

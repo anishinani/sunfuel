@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+	header("Location:/creditpluswebapp/index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,15 +40,15 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 		<?php
-		session_start();
+
 		include_once("./navbar/navbar.php");
 		include_once("sidebar.php");
 		include_once("../utils/dbaccess.php");
 		$dbAccess =  new DbAccess();
-		$totalBodaUsers =  10;//$dbAccess->countRows("bodaUser", 'bodaUserId');
-		$totalUsers =  10;//$dbAccess->countRows("administrators", 'adminId');
-		$totalStages =  10;//$dbAccess->countRows("stage", 'stageId');
-		$totalFueltations =  10;//$dbAccess->countRows("fuelstation", 'fuelStationId');
+		$totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
+		$totalUsers =  $dbAccess->countRows("administrators", 'adminId');
+		$totalStages =  $dbAccess->countRows("stage", 'stageId');
+		$totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
 
 
 		//die("The totak rows are " . $totalBodaUsers);
@@ -166,7 +174,7 @@
 		</div>
 		<!-- /.content-wrapper -->
 		<?php
-		include_once("/creditpluswebapp/views/footer/footer.php");
+		include_once("./footer/footer.php");
 		?>
 
 

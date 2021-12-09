@@ -57,13 +57,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Users</p>
                                 </a>
@@ -169,13 +169,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditplus/views/fuelstation/index.php" class="nav-link">
+                                <a href="/creditpluswebapp/views/fuelstation/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Fuel Stations</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditplus/views/fuelstation/create.php" class="nav-link">
+                                <a href="/creditpluswebapp/views/fuelstation/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Fuel Sations</p>
                                 </a>
@@ -231,7 +231,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Payments</p>
                                 </a>
@@ -239,16 +239,6 @@
 
                         </ul>
                         <!--paymensts-->
-
-
-
-
-
-
-
-
-
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
