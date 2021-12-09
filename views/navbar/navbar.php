@@ -39,7 +39,7 @@
                             <div class="media-body">
                                 <div class="dropdown-item-title">
                                     <div>
-                                        <a href="/creditplus/logout.php" class="btn btn-danger align-center">Logout</a>
+                                        <a href="/creditpluswebapp/logout.php" class="btn btn-danger align-center">Logout</a>
                                     </div>
                                 </div>
                             </div>
