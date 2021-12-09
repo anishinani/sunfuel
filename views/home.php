@@ -6,11 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Credit Plus</title>
 	<!-- Google Font: Source Sans Pro -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.min.css">
 	<!-- Ionicons -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Tempusdominus Bootstrap 4 -->
 	<link rel="stylesheet" href="/creditpluswebapp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 	<!-- iCheck -->
@@ -37,10 +37,10 @@
 		include_once("sidebar.php");
 		include_once("../utils/dbaccess.php");
 		$dbAccess =  new DbAccess();
-		$totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
-		$totalUsers =  $dbAccess->countRows("administrators", 'adminId');
-		$totalStages =  $dbAccess->countRows("stage", 'stageId');
-		$totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
+		$totalBodaUsers =  10;//$dbAccess->countRows("bodaUser", 'bodaUserId');
+		$totalUsers =  10;//$dbAccess->countRows("administrators", 'adminId');
+		$totalStages =  10;//$dbAccess->countRows("stage", 'stageId');
+		$totalFueltations =  10;//$dbAccess->countRows("fuelstation", 'fuelStationId');
 
 
 		//die("The totak rows are " . $totalBodaUsers);
@@ -95,7 +95,7 @@
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
 							<!-- small box -->
-							<a href="./bodauser/index.php">
+							<a href="/creditpluswebapp/views/bodauser/index.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalBodaUsers ?></h3>
@@ -112,7 +112,7 @@
 						</div>
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
-							<a href="./fuelstation/index.php">
+							<a href="/creditpluswebapp/views/fuelstation/index.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalFueltations ?></h3>
@@ -130,7 +130,7 @@
 
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="./fuelstation/index.php">
+							<a href="/creditpluswebapp/views/fuelstation/index.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalStages ?></h3>
@@ -166,7 +166,7 @@
 		</div>
 		<!-- /.content-wrapper -->
 		<?php
-		include_once("./footer/footer.php");
+		include_once("/creditpluswebapp/views/footer/footer.php");
 		?>
 
 
