@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit fuel station</title>
+    <title>Edit Roles</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -54,8 +54,22 @@
         if (isset($_GET['update'])) {
             $id = $_GET["update"];
             //die("The id is " . $id);
-            $results  = $dbAccess->select("fuelstation", "", ["fuelStationId" => $id]);
-            //var_dump($results[0]['fuelStationName']);
+            $results  = $dbAccess->select("roles", ["roleName"], ["roleId" => $id]);
+            $permissions = $dbAccess->select("permissions", ["permissionId", "permissionName"]);
+
+
+            $sql = "SELECT permissions.permissionId  FROM permissions 
+        INNER JOIN rolepermissionids ON rolepermissionids.permissionId = permissions.permissionId
+         INNER JOIN roles ON roles.roleId = rolepermissionids.roleId";
+            $totalQuery = mysqli_query($dbAccess->getConnection(), $sql);
+
+            $ids =  array();
+
+            while ($row = $totalQuery->fetch_assoc()) {
+                array_push($ids, $row["permissionId"]);
+            }
+            //var_dump($ids);
+            //die("done");
         }
         ?>
 
@@ -73,7 +87,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">fuel station</li>
+                                <li class="breadcrumb-item active">Roles</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -107,50 +121,37 @@
                             <div class="card card-outline card-primary">
 
                                 <div class="card-body">
-                                    <p class="login-box-msg">Edit station</p>
+                                    <p class="login-box-msg">Edit Role</p>
                                     <form method="POST" action="./update.php">
 
 
                                         <div class="form-group mb-3">
-                                            <label for="">Station Name</label>
-                                            <input type="text" name="name" required class="form-control" placeholder="enter station name" value="<?= $results[0]['fuelStationName']; ?>" />
+                                            <label for="">Role Name</label>
+                                            <input type="text" name="name" required class="form-control" placeholder="enter station name" value="<?= $results[0]['roleName']; ?>" />
 
                                         </div>
-                                        <!--address-->
+
                                         <div class="form-group mb-3">
-                                            <label for="">Addresss</label>
-                                            <input type="text" name="address" required class="form-control" placeholder="enter station address" value="<?= $results[0]['fuelStationAddress']; ?>" />
-                                        </div>
-                                        <!--address-->
-                                        <!--person-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Contact Person</label>
-                                            <input type="text" name="person" required class="form-control" placeholder="enter person name" value="<?= $results[0]['fuelStationContactPerson']; ?>" />
+                                            <label for="">Permissions</label>
+                                            <?php
+
+                                            for ($i = 0; $i < count($permissions); $i++) {
+
+                                                var_dump($permissions[$i]["permissionId"] == $ids[$i] ? "true" : "false");
+
+                                            ?>
+
+                                                <div>
+                                                    <input type="checkbox" id="<?= $permissions[$i]["permissionId"] ?>" name="permissions[]" value="<?= $permissions[$i]["permissionId"] ?>">
+                                                    <label for="<?= $permissions[$i]["permissionName"] ?>">
+                                                        <?= $permissions[$i]["permissionName"] ?>
+                                                    </label>
+                                                </div>
+
+                                            <?php } ?>
 
                                         </div>
-                                        <!--person-->
 
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['fuelStationContactPhone']; ?>" />
-                                        </div>
-                                        <!---phone-->
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Email</label>
-                                            <input type="email" name="email" required class="form-control" placeholder="enter email" value="<?= $results[0]['fuelStationContactEmail']; ?>" />
-                                        </div>
-                                        <!---phone-->
-
-                                        <!--hidden-->
-                                        <input type="hidden" name="id" value="<?= $_GET['update']; ?>" />
-                                        <!--hidden-->
-                                        <!-- /.col -->
-                                        <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Update Fuel Station</button>
-                                        </div>
-                                        <!-- /.col -->
                                 </div>
                                 </form>
 

@@ -36,13 +36,13 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['roleId'];
     $sub_array[] = $row['roleName'];
     $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
-    <form action="show.php?id="' . $row['roleId'] . '"" method="get">
+    <form action="./show.php?id="' . $row['roleId'] . '"" method="get">
     <button type="submit" name="show"  value="' . $row['roleId'] . '"
     class="btn btn-info btn-sm editbtn" >Show</button>
 
     </form>
 
-    <form action="edit.php?id="' . $row['roleId'] . '"" method="get">
+    <form action="./edit.php?id="' . $row['roleId'] . '"" method="get">
     <button type="submit" name="update"  value="' . $row['roleId'] . '"
     class="btn btn-info btn-sm editbtn" >Edit</button>
 

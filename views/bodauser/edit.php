@@ -44,7 +44,7 @@
     <div class="wrapper">
         <?php
         include_once("../navbar/navbar.php");
-        include_once("../sidebar/sidebar.php");
+        include_once("../sidebar.php");
         include("../../utils/dbaccess.php");
         include("../../utils/activityLogger.php");
         $activity =  new ActivityLogger();

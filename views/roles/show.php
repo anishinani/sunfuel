@@ -47,7 +47,7 @@ $_SESSION['bool'] =  true;
         <?php
         include("../../utils/dbaccess.php");
         include("../navbar/navbar.php");
-         include("../sidebar/sidebar.php");
+        include("../sidebar.php");
 
         $dbAccess =  new DbAccess();
 
@@ -59,19 +59,8 @@ $_SESSION['bool'] =  true;
         $sql = "SELECT permissions.permissionName  FROM permissions 
          INNER JOIN rolepermissionids ON rolepermissionids.permissionId = permissions.permissionId
           INNER JOIN roles ON roles.roleId = rolepermissionids.roleId";
-
-        //die("here");
-
         $totalQuery = mysqli_query($dbAccess->getConnection(), $sql);
         //var_dump($totalQuery);
-
-
-
-
-
-
-
-
 
         ?>
         <!-- Main Sidebar Container -->

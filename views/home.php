@@ -34,7 +34,7 @@
 		<?php
 		session_start();
 		include_once("./navbar/navbar.php");
-		include_once("./sidebar/sidebar.php");
+		include_once("sidebar.php");
 		include_once("../utils/dbaccess.php");
 		$dbAccess =  new DbAccess();
 		$totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');

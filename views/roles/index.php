@@ -47,7 +47,7 @@ $_SESSION['bool'] =  true;
         <?php
         include("../../utils/dbaccess.php");
         include("../navbar/navbar.php");
-        include("../sidebar/sidebar.php");
+        include("../sidebar.php");
 
         $dbAccess =  new DbAccess();
 
@@ -119,7 +119,7 @@ $_SESSION['bool'] =  true;
                                             <tr>
                                                 <th>Id</th>
                                                 <th> Role Name</th>
-                                                <th width="100px">Actions</th>
+                                                <th width="140px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>

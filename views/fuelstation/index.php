@@ -63,7 +63,7 @@ $_SESSION['bool'] =  true;
         <?php
         include("../../utils/dbaccess.php");
         include("../navbar/navbar.php");
-        include("../sidebar/sidebar.php");
+        include("../sidebar.php");
 
         $dbAccess =  new DbAccess();
 
@@ -141,7 +141,7 @@ $_SESSION['bool'] =  true;
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>
                                                 <th>Contact Email</th>
-                                                <th>Stage Status</th>
+                                                <th>Fuel Station Status</th>
                                                 <th width="130px">Actions</th>
                                             </tr>
                                         </thead>
