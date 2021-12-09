@@ -23,7 +23,7 @@ if (isset($_POST['addRole'])) {
 
     $_SESSION['errors'] = array();
 
-    var_dump($_POST);
+
 
 
 
@@ -61,14 +61,14 @@ if (isset($_POST['addRole'])) {
         if ($roles->store($_POST)) {
             $activity->logActivity(
                 $_SESSION['user'],
-                "Created permission",
-                "permission created sucessfully",
+                "Created Role",
+                "role created sucessfully",
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
 
             //redirect
-            $_SESSION['success'] = "permission Added Successfully";
+            $_SESSION['success'] = "role Added Successfully";
             header("Location:index.php");
             //redirect
         } else {
