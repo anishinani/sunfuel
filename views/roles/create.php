@@ -49,6 +49,7 @@
         $dbAccess =  new DbAccess();
 
         $permissions = $dbAccess->select("permissions", ["permissionId", "permissionName"]);
+        //var_dump($permissions);
 
         // $permissions =  
         ?>
@@ -99,7 +100,7 @@
                             <div class="card card-outline card-primary">
 
                                 <div class="card-body">
-                                    <p class="login-box-msg">Register a Role</p>
+                                    <p class="login-box-msg">Register a new Role</p>
                                     <form method="POST" action="./store.php">
 
 
@@ -109,12 +110,28 @@
 
                                         </div>
 
-                                        <div>
-                                            
+                                        <div class="form-group mb-3">
+                                            <label for="">Permissions</label>
+                                            <?php
+
+                                            for ($i = 0; $i < count($permissions); $i++) {
+                                                # code...
+
+                                            ?>
+
+                                                <div>
+                                                    <input type="checkbox" id="<?= $permissions[$i]["permissionId"] ?>" name="permissions[]" value="<?= $permissions[$i]["permissionId"] ?>">
+                                                    <label for="<?= $permissions[$i]["permissionName"] ?>">
+                                                        <?= $permissions[$i]["permissionName"] ?>
+                                                    </label>
+                                                </div>
+
+                                            <?php } ?>
+
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Register Role</button>
+                                            <button type="submit" class="style_button" name="addRole">Register Role</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>
