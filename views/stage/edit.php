@@ -58,7 +58,7 @@
 
             //join
             //$sql = "SELECT fuelStationName, fuelStationId";
-            $currentStation = $dbAccess->select("fuelstation", "", ["fuelStationId" => $id]);
+            $currentStation = $dbAccess->select("fuelstation", "", ["fuelStationId" => $results[0]['fuelStationId']]);
             //var_dump($currentStation[0]['fuelStationName']);
             //join
             //var_dump($results[0]['fuelStationName']);

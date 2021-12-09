@@ -50,15 +50,11 @@
         $dbAccess =  new DbAccess();
 
         $results  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
-
-
+        $stage  =  $dbAccess->select("stage", ["stageId", "stageName"]);
 
         //modify results
 
         ?>
-
-
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -71,7 +67,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Stage</li>
+                                <li class="breadcrumb-item active">Boda User</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -103,15 +99,37 @@
                             <div class="card card-outline card-primary">
 
                                 <div class="card-body">
-                                    <p class="login-box-msg">Register a new stage</p>
+                                    <p class="login-box-msg">Register a new boda user</p>
                                     <form method="POST" action="./store.php">
 
 
                                         <div class="form-group mb-3">
-                                            <label for="">Stage Name</label>
-                                            <input type="text" name="name" required class="form-control" placeholder="enter stage name" />
+                                            <label for="">Boad User Names</label>
+                                            <input type="text" name="name" required class="form-control" placeholder="enter  names " />
 
                                         </div>
+                                        <!--address-->
+                                        <div class="form-group mb-3">
+                                            <label for="">NIN Number</label>
+                                            <input type="text" name="nin" required class="form-control" placeholder="enter valid nin number" />
+                                        </div>
+                                        <!--address-->
+                                        <!--person-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Boda Number</label>
+                                            <input type="text" name="bodaNumber" required class="form-control" placeholder="enter boda name" />
+
+                                        </div>
+                                        <!--person-->
+
+                                        <!--phone-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Phone Number</label>
+                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number " />
+                                        </div>
+                                        <!---phone-->
+
+
                                         <!--fuel station-->
                                         <div class="form-group mb-3">
                                             <div class="form-group">
@@ -130,35 +148,28 @@
 
                                         </div>
                                         <!--fuel station-->
-                                        <!--address-->
+
+                                        <!--stage-->
                                         <div class="form-group mb-3">
-                                            <label for="">Stage Contact Person</label>
-                                            <input type="text" name="person" required class="form-control" placeholder="enter stage address" />
-                                        </div>
-                                        <!--address-->
-                                        <!--person-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Stage Contact Address</label>
-                                            <input type="text" name="address" required class="form-control" placeholder="enter person name" />
+                                            <div class="form-group">
+                                                <label for="my-select">Stage</label>
+                                                <select id="my-select" class="form-control" name="stageId">
+                                                    <option disabled selected>choose stage</option>
+                                                    <?php
+                                                    for ($i = 0; $i < count($stage); $i++) {
+                                                    ?>
+                                                        <option value="<?= $stage[$i]["stageId"] ?>">
+                                                            <?= $stage[$i]["stageName"] ?></option>
+
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
 
                                         </div>
-                                        <!--person-->
-
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number " />
-                                        </div>
-                                        <!---phone-->
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Email</label>
-                                            <input type="email" name="email" required class="form-control" placeholder="enter email" />
-                                        </div>
-                                        <!---phone-->
+                                        <!--stage-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStage">Register new Stage</button>
+                                            <button type="submit" class="style_button" name="addBodaUser">Register Boda User</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>

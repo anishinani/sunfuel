@@ -21,7 +21,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4 sideBar-color">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <img src="../dist/img/photo1.png " alt="Farm Uganda" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="../dist/img/photo1.png " alt="credit plus" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">Credit Plus</span>
         </a>
 
@@ -88,13 +88,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="./roles/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Roles</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="./roles/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Roles</p>
                                 </a>
@@ -116,13 +116,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="../stage/index.php" class="nav-link">
+                                <a href="../../views/stage/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Stage</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../stage/index.php" class="nav-link">
+                                <a href="../../views/stage/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Boda Stage</p>
                                 </a>
@@ -139,20 +139,20 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Boda User
+                                Boda Users
                                 <i class="fas fa-angle-left right"></i>
 
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./bodauser/index.php" class="nav-link">
+                                <a href="../../views/bodauser/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Boad Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../views/bodauser/index.php" class="nav-link">
+                                <a href="../../views/bodauser/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Boda Users</p>
                                 </a>

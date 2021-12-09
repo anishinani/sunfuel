@@ -35,6 +35,16 @@
 		session_start();
 		include_once("./navbar/navbar.php");
 		include_once("./sidebar/sidebar.php");
+		include_once("../utils/dbaccess.php");
+		$dbAccess =  new DbAccess();
+		$totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
+		$totalUsers =  $dbAccess->countRows("administrators", 'adminId');
+		$totalStages =  $dbAccess->countRows("stage", 'stageId');
+		$totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
+
+
+		//die("The totak rows are " . $totalBodaUsers);
+
 		?>
 
 
@@ -64,13 +74,13 @@
 					<div class="row">
 						<div class="col-lg-3 col-6">
 							<!-- small box -->
-							<a href="{{ route('users.index') }}">
+							<a href="#">
 								<!--box--box-->
 								<div class="small-box bg-info">
 									<div class="inner">
-										<h3>10</h3>
+										<h3><?= $totalUsers ?></h3>
 
-										<p>Total Users</p>
+										<p>Total Admins</p>
 									</div>
 									<div class="icon">
 										<i class="ion ion-bag"></i>
@@ -85,12 +95,12 @@
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
 							<!-- small box -->
-							<a href="{{ route('hospitals.index') }}">
+							<a href="./bodauser/index.php">
 								<div class="small-box bg-success">
 									<div class="inner">
-										<h3>10</h3>
+										<h3><?= $totalBodaUsers ?></h3>
 
-										<p>Total Hospitals</p>
+										<p>Total Boda Users</p>
 									</div>
 									<div class="icon">
 										<i class="ion ion-stats-bars"></i>
@@ -102,12 +112,40 @@
 						</div>
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
-							<!-- small box -->
+							<a href="./fuelstation/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalFueltations ?></h3>
 
-							<!-- ./col -->
+										<p>Total Fuel Stations</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
 
-							<!-- ./col -->
+								</div>
+							</a>
+
 						</div>
+
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="./fuelstation/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalStages ?></h3>
+
+										<p>Total Stages</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
 						<!-- /.row -->
 						<!-- Main row -->
 						<div class="row">

@@ -60,9 +60,14 @@ $_SESSION['bool'] =  true;
 
             <!--any wrong info-->
 
-            <div class="alert alert-success m-4">
-                <p>{{ $message }}</p>
-            </div>
+            <?php if (isset($_SESSION['success'])) { ?>
+                <div class="alert alert-success m-4" id="removeAlert">
+                    <p><?= $_SESSION['success']; ?></p>
+                    <img src="../../dist/img/remove.png" class="image__remove" alt="cross image" height="20px" width="20px">
+
+                </div>
+
+            <?php } ?>
 
             <!--any wrong info-->
 
@@ -101,7 +106,11 @@ $_SESSION['bool'] =  true;
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                    <h3 class="card-title">Boda User Table</h3>
+                                    <h4 class="float-sm-right ">
+                                        <a class="btn btn-success" href="./create.php"> Add New Boda User
+                                        </a>
+                                    </h4>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -110,10 +119,12 @@ $_SESSION['bool'] =  true;
                                             <tr>
                                                 <th>Id</th>
                                                 <th> Name</th>
-                                                <th>Boda Number</th>
                                                 <th>NIN Number</th>
+                                                <th>Boda Number</th>
                                                 <th>Phone Number</th>
-                                                <th>Actions</th>
+                                                <th>Fuel Station</th>
+                                                <th>Stage</th>
+                                                <th width="100px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>

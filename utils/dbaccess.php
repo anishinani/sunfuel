@@ -240,4 +240,20 @@ class DbAccess
 
     //activitylogger
     //acctivitylogger
+
+    //count
+    public function countRows($table, $row = "*")
+    {
+
+        $table =  $this->clean($table);
+        $row =  $this->clean($row);
+        if (empty($table)) {
+            return NULL;
+        }
+        $sql = "SELECT COUNT($row) AS total FROM $table";
+        $results = mysqli_query($this->conn, $sql);
+        $total = $results->fetch_assoc();
+        return $total['total'];
+    }
+    //count
 }

@@ -4,7 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT * FROM stage  INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
+$sql = "SELECT stage.*, fuelstation.fuelStationName FROM stage  INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
 
 //die("here");
 
@@ -18,6 +18,7 @@ if (isset($_POST['search']['value'])) {
     $sql .= " OR stageContactPerson like '%" . $search_value . "%'";
     $sql .= " OR stageContactAddress like '%" . $search_value . "%'";
     $sql .= " OR stageStatus like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationName like '%" . $search_value . "%'";
 }
 
 if (isset($_POST['order'])) {
