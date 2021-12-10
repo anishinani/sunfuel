@@ -142,7 +142,7 @@
                             <li class="nav-item">
                                 <a href="/creditpluswebapp/views/bodauser/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>View Boad Users</p>
+                                    <p>View Boda Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">

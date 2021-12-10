@@ -82,7 +82,7 @@ $_SESSION['bool'] =  true;
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Boada Users</li>
+                                <li class="breadcrumb-item active">Boda Users</li>
                             </ol>
                         </div>
                     </div>
