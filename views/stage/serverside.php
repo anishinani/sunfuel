@@ -4,7 +4,8 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT stage.*, fuelstation.fuelStationName FROM stage  INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
+$sql = "SELECT stage.*, fuelstation.fuelStationName FROM stage  
+INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
 
 //die("here");
 
