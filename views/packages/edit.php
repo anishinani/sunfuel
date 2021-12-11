@@ -54,7 +54,7 @@
         if (isset($_GET['update'])) {
             $id = $_GET["update"];
             //die("The id is " . $id);
-            $results  = $dbAccess->select("package", "", ["packagesId" => $id]);
+            $results  = $dbAccess->select("package", "", ["packageId" => $id]);
             //var_dump($results[0]['fuelStationName']);
         }
         ?>
@@ -128,7 +128,7 @@
                                         <!--hidden-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Update Fuel Station</button>
+                                            <button type="submit" class="style_button" name="addPackage">Update Package</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>

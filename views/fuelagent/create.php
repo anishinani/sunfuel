@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Fuel Agent</title>
+    <title>Create Agent</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,9 +14,9 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/creditpluswebapp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/creditpluswebapp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href=" /creditpluswebapp/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href=" /creditpluswebapp/plugins/daterangepaicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href=" /creditpluswebapp/plugins/summernote/summernote-bs4.min.css">
+
     <style>
         .style_button {
             background: #1c478e !important;
@@ -44,21 +45,10 @@
     <div class="wrapper">
         <?php
         include_once("../navbar/navbar.php");
-        include_once("../sidebar.php");
-        include("../../utils/dbaccess.php");
-        include("../../utils/activityLogger.php");
-        $activity =  new ActivityLogger();
+        include_once("../../utils/dbaccess.php");
+        include("../sidebar.php");
         $dbAccess =  new DbAccess();
-
-        //select from db by id
-        if (isset($_GET['update'])) {
-            $id = $_GET["update"];
-            //die("The id is " . $id);
-            $results  = $dbAccess->select("fuelagent", "", ["fuelAgentId" => $id]);
-            //var_dump($results[0]['fuelStationName']);
-            $stations =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
-            $currentStation = $dbAccess->select("fuelstation", "", ["fuelStationId" => $results[0]['stationId']]);
-        }
+        $results  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
         ?>
 
 
@@ -75,7 +65,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Fuel Agent</li>
+                                <li class="breadcrumb-item active">fuel Agent</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -100,29 +90,27 @@
                         </div>
 
                         <!--error part-->
-                    <?php }
-
-                    ?>
+                    <?php } ?>
                     <div class="row">
                         <!--form add user -->
                         <div class="register-box m-auto col-md-8">
                             <div class="card card-outline card-primary">
 
                                 <div class="card-body">
-                                    <p class="login-box-msg">Edit Fuel Agent</p>
-                                    <form method="POST" action="./update.php">
+                                    <p class="login-box-msg">Register a new Fuel Agent</p>
+                                    <form method="POST" action="./store.php">
 
 
                                         <div class="form-group mb-3">
-                                            <label for="">Fuel Agent Name</label>
-                                            <input type="text" name="name" required class="form-control" placeholder="enter station name" value="<?= $results[0]['fuelAgentName']; ?>" />
+                                            <label for="">Agent Name</label>
+                                            <input type="text" name="name" required class="form-control" placeholder="enter agent name" />
 
                                         </div>
 
                                         <!--person-->
                                         <div class="form-group mb-3">
                                             <label for="">Agent NIN Number</label>
-                                            <input type="text" name="nin" required class="form-control" value="<?= $results[0]['fuelAgentNIN']; ?>" placeholder="enter nin number" />
+                                            <input type="text" name="nin" required class="form-control" placeholder="enter nin number" />
 
                                         </div>
                                         <!--person-->
@@ -130,7 +118,7 @@
                                         <!--phone-->
                                         <div class="form-group mb-3">
                                             <label for=""> Agent Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['fuelAgentPhoneNumber']; ?>" />
+                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" />
                                         </div>
                                         <!---phone-->
                                         <!--fuel station-->
@@ -138,14 +126,12 @@
                                             <div class="form-group">
                                                 <label for="my-select">Fuel Station</label>
                                                 <select id="my-select" class="form-control" name="station">
-                                                    <option selected value="<?= $currentStation[0]["fuelStationId"] ?>">
-                                                        <?= $currentStation[0]["fuelStationName"] ?>
-                                                    </option>
+                                                    <option disabled selected>select station</option>
                                                     <?php
-                                                    for ($i = 0; $i < count($stations); $i++) {
+                                                    for ($i = 0; $i < count($results); $i++) {
                                                     ?>
-                                                        <option value="<?= $stations[$i]["fuelStationId"] ?>">
-                                                            <?= $stations[$i]["fuelStationName"] ?></option>
+                                                        <option value="<?= $results[$i]["fuelStationId"] ?>">
+                                                            <?= $results[$i]["fuelStationName"] ?></option>
 
                                                     <?php } ?>
                                                 </select>
@@ -153,13 +139,9 @@
 
                                         </div>
                                         <!--fuel station-->
-
-                                        <!--hidden-->
-                                        <input type="hidden" name="id" value="<?= $_GET['update']; ?>" />
-                                        <!--hidden-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addAgent">Update Fuel Station</button>
+                                            <button type="submit" class="style_button" name="addAgent">Register Agent</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>
@@ -198,11 +180,12 @@
     <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+    <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="/creditpluswebapp/plugins/plugins/jquery/jquery.min.js"></script>
+    <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src=" /creditpluswebapp/plugins/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)

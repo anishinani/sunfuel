@@ -5,28 +5,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit fuel station</title>
+    <title>Edit Package</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/daterangepaicker/daterangepicker.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/daterangepaicker/daterangepicker.css">
     <!-- summernote -->
-    <link rel="stylesheet" href=" /creditpluswebapp/plugins/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href=" /creditpluswebapp/plugins/summernote/summernote-bs4.min.css">
     <style>
         .style_button {
             background: #1c478e !important;
@@ -197,31 +197,31 @@
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src=" /creditpluswebapp/plugins/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
-    <script src="/creditpluswebapp/plugins/plugins/chart.js/Chart.min.js"></script>
+    <script src="/creditpluswebapp/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
-    <script src=" /creditpluswebapp/plugins/plugins/sparklines/sparkline.js"></script>
+    <script src=" /creditpluswebapp/plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
-    <script src=" /creditpluswebapp/plugins/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src=" /creditpluswebapp/plugins/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src=" /creditpluswebapp/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
     <!-- jQuery Knob Chart -->
-    <script src=" /creditpluswebapp/plugins/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
-    <script src=" /creditpluswebapp/plugins/plugins/moment/moment.min.js"></script>
-    <script src=" /creditpluswebapp/plugins/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src=" /creditpluswebapp/plugins/moment/moment.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src=" /creditpluswebapp/plugins/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
-    <script src=" /creditpluswebapp/plugins/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- overlayScrollbars -->
-    <script src=" /creditpluswebapp/plugins/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src=" /creditpluswebapp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
-    <script src=" /creditpluswebapp/plugins/dist/js/adminlte.js"></script>
+    <script src=" /creditpluswebapp/dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src=" /creditpluswebapp/plugins/dist/js/demo.js"></script>
+    <script src=" /creditpluswebapp/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src=" /creditpluswebapp/plugins/dist/js/pages/dashboard.js"></script>
+    <script src=" /creditpluswebapp/dist/js/pages/dashboard.js"></script>
 </body>
 
 </html>

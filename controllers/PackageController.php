@@ -28,22 +28,16 @@ class Package extends DbAccess
     public function updateInfo($array)
     {
         $name = $array['name'];
-        $address = $array['amount'];
-        $person = $array['person'];
-        $email = $array['email'];
-        $phone = $array['phoneNumber'];
+        $amount = $array['amount'];
         return $this->update(
-            "fuelstation",
+            "package",
             [
-                'fuelStationName' => $name,
-                'fuelStationAddress' => $address,
-                'fuelStationContactPerson' => $person,
-                'fuelStationContactPhone' => $phone,
-                'fuelStationContactEmail' => $email,
-                'fuelStationStatus' => "active"
+                'packageName' => $name,
+                'packageAmount' => $amount,
+                'packageStatus' => 1
 
             ],
-            ["fuelStationId" => $array['id']]
+            ["packageId" => $array['id']]
         );
     }
 }

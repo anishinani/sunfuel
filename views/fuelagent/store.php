@@ -7,25 +7,25 @@ require_once("../../utils/dbaccess.php");
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
 
-require_once('../../controllers/PackageController.php');
+require_once('../../controllers/StationAgent.php');
 
 
 //$helpers =  new HelperFunctions();
 $dbAccess =  new DbAccess();
-$package = new Package();
+$agent = new StationAgent();
 $helpers =  new HelperFunctions();
 $activity = new ActivityLogger();
 //unset($_SESSION['errors']);
 
 
 
-if (isset($_POST['addPackage'])) {
+if (isset($_POST['addAgent'])) {
 
     $_SESSION['errors'] = array();
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
-        if ($key == 'addPackage' || $key == "id") {
+        if ($key == 'addAgent') {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {
@@ -40,26 +40,31 @@ if (isset($_POST['addPackage'])) {
     // if ($helpers->checkEmail($_POST['email']) == NULL) {
     //     array_push($_SESSION['errors'], "invalid email format");
     // }
-    //die($_POST['id']);
+    //die($_POST['phoneNumber']);
+    //die($helpers->checkNumber($_POST['phoneNumber']));
 
+    // if ($helpers->checkNumber($_POST['phoneNumber']) == NULL) {
+    //     array_push($_SESSION['errors'], "phone number must be 10 characters long");
+    // }
+    //check session array
     if (count($_SESSION['errors'])) {
 
-        header("Location:edit.php?update=" . $_POST['id'] . "");
+        header("Location:create.php");
     }
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($package->updateInfo($_POST)) {
+        if ($agent->store($_POST)) {
             $activity->logActivity(
                 $_SESSION['user'],
-                "Updated successfully",
-                "package updated  sucessfully",
+                "Registered Fuel Agent",
+                "fuel agent registered sucessfully",
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
 
             //redirect
-            $_SESSION['success'] = "package  Updated  Successfully";
+            $_SESSION['success'] = "Fuel Agent Added Successfully";
             header("Location:index.php");
             //redirect
         } else {

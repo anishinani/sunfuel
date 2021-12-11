@@ -39,7 +39,8 @@ if (isset($_POST['addBodaUser'])) {
 
     if (count($_SESSION['errors'])) {
 
-        header("Location:edit.php?update='" . $_POST['id'] . "'");
+        // header("Location:edit.php?update='" . $_POST['id'] . "'");
+        header("Location:edit.php?update=" . $_POST['id'] . "");
     }
     //check session array
     else {
