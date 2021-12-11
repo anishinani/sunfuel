@@ -158,7 +158,7 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelstation/index.php">
+							<a href="/creditpluswebapp/views/fuelagent/index.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $fuelAgents ?></h3>
@@ -176,7 +176,7 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelstation/index.php">
+							<a href="/creditpluswebapp/views/packages/index.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $packages ?></h3>
