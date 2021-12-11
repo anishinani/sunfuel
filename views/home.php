@@ -49,6 +49,8 @@ if (!isset($_SESSION['user'])) {
 		$totalUsers =  $dbAccess->countRows("administrators", 'adminId');
 		$totalStages =  $dbAccess->countRows("stage", 'stageId');
 		$totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
+		$fuelAgents = $dbAccess->countRows("fuelagent", 'fuelAgentId');
+		$packages = $dbAccess->countRows("package", 'packageId');
 
 
 		//die("The totak rows are " . $totalBodaUsers);
@@ -144,6 +146,42 @@ if (!isset($_SESSION['user'])) {
 										<h3><?= $totalStages ?></h3>
 
 										<p>Total Stages</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/fuelstation/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $fuelAgents ?></h3>
+
+										<p>Total Fuel Agents</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/fuelstation/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $packages ?></h3>
+
+										<p>Total Packages</p>
 									</div>
 									<div class="icon">
 										<i class="ion ion-stats-bars"></i>
