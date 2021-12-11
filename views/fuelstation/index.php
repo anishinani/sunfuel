@@ -83,7 +83,9 @@ $_SESSION['bool'] =  true;
 
                 </div>
 
-            <?php } ?>
+            <?php }
+            unset($_SESSION['success']);
+            ?>
 
 
 

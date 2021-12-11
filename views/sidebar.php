@@ -184,6 +184,34 @@
                         </ul>
                         <!--fuel station-->
 
+                        <!--packages-->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-life-ring"></i>
+                            <p>
+                                Manage Packages
+                                <i class="fas fa-angle-left right"></i>
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/creditpluswebapp/views/packages/index.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>View Packages</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/creditpluswebapp/views/packages/create.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add Packages</p>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <!--packages-->
+
                         <!--loans-->
 
                     <li class="nav-item">

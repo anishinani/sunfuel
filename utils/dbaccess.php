@@ -6,7 +6,7 @@ class DbAccess
     private $mysqlKeyWords;
     private $host = 'localhost';
     private $username = 'root';
-    private $password = '!Log10tan10';
+    private $password = '';
     private $database = 'bodacredit';
 
 
@@ -256,4 +256,13 @@ class DbAccess
         return $total['total'];
     }
     //count
+
+    //delete
+    public function deleteRow($table, $field, $row)
+    {
+        $sql = "DELETE FROM $table WHERE $field='$row'";
+        $results = mysqli_query($this->conn, $sql);
+        return $results;
+    }
+    //delete
 }

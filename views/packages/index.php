@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['bool'] =  true;
+//unset($_SESSION["success"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +9,11 @@ $_SESSION['bool'] =  true;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manage Boda Users</title>
+    <title>Manage Packages</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-
     <link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -22,6 +21,7 @@ $_SESSION['bool'] =  true;
     <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
+
     <style>
         .style_button {
             background: #657836 !important;
@@ -37,6 +37,25 @@ $_SESSION['bool'] =  true;
             display: flex !important;
             align-items: center !important;
             justify-content: space-evenly !important;
+        }
+
+        .platform {
+            display: none !important;
+        }
+
+        .content-wrapper {
+            position: relative !important;
+        }
+
+        .image__remove {
+            position: absolute !important;
+            right: 30px !important;
+            top: 10px !important;
+            cursor: pointer;
+        }
+
+        #removeAlert {
+            margin-top: 10px !important;
         }
     </style>
 </head>
@@ -61,16 +80,17 @@ $_SESSION['bool'] =  true;
             <!--any wrong info-->
 
             <?php if (isset($_SESSION['success'])) { ?>
-                <div class="alert alert-success m-4" id="removeAlert">
+                <div class="alert alert-success m-4 " id="removeAlert">
                     <p><?= $_SESSION['success']; ?></p>
-                    <img src="../../dist/img/remove.png" class="image__remove" alt="cross image" height="20px" width="20px">
+                    <img src="../../dist/img/cross.png" class="image__remove" alt="cross image" height="20px" width="20px">
 
                 </div>
 
             <?php }
             unset($_SESSION['success']);
-
             ?>
+
+
 
             <!--any wrong info-->
 
@@ -80,12 +100,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Boda Users</h1>
+                            <h1>Packages</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Boda Users</li>
+                                <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
+                                <li class="breadcrumb-item active">Packages</li>
                             </ol>
                         </div>
                     </div>
@@ -109,9 +129,9 @@ $_SESSION['bool'] =  true;
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Boda User Table</h3>
+                                    <h3 class="card-title">Package Table</h3>
                                     <h4 class="float-sm-right ">
-                                        <a class="btn btn-success" href="./create.php"> Add New Boda User
+                                        <a class="btn btn-success" href="./create.php"> Add New Package
                                         </a>
                                     </h4>
                                 </div>
@@ -120,14 +140,11 @@ $_SESSION['bool'] =  true;
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th> Name</th>
-                                                <th>NIN Number</th>
-                                                <th>Boda Number</th>
-                                                <th>Phone Number</th>
-                                                <th>Fuel Station</th>
-                                                <th>Stage</th>
-                                                <th width="100px">Actions</th>
+                                                <th> Package Id</th>
+                                                <th> Package Name</th>
+                                                <th>Package Amount</th>
+                                                <th>Package Status</th>
+                                                <th width="130px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -161,7 +178,6 @@ $_SESSION['bool'] =  true;
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
     <!-- jQuery -->
     <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -184,23 +200,21 @@ $_SESSION['bool'] =  true;
     <script src="/creditpluswebapp/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/creditpluswebapp/dist/js/demo.js"></script>
-    <!-- Page specific script -->
+
+    <!--hide alert--->
+    <script type="text/javascript">
+        $(function() {
+            $('.image__remove').click(function() {
+                //alert('clicked')
+                // $("#content-wrap").addClass('platform');
+                $("#removeAlert").addClass('platform');
+
+            })
+        })
+    </script>
+    <!--hide alert-->
+
     <script>
-        // $(function() {
-        //     $("#example1").DataTable({
-        //         "responsive": true,
-        //         "lengthChange": false,
-        //         "autoWidth": false,
-        //         "ordering": true,
-        //         "processing": true,
-        //         "serverSide": true,
-        //         "paging": true,
-        //         "ajax": "./serverside.php",
-
-        //         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        //     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-        // });
         $(document).ready(function() {
             $('#example').DataTable({
                 "fnCreatedRow": function(nRow, aData, iDataIndex) {
@@ -222,6 +236,9 @@ $_SESSION['bool'] =  true;
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+
+
 
 
 </body>
