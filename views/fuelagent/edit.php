@@ -159,7 +159,7 @@
                                         <!--hidden-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addAgent">Update Fuel Station</button>
+                                            <button type="submit" class="style_button" name="addAgent">Update Fuel Agent</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>
