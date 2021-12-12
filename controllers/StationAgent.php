@@ -14,18 +14,17 @@ class StationAgent extends DbAccess
         $nin = $array['nin'];
         $stationId = $array['station'];
 
-        $result = $this->insert(
+        return $this->insert(
             "fuelagent",
             [
                 'fuelAgentName' => $name,
                 'fuelAgentPhoneNumber' => $phone,
                 'fuelAgentNIN' => $nin,
                 'stationId' => $stationId,
-                'status' => 0
+                'status' => '0'
 
             ]
         );
-        die($result);
     }
 
 

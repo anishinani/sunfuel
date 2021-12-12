@@ -11,7 +11,7 @@ class Stage extends DbAccess
         $phone = $array['phoneNumber'];
         $id = $array["fuelStationId"];
 
-        $result =  $this->insert(
+        return $this->insert(
             "stage",
             [
                 'stageName' => $name,
@@ -19,11 +19,10 @@ class Stage extends DbAccess
                 'stageContactPerson' => $person,
                 'stageContactPhoneNumber' => $phone,
                 'fuelStationId' => $id,
-                'stageStatus' => 0
+                'stageStatus' => '0'
 
             ]
         );
-        die($result);
     }
     public function updateInfo($array)
     {
