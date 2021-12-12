@@ -198,13 +198,13 @@
                             <li class="nav-item">
                                 <a href="/creditpluswebapp/views/fuelagent/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>View Fuel Stations</p>
+                                    <p>View Fuel Agents</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/creditpluswebapp/views/fuelagent/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Add Fuel Sations</p>
+                                    <p>Add Fuel Agents</p>
                                 </a>
                             </li>
 
