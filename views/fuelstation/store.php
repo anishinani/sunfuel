@@ -68,7 +68,9 @@ if (isset($_POST['addStation'])) {
             header("Location:index.php");
             //redirect
         } else {
-            die("Oops there was an error");
+            //die("Oops there was an error");
+            $_SESSION['success'] = "Oops there was an error !! please try again";
+            header("Location:index.php");
         }
     }
 } else {
