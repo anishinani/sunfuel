@@ -34,7 +34,7 @@ class Package extends DbAccess
             [
                 'packageName' => $name,
                 'packageAmount' => $amount,
-                'packageStatus' => 1
+                'packageStatus' => '1'
 
             ],
             ["packageId" => $array['id']]

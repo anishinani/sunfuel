@@ -15,7 +15,7 @@ class BodaUser extends DbAccess
         $fuel = $array['fuelStationId'];
         $phone = $array['phoneNumber'];
         $stage = $array["stageId"];
-        $result =  $this->insert(
+        return $this->insert(
             "bodauser",
             [
                 'bodaUserName' => $name,
@@ -24,11 +24,10 @@ class BodaUser extends DbAccess
                 'bodaUserPhoneNumber' => $phone,
                 'fuelStationId' => $fuel,
                 'stageId' => $stage,
-                'bodaUserStatus' => 0
+                'bodaUserStatus' => '0'
 
             ]
         );
-        die($result);
     }
 
 
