@@ -34,7 +34,7 @@ if (isset($_POST["activate"])) {
             "Hello " . $fuelAgent[0]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
                 one time pin is " . $oneTymPin
         );
-        if ($dbAccess->update("fuelagent", ['status' => 1], ["fuelAgentId" => $agent])) {
+        if ($dbAccess->update("fuelagent", ['status' => '1'], ["fuelAgentId" => $agent])) {
             $_SESSION['success'] = "Fuel Agent has been activated successfully";
             header("Location:index.php");
         } else {

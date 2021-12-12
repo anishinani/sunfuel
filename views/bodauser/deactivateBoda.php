@@ -8,7 +8,7 @@ if (isset($_POST["deactivate"])) {
 
 
     //update stage
-    if ($dbAccess->update("bodauser", ['bodaUserStatus' => 0], ["bodaUserId" => $id])) {
+    if ($dbAccess->update("bodauser", ['bodaUserStatus' => '0'], ["bodaUserId" => $id])) {
         //die("There is an error please try again");
         $_SESSION['success'] = "Boda user deactiavted successfully";
         header("Location:index.php");

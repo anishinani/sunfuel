@@ -26,9 +26,9 @@ if (isset($_POST["activate"])) {
     }
 
     //update stage
-    if ($dbAccess->update("stage", ["stageStatus" => 1], ["stageId" => $id])) {
+    if ($dbAccess->update("stage", ["stageStatus" => '1'], ["stageId" => $id])) {
         //update borders of that stage
-        if ($dbAccess->update("bodauser", ['bodaUserStatus' => 1], ["stageId" => $id])) {
+        if ($dbAccess->update("bodauser", ['bodaUserStatus' => '1'], ["stageId" => $id])) {
             $_SESSION['success'] = "Stage and all the boda users of the stage have been activated successfully";
             header("Location:index.php");
         } else {

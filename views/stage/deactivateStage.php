@@ -9,9 +9,9 @@ if (isset($_POST["deactivate"])) {
     //$allbodaUsers =  $dbAccess->select("bodauser", ["bodaUserName", "bodaUserPhoneNumber"], ["stageId" => $id]);
 
     //update stage
-    if ($dbAccess->update("stage", ["stageStatus" => 0], ["stageId" => $id])) {
+    if ($dbAccess->update("stage", ["stageStatus" => '0'], ["stageId" => $id])) {
         //update borders of that stage
-        if ($dbAccess->update("bodauser", ['bodaUserStatus' => 0], ["stageId" => $id])) {
+        if ($dbAccess->update("bodauser", ['bodaUserStatus' => '0'], ["stageId" => $id])) {
             $_SESSION['success'] = "Stage and all the boda users of the stage have been deactivated successfully";
             header("Location:index.php");
         } else {

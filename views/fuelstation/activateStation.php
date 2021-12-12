@@ -26,9 +26,9 @@ if (isset($_POST["activate"])) {
     }
 
     //update stage
-    if ($dbAccess->update("fuelstation", ["fuelStationStatus" => 1], ["fuelStationId" => $id])) {
+    if ($dbAccess->update("fuelstation", ["fuelStationStatus" => '1'], ["fuelStationId" => $id])) {
         //update borders of that fuelStation
-        if ($dbAccess->update("fuelagent", ['status' => 1], ["stationId" => $id])) {
+        if ($dbAccess->update("fuelagent", ['status' => '1'], ["stationId" => $id])) {
             $_SESSION['success'] = "fuel Station and all the fuel agents of the fuelStation have been activated successfully";
             header("Location:index.php");
         } else {

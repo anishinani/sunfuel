@@ -31,7 +31,7 @@ if (isset($_POST["activate"])) {
         "Hello " . $allbodaUser[0]["bodaUserName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
             one time pin is " . $oneTymPin
     );
-    if ($dbAccess->update("bodauser", ['bodaUserStatus' => 1], ["bodaUserId" => $bodaUserId])) {
+    if ($dbAccess->update("bodauser", ['bodaUserStatus' => '1'], ["bodaUserId" => $bodaUserId])) {
         $_SESSION['success'] = "Boda User has been activated successfully";
         header("Location:index.php");
     } else {
