@@ -24,7 +24,7 @@ class BodaUser extends DbAccess
                 'bodaUserPhoneNumber' => $phone,
                 'fuelStationId' => $fuel,
                 'stageId' => $stage,
-                'bodaUserStatus' => "active"
+                'bodaUserStatus' => 0
 
             ]
         );

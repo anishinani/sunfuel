@@ -1,0 +1,58 @@
+<?php
+session_start();
+include_once("../../utils/sms.php");
+include_once("../../utils/pin.php");
+include_once("../../utils/dbaccess.php");
+
+
+
+$sms =  new infobip();
+$pin =  new pin();
+$dbAccess = new DbAccess();
+
+if (isset($_POST["activate"])) {
+    $id = $_POST['id'];
+    //die($Id);
+    $oneTymPin =  $pin->randomkey(4);
+    $allbodaUsers =  $dbAccess->select("bodauser", ["bodaUserName", "bodaUserPhoneNumber"], ["stageId" => $id]);
+    for ($i = 0; $i < count($allbodaUsers); $i++) {
+
+        $sms->sendsms(
+            $allbodaUsers[$i]["bodaUserName"],
+            $sms->formatMobileInternational($allbodaUsers[$i]["bodaUserPhoneNumber"]),
+            "Hello " . $allbodaUsers[$i]["bodaUserName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
+            one time pin is " . $oneTymPin
+        );
+    }
+
+    //update stage
+    if ($dbAccess->update("stage", ["stageStatus" => 1], ["stageId" => $id])) {
+        //update borders of that stage
+        if ($dbAccess->update("bodauser", ['bodaUserStatus' => 1], ["stageId" => $id])) {
+            $_SESSION['success'] = "Stage and all the boda users of the stage have been activated successfully";
+            header("Location:index.php");
+        } else {
+            //die("There is an error please try again");
+            $_SESSION['success'] = "Oops something occured please contact support or try again";
+            header("Location:index.php");
+        }
+    } else {
+        // die("Some thing went wrong please try again");
+        $_SESSION['success'] = "Oops something occured please contact support or try again";
+        header("Location:index.php");
+    }
+
+    //update stage
+
+
+} else {
+    //die("not id found please contact support ")
+    $_SESSION['success'] = "Oops something occured please contact support or try again";
+    header("Location:index.php");
+}
+
+
+
+
+
+//echo "am activating";

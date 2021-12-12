@@ -4,7 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT fuelagent.*,  fuelstation.fuelStationName FROM  
+$sql = "SELECT fuelagent.*,  fuelstation.fuelStationName, fuelstation.fuelStationId FROM  
 fuelagent INNER JOIN fuelstation ON fuelagent.stationId  = fuelstation.fuelStationId ";
 
 //die("here");
@@ -40,12 +40,22 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
-    $sub_array[] = $row['fuelAgentId'];
     $sub_array[] = $row['fuelAgentName'];
     $sub_array[] = $row['fuelAgentNIN'];
     $sub_array[] = $row['fuelAgentPhoneNumber'];
     $sub_array[] = $row['fuelStationName'];
-    $sub_array[] = $row['status'];
+    $sub_array[] = $row['status'] == 0 ? "Not Active" : "Active";
+    $sub_array[] = $row['status'] == 0 ? '
+    <form action="activateAgent.php" method="post">
+    <input type="hidden" name="id" value="' . $row['fuelAgentId'] . '"/>
+    <input type="hidden" name="fuelStationId" value="' . $row['fuelStationId'] . '"/>
+    <button type="submit" name="activate"  
+    class="btn btn-info btn-sm editbtn" >Activate</button>
+    ' : '    <form action="deactivateAgent.php" method="post">
+    <input type="hidden" name="id" value="' . $row['fuelAgentId'] . '"/>
+    <button type="submit" name="deactivate" 
+    class="btn btn-danger btn-sm editbtn" >DeActivate</button>
+    ';
     $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
      <form action="edit.php?id="' . $row['fuelAgentId'] . '"" method="get">
      <button type="submit" name="update"  value="' . $row['fuelAgentId'] . '"

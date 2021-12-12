@@ -140,12 +140,12 @@ session_start();
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th> Fuel Agent Id</th>
                                                 <th> Fuel Agent Name</th>
                                                 <th>Fuel Agent NIN Number</th>
                                                 <th>Fuel Agent Phone Number</th>
                                                 <th>Fuel Agent Station</th>
                                                 <th>Fuel Agent Status</th>
+                                                <th>Activation Status</th>
                                                 <th width="130px">Actions</th>
                                             </tr>
                                         </thead>

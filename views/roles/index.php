@@ -38,6 +38,25 @@ $_SESSION['bool'] =  true;
             align-items: center !important;
             justify-content: space-evenly !important;
         }
+
+        .platform {
+            display: none !important;
+        }
+
+        .content-wrapper {
+            position: relative !important;
+        }
+
+        .image__remove {
+            position: absolute !important;
+            right: 30px !important;
+            top: 10px !important;
+            cursor: pointer;
+        }
+
+        #removeAlert {
+            margin-top: 10px !important;
+        }
     </style>
 </head>
 
@@ -178,6 +197,18 @@ $_SESSION['bool'] =  true;
     <script src="/creditpluswebapp/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/creditpluswebapp/dist/js/demo.js"></script>
+    <!--hide alert--->
+    <script type="text/javascript">
+        $(function() {
+            $('.image__remove').click(function() {
+                //alert('clicked')
+                // $("#content-wrap").addClass('platform');
+                $("#removeAlert").addClass('platform');
+
+            })
+        })
+    </script>
+    <!--hide alert-->
     <!-- Page specific script -->
     <script>
         // $(function() {

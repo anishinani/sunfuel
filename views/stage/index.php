@@ -38,6 +38,25 @@ $_SESSION['bool'] =  true;
             align-items: center !important;
             justify-content: space-evenly !important;
         }
+
+        .platform {
+            display: none !important;
+        }
+
+        .content-wrapper {
+            position: relative !important;
+        }
+
+        .image__remove {
+            position: absolute !important;
+            right: 30px !important;
+            top: 10px !important;
+            cursor: pointer;
+        }
+
+        #removeAlert {
+            margin-top: 10px !important;
+        }
     </style>
 </head>
 
@@ -114,13 +133,13 @@ $_SESSION['bool'] =  true;
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Stage Id</th>
                                                 <th>Stage Name</th>
                                                 <th>Contact Person</th>
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>
                                                 <th>Fuel Station Name</th>
                                                 <th>Stage Status</th>
+                                                <th>Activation Actions</th>
                                                 <th width="100px">Actions</th>
                                             </tr>
                                         </thead>
@@ -179,6 +198,18 @@ $_SESSION['bool'] =  true;
     <!-- AdminLTE for demo purposes -->
     <script src="/creditpluswebapp/dist/js/demo.js"></script>
     <!-- Page specific script -->
+    <!--hide alert--->
+    <script type="text/javascript">
+        $(function() {
+            $('.image__remove').click(function() {
+                //alert('clicked')
+                // $("#content-wrap").addClass('platform');
+                $("#removeAlert").addClass('platform');
+
+            })
+        })
+    </script>
+    <!--hide alert-->
     <script>
         // $(function() {
         //     $("#example1").DataTable({
