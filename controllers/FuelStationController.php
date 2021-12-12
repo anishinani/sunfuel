@@ -14,7 +14,7 @@ class FuelStation extends DbAccess
         $person = $array['person'];
         $email = $array['email'];
         $phone = $array['phoneNumber'];
-        return $this->insert(
+        $result =  $this->insert(
             "fuelstation",
             [
                 'fuelStationName' => $name,
@@ -26,6 +26,7 @@ class FuelStation extends DbAccess
 
             ]
         );
+        die($result);
     }
 
 
