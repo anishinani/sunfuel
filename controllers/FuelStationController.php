@@ -45,7 +45,7 @@ class FuelStation extends DbAccess
                 'fuelStationContactPerson' => $person,
                 'fuelStationContactPhone' => $phone,
                 'fuelStationContactEmail' => $email,
-                'fuelStationStatus' => "active"
+        
 
             ],
             ["fuelStationId" => $array['id']]

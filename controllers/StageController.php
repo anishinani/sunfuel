@@ -40,7 +40,7 @@ class Stage extends DbAccess
                 'stageContactPerson' => $person,
                 'stageContactPhoneNumber' => $phone,
                 'fuelStationId' => $id,
-                'stageStatus' => "Active"
+                
 
             ],
             ["stageId" => $array['id']]

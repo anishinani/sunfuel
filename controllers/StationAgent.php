@@ -42,7 +42,7 @@ class StationAgent extends DbAccess
                 'fuelAgentPhoneNumber' => $phone,
                 'fuelAgentNIN' => $nin,
                 'stationId' => $stationId,
-                'status' => 0
+
 
             ],
             ["fuelAgentId" => $array['id']]
