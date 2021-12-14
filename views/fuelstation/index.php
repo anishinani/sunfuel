@@ -141,7 +141,7 @@ $_SESSION['bool'] =  true;
                                                 <th>Contact Person</th>
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>
-                                                <th>Contact Email</th>
+
                                                 <th>Fuel Station Status</th>
                                                 <th>Activation Status</th>
                                                 <th width="130px">Actions</th>

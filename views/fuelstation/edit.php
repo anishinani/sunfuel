@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Package</title>
+    <title>Edit Fuel Station</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -134,12 +134,6 @@
                                         <div class="form-group mb-3">
                                             <label for=""> Contact Phone Number</label>
                                             <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['fuelStationContactPhone']; ?>" />
-                                        </div>
-                                        <!---phone-->
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Email</label>
-                                            <input type="email" name="email" required class="form-control" placeholder="enter email" value="<?= $results[0]['fuelStationContactEmail']; ?>" />
                                         </div>
                                         <!---phone-->
 

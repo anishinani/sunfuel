@@ -12,7 +12,7 @@ class FuelStation extends DbAccess
         $name = $array['name'];
         $address = $array['address'];
         $person = $array['person'];
-        $email = $array['email'];
+
         $phone = $array['phoneNumber'];
         return $this->insert(
             "fuelstation",
@@ -21,7 +21,6 @@ class FuelStation extends DbAccess
                 'fuelStationAddress' => $address,
                 'fuelStationContactPerson' => $person,
                 'fuelStationContactPhone' => $phone,
-                'fuelStationContactEmail' => $email,
                 'fuelStationStatus' => '0'
 
             ]
@@ -35,7 +34,7 @@ class FuelStation extends DbAccess
         $name = $array['name'];
         $address = $array['address'];
         $person = $array['person'];
-        $email = $array['email'];
+
         $phone = $array['phoneNumber'];
         return $this->update(
             "fuelstation",
@@ -44,8 +43,7 @@ class FuelStation extends DbAccess
                 'fuelStationAddress' => $address,
                 'fuelStationContactPerson' => $person,
                 'fuelStationContactPhone' => $phone,
-                'fuelStationContactEmail' => $email,
-        
+
 
             ],
             ["fuelStationId" => $array['id']]

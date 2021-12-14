@@ -123,12 +123,7 @@
                                             <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" />
                                         </div>
                                         <!---phone-->
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Email</label>
-                                            <input type="email" name="email" required class="form-control" placeholder="enter email" />
-                                        </div>
-                                        <!---phone-->
+
                                         <!-- /.col -->
                                         <div class="col-12">
                                             <button type="submit" class="style_button" name="addStation">Register</button>

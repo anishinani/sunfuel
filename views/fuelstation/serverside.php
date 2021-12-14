@@ -44,7 +44,6 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['fuelStationContactPerson'];
     $sub_array[] = $row['fuelStationAddress'];
     $sub_array[] = $row['fuelStationContactPhone'];
-    $sub_array[] = $row['fuelStationContactEmail'];
     $sub_array[] = $row['fuelStationStatus'] == 0 ? "Not Active" : "Active";
     $sub_array[] = $row['fuelStationStatus'] == 0 ? '
     <form action="activateStation.php" method="post">
