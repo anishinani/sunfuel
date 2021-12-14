@@ -150,7 +150,7 @@
                                         <!--phone-->
                                         <div class="form-group mb-3 showAlternative" id="another">
                                             <label for=""> Alternative Phone Number</label>
-                                            <input type="text" name="anotherNumber" required class="form-control" placeholder="enter another number " />
+                                            <input type="text" name="anotherNumber" class="form-control" placeholder="enter another number " />
                                         </div>
                                         <!---phone-->
 
