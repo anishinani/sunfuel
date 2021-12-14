@@ -44,7 +44,7 @@
     <div class="wrapper">
         <?php
         include_once("../navbar/navbar.php");
-        include_once("../sidebar/sidebar.php");
+        include_once("../sidebar.php");
         include("../../utils/dbaccess.php");
         include("../../utils/activityLogger.php");
         $activity =  new ActivityLogger();
@@ -63,6 +63,8 @@
             //join
             //var_dump($results[0]['fuelStationName']);
             $fuelStations  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
+
+            $bodaUsers  = $dbAccess->select("bodauser", ['bodaUserId', "bodaUserName"], ["bodaUserRole" => "Chairman"]);
         }
         ?>
 
@@ -142,28 +144,25 @@
 
                                         </div>
                                         <!--fuel station-->
-
-
-                                        <!--address-->
+                                        <!--select chairman-->
                                         <div class="form-group mb-3">
-                                            <label for=""> Stage Contact Address</label>
-                                            <input type="text" name="address" required class="form-control" placeholder="enter stage address" value="<?= $results[0]['stageContactAddress']; ?>" />
-                                        </div>
-                                        <!--address-->
-                                        <!--person-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Stage Contact Person</label>
-                                            <input type="text" name="person" required class="form-control" placeholder="enter person name" value="<?= $results[0]['stageContactPerson']; ?>" />
+                                            <div class="form-group">
+                                                <label for="my-select">Select Chairman</label>
+                                                <select id="my-select" class="form-control" name="chairman">
+                                                    <option disabled selected>Select Chairman</option>
+                                                    <?php
+                                                    for ($i = 0; $i < count($bodaUsers); $i++) {
+                                                    ?>
+                                                        <option value="<?= $bodaUsers[$i]["bodaUserId"] ?>">
+                                                            <?= $bodaUsers[$i]["bodaUserName"] ?></option>
+
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
 
                                         </div>
-                                        <!--person-->
+                                        <!--select chairman-->
 
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['stageContactPhoneNumber']; ?>" />
-                                        </div>
-                                        <!---phone-->
 
                                         <!--hidden-->
                                         <input type="hidden" name="id" value="<?= $_GET['update']; ?>" />

@@ -6,18 +6,12 @@ class Stage extends DbAccess
     public function store($array)
     {
         $name = $array['name'];
-        $address = $array['address'];
-        $person = $array['person'];
-        $phone = $array['phoneNumber'];
         $id = $array["fuelStationId"];
 
         return $this->insert(
             "stage",
             [
                 'stageName' => $name,
-                'stageContactAddress' => $address,
-                'stageContactPerson' => $person,
-                'stageContactPhoneNumber' => $phone,
                 'fuelStationId' => $id,
                 'stageStatus' => '0'
 
@@ -27,21 +21,15 @@ class Stage extends DbAccess
     public function updateInfo($array)
     {
         $name = $array['name'];
-        $address = $array['address'];
-        $person = $array['person'];
         $id = $array["fuelStationId"];
-        $phone = $array['phoneNumber'];
+        $chairman = $array['chairman'];
         //die($array['id']);
         return $this->update(
             "stage",
             [
                 'stageName' => $name,
-                'stageContactAddress' => $address,
-                'stageContactPerson' => $person,
-                'stageContactPhoneNumber' => $phone,
                 'fuelStationId' => $id,
-                
-
+                "chairmanId" => $chairman
             ],
             ["stageId" => $array['id']]
         );

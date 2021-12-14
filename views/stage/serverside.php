@@ -19,9 +19,6 @@ $total_all_rows = mysqli_num_rows($totalQuery);
 if (isset($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
     $sql .= " WHERE stageName like '%" . $search_value . "%'";
-    $sql .= " OR stageContactPhoneNumber like '%" . $search_value . "%'";
-    $sql .= " OR stageContactPerson like '%" . $search_value . "%'";
-    $sql .= " OR stageContactAddress like '%" . $search_value . "%'";
     $sql .= " OR stageStatus like '%" . $search_value . "%'";
     $sql .= " OR fuelStationName like '%" . $search_value . "%'";
 }
@@ -48,9 +45,6 @@ $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['stageName'];
-    $sub_array[] = $row['stageContactPerson'];
-    $sub_array[] = $row['stageContactAddress'];
-    $sub_array[] = $row['stageContactPhoneNumber'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageStatus'] == 0 ? "Not Active" : "Active";
     $sub_array[] = $row['stageStatus'] == 0 ? '

@@ -129,33 +129,7 @@
                                             </div>
 
                                         </div>
-                                        <!--fuel station-->
-                                        <!--address-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Stage Contact Person</label>
-                                            <input type="text" name="person" required class="form-control" placeholder="enter stage address" />
-                                        </div>
-                                        <!--address-->
-                                        <!--person-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Stage Contact Address</label>
-                                            <input type="text" name="address" required class="form-control" placeholder="enter person name" />
 
-                                        </div>
-                                        <!--person-->
-
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number " />
-                                        </div>
-                                        <!---phone-->
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Email</label>
-                                            <input type="email" name="email" required class="form-control" placeholder="enter email" />
-                                        </div>
-                                        <!---phone-->
                                         <!-- /.col -->
                                         <div class="col-12">
                                             <button type="submit" class="style_button" name="addStage">Register new Stage</button>
