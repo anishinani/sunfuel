@@ -143,6 +143,7 @@ session_start();
                                                 <th> Fuel Agent Name</th>
                                                 <th>Fuel Agent NIN Number</th>
                                                 <th>Fuel Agent Phone Number</th>
+                                                <th>Another Phone Number</th>
                                                 <th>Fuel Agent Station</th>
                                                 <th>Fuel Agent Status</th>
                                                 <th>Activation Status</th>

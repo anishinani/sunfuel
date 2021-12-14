@@ -37,6 +37,10 @@
             cursor: pointer;
             border-radius: 10px;
         }
+
+        .showAlternative {
+            display: none;
+        }
     </style>
 </head>
 
@@ -132,21 +136,23 @@
                                         </div>
                                         <!---phone-->
 
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Alternative Phone Number</label>
-                                            <input type="text" name="anotherNumber" required class="form-control" placeholder="enter another number " />
-                                        </div>
-                                        <!---phone-->
                                         <!--role-->
                                         <div class="form-group">
                                             <label for="my-select">Select Role</label>
-                                            <select id="my-select" class="form-control" name="role">
+                                            <select class="form-control" name="role" id="role">
                                                 <option disabled selected>select role</option>
                                                 <option value="Chairman">Stage Chairman</option>
                                                 <option value="BodaUser">Boda User</option>
                                             </select>
                                         </div>
+
+
+                                        <!--phone-->
+                                        <div class="form-group mb-3 showAlternative" id="another">
+                                            <label for=""> Alternative Phone Number</label>
+                                            <input type="text" name="anotherNumber" required class="form-control" placeholder="enter another number " />
+                                        </div>
+                                        <!---phone-->
 
 
                                         <!--role-->
@@ -279,6 +285,23 @@
     <script src=" /creditpluswebapp/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src=" /creditpluswebapp/dist/js/pages/dashboard.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#role").change(function() {
+                //alert("clicked");
+                let role = $("#role").val();
+                //alert(role);
+                if (role == "Chairman") {
+                    $(".showAlternative").removeClass("showAlternative")
+                } else {
+                    //alert("not true");
+                    $("#another").addClass("showAlternative")
+                }
+            })
+        })
+    </script>
 </body>
+
+
 
 </html>

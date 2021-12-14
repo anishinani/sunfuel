@@ -43,6 +43,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['fuelAgentName'];
     $sub_array[] = $row['fuelAgentNIN'];
     $sub_array[] = $row['fuelAgentPhoneNumber'];
+    $sub_array[] = $row['anotherPhoneNumber'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['status'] == 0 ? "Not Active" : "Active";
     $sub_array[] = $row['status'] == 0 ? '

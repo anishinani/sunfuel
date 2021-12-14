@@ -133,6 +133,13 @@
                                             <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['fuelAgentPhoneNumber']; ?>" />
                                         </div>
                                         <!---phone-->
+                                        <!--phone-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Another Phone Number</label>
+                                            <input type="text" name="anotherPhone" required class="form-control" placeholder="enter
+                                             another phone number " value="<?= $results[0]['anotherPhoneNumber']; ?>" />
+                                        </div>
+                                        <!---phone-->
                                         <!--fuel station-->
                                         <div class="form-group mb-3">
                                             <div class="form-group">

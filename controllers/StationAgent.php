@@ -13,6 +13,7 @@ class StationAgent extends DbAccess
         $phone = $array['phoneNumber'];
         $nin = $array['nin'];
         $stationId = $array['station'];
+        $anotherPhone =   $array['anotherPhone'];
 
         return $this->insert(
             "fuelagent",
@@ -21,6 +22,7 @@ class StationAgent extends DbAccess
                 'fuelAgentPhoneNumber' => $phone,
                 'fuelAgentNIN' => $nin,
                 'stationId' => $stationId,
+                'anotherPhoneNumber' => $anotherPhone,
                 'status' => '0'
 
             ]
@@ -35,12 +37,14 @@ class StationAgent extends DbAccess
         $phone = $array['phoneNumber'];
         $nin = $array['nin'];
         $stationId = $array['station'];
+        $anotherPhone =   $array['anotherPhone'];
         return $this->update(
             "fuelagent",
             [
                 'fuelAgentName' => $name,
                 'fuelAgentPhoneNumber' => $phone,
                 'fuelAgentNIN' => $nin,
+                'anotherPhoneNumber' => $anotherPhone,
                 'stationId' => $stationId,
 
 
