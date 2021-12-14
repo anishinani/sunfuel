@@ -143,10 +143,14 @@ $_SESSION['bool'] =  true;
                                                 <th> Name</th>
                                                 <th>NIN Number</th>
                                                 <th>Boda Number</th>
+                                                <th>Front Photo</th>
+                                                <th>Back Photo</th>
+                                                <th>Role</th>
                                                 <th>Phone Number</th>
+                                                <th>Alternative Number</th>
                                                 <th>Fuel Station</th>
                                                 <th>Stage</th>
-                                                <th>Status</th>
+
                                                 <th>Activation Action</th>
 
                                                 <th width="100px">Actions</th>

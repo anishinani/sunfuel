@@ -7,7 +7,7 @@
 class BodaUser extends DbAccess
 {
 
-    public function store($array)
+    public function store($array, $front, $back)
     {
         $name = $array['name'];
         $nin = $array['nin'];
@@ -15,6 +15,10 @@ class BodaUser extends DbAccess
         $fuel = $array['fuelStationId'];
         $phone = $array['phoneNumber'];
         $stage = $array["stageId"];
+        $role = $array['role'];
+        //var_dump("The role is " . $array['role']);
+
+        //die("done");
         return $this->insert(
             "bodauser",
             [
@@ -22,8 +26,13 @@ class BodaUser extends DbAccess
                 'bodaUserNIN' => $nin,
                 'bodaUserBodaNumber' => $bodaNumber,
                 'bodaUserPhoneNumber' => $phone,
+                "bodaUserBackPhoto" => $back,
+                "bodaUserFrontPhoto" => $front,
+                "bodaUserRole" => $array['role'],
+                "alternativePhotoNumber" => $array['anotherNumber'],
                 'fuelStationId' => $fuel,
                 'stageId' => $stage,
+                "bodaUserStatus" => "0"
 
 
             ]
@@ -40,6 +49,9 @@ class BodaUser extends DbAccess
         $fuel = $array['fuelStationId'];
         $phone = $array['phoneNumber'];
         $stage = $array["stageId"];
+        $id = $array['id'];
+        //var_dump($array['id']);
+        //die("here");
         return $this->update(
             "bodauser",
             [
@@ -49,10 +61,11 @@ class BodaUser extends DbAccess
                 'bodaUserPhoneNumber' => $phone,
                 'fuelStationId' => $fuel,
                 'stageId' => $stage,
-                'bodaUserStatus' => "active"
-
-            ] .
-                ["fuelStationId" => $array['id']]
+                "bodaUserRole" => $array['role'],
+                "alternativePhotoNumber" => $array['anotherNumber'],
+                'bodaUserStatus' => "0"
+            ],
+            ["bodaUserId" => $id]
         );
     }
 }

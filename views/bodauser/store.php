@@ -22,6 +22,24 @@ $activity = new ActivityLogger();
 if (isset($_POST['addBodaUser'])) {
 
     $_SESSION['errors'] = array();
+    //var_dump($_FILES);
+
+    $backPhoto = $_FILES["backPhoto"]["name"];
+    $frontPhoto = $_FILES["frontPhoto"]["name"];
+    $tempBackPhoto = $_FILES["backPhoto"]["tmp_name"];
+    $tempFrontPhoto = $_FILES["frontPhoto"]["tmp_name"];
+
+    $photoOne =  time() . str_replace(" ", "_", $backPhoto);
+    $photoTwo =  time() . str_replace(" ", "_", $frontPhoto);
+
+    if (move_uploaded_file($tempBackPhoto, "images/" . $photoOne)) {
+        if (move_uploaded_file($tempFrontPhoto, "images/" . $photoTwo)) {
+        }
+    } else {
+        die("Oops there are errors");
+    }
+
+
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
@@ -54,7 +72,7 @@ if (isset($_POST['addBodaUser'])) {
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($bodauser->store($_POST)) {
+        if ($bodauser->store($_POST, $photoTwo, $photoOne)) {
             $activity->logActivity(
                 $_SESSION['user'],
                 "Registered Boda user",

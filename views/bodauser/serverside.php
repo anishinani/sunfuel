@@ -21,6 +21,8 @@ if (isset($_POST['search']['value'])) {
     $sql .= " OR bodaUserPin like '%" . $search_value . "%'";
     $sql .= " OR fuelStationName like '%" . $search_value . "%'";
     $sql .= " OR stageName like '%" . $search_value . "%'";
+    $sql .= " OR alternativePhotoNumber like '%" . $search_value . "%'";
+    $sql .= " OR bodaUserRole like '%" . $search_value . "%'";
 }
 
 if (isset($_POST['order'])) {
@@ -45,10 +47,13 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['bodaUserName'];
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];
+    $sub_array[] =  "<img src='images/" . $row['bodaUserFrontPhoto'] . "' height='50px' width='50px' alt='image'/>";
+    $sub_array[] = "<img src='images/" . $row['bodaUserBackPhoto'] . "' alt='image'  height='50px' width='50px'/>";
+    $sub_array[] = $row['bodaUserRole'];
     $sub_array[] = $row['bodaUserPhoneNumber'];
+    $sub_array[] = $row['alternativePhotoNumber'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageName'];
-    $sub_array[] = $row['bodaUserStatus'] == 0 ? "Not Active" : "Active";
     $sub_array[] = $row['bodaUserStatus'] == 0 ? '
     <form action="activateBoda.php" method="post">
     <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>

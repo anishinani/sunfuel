@@ -143,6 +143,23 @@
                                             <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number " value="<?= $results[0]["bodaUserPhoneNumber"] ?>" />
                                         </div>
                                         <!---phone-->
+                                        <!--phone-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Alternative Phone Number</label>
+                                            <input type="text" name="anotherNumber" required class="form-control" placeholder="enter another number " value="<?= $results[0]["alternativePhotoNumber"] ?>" />
+                                        </div>
+                                        <!---phone-->
+
+                                        <div class="form-group">
+                                            <label for="my-select">Select Role</label>
+                                            <select id="my-select" class="form-control" name="role">
+                                                <option selected value="<?= $results[0]["bodaUserRole"]; ?>">
+                                                    <?= $results[0]["bodaUserRole"]; ?>
+                                                </option>
+                                                <option value="Chairman">Stage Chairman</option>
+                                                <option value="BodaUser">Boda User</option>
+                                            </select>
+                                        </div>
 
 
                                         <!--fuel station-->
@@ -150,7 +167,7 @@
                                             <div class="form-group">
                                                 <label for="my-select">Fuel Station</label>
                                                 <select id="my-select" class="form-control" name="fuelStationId">
-                                                    <option disabled selected value="<?= $currentfuelStaion[0]["fuelStationId"]; ?>"><?= $currentfuelStaion[0]["fuelStationName"]; ?></option>
+                                                    <option selected value="<?= $currentfuelStaion[0]["fuelStationId"]; ?>"><?= $currentfuelStaion[0]["fuelStationName"]; ?></option>
                                                     <?php
                                                     for ($i = 0; $i < count($fuelstation); $i++) {
                                                     ?>

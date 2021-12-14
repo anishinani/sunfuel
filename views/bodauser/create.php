@@ -92,7 +92,10 @@
                         </div>
 
                         <!--error part-->
-                    <?php } ?>
+                    <?php }
+
+                    unset($_SESSION['errors']);
+                    ?>
                     <div class="row">
                         <!--form add user -->
                         <div class="register-box m-auto col-md-8">
@@ -100,7 +103,7 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Register a new boda user</p>
-                                    <form method="POST" action="./store.php">
+                                    <form method="POST" action="./store.php" enctype="multipart/form-data">
 
 
                                         <div class="form-group mb-3">
@@ -117,7 +120,7 @@
                                         <!--person-->
                                         <div class="form-group mb-3">
                                             <label for=""> Boda Number</label>
-                                            <input type="text" name="bodaNumber" required class="form-control" placeholder="enter boda name" />
+                                            <input type="text" name="bodaNumber" required class="form-control" placeholder="enter boda number" />
 
                                         </div>
                                         <!--person-->
@@ -128,6 +131,39 @@
                                             <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number " />
                                         </div>
                                         <!---phone-->
+
+                                        <!--phone-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Alternative Phone Number</label>
+                                            <input type="text" name="anotherNumber" required class="form-control" placeholder="enter another number " />
+                                        </div>
+                                        <!---phone-->
+                                        <!--role-->
+                                        <div class="form-group">
+                                            <label for="my-select">Select Role</label>
+                                            <select id="my-select" class="form-control" name="role">
+                                                <option disabled selected>select role</option>
+                                                <option value="Chairman">Stage Chairman</option>
+                                                <option value="BodaUser">Boda User</option>
+                                            </select>
+                                        </div>
+
+
+                                        <!--role-->
+
+                                        <!--front photo-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Front NIN Photo</label>
+                                            <input type="file" name="frontPhoto" required class="form-control" accept="image/*" />
+                                        </div>
+                                        <!--front photo-->
+
+                                        <!--back photo-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Back NIN Photo</label>
+                                            <input type="file" name="backPhoto" required class="form-control" accept="image/*" />
+                                        </div>
+                                        <!--back photo-->
 
 
                                         <!--fuel station-->

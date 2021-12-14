@@ -48,7 +48,7 @@ if (isset($_POST['addBodaUser'])) {
         if ($user->updateInfo($_POST)) {
             $activity->logActivity(
                 $_SESSION['user'],
-                "Updated successfullt",
+                "Updated successfully",
                 "boda user  updated  sucessfully",
                 $_SESSION['email'],
                 $_SESSION['gender']
