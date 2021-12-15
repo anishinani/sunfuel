@@ -15,7 +15,7 @@ class BodaUser extends DbAccess
         $fuel = $array['fuelStationId'];
         $phone = $array['phoneNumber'];
         $stage = $array["stageId"];
-        $role = $array['role'];
+
         //var_dump("The role is " . $array['role']);
 
         //die("done");
@@ -40,6 +40,7 @@ class BodaUser extends DbAccess
 
         var_dump($re);
         die("here");
+        die("am here");
     }
 
 
