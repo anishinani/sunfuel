@@ -19,7 +19,7 @@ class BodaUser extends DbAccess
         //var_dump("The role is " . $array['role']);
 
         //die("done");
-        $re = $this->insert(
+        return $this->insert(
             "bodauser",
             [
                 'bodaUserName' => $name,
@@ -37,10 +37,6 @@ class BodaUser extends DbAccess
 
             ]
         );
-
-        var_dump($re);
-        die("here");
-        die("am here");
     }
 
 
