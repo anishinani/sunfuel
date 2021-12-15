@@ -43,7 +43,7 @@ if (isset($_POST['addBodaUser'])) {
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
-        if ($key == 'addBodaUser') {
+        if ($key == 'addBodaUser' || 'anotherNumber') {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {
