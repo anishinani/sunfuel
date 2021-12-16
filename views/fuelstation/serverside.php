@@ -17,7 +17,6 @@ if (isset($_POST['search']['value'])) {
     $sql .= " OR fuelStationContactPhone like '%" . $search_value . "%'";
     $sql .= " OR fuelStationContactPerson like '%" . $search_value . "%'";
     $sql .= " OR fuelStationAddress like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationContactEmail like '%" . $search_value . "%'";
     $sql .= " OR fuelStationStatus like '%" . $search_value . "%'";
 }
 
