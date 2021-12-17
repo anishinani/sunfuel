@@ -15,7 +15,7 @@ if (isset($_POST["activate"])) {
     //die($Id);
     $stageId = $_POST['stageId'];
     //die($stageId);
-    $oneTymPin =  $pin->randomkey(4);
+    $oneTymPin =  $pin->randomkey(5);
     $hashedPin = $pin->hashPass($oneTymPin);
     //check if stage is active
     $stageStatus = $dbAccess->select("stage", ["stageStatus"], ["stageId" => $stageId]);
