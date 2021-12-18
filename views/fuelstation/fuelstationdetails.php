@@ -43,6 +43,7 @@ if (!isset($_SESSION['user'])) {
         if (isset($_POST['details'])) {
 
             $id = $_POST['id'];
+            $_SESSION["fuelDetailsId"] =  $id;
             //die($id);
         } else {
             die("not sent");
@@ -146,7 +147,7 @@ if (!isset($_SESSION['user'])) {
 
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/activebodaUsers.php">
+                            <a href='/creditpluswebapp/views/fuelstation/activeOnEachStage.php?active=active'>
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalActiveBodaUsers ?></h3>
@@ -164,7 +165,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php">
+                            <a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php?inactive=inactive">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalInActiveBodaUsers ?></h3>
@@ -182,7 +183,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
+                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php?defaulters=defaulters">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalDefaultedBodaUsers ?></h3>
@@ -291,7 +292,7 @@ if (!isset($_SESSION['user'])) {
     <script src="/creditpluswebapp/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-        $.widget.bridge('uibutton', $.ui.button)
+        $.widget.bridge(' uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="/creditpluswebapp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
