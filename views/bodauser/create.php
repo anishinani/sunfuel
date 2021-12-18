@@ -159,14 +159,14 @@
 
                                         <!--front photo-->
                                         <div class="form-group mb-3">
-                                            <label for=""> Front NIN Photo</label>
+                                            <label for=""> Front ID Photo</label>
                                             <input type="file" name="frontPhoto" required class="form-control" accept="image/*" />
                                         </div>
                                         <!--front photo-->
 
                                         <!--back photo-->
                                         <div class="form-group mb-3">
-                                            <label for=""> Back NIN Photo</label>
+                                            <label for=""> Back ID Photo</label>
                                             <input type="file" name="backPhoto" required class="form-control" accept="image/*" />
                                         </div>
                                         <!--back photo-->

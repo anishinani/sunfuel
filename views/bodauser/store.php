@@ -36,7 +36,9 @@ if (isset($_POST['addBodaUser'])) {
         if (move_uploaded_file($tempFrontPhoto, "images/" . $photoTwo)) {
         }
     } else {
-        die("Oops there are errors");
+        //die("Failed to move image");
+        $_SESSION['success'] = "Wrong image format not supported";
+        header("Location:index.php");
     }
 
 
@@ -86,7 +88,9 @@ if (isset($_POST['addBodaUser'])) {
             header("Location:index.php");
             //redirect
         } else {
-            die("Oops there was an error");
+            //die("Oops there was an error");
+            $_SESSION['success'] = "Something went wrong !! Please try again";
+            header("Location:index.php");
         }
     }
 } else {
