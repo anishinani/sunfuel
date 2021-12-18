@@ -46,12 +46,14 @@ if (!isset($_SESSION['user'])) {
 		include_once("../utils/dbaccess.php");
 		//SELECT bodaUserId FROM bodauser WHERE DATE(updated_at) = CURDATE();
 		$dbAccess =  new DbAccess();
-		$totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
-		$totalUsers =  $dbAccess->countRows("administrators", 'adminId');
-		$totalStages =  $dbAccess->countRows("stage", 'stageId');
-		$totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
-		$fuelAgents = $dbAccess->countRows("fuelagent", 'fuelAgentId');
-		$packages = $dbAccess->countRows("package", 'packageId');
+		// $totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
+		// $totalUsers =  $dbAccess->countRows("administrators", 'adminId');
+		// $totalStages =  $dbAccess->countRows("stage", 'stageId');
+
+		// $totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
+		// $fuelAgents = $dbAccess->countRows("fuelagent", 'fuelAgentId');
+		// $packages = $dbAccess->countRows("package", 'packageId');
+
 		$totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
 		$totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
 		$totalDefaultedBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
@@ -116,7 +118,7 @@ if (!isset($_SESSION['user'])) {
 							<a href="#">
 								<div class="small-box bg-success">
 									<div class="inner">
-										<h3><?= $expectedFuelPerDay ?></h3>
+										<h3><?= number_format($expectedFuelPerDay, 1) ?></h3>
 
 										<p>Total Expexted Fuel Per Day</p>
 									</div>
@@ -128,102 +130,11 @@ if (!isset($_SESSION['user'])) {
 							</a>
 
 						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
 
-							<!-- small box -->
-							<a href="/creditpluswebapp/views/bodauser/index.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalBodaUsers ?></h3>
-
-										<p>Total Boda Users</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelstation/index.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalFueltations ?></h3>
-
-										<p>Total Fuel Stations</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
 
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelstation/index.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalStages ?></h3>
-
-										<p>Total Stages</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelagent/index.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $fuelAgents ?></h3>
-
-										<p>Total Fuel Agents</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $packages ?></h3>
-
-										<p>Total Packages</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/bodauser/activebodaUsers.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalActiveBodaUsers ?></h3>
@@ -241,7 +152,7 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalInActiveBodaUsers ?></h3>
@@ -260,7 +171,7 @@ if (!isset($_SESSION['user'])) {
 
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalDefaultedBodaUsers ?></h3>
@@ -279,7 +190,7 @@ if (!isset($_SESSION['user'])) {
 
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/stage/activeStages.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalActiveStages ?></h3>
@@ -297,7 +208,7 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/stage/inactiveStages.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalInActiveStages ?></h3>
@@ -315,7 +226,7 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/stages/index.php">
+							<a href="/creditpluswebapp/views/stage/defaultedStages.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalDefaultStages ?></h3>
@@ -333,7 +244,7 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/fuelstation/activeFuelStations.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalActiveFuelStations ?></h3>
@@ -351,12 +262,12 @@ if (!isset($_SESSION['user'])) {
 						<!--col-->
 						<!--col-->
 						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/packages/index.php">
+							<a href="/creditpluswebapp/views/fuelstation/inactiveFuelStations.php">
 								<div class="small-box bg-success">
 									<div class="inner">
 										<h3><?= $totalInActiveFuelStations ?></h3>
 
-										<p>Total In Active Fuel Stations</p>
+										<p>Total InActive Fuel Stations</p>
 									</div>
 									<div class="icon">
 										<i class="ion ion-stats-bars"></i>

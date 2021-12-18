@@ -2,6 +2,7 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+include_once("./dbaccess.php");
 
 class infobip
 {
@@ -112,9 +113,9 @@ class infobip
             $data['success_code'] = $decodedcontent->{'remarks'};
             $data['status'] = $decodedcontent->{'status'};
 
-            // $db = new Cursor;
-            // $table = "sms_gateway";
-            // $id = $db->insert($table, $data);
+            $db = new DbAccess();
+            $table = "sms_gateway";
+            $db->insert($table, $data);
 
             //return $id;
             //die("sent message");
