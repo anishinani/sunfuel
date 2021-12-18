@@ -27,19 +27,21 @@ if (isset($_POST["activate"])) {
     }
 
     //update stage
-    if ($dbAccess->update("stage", ["stageStatus" => '1', 'pin' => $hashedPin], ["stageId" => $id])) {
+    if ($dbAccess->update("stage", ["stageStatus" => '1', "pin" => $hashedPin], ["stageId" => $id])) {
         //update borders of that stage
         if ($dbAccess->update("bodauser", ['bodaUserStatus' => '1'], ["stageId" => $id])) {
             $_SESSION['success'] = "Stage and all the boda users of the stage have been activated successfully";
             header("Location:index.php");
         } else {
             //die("There is an error please try again");
-            $_SESSION['success'] = "Oops something occured please contact support or try again";
+            // $_SESSION['success'] = "Oops something occured please contact support or try again";
+            $_SESSION['success'] = "failed to update";
             header("Location:index.php");
         }
     } else {
         // die("Some thing went wrong please try again");
-        $_SESSION['success'] = "Oops something occured please contact support or try again";
+        // $_SESSION['success'] = "Oops something occured please contact support or try again";
+        $_SESSION['success'] = "failed to send sms";
         header("Location:index.php");
     }
 
