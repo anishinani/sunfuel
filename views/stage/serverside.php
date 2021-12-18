@@ -59,7 +59,17 @@ while ($row = mysqli_fetch_assoc($query)) {
     ';
 
 
-    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
+    $sub_array[] = '
+    
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+    </form>
+    <form method="POST" action="./stageDetails.php">
+      <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
+      <button 
+    class="btn btn-primary btn-sm deleteBtn" name="stageDetails" >Show</button>
+
+    </form>
+
     <form action="edit.php?id="' . $row['stageId'] . '"" method="get">
     <button type="submit" name="update"  value="' . $row['stageId'] . '"
     class="btn btn-info btn-sm editbtn" >Edit</button>

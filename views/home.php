@@ -75,10 +75,6 @@ if (!isset($_SESSION['user'])) {
 		$expectedAmountRecoveredPerDay =  ($totalActiveBodaUsers * 1000) + $expectedFuelPerDay;
 		$expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
 
-
-
-
-
 		?>
 
 

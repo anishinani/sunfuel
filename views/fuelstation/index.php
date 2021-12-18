@@ -143,7 +143,7 @@ $_SESSION['bool'] =  true;
                                                 <th>Contact Phone Number</th>
                                                 <th>Fuel Station Status</th>
                                                 <th>Activation Status</th>
-                                                <th width="130px">Actions</th>
+                                                <th width="150px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -227,6 +227,9 @@ $_SESSION['bool'] =  true;
                 'ajax': {
                     'url': './serverside.php',
                     'type': 'post',
+                },
+                "data": {
+                    "id": 1
                 },
                 "columnDefs": [{
                     'target': [5],

@@ -137,7 +137,7 @@ $_SESSION['bool'] =  true;
                                                 <th>Fuel Station Name</th>
                                                 <th>Stage Status</th>
                                                 <th>Activation Actions</th>
-                                                <th width="100px">Actions</th>
+                                                <th width="150px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>

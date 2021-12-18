@@ -6,6 +6,12 @@ $con = $dbAccess->getConnection();
 $output = array();
 $sql = "SELECT * FROM fuelstation ";
 
+// if (isset($_POST['id'])) {
+//     die("is there");
+// } else {
+//     die("not there");
+// }
+
 //die("here");
 
 $totalQuery = mysqli_query($con, $sql);
@@ -56,6 +62,13 @@ while ($row = mysqli_fetch_assoc($query)) {
     ';
 
     $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
+    <form method="POST" action="./fuelstationdetails.php">
+    <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
+    <button 
+  class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
+  </form>
+  
+    
      <form action="edit.php?id="' . $row['fuelStationId'] . '"" method="get">
      <button type="submit" name="update"  value="' . $row['fuelStationId'] . '"
      class="btn btn-info btn-sm editbtn" >Edit</button>
@@ -65,8 +78,8 @@ while ($row = mysqli_fetch_assoc($query)) {
        <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
        <button 
      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-
      </form>
+     
      </div>';
     $data[] = $sub_array;
 }
