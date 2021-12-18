@@ -6,8 +6,9 @@ class DbAccess
     private $mysqlKeyWords;
     private $host = 'localhost';
     private $username = 'root';
-    //private $password = '';
-    private $password = '!Log10tan10';
+    private $password = '';
+
+    //private $password = '!Log10tan10';
     private $database = 'bodacredit';
 
 
@@ -15,6 +16,14 @@ class DbAccess
 
     public function __construct()
     {
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        if ($ip_address == '::1') {
+
+            $this->password = "";
+        } else {
+
+            $this->password = '!Log10tan10';
+        }
 
         // Create connection
         //$this->conn = new mysqli($servername, $username, $password);

@@ -79,8 +79,6 @@ if (!isset($_SESSION['user'])) {
 
 
 
-		//die("The totak rows are " . $totalBodaUsers);
-
 		?>
 
 

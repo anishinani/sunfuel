@@ -98,12 +98,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Stage</h1>
+                            <h1>Inactive Stage</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Stage</li>
+                                <li class="breadcrumb-item active">Inactive Stage</li>
                             </ol>
                         </div>
                     </div>
@@ -122,11 +122,8 @@ $_SESSION['bool'] =  true;
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Stage Table</h3>
-                                    <h4 class="float-sm-right ">
-                                        <a class="btn btn-success" href="./create.php"> Add New Stage
-                                        </a>
-                                    </h4>
+                                    <h3 class="card-title">Inactive Stage Table</h3>
+
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
