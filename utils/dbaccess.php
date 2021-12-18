@@ -243,7 +243,7 @@ class DbAccess
     //acctivitylogger
 
     //count
-    public function countRows($table, $row = "*")
+    public function countRows($table, $row = "*", $where = [])
     {
 
         $table =  $this->clean($table);
@@ -251,10 +251,18 @@ class DbAccess
         if (empty($table)) {
             return 0;
         }
-        $sql = "SELECT COUNT($row) AS total FROM $table";
-        $results = mysqli_query($this->conn, $sql);
-        $total = $results->fetch_assoc();
-        return $total['total'];
+        if (empty($where)) {
+            $sql = "SELECT COUNT($row) AS total FROM $table";
+            $results = mysqli_query($this->conn, $sql);
+            $total = $results->fetch_assoc();
+            return $total['total'];
+        } else {
+            $sql = "SELECT COUNT($row) AS total FROM $table WHERE  $where[0] = $where[1]";
+            //SELECT COUNT(bodaUserStatus) FROM `bodauser` WHERE bodaUserStatus =1;
+            $results = mysqli_query($this->conn, $sql);
+            $total = $results->fetch_assoc();
+            return $total['total'];
+        }
     }
     //count
 

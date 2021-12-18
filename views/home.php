@@ -44,6 +44,7 @@ if (!isset($_SESSION['user'])) {
 		include_once("./navbar/navbar.php");
 		include_once("sidebar.php");
 		include_once("../utils/dbaccess.php");
+		//SELECT bodaUserId FROM bodauser WHERE DATE(updated_at) = CURDATE();
 		$dbAccess =  new DbAccess();
 		$totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
 		$totalUsers =  $dbAccess->countRows("administrators", 'adminId');
@@ -51,6 +52,29 @@ if (!isset($_SESSION['user'])) {
 		$totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
 		$fuelAgents = $dbAccess->countRows("fuelagent", 'fuelAgentId');
 		$packages = $dbAccess->countRows("package", 'packageId');
+		$totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
+		$totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
+		$totalDefaultedBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
+		//die($totalInActiveBodaUsers);
+
+		//stage
+		$totalActiveStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "1"]);
+		$totalInActiveStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "0"]);
+		$totalDefaultStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "3"]);
+
+		//fuel stations
+		$totalActiveFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "1"]);
+		$totalInActiveFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "0"]);
+		//die($totalActiveFuelStations);
+
+		//fuel consumption
+		$expectedFuelPerDay = $totalActiveBodaUsers * 15000;
+		//die($expectedFuelPerDay);
+		$expectedAmountRecoveredPerDay =  ($totalActiveBodaUsers * 1000) + $expectedFuelPerDay;
+		$expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
+
+
+
 
 
 		//die("The totak rows are " . $totalBodaUsers);
@@ -82,28 +106,31 @@ if (!isset($_SESSION['user'])) {
 				<div class="container-fluid">
 					<!-- Small boxes (Stat box) -->
 					<div class="row">
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<a href="#">
-								<!--box--box-->
-								<div class="small-box bg-info">
-									<div class="inner">
-										<h3><?= $totalUsers ?></h3>
 
-										<p>Total Admins</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-bag"></i>
-									</div>
-
-								</div>
-						</div>
-						<!--box-->
-						</a>
 
 
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
+
+							<!-- small box -->
+							<a href="#">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $expectedFuelPerDay ?></h3>
+
+										<p>Total Expexted Fuel Per Day</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!-- ./col -->
+						<div class="col-lg-3 col-6">
+
 							<!-- small box -->
 							<a href="/creditpluswebapp/views/bodauser/index.php">
 								<div class="small-box bg-success">
@@ -174,6 +201,7 @@ if (!isset($_SESSION['user'])) {
 
 						</div>
 						<!--col-->
+
 						<!--col-->
 						<div class="col-lg-3 col-6">
 							<a href="/creditpluswebapp/views/packages/index.php">
@@ -192,6 +220,158 @@ if (!isset($_SESSION['user'])) {
 
 						</div>
 						<!--col-->
+
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalActiveBodaUsers ?></h3>
+
+										<p>Total Active Boda Users</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalInActiveBodaUsers ?></h3>
+
+										<p>Total Inactive Active Boda Users</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalDefaultedBodaUsers ?></h3>
+
+										<p>Total Defaulted Boda Users</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalActiveStages ?></h3>
+
+										<p>Total Active Stages</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalInActiveStages ?></h3>
+
+										<p>Total InActive Stages</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/stages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalDefaultStages ?></h3>
+
+										<p>Total Defaulted Stages</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalActiveFuelStations ?></h3>
+
+										<p>Total Active Fuel Stations</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-3 col-6">
+							<a href="/creditpluswebapp/views/packages/index.php">
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3><?= $totalInActiveFuelStations ?></h3>
+
+										<p>Total In Active Fuel Stations</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+
+
+
+
+
 						<!-- /.row -->
 						<!-- Main row -->
 						<div class="row">
