@@ -15,7 +15,8 @@ if (isset($_POST["activate"])) {
     //die($Id);
     $fuelstation = $_POST['fuelStationId'];
     //die($fuelstation);
-    $oneTymPin =  $pin->randomkey(4);
+    $oneTymPin =  $pin->randomkey(5);
+    $hashedPin = $pin->hashPass($oneTymPin);
     //check if stage is active
     $fuelStationStatus = $dbAccess->select("fuelstation", ["fuelStationStatus"], ["fuelStationId" => $fuelstation]);
     //die($fuelStationStatus[0]['fuelStationStatus']);
@@ -34,7 +35,7 @@ if (isset($_POST["activate"])) {
             "Hello " . $fuelAgent[0]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
                 one time pin is " . $oneTymPin
         );
-        if ($dbAccess->update("fuelagent", ['status' => '1'], ["fuelAgentId" => $agent])) {
+        if ($dbAccess->update("fuelagent", ['status' => '1', 'pin' => $hashedPin], ["fuelAgentId" => $agent])) {
             $_SESSION['success'] = "Fuel Agent has been activated successfully";
             header("Location:index.php");
         } else {

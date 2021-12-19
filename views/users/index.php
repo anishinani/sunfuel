@@ -133,9 +133,9 @@ $_SESSION['bool'] =  true;
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Stage Name</th>
-                                                <th>Fuel Station Name</th>
-                                                <th>Stage Status</th>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
                                                 <th>Activation Actions</th>
                                                 <th width="150px">Actions</th>
                                             </tr>

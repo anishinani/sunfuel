@@ -13,7 +13,8 @@ $dbAccess = new DbAccess();
 if (isset($_POST["activate"])) {
     $id = $_POST['id'];
     //die($Id);
-    $oneTymPin =  $pin->randomkey(4);
+    $oneTymPin =  $pin->randomkey(5);
+    $hashedPin = $pin->hashPass($oneTymPin);
     $fuelAgents =  $dbAccess->select("fuelagent", ["fuelAgentName", "fuelAgentPhoneNumber"], ["stationId" => $id]);
     for ($i = 0; $i < count($fuelAgents); $i++) {
 
@@ -28,7 +29,7 @@ if (isset($_POST["activate"])) {
     //update stage
     if ($dbAccess->update("fuelstation", ["fuelStationStatus" => '1'], ["fuelStationId" => $id])) {
         //update borders of that fuelStation
-        if ($dbAccess->update("fuelagent", ['status' => '1'], ["stationId" => $id])) {
+        if ($dbAccess->update("fuelagent", ['status' => '1', 'pin' => $hashedPin], ["stationId" => $id])) {
             $_SESSION['success'] = "fuel Station and all the fuel agents of the fuelStation have been activated successfully";
             header("Location:index.php");
         } else {

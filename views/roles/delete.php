@@ -12,7 +12,8 @@ $con = $dbAccess->getConnection();
 $user_id = $_POST['id'];
 //die($user_id);
 
-$sql = "DELETE FROM fuelstation WHERE fuelStationId='$user_id'";
+$sql = "DELETE FROM roles WHERE roleId='$user_id'";
+//$dbAccess->delete()
 $delQuery = mysqli_query($con, $sql);
 if ($delQuery == true) {
     $activity->logActivity(
