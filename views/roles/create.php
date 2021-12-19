@@ -49,7 +49,7 @@
         $dbAccess =  new DbAccess();
 
         $permissions = $dbAccess->select("permissions", ["permissionId", "permissionName"]);
-        var_dump($permissions);
+        //var_dump($permissions);
 
         // $permissions =  
         ?>
@@ -93,7 +93,9 @@
                         </div>
 
                         <!--error part-->
-                    <?php } ?>
+                    <?php }
+                    unset($_SESSION['errors']);
+                    ?>
                     <div class="row">
                         <!--form add user -->
                         <div class="register-box m-auto col-md-8">
@@ -120,7 +122,8 @@
                                             ?>
 
                                                 <div>
-                                                    <input type="checkbox" id="<?= $permissions[$i]["permissionId"] ?>" name="permissions[]" value="<?= $permissions[$i]["permissionId"] ?>">
+                                                    <input type="checkbox" id="<?= $permissions[$i]["permissionId"] ?>"
+                                                     name="permissions[]" value="<?= $permissions[$i]["permissionId"] ?>">
                                                     <label for="<?= $permissions[$i]["permissionName"] ?>">
                                                         <?= $permissions[$i]["permissionName"] ?>
                                                     </label>

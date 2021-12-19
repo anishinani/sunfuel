@@ -5,7 +5,8 @@ class Roles extends DbAccess
     {
         $name = $array['name'];
         $permissions =  $array['permissions'];
-        //var_dump($permission);
+        // var_dump($permissions);
+        // die("here in roles");
 
         if ($this->insert(
             "roles",
@@ -28,24 +29,56 @@ class Roles extends DbAccess
     }
     public function updateInfo($array)
     {
+        $id = $array["roleId"];
         $name = $array['name'];
-        $address = $array['address'];
-        $person = $array['person'];
-        $id = $array["fuelStationId"];
-        $phone = $array['phoneNumber'];
-        //die($array['id']);
-        return $this->update(
-            "stage",
-            [
-                'stageName' => $name,
-                'stageContactAddress' => $address,
-                'stageContactPerson' => $person,
-                'stageContactPhoneNumber' => $phone,
-                'fuelStationId' => $id,
-                'stageStatus' => "Active"
+        $permissions =  $array['permissions'];
 
-            ],
-            ["stageId" => $array['id']]
-        );
+        $selectRoles =  $this->select("rolepermissionids", ['permissionId'], ['roleId' => $id]);
+        $newPermissionArray = array();
+
+        // foreach ($permissions as $key => $permission) {
+        //     array_push($newPermissionArray, $permission);
+        // }
+
+
+
+
+        //die($name);
+
+        //select role
+        $role = $this->select("roles", ['roleName'], ["roleId" => $id])[0]["roleName"];
+        //die($role);
+        //delete user from rolepermissiontable
+        $this->delete("DELETE FROM rolepermissionids WHERE roleId = $id ");
+        //delete user from rolepermission table
+        if ($role == $name) {
+            //die("no updates");
+            foreach ($permissions as $key => $permission) {
+                $this->insert('rolepermissionids', [
+                    "permissionId" => $permission,
+                    "roleId" => $id
+                ]);
+            }
+            return true;
+        } else {
+
+            //update roles table
+            $roles = $this->update("roles", ["roleName" => $name], ["roleId" => $id]);
+
+            if ($roles) {
+                foreach ($permissions as $key => $permission) {
+                    $this->insert('rolepermissionids', [
+                        "permissionId" => $permission,
+                        "roleId" => $id
+                    ]);
+                }
+                return true;
+            } else {
+                return false;
+            }
+
+            //update rolepermissiontable
+
+        }
     }
 }

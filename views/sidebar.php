@@ -57,13 +57,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/creditpluswebapp/views/users/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/creditpluswebapp/views/users/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Users</p>
                                 </a>

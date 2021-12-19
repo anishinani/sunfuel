@@ -44,7 +44,7 @@
     <div class="wrapper">
         <?php
         include_once("../navbar/navbar.php");
-        include_once("../sidebar/sidebar.php");
+        include_once("../sidebar.php");
         include("../../utils/dbaccess.php");
         include("../../utils/activityLogger.php");
         $activity =  new ActivityLogger();
@@ -57,19 +57,15 @@
             $results  = $dbAccess->select("roles", ["roleName"], ["roleId" => $id]);
             $permissions = $dbAccess->select("permissions", ["permissionId", "permissionName"]);
 
+            $resultsId =  $dbAccess->selectQuery("SELECT rolepermissionids.permissionId AS id FROM rolepermissionids  INNER JOIN roles 
+            ON roles.roleId = rolepermissionids.roleId WHERE roles.roleId=$id;");
 
-            $sql = "SELECT permissions.permissionId  FROM permissions 
-        INNER JOIN rolepermissionids ON rolepermissionids.permissionId = permissions.permissionId
-         INNER JOIN roles ON roles.roleId = rolepermissionids.roleId";
-            $totalQuery = mysqli_query($dbAccess->getConnection(), $sql);
 
             $ids =  array();
-
-            while ($row = $totalQuery->fetch_assoc()) {
-                array_push($ids, $row["permissionId"]);
+            for ($i = 0; $i < count($resultsId); $i++) {
+                # code...
+                array_push($ids, $resultsId[$i]["id"]);
             }
-            //var_dump($ids);
-            //die("done");
         }
         ?>
 
@@ -113,7 +109,7 @@
 
                         <!--error part-->
                     <?php }
-
+                    unset($_SESSION['errors']);
                     ?>
                     <div class="row">
                         <!--form add user -->
@@ -137,12 +133,12 @@
 
                                             for ($i = 0; $i < count($permissions); $i++) {
 
-                                                var_dump($permissions[$i]["permissionId"] == $ids[$i] ? "true" : "false");
-
                                             ?>
 
                                                 <div>
-                                                    <input type="checkbox" id="<?= $permissions[$i]["permissionId"] ?>" name="permissions[]" value="<?= $permissions[$i]["permissionId"] ?>">
+                                                    <input type="checkbox" <?= in_array($permissions[$i]["permissionId"], $ids) ? "checked" : "" ?> id="<?= $permissions[$i]["permissionId"] ?>" name="permissions[]" value="<?= $permissions[$i]["permissionId"] ?>  
+                                                    
+                                                     ">
                                                     <label for="<?= $permissions[$i]["permissionName"] ?>">
                                                         <?= $permissions[$i]["permissionName"] ?>
                                                     </label>
@@ -151,6 +147,14 @@
                                             <?php } ?>
 
                                         </div>
+                                        <!--hidden-->
+                                        <input type="hidden" name="roleId" value="<?= $_GET['update']; ?>" />
+                                        <!--hidden-->
+                                        <!-- /.col -->
+                                        <div class="col-12">
+                                            <button type="submit" class="style_button" name="updateRole">Update Role</button>
+                                        </div>
+                                        <!-- /.col -->
 
                                 </div>
                                 </form>

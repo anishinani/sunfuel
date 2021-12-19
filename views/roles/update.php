@@ -19,13 +19,13 @@ $activity = new ActivityLogger();
 
 
 
-if (isset($_POST['addRole'])) {
+if (isset($_POST['updateRole'])) {
 
     $_SESSION['errors'] = array();
 
 
-    // var_dump($_POST['permissions']);
-    // die("here");
+    //var_dump($_POST['permissions']);
+    //die("here");
 
 
 
@@ -60,17 +60,17 @@ if (isset($_POST['addRole'])) {
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($roles->store($_POST)) {
+        if ($roles->updateInfo($_POST)) {
             $activity->logActivity(
                 $_SESSION['user'],
-                "Created Role",
-                "role created sucessfully",
+                "Updated Role",
+                "role updated sucessfully",
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
 
             //redirect
-            $_SESSION['success'] = "role Added Successfully";
+            $_SESSION['success'] = "role updated Successfully";
             header("Location:index.php");
             //redirect
         } else {

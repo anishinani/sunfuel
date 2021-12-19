@@ -17,6 +17,7 @@ class DbAccess
     public function __construct()
     {
         $ip_address = $_SERVER['REMOTE_ADDR'];
+        
         if ($ip_address == '::1') {
 
             $this->password = "";
