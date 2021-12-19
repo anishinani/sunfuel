@@ -98,12 +98,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Stage</h1>
+                            <h1>Users</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Stage</li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Users</li>
                             </ol>
                         </div>
                     </div>
@@ -122,9 +122,9 @@ $_SESSION['bool'] =  true;
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Stage Table</h3>
+                                    <h3 class="card-title">Users Table</h3>
                                     <h4 class="float-sm-right ">
-                                        <a class="btn btn-success" href="./create.php"> Add New Stage
+                                        <a class="btn btn-success" href="./create.php"> Add New User
                                         </a>
                                     </h4>
                                 </div>
@@ -136,7 +136,9 @@ $_SESSION['bool'] =  true;
                                                 <th>Id</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Activation Actions</th>
+                                                <th>Phone Number</th>
+                                                <th>Gender</th>
+                                                <th>Role</th>
                                                 <th width="150px">Actions</th>
                                             </tr>
                                         </thead>

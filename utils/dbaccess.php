@@ -242,6 +242,7 @@ class DbAccess
     public function delete($sql)
     {
         $query = mysqli_query($this->conn, $sql);
+        
     }
 
     public function clean($input)
