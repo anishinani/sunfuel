@@ -7,14 +7,14 @@ include_once("../../utils/Yo.php");
 $creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
 $confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
-//$data = $confirmedPayment->receive_payment_notification();
+$data = $confirmedPayment->receive_payment_notification();
 //sprint_r($data);
 
 //var_dump($_POST);
 
 $result = $dbAccess->insert(
     "sample",
-    $_POST
+    $data
 
 );
 var_dump($result);
