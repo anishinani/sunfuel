@@ -10,7 +10,7 @@ $_SESSION['bool'] =  true;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manage Fuel Users</title>
+    <title>Manage Loans</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -97,12 +97,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Fuel Stations</h1>
+                            <h1>Loans</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Fuel Stations</li>
+                                <li class="breadcrumb-item active">Loans</li>
                             </ol>
                         </div>
                     </div>

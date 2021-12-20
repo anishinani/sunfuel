@@ -253,13 +253,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="/creditpluswebapp/views/loans/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Loans</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="/creditpluswebapp/views/loans/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Loans</p>
                                 </a>
@@ -281,13 +281,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="/creditpluswebapp/views/payments/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Payments</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/creditpluswebapp/views/payments/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Payments</p>
                                 </a>

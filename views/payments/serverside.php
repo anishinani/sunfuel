@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("../../utils/dbaccess.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
@@ -40,39 +39,6 @@ if ($_POST['length'] != -1) {
     $length = $_POST['length'];
     $sql .= " LIMIT  " . $start . ", " . $length;
 }
-function showActions($id)
-{
-    $output = '';
-
-
-
-    if (in_array("show-fuelStation", $_SESSION['roles'])) {
-        $output .= '<form method="POST" action="./fuelstationdetails.php">
-        <input type="hidden" name="id" value="' . $id . '"/>
-        <button 
-      class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
-      </form>';
-    }
-    if (in_array("edit-fuelStation", $_SESSION['roles'])) {
-        $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
-        <button type="submit" name="update"  value="' . $id . '"
-        class="btn btn-info btn-sm editbtn" >Edit</button>
-   
-        </form>';
-    }
-    if (in_array("delete-fuelStations", $_SESSION['roles'])) {
-        $output .= '     <form method="POST" action="./delete.php">
-        <input type="hidden" name="id" value="' . $id . '"/>
-        <button 
-      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-      </form>';
-    }
-
-
-    $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
-
-    return $styledOutPut;
-}
 
 $query = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($query);
@@ -95,7 +61,26 @@ while ($row = mysqli_fetch_assoc($query)) {
     class="btn btn-danger btn-sm editbtn" >DeActivate</button>
     ';
 
-    $sub_array[] = showActions($row['fuelStationId']);
+    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
+    <form method="POST" action="./fuelstationdetails.php">
+    <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
+    <button 
+  class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
+  </form>
+  
+    
+     <form action="edit.php?id="' . $row['fuelStationId'] . '"" method="get">
+     <button type="submit" name="update"  value="' . $row['fuelStationId'] . '"
+     class="btn btn-info btn-sm editbtn" >Edit</button>
+
+     </form>
+     <form method="POST" action="./delete.php">
+       <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
+       <button 
+     class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+     </form>
+     
+     </div>';
     $data[] = $sub_array;
 }
 
