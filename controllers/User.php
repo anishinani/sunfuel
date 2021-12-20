@@ -1,7 +1,6 @@
 <?php
 
 
-
 class User extends DbAccess
 {
 
@@ -44,24 +43,38 @@ class User extends DbAccess
     }
 
     //store method
-    public function store($array)
+    public function store($array, $hashedPass)
     {
-        $name = $array['name'];
-        $address = $array['address'];
-        $person = $array['person'];
 
-        $phone = $array['phoneNumber'];
+        //include_once('../utils/pin.php');
+        // die("am here in controller");
+        $name = $array['name'];
+        $phone = $array['phone'];
+        $email = $array['email'];
+        $gender  = $array['gender'];
+        $roles = $array['roles'];
         return $this->insert(
-            "fuelstation",
+            "administrators",
             [
-                'fuelStationName' => $name,
-                'fuelStationAddress' => $address,
-                'fuelStationContactPerson' => $person,
-                'fuelStationContactPhone' => $phone,
-                'fuelStationStatus' => '0'
+                'name' => $name,
+                'email' => $email,
+                'phoneNumber' => $phone,
+                'gender' => $gender,
+                'roleId' => $roles,
+                "setPassword" => $hashedPass,
+
 
             ]
         );
     }
     //store method
+
+    //hash
+    //hash
+
+    public function setPassword($array)
+    {
+        $password =  $array['password'];
+        $email = $array['email'];
+    }
 }

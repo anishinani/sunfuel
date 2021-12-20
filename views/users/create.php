@@ -67,7 +67,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">fuel station</li>
+                                <li class="breadcrumb-item active">users</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -92,7 +92,9 @@
                         </div>
 
                         <!--error part-->
-                    <?php } ?>
+                    <?php }
+                    unset($_SESSION['errors']);
+                    ?>
                     <div class="row">
                         <!--form add user -->
                         <div class="register-box m-auto col-md-8">
@@ -126,6 +128,7 @@
                                             <div class="form-group">
                                                 <label for="my-select">select gender</label>
                                                 <select id="my-select" class="form-control" name="gender">
+                                                    <option selected disabled>select gender</option>
                                                     <option value="male">Male</option>
                                                     <option value="female">Female</option>
                                                 </select>
@@ -137,8 +140,10 @@
                                         <!--role-->
                                         <div class="form-group">
                                             <label for="my-select">Select Role</label>
-                                            <select id="my-select" class="form-control" name="roles[]" multiple>
+                                            <select id="my-select" class="form-control" name="roles">
+                                                <option selected disabled>select role</option>
                                                 <?php
+
                                                 for ($i = 0; $i < count($allroles); $i++) {
                                                     # code...
 
@@ -154,7 +159,7 @@
 
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Register New User</button>
+                                            <button type="submit" class="style_button" name="addUser">Register New User</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>

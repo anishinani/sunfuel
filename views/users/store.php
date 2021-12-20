@@ -8,6 +8,8 @@ require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
 
 require_once('../../controllers/User.php');
+require_once("../../utils/pin.php");
+require_once("../../utils/mailer/mailer.php");
 
 
 //$helpers =  new HelperFunctions();
@@ -15,11 +17,14 @@ $dbAccess =  new DbAccess();
 $helpers =  new HelperFunctions();
 $user =  new User();
 $activity = new ActivityLogger();
+$pin = new pin();
+$mailer =  new MyMail();
 //unset($_SESSION['errors']);
 
 
 
 if (isset($_POST['addUser'])) {
+
 
     $_SESSION['errors'] = array();
 
@@ -35,19 +40,60 @@ if (isset($_POST['addUser'])) {
             }
         }
     }
+    //check if email exists
+    $emailExists = $dbAccess->select("administrators", ['email'], ["email" => $_POST['email']]);
+
+
+    // if (count($emailExists)) {
+
+    //     array_push($_SESSION['errors'], "Email already exists Please use a different email");
+    //     header("Location:create.php");
+    // }
+
+
+    //check if email exists
     //check errors and clean
+    // if ($_POST['roles'] == NULL) {
+    //     array_push($_SESSION['errors'],   "choose atleast one role");
+    // }
 
 
 
+    //send email
+
+
+
+
+
+
+    //check session array
+    $hashedPass  = $pin->hashPass($_POST['email']);
     //check session array
     if (count($_SESSION['errors'])) {
 
         header("Location:create.php");
-    }
-    //check session array
-    else {
+    } else {
         unset($_SESSION['errors']);
-        if ($user->store($_POST)) {
+        if ($user->store($_POST, $hashedPass)) {
+            $email =  $_POST['email'];
+            $localLink = "localhost/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
+            $serverLink = "http://appdev.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
+            $linkToSend = "";
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+
+            if ($ip_address == '::1') {
+
+                $linkToSend = $localLink;
+            } else {
+
+                $linkToSend = $serverLink;
+            }
+            // var_dump($linkToSend);
+            // die("here");
+
+            //send email
+            $message = "<P>You have registered successfully to set your password <a href=" . $linkToSend . ">click here</a></P> ";
+            $mailer->sendMail("CreditPlus", $_POST['email'], "Registered Successfully", $message);
             $activity->logActivity(
                 $_SESSION['user'],
                 "Registered user ",
@@ -63,11 +109,11 @@ if (isset($_POST['addUser'])) {
         } else {
             //die("Oops there was an error");
             $_SESSION['success'] = "An error occured !Please try again";
-            header("Location:index.php");
+            header("Location:create.php");
         }
     }
 } else {
     //die("not set");
     $_SESSION['success'] = "Something went wrong Please contact Support";
-    header("Location:index.php");
+    header("Location:create.php");
 }
