@@ -42,4 +42,26 @@ class User extends DbAccess
             return false;
         }
     }
+
+    //store method
+    public function store($array)
+    {
+        $name = $array['name'];
+        $address = $array['address'];
+        $person = $array['person'];
+
+        $phone = $array['phoneNumber'];
+        return $this->insert(
+            "fuelstation",
+            [
+                'fuelStationName' => $name,
+                'fuelStationAddress' => $address,
+                'fuelStationContactPerson' => $person,
+                'fuelStationContactPhone' => $phone,
+                'fuelStationStatus' => '0'
+
+            ]
+        );
+    }
+    //store method
 }
