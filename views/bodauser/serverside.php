@@ -45,7 +45,7 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 function showActions($id)
 {
-    $output = '<div style="display:flex;align-items:center;justify-content:space-between;">';
+    $output = '';
     if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
         $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
@@ -62,7 +62,9 @@ function showActions($id)
       </form>';
     }
 
-    $output .= '</div>';
+
+
+    $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
 
     return $output;
 }

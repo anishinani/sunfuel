@@ -123,10 +123,12 @@ $_SESSION['bool'] =  true;
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Users Table</h3>
-                                    <h4 class="float-sm-right ">
-                                        <a class="btn btn-success" href="./create.php"> Add New User
-                                        </a>
-                                    </h4>
+                                    <?php if (in_array("delete-users", $_SESSION['roles'])) { ?>
+                                        <h4 class="float-sm-right ">
+                                            <a class="btn btn-success" href="./create.php"> Add New User
+                                            </a>
+                                        </h4>
+                                    <?php } ?>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

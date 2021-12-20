@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../../utils/dbaccess.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
@@ -28,6 +29,41 @@ if ($_POST['length'] != -1) {
     $sql .= " LIMIT  " . $start . ", " . $length;
 }
 
+function showActions($id)
+{
+    $output = '';
+
+
+    if (in_array("edit-users", $_SESSION['roles'])) {
+        $output = ' <form action="./show.php?id="' . $id . '"" method="get">
+        <button type="submit" name="show"  value="' . $id . '"
+        class="btn btn-info btn-sm editbtn" >Show</button>
+    
+        </form>';
+    }
+    if (in_array("edit-users", $_SESSION['roles'])) {
+        $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
+        <button type="submit" name="update"  value="' . $id . '"
+        class="btn btn-info btn-sm editbtn" >Edit</button>
+    
+        </form>';
+    }
+    if (in_array("delete-users", $_SESSION['roles'])) {
+        $output .= '    <form method="POST" action="./delete.php">
+        <input type="hidden" name="id" value="' . $id . '"/>
+        <button 
+      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+  
+      </form>';
+    }
+
+
+    $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
+
+    return $styledOutPut;
+}
+
+
 $query = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($query);
 $data = array();
@@ -39,25 +75,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['phoneNumber'];
     $sub_array[] = $row['gender'];
     $sub_array[] = $row['roleName'];
-    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
-    <form action="./show.php?id="' . $row['adminId'] . '"" method="get">
-    <button type="submit" name="show"  value="' . $row['adminId'] . '"
-    class="btn btn-info btn-sm editbtn" >Show</button>
-
-    </form>
-
-    <form action="./edit.php?id="' . $row['adminId'] . '"" method="get">
-    <button type="submit" name="update"  value="' . $row['adminId'] . '"
-    class="btn btn-info btn-sm editbtn" >Edit</button>
-
-    </form>
-    <form method="POST" action="./delete.php">
-      <input type="hidden" name="id" value="' . $row['adminId'] . '"/>
-      <button 
-    class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-
-    </form>
-    </div>';
+    $sub_array[] = showActions($row['adminId']);
     $data[] = $sub_array;
 }
 
