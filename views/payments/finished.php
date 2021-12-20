@@ -7,19 +7,16 @@ include_once("../../utils/Yo.php");
 $creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
 $confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
-$successData =  $confirmedPayment->receive_payment_notification();
+//$data = $confirmedPayment->receive_payment_notification();
+//sprint_r($data);
 
-$dbAccess->insert(
+var_dump($_POST);
+
+$result = $dbAccess->insert(
     "sample",
-    [
-        'is_verified' => $successData["verification_status"],
-        'date_time' => $successData['date_time'],
-        'amount' => $successData['amount'],
-        'narrative' => $successData['narrative'],
-        'network_ref' => $successData['network_ref'],
-        'external_ref' => $successData['external_ref'],
-        'msisdn' => $successData['msisdn']
-    ]
+    $data
+
 );
-var_dump("done");
-die("we are done");
+//var_dump($result);
+//var_dump("done");
+//die("we are done");
