@@ -10,13 +10,13 @@ $confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->get
 //$data = $confirmedPayment->receive_payment_notification();
 //sprint_r($data);
 
-var_dump($_POST);
+//var_dump($_POST);
 
 $result = $dbAccess->insert(
     "sample",
-    $data
+    $_POST
 
 );
-//var_dump($result);
+var_dump($result);
 //var_dump("done");
 //die("we are done");
