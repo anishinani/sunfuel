@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../../utils/dbaccess.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
@@ -42,6 +43,29 @@ if ($_POST['length'] != -1) {
 $query = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($query);
 $data = array();
+function showActions($id)
+{
+    $output = '<div style="display:flex;align-items:center;justify-content:space-between;">';
+    if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
+        $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
+        <button type="submit" name="update"  value="' . $id . '"
+        class="btn btn-info btn-sm editbtn" >Edit</button>
+
+        </form>';
+    }
+    if (in_array("delete-bodaUsers", $_SESSION['roles'])) {
+        $output .= '<form method="POST" action="./delete.php">
+        <input type="hidden" name="id" value="' . $id . '"/>
+        <button 
+      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+
+      </form>';
+    }
+
+    $output .= '</div>';
+
+    return $output;
+}
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['bodaUserName'];
@@ -65,19 +89,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     <button type="submit" name="deactivate" 
     class="btn btn-danger btn-sm editbtn" >DeActivate</button>
     ';
-    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
-    <form action="edit.php?id="' . $row['bodaUserId'] . '"" method="get">
-    <button type="submit" name="update"  value="' . $row['bodaUserId'] . '"
-    class="btn btn-info btn-sm editbtn" >Edit</button>
-
-    </form>
-    <form method="POST" action="./delete.php">
-      <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
-      <button 
-    class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-
-    </form>
-    </div>';
+    $sub_array[] = showActions($row['bodaUserId']);
     $data[] = $sub_array;
 }
 

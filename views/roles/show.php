@@ -55,10 +55,11 @@ $_SESSION['bool'] =  true;
         $role =  $dbAccess->select("roles", ["roleName"], ["roleId" => $_GET['show']]);
 
         //$permission = $dbAccess->
+        $id = $_GET['show'];
 
         $sql = "SELECT permissions.permissionName  FROM permissions 
          INNER JOIN rolepermissionids ON rolepermissionids.permissionId = permissions.permissionId
-          INNER JOIN roles ON roles.roleId = rolepermissionids.roleId";
+          WHERE rolepermissionids.roleId=$id";
         $totalQuery = mysqli_query($dbAccess->getConnection(), $sql);
         //var_dump($totalQuery);
 

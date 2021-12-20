@@ -129,10 +129,16 @@ $_SESSION['bool'] =  true;
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Boda User Table</h3>
-                                    <h4 class="float-sm-right ">
-                                        <a class="btn btn-success" href="./create.php"> Add New Boda User
-                                        </a>
-                                    </h4>
+
+                                    <?php
+
+                                    if (in_array("create-bodaUsers", $_SESSION['roles'])) {
+                                    ?>
+                                        <h4 class="float-sm-right ">
+                                            <a class="btn btn-success" href="./create.php"> Add New Boda User
+                                            </a>
+                                        </h4>
+                                    <?php } ?>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

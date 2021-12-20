@@ -6,8 +6,10 @@ require_once("utils/dbaccess.php");
 require_once('controllers/User.php');
 require_once("utils/activityLogger.php");
 require_once("utils/helpers.php");
+require_once("controllers/RolesController.php");
 
 $user = new User();
+$roles =  new Roles();
 //helper functions
 $helpers  = new HelperFunctions();
 
@@ -39,19 +41,16 @@ if (isset($_POST['login'])) {
 		} else {
 			$_SESSION['user'] = $auth['name'];
 			$_SESSION['userId'] = $auth['adminId'];
-			$_SESSION['roleId'] = $auth['role'];
+			$_SESSION['roleId'] = $auth['roleId'];
 			$_SESSION['gender'] = $auth['gender'];
 			$_SESSION['email'] = $auth['email'];
-			$_SESSION['bool'] = false;
+
+			//get permissions
+			$permissions = $roles->getSpecificPermissions($auth['roleId']);
+			$_SESSION['roles'] = $permissions;
+
 			$value = $activity->logActivity($_SESSION['user'], "login", "Logged in sucessfully", $_SESSION['email'], $_SESSION['gender']);
-			//die($value);
-			// if ($value) {
-			// 	die("inserted");
-			// } else {
-			// 	die("not inserted");
-			// }
-			//var_dump($value);
-			//die($value);
+
 			header('location:views/home.php');
 		}
 	}

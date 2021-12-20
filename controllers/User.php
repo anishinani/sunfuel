@@ -73,9 +73,8 @@ class User extends DbAccess
 
     public function setPassword($email, $password, $id)
     {
-        //
-        var_dump($password);
-        $user =  $this->select("administrators", ["name", "email", "roleId", "adminId", "gender"], ["adminId" => $id])[0];
+
+        $user =  $this->select("administrators", ["name", "email", "roleId", "adminId", "gender", "roleId"], ["adminId" => $id])[0];
         //var_dump($user);
         //die("here");
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
