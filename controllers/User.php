@@ -46,8 +46,7 @@ class User extends DbAccess
     public function store($array, $hashedPass)
     {
 
-        //include_once('../utils/pin.php');
-        // die("am here in controller");
+
         $name = $array['name'];
         $phone = $array['phone'];
         $email = $array['email'];
@@ -72,9 +71,19 @@ class User extends DbAccess
     //hash
     //hash
 
-    public function setPassword($array)
+    public function setPassword($email, $password, $id)
     {
-        $password =  $array['password'];
-        $email = $array['email'];
+        //
+        var_dump($password);
+        $user =  $this->select("administrators", ["name", "email", "roleId", "adminId", "gender"], ["adminId" => $id])[0];
+        //var_dump($user);
+        //die("here");
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $result = $this->update("administrators", ['password' => $hashedPassword], ["adminId" => $id]);
+        if ($result) {
+            return $user;
+        } else {
+            return false;
+        }
     }
 }

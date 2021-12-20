@@ -16,13 +16,9 @@ $activity = new ActivityLogger();
 
 if (isset($_POST['setPassword'])) {
 
-    // $email = $_POST['email'];
-    // $password = $_POST['password'];
-    // $confirm = $_POST['confirm'];
 
-    // if ($helpers->checkEmptyFields($password) != NULL || $helpers->checkEmptyFields($) != NULL) {
-    //     header('location:home.php?empty=required');
-    // }
+    $token =  $_POST['token'];
+
     $_SESSION['errors'] = array();
 
     //check errors and clean o
@@ -44,7 +40,7 @@ if (isset($_POST['setPassword'])) {
 
     } else {
         $_SESSION['message'] = 'passwords dont match';
-        header('location:setPassword.php');
+        header("location:setPassword.php?token=$token");
     }
     //check if passwords match
 
@@ -54,28 +50,24 @@ if (isset($_POST['setPassword'])) {
         header('location:home.php');
     } else {
         ///$auth = $user->check_login($username, $password);
-        $auth = $user->check_login($validatedEmail, $password);
+
+        $auth = $user->setPassword($validatedEmail, $_POST['password'], $_POST['id']);
 
         if ($auth  == NULL) {
-            $_SESSION['message'] = 'Invalid username or password';
-            header('location:index.php?invalid=true');
+            $_SESSION['message'] = 'Something went wrong';
+            header("location:setPassword.php?token=$token");
         } else {
+            // var_dump($auth);
+            // die("here");
+            $dbAccess->update("administrators", ['setPassword' => NULL], ['adminId' => $auth['adminId']]);
             $_SESSION['user'] = $auth['name'];
             $_SESSION['userId'] = $auth['adminId'];
             $_SESSION['roleId'] = $auth['role'];
             $_SESSION['gender'] = $auth['gender'];
             $_SESSION['email'] = $auth['email'];
-            $_SESSION['bool'] = false;
             $value = $activity->logActivity($_SESSION['user'], "set up ", "Logged in sucessfully", $_SESSION['email'], $_SESSION['gender']);
-            //die($value);
-            // if ($value) {
-            // 	die("inserted");
-            // } else {
-            // 	die("not inserted");
-            // }
-            //var_dump($value);
-            //die($value);
-            header('location:views/home.php');
+
+            header("location:../home.php");
         }
     }
 }

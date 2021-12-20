@@ -4,10 +4,13 @@ include_once("../../utils/dbaccess.php");
 $dbAccess =  new DbAccess();
 //get email
 if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-    $token = $dbAccess->select("administrators", ["setPassword", "email"], ["setPassword" => $token])[0];
+    $checkToken = $_GET['token'];
+    $token = $dbAccess->select("administrators", ["setPassword", "email", "adminId"], ["setPassword" => $checkToken])[0];
+
+
     if (count($token)) {
         $useremail = $token['email'];
+        $id =  $token["adminId"];
         //die($useremail);
     } else {
         header("Location:/creditpluswebapp/index.php");
@@ -84,10 +87,12 @@ if (isset($_GET['token'])) {
                         </div>
                     </div>
                     <input type="hidden" name="email" value="<?= $useremail; ?>" />
+                    <input type="hidden" name="id" value="<?= $id; ?>" />
+                    <input type="hidden" name="token" value="<?= $checkToken; ?>" />
                     <div class="row">
 
                         <!-- /.col -->
-                        <div class="col-4">
+                        <div class="col-6">
                             <button type="submit" class="btn btn-primary btn-block" name="setPassword">Set Password</button>
                         </div>
                         <!-- /.col -->
