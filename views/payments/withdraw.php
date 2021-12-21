@@ -45,7 +45,7 @@ $hashed = $pin->hashPass($externalReference);
 $YoApi->set_external_reference($hashed);
 
 //depost money;
-$results = $YoApi->ac_deposit_funds("256759983853", "1200", "Testing purposes");
+$results = $YoApi->ac_deposit_funds("256759983853", "1000", "Testing purposes");
 
 $dbAccess->insert("sample", ["external_ref" => $hashed]);
 
