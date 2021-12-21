@@ -22,6 +22,8 @@ $data = $confirmedPayment->receive_payment_failure_notification();
 
 // 'failed_transaction_reference' => $_POST['failed_transaction_reference'],
 
+var_dump($_POST);
+
 $result = $dbAccess->insert("failedTransaction", [
     'is_verified' => "1",
     'failed_transaction_reference' => $_POST['failed'],
