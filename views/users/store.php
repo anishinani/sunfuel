@@ -3,10 +3,8 @@ session_start();
 
 
 require_once("../../utils/dbaccess.php");
-
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
-
 require_once('../../controllers/User.php');
 require_once("../../utils/pin.php");
 require_once("../../utils/mailer/mailer.php");
@@ -44,11 +42,11 @@ if (isset($_POST['addUser'])) {
     $emailExists = $dbAccess->select("administrators", ['email'], ["email" => $_POST['email']]);
 
 
-    // if (count($emailExists)) {
+    if (count($emailExists)) {
 
-    //     array_push($_SESSION['errors'], "Email already exists Please use a different email");
-    //     header("Location:create.php");
-    // }
+        array_push($_SESSION['errors'], "Email already exists Please use a different email");
+        header("Location:create.php");
+    }
 
 
     //check if email exists
@@ -92,7 +90,7 @@ if (isset($_POST['addUser'])) {
             // die("here");
 
             //send email
-            $message = "<P>You have registered successfully to set your password <a href=" . $linkToSend . ">click here</a></P> ";
+            $message = "<P>You have been registered successfully to set your password <a href=" . $linkToSend . ">click here</a></P> ";
             $mailer->sendMail("CreditPlus", $_POST['email'], "Registered Successfully", $message);
             $activity->logActivity(
                 $_SESSION['user'],
