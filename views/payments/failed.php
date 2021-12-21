@@ -11,23 +11,23 @@ $data = $confirmedPayment->receive_payment_failure_notification();
 
 //var_dump($_POST);
 
-// $result = $dbAccess->update(
-//     "sample",
-//     [
-//         'date_time' => $_POST['transaction_init_date'],
-//         'transactionStatus' => "0"
-//     ],
-//     ['external_ref' => $_POST['failed_transaction_reference']]
-// );
+$result = $dbAccess->update(
+    "sample",
+    [
+        'date_time' => $_POST['transaction_init_date'],
+        'transactionStatus' => "0"
+    ],
+    ['external_ref' => $_POST['failed_transaction_reference']]
+);
 
 // 'failed_transaction_reference' => $_POST['failed_transaction_reference'],
 
-var_dump($_POST);
+// var_dump($_POST);
 
-$result = $dbAccess->insert("failedTransaction", [
-    'is_verified' => "1",
-    'failed_transaction_reference' => $_POST['failed'],
-    'transaction_init_date' => $_POST['trans']
-]);
+// $result = $dbAccess->insert("failedTransaction", [
+//     'is_verified' => "1",
+//     'failed_transaction_reference' => $_POST['failed'],
+//     'transaction_init_date' => $_POST['trans']
+// ]);
 
-var_dump($result);
+// var_dump($result);
