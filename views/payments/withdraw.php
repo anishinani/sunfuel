@@ -38,9 +38,16 @@ $failureRedirectLink = "";
 $YoApi->set_instant_notification_url($sucessRedirectLink);
 $YoApi->set_failure_notification_url($failureRedirectLink);
 $YoApi->set_nonblocking("TRUE");
-$YoApi->set_external_reference($pin->hashPass("256759983853"));
+
+$rand = $pin->randomkey(5);
+$externalReference =  "256759983853" . $rand;
+$hashed = $pin->hashPass($externalReference);
+$YoApi->set_external_reference($hashed);
 
 //depost money;
-$results = $YoApi->ac_deposit_funds("256759983853", "1300", "Testing purposes");
-var_dump($results);
-die("here");
+$results = $YoApi->ac_deposit_funds("256759983853", "1200", "Testing purposes");
+
+$dbAccess->insert("sample", ["external_ref" => $hashed]);
+
+//var_dump($results);
+//die("here");

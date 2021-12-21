@@ -17,6 +17,7 @@ $result = $dbAccess->insert(
     $data
 
 );
+$dbAccess->update("sample", $data, ["external_ref" => $_POST['external_ref']]);
 //var_dump($result);
 //var_dump("done");
 //die("we are done");
