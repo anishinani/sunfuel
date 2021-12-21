@@ -41,6 +41,6 @@ $YoApi->set_nonblocking("TRUE");
 $YoApi->set_external_reference($pin->hashPass("256759983853"));
 
 //depost money;
-$results = $YoApi->ac_deposit_funds("256759983853", "1500", "Testing purposes");
+$results = $YoApi->ac_deposit_funds("256759983853", "1300", "Testing purposes");
 var_dump($results);
 die("here");
