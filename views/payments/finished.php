@@ -17,6 +17,6 @@ $result = $dbAccess->insert(
     $data
 
 );
-var_dump($result);
+//var_dump($result);
 //var_dump("done");
 //die("we are done");
