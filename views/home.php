@@ -227,7 +227,7 @@ if (!isset($_SESSION['user'])) {
 									<div style="display: flex;justify-content:space-around; align-items:center">
 										<div class="text-danger">
 											<h4>
-												Total Defaulted Boda Users
+												Current Boda Loans
 											</h4>
 
 										</div>
