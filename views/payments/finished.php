@@ -20,21 +20,21 @@ $data = $confirmedPayment->receive_payment_notification();
 //     "transactionStatus" => "1"
 // ], ["external_ref" => $_POST['external_ref']]);
 
-var_dump($_POST);
+//var_dump($_POST);
 
-// $res = $dbAccess->update("sample", [
-//     'date_time' => $_POST['date_time'],
-//     'amount' => $_POST['amount'],
-//     'narrative' => $_POST['narrative'],
-//     'network_ref' => $_POST['network_ref'],
-//     'external_ref' => $_POST['external_ref'],
-//     'msisdn' => $_POST['msisdn'],
-//     "transactionStatus" => "1"
-// ], ["external_ref" => $_POST['external_ref']]);
+$res = $dbAccess->update("sample", [
+    'date_time' => $_POST['date_time'],
+    "transactionStatus" => "1"
+], ["external_ref" => $_POST['external_ref']]);
 
 //var_dump($res);
+if ($res) {
+    $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
+    var_dump($results);
+}
+var_dump("done");
 
 //update loan
-// $reult = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
+
 //var_dump($reult);
 //update loan
