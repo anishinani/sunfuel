@@ -10,28 +10,28 @@ $dbAccess =  new DbAccess();
 $confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
 $data = $confirmedPayment->receive_payment_notification();
 
-// $dbAccess->update("sample", [
+$dbAccess->insert("sample", [
+    'date_time' => $_POST['date_time'],
+    'amount' => $_POST['amount'],
+    'narrative' => $_POST['narrative'],
+    'network_ref' => $_POST['network_ref'],
+    'external_ref' => $_POST['external_ref'],
+    'msisdn' => $_POST['msisdn'],
+    "transactionStatus" => "1"
+]);
+
+var_dump($_POST);
+
+// $res = $dbAccess->update("sample", [
 //     'date_time' => $_POST['date_time'],
-//     'amount' => $_POST['amount'],
-//     'narrative' => $_POST['narrative'],
-//     'network_ref' => $_POST['network_ref'],
-//     'external_ref' => $_POST['external_ref'],
-//     'msisdn' => $_POST['msisdn'],
 //     "transactionStatus" => "1"
 // ], ["external_ref" => $_POST['external_ref']]);
 
-//var_dump($_POST);
-
-$res = $dbAccess->update("sample", [
-    'date_time' => $_POST['date_time'],
-    "transactionStatus" => "1"
-], ["external_ref" => $_POST['external_ref']]);
-
 var_dump($res);
-if ($res) {
-    $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
-    var_dump($results);
-}
+// if ($res) {
+//     $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
+//     var_dump($results);
+// }
 var_dump("done");
 
 //update loan
