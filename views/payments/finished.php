@@ -4,30 +4,37 @@ include_once("../../utils/dbaccess.php");
 include_once("../../utils/YoAPI.php");
 include_once("../../utils/Yo.php");
 
+
 $creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
 $confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
 $data = $confirmedPayment->receive_payment_notification();
-//sprint_r($data);
 
-//var_dump($_POST);
+// $dbAccess->update("sample", [
+//     'date_time' => $_POST['date_time'],
+//     'amount' => $_POST['amount'],
+//     'narrative' => $_POST['narrative'],
+//     'network_ref' => $_POST['network_ref'],
+//     'external_ref' => $_POST['external_ref'],
+//     'msisdn' => $_POST['msisdn'],
+//     "transactionStatus" => "1"
+// ], ["external_ref" => $_POST['external_ref']]);
 
-// $result = $dbAccess->insert(
-//     "sample",
-//     $data
+var_dump($_POST);
 
-// );
+// $res = $dbAccess->update("sample", [
+//     'date_time' => $_POST['date_time'],
+//     'amount' => $_POST['amount'],
+//     'narrative' => $_POST['narrative'],
+//     'network_ref' => $_POST['network_ref'],
+//     'external_ref' => $_POST['external_ref'],
+//     'msisdn' => $_POST['msisdn'],
+//     "transactionStatus" => "1"
+// ], ["external_ref" => $_POST['external_ref']]);
 
+//var_dump($res);
 
-$dbAccess->update("sample", [
-    'date_time' => $_POST['date_time'],
-    'amount' => $_POST['amount'],
-    'narrative' => $_POST['narrative'],
-    'network_ref' => $_POST['network_ref'],
-    'external_ref' => $_POST['external_ref'],
-    'msisdn' => $_POST['msisdn'],
-    "transactionStatus" => "1"
-], ["external_ref" => $_POST['external_ref']]);
-//var_dump($result);
-//var_dump("done");
-//die("we are done");
+//update loan
+// $reult = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
+//var_dump($reult);
+//update loan
