@@ -337,7 +337,7 @@ if (!isset($_SESSION['user'])) {
 										</div>
 										<div class="text-danger">
 											<h4>
-												<?= "shs" . number_format($totalunpaidLoans); ?>
+												<?= "shs" . number_format($totalAmount + $loanInterest - $totalPaidLoans); ?>
 											</h4>
 
 										</div>
