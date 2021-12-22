@@ -85,6 +85,11 @@ $_SESSION['bool'] =  true;
 
             <?php }
             unset($_SESSION['success']);
+
+            //stageId
+            $stageId =  $_SESSION['stageId'];
+            $stageName =  $dbAccess->select("stage", ["stageName"], ["stageId" => $stageId])[0]['stageName'];
+            $result = $dbAccess->selectQuery("SELECT *   FROM loan WHERE stageId=$stageId AND status=0");
             ?>
 
 
@@ -113,20 +118,13 @@ $_SESSION['bool'] =  true;
             <section class="content">
                 <div class="container-fluid">
 
-                    <?php
-                    // $dbAccess->getConnection();
-                    // $results =  json_encode($dbAccess->select("bodauser"));
-                    //var_dump($results[0]['bodaUserName']);
-
-                    ?>
-
                     <div class="row">
                         <div class="col-12">
                             <!--table-->
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Loan Table</h3>
+                                    <h3 class="card-title"><?= $stageName ?> Loan Table</h3>
                                     <!-- <h4 class="float-sm-right ">
                                         <a class="btn btn-success" href="./create.php"> Add New Station
                                         </a>
@@ -148,12 +146,52 @@ $_SESSION['bool'] =  true;
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+
+                                            for ($i = 0; $i < count($result); $i++) {  ?>
+
+                                                <tr>
+                                                    <td><?= $result[$i]['loanAmount'] ?></td>
+                                                    <td><?= $result[$i]['LoanInterest'] ?></td>
+                                                    <td><?= $result[$i]['boadUserId'] ?></td>
+                                                    <td><?=
+                                                        count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $result[$i]['fuelSationId']]))
+                                                            ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $result[$i]['fuelSationId']])[0]['fuelStationName'] : NULL
+                                                        ?></td>
+                                                    <td>
+                                                        <?=
+                                                        count($dbAccess->select("fuelagent", ['fuelAgentName'], ['fuelAgentId' => $result[$i]['agentId']]))
+                                                            ? $dbAccess->select("fuelagent", ['fuelAgentName'], ['fuelAgentId' => $result[$i]['agentId']])[0]['fuelAgentName'] : NULL;
+                                                        ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <?=
+                                                        count($dbAccess->select("stage", ['stageName'], ['stageId' => $result[$i]['stageId']])) ?
+                                                            $dbAccess->select("stage", ['stageName'], ['stageId' => $result[$i]['stageId']])[0]['stageName'] : NULL;
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <button name="show" class="btn btn-danger btn-sm editbtn">UnPaid</button>
+                                                    </td>
+                                                    <td>
+                                                        <form action="" method="get">
+                                                            <button type="submit" name="show" class="btn btn-info btn-sm editbtn">Show</button>
+
+                                                        </form>
+                                                    </td>
+                                                </tr>
+
+
+                                            <?php    }
+                                            ?>
 
                                         </tbody>
 
                                     </table>
                                     <!-- /.card-body -->
                                 </div>
+                                <!-- /.card -->
                                 <!-- /.card -->
 
 
@@ -163,6 +201,7 @@ $_SESSION['bool'] =  true;
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
+
                     </div>
                     <!-- /.container-fluid -->
             </section>

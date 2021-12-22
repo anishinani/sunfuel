@@ -88,9 +88,9 @@ $_SESSION['bool'] =  true;
 
             //stageId
             $stageId =  $_SESSION['stageId'];
+            $stageName =  $dbAccess->select("stage", ["stageName"], ["stageId" => $stageId])[0]['stageName'];
             $result = $dbAccess->selectQuery("SELECT *   FROM loan WHERE stageId=$stageId AND status=0");
-            //var_dump($result);
-            //die("here");
+            
 
             ?>
 
@@ -104,12 +104,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Loans</h1>
+                            <h1><?= $stageName ?> Loans</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Loans</li>
+                                <li class="breadcrumb-item active"><?= $stageName ?> Loans</li>
                             </ol>
                         </div>
                     </div>
@@ -120,20 +120,13 @@ $_SESSION['bool'] =  true;
             <section class="content">
                 <div class="container-fluid">
 
-                    <?php
-                    // $dbAccess->getConnection();
-                    // $results =  json_encode($dbAccess->select("bodauser"));
-                    //var_dump($results[0]['bodaUserName']);
-
-                    ?>
-
                     <div class="row">
                         <div class="col-12">
                             <!--table-->
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Loan Table</h3>
+                                    <h3 class="card-title"><?= $stageName ?> Loan Table</h3>
                                     <!-- <h4 class="float-sm-right ">
                                         <a class="btn btn-success" href="./create.php"> Add New Station
                                         </a>
@@ -184,7 +177,7 @@ $_SESSION['bool'] =  true;
                                                         <button name="show" class="btn btn-success btn-sm editbtn">Paid</button>
                                                     </td>
                                                     <td>
-                                                        <form action="./show.php?id=" method="get">
+                                                        <form action="" method="get">
                                                             <button type="submit" name="show" class="btn btn-info btn-sm editbtn">Show</button>
 
                                                         </form>
