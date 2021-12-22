@@ -53,20 +53,20 @@ function showActions($id)
       class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
       </form>';
     //}
-    if (in_array("edit-fuelStation", $_SESSION['roles'])) {
-        $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
-        <button type="submit" name="update"  value="' . $id . '"
-        class="btn btn-info btn-sm editbtn" >Edit</button>
-   
-        </form>';
-    }
-    if (in_array("delete-fuelStations", $_SESSION['roles'])) {
-        $output .= '     <form method="POST" action="./delete.php">
-        <input type="hidden" name="id" value="' . $id . '"/>
-        <button 
-      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-      </form>';
-    }
+    // if (in_array("edit-fuelStation", $_SESSION['roles'])) {
+    //     $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
+    //     <button type="submit" name="update"  value="' . $id . '"
+    //     class="btn btn-info btn-sm editbtn" >Edit</button>
+
+    //     </form>';
+    // }
+    // if (in_array("delete-fuelStations", $_SESSION['roles'])) {
+    //     $output .= '     <form method="POST" action="./delete.php">
+    //     <input type="hidden" name="id" value="' . $id . '"/>
+    //     <button 
+    //   class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+    //   </form>';
+    // }
 
 
     $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
