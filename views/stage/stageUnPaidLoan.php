@@ -90,6 +90,8 @@ $_SESSION['bool'] =  true;
             $stageId =  $_SESSION['stageId'];
             $stageName =  $dbAccess->select("stage", ["stageName"], ["stageId" => $stageId])[0]['stageName'];
             $result = $dbAccess->selectQuery("SELECT *   FROM loan WHERE stageId=$stageId AND status=0");
+
+
             ?>
 
 
@@ -102,12 +104,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Loans</h1>
+                            <h1><?= $stageName ?> Loans</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Loans</li>
+                                <li class="breadcrumb-item active"><?= $stageName ?> Loans</li>
                             </ol>
                         </div>
                     </div>
@@ -201,7 +203,6 @@ $_SESSION['bool'] =  true;
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
-
                     </div>
                     <!-- /.container-fluid -->
             </section>
@@ -254,28 +255,22 @@ $_SESSION['bool'] =  true;
     <!--hide alert-->
 
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "fnCreatedRow": function(nRow, aData, iDataIndex) {
-                    $(nRow).attr('id', aData[0]);
-                },
-                'serverSide': 'true',
-                'processing': 'true',
-                'paging': 'true',
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                'order': [],
-                'ajax': {
-                    'url': './serverside.php',
-                    'type': 'post',
-                },
-                "data": {
-                    "id": 1
-                },
-                "columnDefs": [{
-                    'target': [5],
-                    'orderable': false,
-                }]
+        $(function() {
+            $("#example").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
     </script>
 
