@@ -27,7 +27,7 @@ $res = $dbAccess->update("sample", [
     "transactionStatus" => "1"
 ], ["external_ref" => $_POST['external_ref']]);
 
-//var_dump($res);
+var_dump($res);
 if ($res) {
     $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
     var_dump($results);
