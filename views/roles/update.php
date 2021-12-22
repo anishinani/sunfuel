@@ -68,6 +68,9 @@ if (isset($_POST['updateRole'])) {
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
+            //get permissions
+            $permissions = $roles->getSpecificPermissions($_POST['roleId']);
+            $_SESSION['roles'] = $permissions;
 
             //redirect
             $_SESSION['success'] = "role updated Successfully";

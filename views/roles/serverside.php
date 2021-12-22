@@ -52,7 +52,7 @@ function showActions($id)
     
         </form>';
     }
-    if (in_array("delete-users", $_SESSION['roles'])) {
+    if (in_array("delete-roles", $_SESSION['roles'])) {
         $output .= '    <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
