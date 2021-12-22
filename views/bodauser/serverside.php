@@ -47,6 +47,13 @@ function showActions($id)
 {
     $output = '';
     if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
+        $output .= ' <form action="bodauserdetails.php?id="' . $id . '"" method="get">
+        <button type="submit" name="update"  value="' . $id . '"
+        class="btn btn-info btn-sm editbtn" >show</button>
+
+        </form>';
+    }
+    if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
         $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>

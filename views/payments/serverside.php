@@ -4,7 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT * FROM fuelstation ";
+$sql = "SELECT * FROM sample";
 
 // if (isset($_POST['id'])) {
 //     die("is there");
@@ -19,11 +19,11 @@ $total_all_rows = mysqli_num_rows($totalQuery);
 
 if (isset($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
-    $sql .= " WHERE fuelStationName like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationContactPhone like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationContactPerson like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationAddress like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationStatus like '%" . $search_value . "%'";
+    $sql .= " WHERE amount like '%" . $search_value . "%'";
+    $sql .= " OR amount like '%" . $search_value . "%'";
+    $sql .= " OR amount like '%" . $search_value . "%'";
+    $sql .= " OR amount like '%" . $search_value . "%'";
+    $sql .= " OR amount like '%" . $search_value . "%'";
 }
 
 if (isset($_POST['order'])) {
@@ -31,7 +31,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY fuelStationId asc";
+    $sql .= " ORDER BY id asc";
 }
 
 if ($_POST['length'] != -1) {
@@ -39,48 +39,31 @@ if ($_POST['length'] != -1) {
     $length = $_POST['length'];
     $sql .= " LIMIT  " . $start . ", " . $length;
 }
+function formatMobileNumber($number)
+{
+
+    $newNumber = $number;
+    if (strpos($number, "+256") !== false) {
+        $newNumber =   str_replace("+256", "0", $number);
+    }
+    if (strpos($number, "256") !== false) {
+        $newNumber =  str_replace("256", "0", $number);
+    }
+    return $newNumber;
+}
 
 $query = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
-    $sub_array[] = $row['fuelStationName'];
-    $sub_array[] = $row['fuelStationContactPerson'];
-    $sub_array[] = $row['fuelStationAddress'];
-    $sub_array[] = $row['fuelStationContactPhone'];
-    $sub_array[] = $row['fuelStationStatus'] == 0 ? "Not Active" : "Active";
-    $sub_array[] = $row['fuelStationStatus'] == 0 ? '
-    <form action="activateStation.php" method="post">
-    <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
-    <button type="submit" name="activate" 
-    class="btn btn-info btn-sm editbtn" >Activate</button>
-    ' : '    <form action="deactivateStation.php" method="post">
-    <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
-    <button type="submit" name="deactivate"  
-    class="btn btn-danger btn-sm editbtn" >DeActivate</button>
-    ';
-
-    $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
-    <form method="POST" action="./fuelstationdetails.php">
-    <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
-    <button 
-  class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
-  </form>
-  
-    
-     <form action="edit.php?id="' . $row['fuelStationId'] . '"" method="get">
-     <button type="submit" name="update"  value="' . $row['fuelStationId'] . '"
-     class="btn btn-info btn-sm editbtn" >Edit</button>
-
-     </form>
-     <form method="POST" action="./delete.php">
-       <input type="hidden" name="id" value="' . $row['fuelStationId'] . '"/>
-       <button 
-     class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-     </form>
-     
-     </div>';
+    $sub_array[] = count($dbAccess->select("bodauser", ['bodaUserName'], ['bodaUserPhoneNumber' => formatMobileNumber($row['msisdn'])])) ?
+        $dbAccess->select("bodauser", ['bodaUserName'], ['bodaUserPhoneNumber' => formatMobileNumber($row['msisdn'])])[0]['bodaUserName'] : NULL;
+    $sub_array[] = $row['date_time'];
+    $sub_array[] = $row['narrative'];
+    $sub_array[] = $row['msisdn'];
+    $sub_array[] = $row['amount'];
+    $sub_array[] = $row['updated_at'];
     $data[] = $sub_array;
 }
 

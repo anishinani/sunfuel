@@ -155,22 +155,7 @@ if (!isset($_SESSION['user'])) {
 
 
 								</div>
-								<div style="display: flex;justify-content:space-around; align-items:center">
-									<div class="text-info">
-										<h4>
-											Balance Remainining
-										</h4>
 
-									</div>
-									<div class="text-info">
-										<h4>
-											<?= "shs " . number_format($balance, 0); ?>
-										</h4>
-
-									</div>
-
-
-								</div>
 
 							</div>
 							</a>
