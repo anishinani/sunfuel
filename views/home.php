@@ -56,17 +56,20 @@ if (!isset($_SESSION['user'])) {
 
 		$totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
 		$totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
-		$totalDefaultedBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
+		$totalDefaultedBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "2"]);
+		$suspendedBodaUsers =  $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
 		//die($totalInActiveBodaUsers);
 
 		//stage
 		$totalActiveStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "1"]);
 		$totalInActiveStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "0"]);
-		$totalDefaultStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "3"]);
+		$totalDefaultStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "2"]);
+		$suspendedStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "3"]);
 
 		//fuel stations
 		$totalActiveFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "1"]);
 		$totalInActiveFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "0"]);
+		$suspendedFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "3"]);
 		//die($totalActiveFuelStations);
 
 		//fuel consumption
@@ -74,6 +77,17 @@ if (!isset($_SESSION['user'])) {
 		//die($expectedFuelPerDay);
 		$expectedAmountRecoveredPerDay =  ($totalActiveBodaUsers * 1000) + $expectedFuelPerDay;
 		$expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
+
+		//sum of all loans
+		$sql = "SELECT SUM(loanAmount) AS total FROM loan WHERE  DATE(updated_at) = CURDATE()";
+		$totalAmount = $dbAccess->selectQuery($sql)[0]["total"];
+		$loanInterest = $dbAccess->selectQuery("SELECT SUM(LoanInterest) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()")[0]['total'];
+		$balance = $expectedFuelPerDay - $totalAmount;
+
+		//loans
+		$totalLoans = $dbAccess->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()")[0]['total'];
+		$totalPaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE() AND status=0")[0]['total'];
+		$totalunpaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE() AND status=1")[0]['total'];
 
 		?>
 
@@ -106,18 +120,359 @@ if (!isset($_SESSION['user'])) {
 
 
 						<!-- ./col -->
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-6 col-6">
 
 							<!-- small box -->
+
+							<div class="small-box p-3 bg-white" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;">
+								<div style="display: grid;place-items:center;">
+									<h4>Float Details on <?php echo date("D/M/Y"); ?> </h4>
+								</div>
+
+								<div style="display: flex;justify-content:space-around; align-items:center">
+									<div class="text-success">
+										<h4>
+											Total Expected Amount
+										</h4>
+
+									</div>
+									<div class="text-success">
+										<h4>
+											<?= "shs " . number_format($expectedFuelPerDay, 0); ?>
+										</h4>
+
+									</div>
+
+
+								</div>
+								<div style="display: flex;justify-content:space-around; align-items:center">
+									<div class="text-danger">
+										<h4>
+											Total Amount Withdrawn
+										</h4>
+
+									</div>
+									<div class="text-danger">
+										<h4>
+											<?= "shs " . number_format($totalAmount, 0); ?>
+										</h4>
+
+									</div>
+
+
+								</div>
+								<div style="display: flex;justify-content:space-around; align-items:center">
+									<div class="text-info">
+										<h4>
+											Balance Remainining
+										</h4>
+
+									</div>
+									<div class="text-info">
+										<h4>
+											<?= "shs " . number_format($balance, 0); ?>
+										</h4>
+
+									</div>
+
+
+								</div>
+
+							</div>
+							</a>
+
+						</div>
+
+
+						<!--col-->
+						<div class="col-lg-6 col-6">
 							<a href="#">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= number_format($expectedFuelPerDay, 1) ?></h3>
-
-										<p>Total Expexted Fuel Per Day</p>
+								<div class="small-box bg-white p-3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;">
+									<div style="display: grid;place-items:center;">
+										<h4>Boda Details on <?php echo date("D/M/Y"); ?> </h4>
 									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-success">
+											<h4>
+												Total Active Boda Users
+											</h4>
+
+										</div>
+										<div class="text-success">
+											<h4>
+												<?= $totalActiveBodaUsers ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-info">
+											<h4>
+												Total In Active Boda Users
+											</h4>
+
+										</div>
+										<div class="text-info">
+											<h4>
+												<?= $totalInActiveBodaUsers ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-danger">
+											<h4>
+												Total Defaulted Boda Users
+											</h4>
+
+										</div>
+										<div class="text-danger">
+											<h4>
+												<?= $totalDefaultedBodaUsers ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-danger">
+											<h4>
+												Total Suspended Boda Users
+											</h4>
+
+										</div>
+										<div class="text-danger">
+											<h4>
+												<?= $suspendedBodaUsers ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+								</div>
+
+
+							</a>
+
+						</div>
+						<!--col-->
+						<!--col-->
+						<div class="col-lg-6 col-6">
+							<a href="#">
+								<div class="small-box bg-white p-3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;">
+									<div style="display: grid;place-items:center;">
+										<h4>Loan Details on <?php echo date("D/M/Y"); ?> </h4>
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-info">
+											<h4>
+												Total Loans
+											</h4>
+
+										</div>
+										<div class="text-info">
+											<h4>
+												<?= $totalLoans ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-success">
+											<h4>
+												Total Loan Amount
+											</h4>
+
+										</div>
+										<div class="text-success">
+											<h4>
+												<?= "shs " . number_format($totalAmount); ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-success">
+											<h4>
+												Total Loan Interest
+											</h4>
+
+										</div>
+										<div class="text-success">
+											<h4>
+												<?= "shs" . number_format($loanInterest) ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-success">
+											<h4>
+												Total Paid Loans
+											</h4>
+
+										</div>
+										<div class="text-success">
+											<h4>
+												<?= "shs" . number_format($totalPaidLoans); ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-danger">
+											<h4>
+												Total Unpaid Loans
+											</h4>
+
+										</div>
+										<div class="text-danger">
+											<h4>
+												<?= "shs" . number_format($totalunpaidLoans); ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+
+						<!--col-->
+						<div class="col-lg-6 col-6">
+							<a href="#">
+								<div class="small-box bg-white p-3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;">
+									<div style="display: grid;place-items:center;">
+										<h4>Stage Details on <?php echo date("D/M/Y"); ?> </h4>
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-success">
+											<h4>
+												Total Active Stages </h4>
+
+										</div>
+										<div class="text-success">
+											<h4>
+												<?= $totalActiveStages ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-info">
+											<h4>
+												Total Inactive Stages
+											</h4>
+
+										</div>
+										<div class="text-info">
+											<h4>
+												<?= $totalInActiveStages ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-info">
+											<h4>
+												Total Defaulted Stages
+											</h4>
+
+										</div>
+										<div class="text-info">
+											<h4>
+												<?= $totalDefaultStages ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-danger">
+											<h4>
+												Total Suspended Stages
+											</h4>
+
+										</div>
+										<div class="text-danger">
+											<h4>
+												<?= $suspendedStages ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+
+
+								</div>
+							</a>
+
+						</div>
+						<!--col-->
+
+						<!--col-->
+						<div class="col-lg-6 col-6">
+							<a href="#">
+								<div class="small-box bg-white p-3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;">
+									<div style="display: grid;place-items:center;">
+										<h4>Fuel Station Details on <?php echo date("D/M/Y"); ?> </h4>
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-info">
+											<h4>
+												Total Active Fuel Stations
+											</h4>
+
+										</div>
+										<div class="text-info">
+											<h4>
+												<?= $totalActiveFuelStations ?>
+											</h4>
+
+										</div>
+
+
+									</div>
+									<div style="display: flex;justify-content:space-around; align-items:center">
+										<div class="text-danger">
+											<h4>
+												Total InActive Fuel Stations
+											</h4>
+
+										</div>
+										<div class="text-danger">
+											<h4>
+												<?= $totalInActiveFuelStations ?>
+											</h4>
+
+										</div>
+
+
 									</div>
 
 								</div>
@@ -126,152 +481,6 @@ if (!isset($_SESSION['user'])) {
 						</div>
 
 
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/bodauser/activebodaUsers.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalActiveBodaUsers ?></h3>
-
-										<p>Total Active Boda Users</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalInActiveBodaUsers ?></h3>
-
-										<p>Total Inactive Active Boda Users</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalDefaultedBodaUsers ?></h3>
-
-										<p>Total Defaulted Boda Users</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/stage/activeStages.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalActiveStages ?></h3>
-
-										<p>Total Active Stages</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/stage/inactiveStages.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalInActiveStages ?></h3>
-
-										<p>Total InActive Stages</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/stage/defaultedStages.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalDefaultStages ?></h3>
-
-										<p>Total Defaulted Stages</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelstation/activeFuelStations.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalActiveFuelStations ?></h3>
-
-										<p>Total Active Fuel Stations</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
-						<!--col-->
-						<div class="col-lg-3 col-6">
-							<a href="/creditpluswebapp/views/fuelstation/inactiveFuelStations.php">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3><?= $totalInActiveFuelStations ?></h3>
-
-										<p>Total InActive Fuel Stations</p>
-									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
-									</div>
-
-								</div>
-							</a>
-
-						</div>
-						<!--col-->
 
 
 
