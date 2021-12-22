@@ -48,6 +48,7 @@ if (!isset($_SESSION['user'])) {
             die("not sent");
         }
 
+        $_SESSION["stageId"] =  $id;
         include_once("../navbar/navbar.php");
         include_once("../sidebar.php");
         include_once("../../utils/dbaccess.php");
@@ -200,7 +201,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
+                            <a href="/creditpluswebapp/views/stage/stagePaidLoans.php">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalPaidLoans ?></h3>
@@ -218,7 +219,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
+                            <a href="/creditpluswebapp/views/stage/stageUnPaidLoan.php">
                                 <div class="small-box bg-danger">
                                     <div class="inner">
                                         <h3><?= $totalPaidLoans ?></h3>

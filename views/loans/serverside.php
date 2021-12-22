@@ -93,7 +93,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelSationId']]))
         ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelSationId']])[0]['fuelStationName'] : NULL;
     $sub_array[] = count($dbAccess->select("fuelagent", ['fuelAgentName'], ['fuelAgentId' => $row['agentId']]))
-        ? $dbAccess->select("fuelagent", ['fuelAgentName'], ['fuelAgentId' => $row['agentId']])[0]['fuelAgentName'] : NULL;;
+        ? $dbAccess->select("fuelagent", ['fuelAgentName'], ['fuelAgentId' => $row['agentId']])[0]['fuelAgentName'] : NULL;
     $sub_array[] = count($dbAccess->select("stage", ['stageName'], ['stageId' => $row['stageId']])) ?
         $dbAccess->select("stage", ['stageName'], ['stageId' => $row['stageId']])[0]['stageName'] : NULL;
     $sub_array[] =  showStatus($row['status']);

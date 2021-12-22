@@ -5,7 +5,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT * FROM fuelstation ";
+$sql = "SELECT * FROM fuelstation";
 
 // if (isset($_POST['id'])) {
 //     die("is there");
@@ -46,13 +46,13 @@ function showActions($id)
 
 
 
-    if (in_array("show-fuelStation", $_SESSION['roles'])) {
-        $output .= '<form method="POST" action="./fuelstationdetails.php">
+    // if (in_array("show-fuelStation", $_SESSION['roles'])) {
+    $output .= '<form method="POST" action="./fuelstationdetails.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
       </form>';
-    }
+    //}
     if (in_array("edit-fuelStation", $_SESSION['roles'])) {
         $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
