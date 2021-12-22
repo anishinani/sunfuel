@@ -22,7 +22,6 @@ if (isset($_POST['search']['value'])) {
     $sql .= " OR bodaUserPin like '%" . $search_value . "%'";
     $sql .= " OR fuelStationName like '%" . $search_value . "%'";
     $sql .= " OR stageName like '%" . $search_value . "%'";
-    $sql .= " OR alternativePhotoNumber like '%" . $search_value . "%'";
     $sql .= " OR bodaUserRole like '%" . $search_value . "%'";
 }
 
@@ -48,8 +47,8 @@ function showActions($id)
     $output = '';
     if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
         $output .= ' <form action="bodauserdetails.php?id="' . $id . '"" method="get">
-        <button type="submit" name="update"  value="' . $id . '"
-        class="btn btn-info btn-sm editbtn" >show</button>
+        <button type="submit"   value="' . $id . '"
+        class="btn btn-info btn-sm editbtn" name="bodadetails">show</button>
 
         </form>';
     }
@@ -80,11 +79,8 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['bodaUserName'];
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];
-    $sub_array[] =  "<img src='images/" . $row['bodaUserFrontPhoto'] . "' height='50px' width='50px' alt='image'/>";
-    $sub_array[] = "<img src='images/" . $row['bodaUserBackPhoto'] . "' alt='image'  height='50px' width='50px'/>";
     $sub_array[] = $row['bodaUserRole'];
     $sub_array[] = $row['bodaUserPhoneNumber'];
-    $sub_array[] = $row['alternativePhotoNumber'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageName'];
     $sub_array[] = $row['bodaUserStatus'] == 0 ? '
@@ -92,11 +88,11 @@ while ($row = mysqli_fetch_assoc($query)) {
     <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
     <input type="hidden" name="stageId" value="' . $row['stageId'] . '"/>
     <button type="submit" name="activate"  
-    class="btn btn-info btn-sm editbtn" >Activate</button>
+    class="btn btn-info btn-sm editbtn" >Activate</button></form>
     ' : '    <form action="deactivateBoda.php" method="post">
     <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
     <button type="submit" name="deactivate" 
-    class="btn btn-danger btn-sm editbtn" >DeActivate</button>
+    class="btn btn-danger btn-sm editbtn" >DeActivate</button></form>
     ';
     $sub_array[] = showActions($row['bodaUserId']);
     $data[] = $sub_array;
