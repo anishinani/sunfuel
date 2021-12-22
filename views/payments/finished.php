@@ -20,7 +20,6 @@ $dbAccess->insert("sample", [
     "transactionStatus" => "1"
 ]);
 
-if ($res) {
-    $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
+
+$results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
     //var_dump($results);
-}
