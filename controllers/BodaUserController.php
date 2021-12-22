@@ -21,7 +21,7 @@ class BodaUser extends DbAccess
         if (strpos($phone, "256") !== false) {
             $phone =  str_replace("256", "0", $phone);
         }
-        die($phone);
+
 
 
         $fuel = $array['fuelStationId'];
