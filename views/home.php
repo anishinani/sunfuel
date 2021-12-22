@@ -46,13 +46,7 @@ if (!isset($_SESSION['user'])) {
 		include_once("../utils/dbaccess.php");
 		//SELECT bodaUserId FROM bodauser WHERE DATE(updated_at) = CURDATE();
 		$dbAccess =  new DbAccess();
-		// $totalBodaUsers =  $dbAccess->countRows("bodauser", 'bodaUserId');
-		// $totalUsers =  $dbAccess->countRows("administrators", 'adminId');
-		// $totalStages =  $dbAccess->countRows("stage", 'stageId');
 
-		// $totalFueltations =  $dbAccess->countRows("fuelstation", 'fuelStationId');
-		// $fuelAgents = $dbAccess->countRows("fuelagent", 'fuelAgentId');
-		// $packages = $dbAccess->countRows("package", 'packageId');
 
 		$totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
 		$totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
