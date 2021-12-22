@@ -66,7 +66,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     
     <div style="display:flex;align-items:center;justify-content:space-between;">
     </form>
-    <form method="POST" action="./stageDetails.php">
+    <form method="POST" action="./StageDetails.php">
       <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
       <button 
     class="btn btn-primary btn-sm deleteBtn" name="stageDetails" >Show</button>
