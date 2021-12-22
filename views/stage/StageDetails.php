@@ -69,6 +69,7 @@ if (!isset($_SESSION['user'])) {
         //die($totalInActiveBodaUsers);
 
 
+
         $totalActiveStages  = $dbAccess->selectQuery("SELECT COUNT(bodaUserId) AS total FROM bodauser
         INNER JOIN stage ON stage.stageId = bodauser.stageId 
          WHERE  stage.stageId=$id AND bodauser.bodaUserStatus=1;")[0]['total'];
@@ -81,6 +82,10 @@ if (!isset($_SESSION['user'])) {
         INNER JOIN stage ON stage.stageId = bodauser.stageId 
          WHERE  stage.stageId=$id AND bodauser.bodaUserStatus=2;")[0]['total'];
 
+        $totalUnPaidLoans = $dbAccess->selectQuery("SELECT COUNT(stageId) AS total   FROM loan WHERE stageId=$id AND status=1")[0]["total"];
+        $totalPaidLoans = $dbAccess->selectQuery("SELECT COUNT(stageId) AS total   FROM loan WHERE stageId=$id AND status=0")[0]["total"];
+        //die($totalLoans);
+
 
 
         //fuel consumption
@@ -88,11 +93,6 @@ if (!isset($_SESSION['user'])) {
         //die($expectedFuelPerDay);
         $expectedAmountRecoveredPerDay =  ($totalBorrowers * 1000) + $expectedFuelPerDay;
         $expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
-
-
-
-
-
         ?>
 
 
@@ -188,6 +188,42 @@ if (!isset($_SESSION['user'])) {
                                         <h3><?= $totalDefaultedBodaUsers ?></h3>
 
                                         <p>Total Defaulted Boda Users</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+
+                                </div>
+                            </a>
+
+                        </div>
+                        <!--col-->
+                        <!--col-->
+                        <div class="col-lg-3 col-6">
+                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3><?= $totalPaidLoans ?></h3>
+
+                                        <p>Total Paid Loans</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+
+                                </div>
+                            </a>
+
+                        </div>
+                        <!--col-->
+                        <!--col-->
+                        <div class="col-lg-3 col-6">
+                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3><?= $totalPaidLoans ?></h3>
+
+                                        <p>Total UnPaid Loans</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-stats-bars"></i>

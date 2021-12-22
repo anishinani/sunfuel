@@ -47,6 +47,9 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['stageName'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageStatus'] == 0 ? "Not Active" : "Active";
+    // $sub_array[] = count($dbAccess->select("bodauser", "", [
+    //     "bodaUserId" =>  "3"
+    // ])) ?  $dbAccess->select("bodauser", "", ["bodaUserId" => $row["chairmanId"]])[0]['bodaUserName'] : NULL;
     $sub_array[] = $row['stageStatus'] == 0 ? '
     <form action="activateStage.php" method="post">
     <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
