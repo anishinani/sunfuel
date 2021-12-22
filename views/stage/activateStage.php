@@ -21,7 +21,7 @@ if (isset($_POST["activate"])) {
         $sms->sendsms(
             $allbodaUsers[$i]["bodaUserName"],
             $sms->formatMobileInternational($allbodaUsers[$i]["bodaUserPhoneNumber"]),
-            "Hello " . $allbodaUsers[$i]["bodaUserName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
+            "Hello " . $allbodaUsers[$i]["bodaUserName"] . " Your  have been activated on CreditPlus Dail *217*212# to get started Remember your 
             one time pin is " . $oneTymPin
         );
     }

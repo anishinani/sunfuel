@@ -12,18 +12,19 @@ $con = $dbAccess->getConnection();
 $user_id = $_POST['id'];
 //die($user_id);
 
-$sql = "DELETE FROM fuelstation WHERE fuelStationId='$user_id'";
+$sql = "DELETE FROM loan WHERE loanId='$user_id'";
 $delQuery = mysqli_query($con, $sql);
 if ($delQuery == true) {
     $activity->logActivity(
         $_SESSION['user'],
-        "deleted fuel station ",
-        "fuel station deleted  sucessfully",
+        "loan deleted ",
+        "loan deleted  sucessfully",
         $_SESSION['email'],
         $_SESSION['gender']
     );
-    $_SESSION["success"] = "Deleted successfully";
+    $_SESSION["success"] = "Loan Deleted successfully";
     header("Location:index.php");
 } else {
-    echo "There was an error";
+    $_SESSION["success"] = "Something went wrong !Please contact support";
+    header("Location:index.php");
 }

@@ -29,7 +29,7 @@ if (isset($_POST["activate"])) {
     $sms->sendsms(
         $allbodaUser[0]["bodaUserName"],
         $sms->formatMobileInternational($allbodaUser[0]["bodaUserPhoneNumber"]),
-        "Hello " . $allbodaUser[0]["bodaUserName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
+        "Hello " . $allbodaUser[0]["bodaUserName"] . " Your  have been activated on CreditPlus Dail *217*212# to get started Remember your 
             one time pin is " . $oneTymPin
     );
     if ($dbAccess->update("bodauser", ['bodaUserStatus' => '1', 'pin' => $hashedPin], ["bodaUserId" => $bodaUserId])) {

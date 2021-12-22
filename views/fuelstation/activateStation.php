@@ -21,7 +21,7 @@ if (isset($_POST["activate"])) {
         $sms->sendsms(
             $fuelAgents[$i]["fuelAgentName"],
             $sms->formatMobileInternational($fuelAgents[$i]["fuelAgentPhoneNumber"]),
-            "Hello " . $fuelAgents[$i]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
+            "Hello " . $fuelAgents[$i]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *217*212# to get started Remember your 
             one time pin is " . $oneTymPin
         );
     }

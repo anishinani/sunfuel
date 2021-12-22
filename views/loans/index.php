@@ -126,23 +126,24 @@ $_SESSION['bool'] =  true;
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Fuel Station Table</h3>
-                                    <h4 class="float-sm-right ">
+                                    <h3 class="card-title">Loan Table</h3>
+                                    <!-- <h4 class="float-sm-right ">
                                         <a class="btn btn-success" href="./create.php"> Add New Station
                                         </a>
-                                    </h4>
+                                    </h4> -->
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th> Name</th>
-                                                <th>Contact Person</th>
-                                                <th>Contact Address</th>
-                                                <th>Contact Phone Number</th>
-                                                <th>Fuel Station Status</th>
-                                                <th>Activation Status</th>
+                                                <th>Loan Amount</th>
+                                                <th>Loan Interest</th>
+                                                <th>Boda Phone Number</th>
+                                                <th>Fuel Station</th>
+                                                <th>Agent Name</th>
+                                                <th>Stage Name</th>
+                                                <th>Status</th>
                                                 <th width="150px">Actions</th>
                                             </tr>
                                         </thead>

@@ -24,7 +24,9 @@ if (isset($_POST['login'])) {
 	$password = $_POST['password'];
 
 	if ($helpers->checkEmptyFields($email) != NULL || $helpers->checkEmptyFields($password) != NULL) {
-		header('location:home.php?empty=required');
+		//header('location:home.php?empty=required');
+		$_SESSION['message'] = 'All fields required';
+		header('location:index.php');
 	}
 
 	//check email
@@ -37,7 +39,7 @@ if (isset($_POST['login'])) {
 
 		if ($auth  == NULL) {
 			$_SESSION['message'] = 'Invalid username or password';
-			header('location:index.php?invalid=true');
+			header('location:index.php');
 		} else {
 			$_SESSION['user'] = $auth['name'];
 			$_SESSION['userId'] = $auth['adminId'];

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +29,17 @@
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
+				<?php if (isset($_SESSION['message'])) { ?>
+					<div class="alert alert-danger m-4" id="removeAlert">
+						<p class="login-box-msg"><?= $_SESSION['message']; ?></p>
+
+
+					</div>
+
+				<?php }
+				unset($_SESSION['message']);
+				?>
+
 
 				<form action="login.php" method="post">
 					<div class="input-group mb-3">

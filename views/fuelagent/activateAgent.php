@@ -32,7 +32,7 @@ if (isset($_POST["activate"])) {
         $sms->sendsms(
             $fuelAgent[0]["fuelAgentName"],
             $sms->formatMobileInternational($fuelAgent[0]["fuelAgentPhoneNumber"]),
-            "Hello " . $fuelAgent[0]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *185*22# to get started Remember your 
+            "Hello " . $fuelAgent[0]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *217*212# to get started Remember your 
                 one time pin is " . $oneTymPin
         );
         if ($dbAccess->update("fuelagent", ['status' => '1', 'pin' => $hashedPin], ["fuelAgentId" => $agent])) {

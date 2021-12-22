@@ -81,3 +81,6 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+
+// count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelSationId']]))
+//         ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelSationId']])[0]['fuelstationName'] : NULL;

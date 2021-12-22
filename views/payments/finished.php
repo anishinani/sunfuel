@@ -3,10 +3,12 @@
 include_once("../../utils/dbaccess.php");
 include_once("../../utils/YoAPI.php");
 include_once("../../utils/Yo.php");
+include_once("../../utils/sms.php");
 
 
 $creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
+$sms =  new infobip();
 $confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
 $data = $confirmedPayment->receive_payment_notification();
 
@@ -22,4 +24,11 @@ $dbAccess->insert("sample", [
 
 
 $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
-    //var_dump($results);
+//var_dump($results);
+
+
+$sms->sendsms(
+    "Dear Customer",
+    $sms->formatMobileInternational($_POST['msisdn']),
+    "Your payment of shs " . $_POST['amount'] . " has been received successfully"
+);
