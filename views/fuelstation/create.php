@@ -87,7 +87,9 @@
                         </div>
 
                         <!--error part-->
-                    <?php } ?>
+                    <?php }
+                    unset($_SESSION['errors']);
+                    ?>
                     <div class="row">
                         <!--form add user -->
                         <div class="register-box m-auto col-md-8">
