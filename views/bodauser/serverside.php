@@ -66,7 +66,7 @@ function showActions($id)
 
     $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
 
-    return $output;
+    return $styledOutPut;
 }
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
