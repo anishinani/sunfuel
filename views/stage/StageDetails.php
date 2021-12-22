@@ -222,7 +222,7 @@ if (!isset($_SESSION['user'])) {
                             <a href="/creditpluswebapp/views/stage/stageUnPaidLoan.php">
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <h3><?= $totalPaidLoans ?></h3>
+                                        <h3><?= $totalUnPaidLoans ?></h3>
 
                                         <p>Total UnPaid Loans</p>
                                     </div>

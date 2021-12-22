@@ -139,22 +139,37 @@ $_SESSION['bool'] =  true;
                                             <tr>
                                                 <th>Loan Amount</th>
                                                 <th>Loan Interest</th>
+                                                <th>Name</th>
                                                 <th>Boda Phone Number</th>
+
                                                 <th>Fuel Station</th>
                                                 <th>Agent Name</th>
                                                 <th>Stage Name</th>
                                                 <th>Status</th>
-                                                <th width="150px">Actions</th>
+                                                <th>Created On</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
+                                            function formatMobileNumber($number)
+                                            {
+
+                                                $newNumber = $number;
+                                                if (strpos($number, "+256") !== false) {
+                                                    $newNumber =   str_replace("+256", "0", $number);
+                                                }
+                                                if (strpos($number, "256") !== false) {
+                                                    $newNumber =  str_replace("256", "0", $number);
+                                                }
+                                                return $newNumber;
+                                            }
 
                                             for ($i = 0; $i < count($result); $i++) {  ?>
 
                                                 <tr>
                                                     <td><?= $result[$i]['loanAmount'] ?></td>
                                                     <td><?= $result[$i]['LoanInterest'] ?></td>
+                                                    <td><?= $dbAccess->select("bodauser", ['bodaUserName'], ['bodaUserPhoneNumber' => formatMobileNumber($result[$i]['boadUserId'])])[0]['bodaUserName'] ?></td>
                                                     <td><?= $result[$i]['boadUserId'] ?></td>
                                                     <td><?=
                                                         count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $result[$i]['fuelSationId']]))
@@ -177,10 +192,7 @@ $_SESSION['bool'] =  true;
                                                         <button name="show" class="btn btn-danger btn-sm editbtn">UnPaid</button>
                                                     </td>
                                                     <td>
-                                                        <form action="" method="get">
-                                                            <button type="submit" name="show" class="btn btn-info btn-sm editbtn">Show</button>
-
-                                                        </form>
+                                                        <?= $result[$i]['created_at'] ?>
                                                     </td>
                                                 </tr>
 
