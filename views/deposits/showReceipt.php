@@ -157,10 +157,10 @@ $_SESSION['bool'] =  true;
                                                     <input type="text" class="form-control" disabled value="<?= $depositDetails[0]['created_at'] ?>">
                                                 </div>
                                                 <div class="col-md-12"><label class="labels">totalAmount Since Initial Deposit</label>
-                                                    <input type="text" class="form-control" disabled value="<?= $depositDetails[0]['totalAmount'] ?>">
+                                                    <input type="text" class="form-control" disabled value="<?= "shs " . number_format($depositDetails[0]['totalAmount'], 0) ?>">
                                                 </div>
                                                 <div class="col-md-12"><label class="labels">Current Amount</label>
-                                                    <input type="text" class="form-control" disabled value="<?= $depositDetails[0]['currentAmount'] ?>">
+                                                    <input type="text" class="form-control" disabled value="<?= "sshs " . number_format($depositDetails[0]['currentAmount'], 0) ?>">
                                                 </div>
 
                                             </div>
