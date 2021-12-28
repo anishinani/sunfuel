@@ -42,8 +42,8 @@ function showActions($id)
 
 
     if (in_array("edit-roles", $_SESSION['roles'])) {
-        $output = '<form action="./show.php?id="' . $id . '"" method="get">
-        <button type="submit" name="show"  value="' . $id . '"
+        $output = '<form action="./showReceipt.php?id="' . $id . '"" method="get">
+        <button type="submit" name="showReceipt"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Show Receipt</button>
     
         </form>';
@@ -74,14 +74,19 @@ function showActions($id)
 //fins
 //$row['fuelSationId'];
 
+// function formatAmount($amount){
+
+// }
+
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['id'];
     $sub_array[] = count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']]))
-        ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStation']])[0]['fuelStationName'] : NULL;
-    $sub_array[] = $row['amount'];
+        ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']])[0]['fuelStationName'] : NULL;;
+    $sub_array[] =  "shs " . number_format($row['amount'], 0);
+    $sub_array[] = $row['depositedBy'];
     $sub_array[] = $row['created_at'];
-    $sub_array[] = showActions($row['id']);
+    $sub_array[] =  showActions($row['id']);
     $data[] = $sub_array;
 }
 
@@ -92,3 +97,6 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+
+// count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']]))
+//         ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStation']])[0]['fuelStationName'] : NULL;

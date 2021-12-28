@@ -309,7 +309,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/deposits/index.php" class="nav-link">
+                                <a href="/creditpluswebapp/views/deposits/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Deposits</p>
                                 </a>
