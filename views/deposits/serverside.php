@@ -86,7 +86,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] =  "shs " . number_format($row['amount'], 0);
     $sub_array[] = $row['depositedBy'];
     $sub_array[] = $row['created_at'];
-    $sub_array[] =  showActions($row['id']);
+    $sub_array[] =  showActions($row['fuelStationId']);
     $data[] = $sub_array;
 }
 

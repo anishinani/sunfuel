@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create Agent</title>
+    <title>Add Deposit</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -126,7 +126,7 @@
                                         <!--person-->
                                         <div class="form-group mb-3">
                                             <label for="">Deposited By</label>
-                                            <input type="text" name="nin" required class="form-control" placeholder="enter names" />
+                                            <input type="text" name="name" required class="form-control" placeholder="enter names" />
 
                                         </div>
                                         <!--person-->
@@ -135,7 +135,7 @@
                                         <div class="form-group mb-3">
                                             <div class="form-group">
                                                 <label for="my-select">Fuel Station</label>
-                                                <select id="my-select" class="form-control" name="station">
+                                                <select id="my-select" class="form-control" name="fuelStationId">
                                                     <option disabled selected>select station</option>
                                                     <?php
                                                     for ($i = 0; $i < count($results); $i++) {
