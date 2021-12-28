@@ -12,7 +12,8 @@ $dbAccess =  new DbAccess();
 //die("we are done");
 $YoApi =  new YoAPI($yo->getUserName(), $yo->getPassword());
 // $localLink = "localhost/creditpluswebapp/views/payments/finished.php";
-$sucessRedirectLink = "http://appdev.creditplus.ug/creditpluswebapp/views/payments/finished.php";
+$sucessRedirectLink = "
+";
 
 // $localLinkFailure = "localhost/creditpluswebapp/views/packages/failed.php";
 $failureRedirectLink = "http://appdev.creditplus.ug/creditpluswebapp/views/payments/failed.php";

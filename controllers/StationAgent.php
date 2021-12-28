@@ -7,7 +7,7 @@
 class StationAgent extends DbAccess
 {
 
-    public function store($array)
+    public function store($array, $front, $back)
     {
         $name = $array['name'];
         $phone = $array['phoneNumber'];
@@ -22,6 +22,8 @@ class StationAgent extends DbAccess
                 'fuelAgentPhoneNumber' => $phone,
                 'fuelAgentNIN' => $nin,
                 'stationId' => $stationId,
+                'frontIDPhoto'=>$front,
+                'backIDPhoto'=>$back,
                 'anotherPhoneNumber' => $anotherPhone,
                 'status' => '0'
 

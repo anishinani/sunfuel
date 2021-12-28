@@ -211,7 +211,8 @@
                                         <!--stage-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addBodaUser">Register Boda User</button>
+                                            <button type="submit" class="style_button" 
+                                            name="addBodaUser">Register Boda User</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>

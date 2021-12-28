@@ -1,12 +1,8 @@
 <?php
 session_start();
-
-
 require_once("../../utils/dbaccess.php");
-
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
-
 require_once('../../controllers/BodaUserController.php');
 
 

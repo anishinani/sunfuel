@@ -98,7 +98,7 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Register a new Fuel Agent</p>
-                                    <form method="POST" action="./store.php">
+                                    <form method="POST" action="./store.php" enctype="multipart/form-data">
 
 
                                         <div class="form-group mb-3">
@@ -118,7 +118,7 @@
                                         <!--phone-->
                                         <div class="form-group mb-3">
                                             <label for=""> Agent Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" />
+                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number" />
                                         </div>
                                         <!---phone-->
                                         <!--phone-->
@@ -145,6 +145,19 @@
 
                                         </div>
                                         <!--fuel station-->
+                                        <!--front photo-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Front ID Photo</label>
+                                            <input type="file" name="frontPhoto" required class="form-control" accept="image/*" />
+                                        </div>
+                                        <!--front photo-->
+
+                                        <!--back photo-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Back ID Photo</label>
+                                            <input type="file" name="backPhoto" required class="form-control" accept="image/*" />
+                                        </div>
+                                        <!--back photo-->
                                         <!-- /.col -->
                                         <div class="col-12">
                                             <button type="submit" class="style_button" name="addAgent">Register Agent</button>

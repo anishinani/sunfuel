@@ -97,7 +97,7 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Register a new station</p>
-                                    <form method="POST" action="./store.php">
+                                    <form method="POST" action="./store.php" enctype="multipart/form-data">
 
 
                                         <div class="form-group mb-3">
@@ -107,14 +107,46 @@
                                         </div>
                                         <!--address-->
                                         <div class="form-group mb-3">
-                                            <label for="">Addresss</label>
+                                            <label for="">Station Address</label>
                                             <input type="text" name="address" required class="form-control" placeholder="enter station address" />
                                         </div>
                                         <!--address-->
+                                        <!--bank name-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Bank Name</label>
+                                            <input type="text" name="bankname" required class="form-control" placeholder="enter station bank name" />
+                                        </div>
+                                        <!--bank name-->
+                                        <!--Bank Branch-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Bank Branch</label>
+                                            <input type="text" name="bankbranch" required class="form-control" placeholder="enter station Bank Branch" />
+                                        </div>
+                                        <!--Bank Branch-->
+                                        <!--Account Name-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Account Name</label>
+                                            <input type="text" name="accountname" required class="form-control" placeholder="enter station Account Name" />
+                                        </div>
+                                        <!--Account Name-->
+                                        <!--Account Number-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Account Number</label>
+                                            <input type="text" name="accountnumber" required class="form-control" placeholder="enter station Account Number" />
+                                        </div>
+                                        <!--Account Number-->
+
                                         <!--person-->
                                         <div class="form-group mb-3">
                                             <label for="">Contact Person</label>
                                             <input type="text" name="person" required class="form-control" placeholder="enter person name" />
+
+                                        </div>
+                                        <!--person-->
+                                        <!--person-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Contact Person NIN </label>
+                                            <input type="text" name="nin" required class="form-control" placeholder="enter person nin number" />
 
                                         </div>
                                         <!--person-->
@@ -125,6 +157,19 @@
                                             <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" />
                                         </div>
                                         <!---phone-->
+                                        <!--front photo-->
+                                        <div class="form-group mb-3">
+                                            <label for=""> Contact Person Front ID Photo</label>
+                                            <input type="file" name="frontPhoto" required class="form-control" accept="image/*" />
+                                        </div>
+                                        <!--front photo-->
+
+                                        <!--back photo-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Contact Person Back ID Photo</label>
+                                            <input type="file" name="backPhoto" required class="form-control" accept="image/*" />
+                                        </div>
+                                        <!--back photo-->
 
                                         <!-- /.col -->
                                         <div class="col-12">
