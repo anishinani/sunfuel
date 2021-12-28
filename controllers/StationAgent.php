@@ -18,9 +18,9 @@ class StationAgent extends DbAccess
         return $this->insert(
             "fuelagent",
             [
-                'fuelAgentName' => $name,
+                'fuelAgentName' =>strtoupper($name),
                 'fuelAgentPhoneNumber' => $phone,
-                'fuelAgentNIN' => $nin,
+                'fuelAgentNIN' => strtoupper($nin),
                 'stationId' => $stationId,
                 'frontIDPhoto'=>$front,
                 'backIDPhoto'=>$back,

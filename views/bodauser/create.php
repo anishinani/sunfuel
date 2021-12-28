@@ -41,6 +41,10 @@
         .showAlternative {
             display: none;
         }
+
+        .form-control {
+            text-transform: uppercase !important;
+        }
     </style>
 </head>
 
@@ -111,7 +115,7 @@
 
 
                                         <div class="form-group mb-3">
-                                            <label for="">Boad User Names</label>
+                                            <label for="">Boda User Names</label>
                                             <input type="text" name="name" required class="form-control" placeholder="enter  names " />
 
                                         </div>
@@ -211,8 +215,7 @@
                                         <!--stage-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" 
-                                            name="addBodaUser">Register Boda User</button>
+                                            <button type="submit" class="style_button" name="addBodaUser">Register Boda User</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>

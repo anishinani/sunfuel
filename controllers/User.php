@@ -55,7 +55,7 @@ class User extends DbAccess
         return $this->insert(
             "administrators",
             [
-                'name' => $name,
+                'name' => strtoupper($name),
                 'email' => $email,
                 'phoneNumber' => $phone,
                 'gender' => $gender,

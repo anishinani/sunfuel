@@ -50,6 +50,10 @@
             background: rgba(0, 0, 0, 0.75) url(/creditpluswebapp/dist/img/loader.gif) no-repeat center center;
             z-index: 10000;
         }
+
+        .form-control {
+            text-transform: uppercase !important;
+        }
     </style>
 </head>
 

@@ -18,16 +18,16 @@ class FuelStation extends DbAccess
         return $this->insert(
             "fuelstation",
             [
-                'fuelStationName' => $name,
-                'fuelStationAddress' => $address,
-                'fuelStationContactPerson' => $person,
+                'fuelStationName' => strtoupper($name),
+                'fuelStationAddress' => strtoupper($address),
+                'fuelStationContactPerson' => strtoupper($person),
                 'fuelStationContactPhone' => $phone,
                 'fuelStationStatus' => '0',
                 'frontIDPhoto' => $front,
                 'backIDPhoto' => $back,
-                'bankName' => $array['bankname'],
-                'bankBranch' => $array['bankbranch'],
-                'AccName' => $array['accountname'],
+                'bankName' => strtoupper($array['bankname']),
+                'bankBranch' => strtoupper($array['bankbranch']),
+                'AccName' => strtoupper($array['accountname']),
                 'AccNumber' => $array['accountnumber']
 
 
@@ -47,9 +47,9 @@ class FuelStation extends DbAccess
         return $this->update(
             "fuelstation",
             [
-                'fuelStationName' => $name,
-                'fuelStationAddress' => $address,
-                'fuelStationContactPerson' => $person,
+                'fuelStationName' => strtoupper($name),
+                'fuelStationAddress' => strtoupper($address),
+                'fuelStationContactPerson' => strtoupper($person),
                 'fuelStationContactPhone' => $phone,
 
 

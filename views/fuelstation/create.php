@@ -38,6 +38,10 @@
             cursor: pointer;
             border-radius: 10px;
         }
+
+        .form-control {
+            text-transform: uppercase !important;
+        }
     </style>
 </head>
 

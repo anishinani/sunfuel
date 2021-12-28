@@ -11,7 +11,7 @@ class Stage extends DbAccess
         return $this->insert(
             "stage",
             [
-                'stageName' => $name,
+                'stageName' => strtoupper($name),
                 'fuelStationId' => $id,
                 'stageStatus' => '0'
 
@@ -27,7 +27,7 @@ class Stage extends DbAccess
         return $this->update(
             "stage",
             [
-                'stageName' => $name,
+                'stageName' => strtoupper($name),
                 'fuelStationId' => $id,
                 "chairmanId" => $chairman
             ],

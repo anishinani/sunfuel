@@ -34,13 +34,13 @@ class BodaUser extends DbAccess
         return $this->insert(
             "bodauser",
             [
-                'bodaUserName' => $name,
-                'bodaUserNIN' => $nin,
-                'bodaUserBodaNumber' => $bodaNumber,
+                'bodaUserName' => strtoupper($name),
+                'bodaUserNIN' =>  strtoupper($nin),
+                'bodaUserBodaNumber' => strtoupper($bodaNumber),
                 'bodaUserPhoneNumber' => $phone,
                 "bodaUserBackPhoto" => $back,
                 "bodaUserFrontPhoto" => $front,
-                "bodaUserRole" => $array['role'],
+                "bodaUserRole" => strtoupper($array['role']),
                 "alternativePhotoNumber" => $array['anotherNumber'],
                 'fuelStationId' => $fuel,
                 'stageId' => $stage,

@@ -15,7 +15,7 @@ class Package extends DbAccess
         return $this->insert(
             "package",
             [
-                'packageName' => $name,
+                'packageName' => strtoupper($name),
                 'packageAmount' => $amount,
                 'packageStatus' => 1
 
@@ -32,7 +32,7 @@ class Package extends DbAccess
         return $this->update(
             "package",
             [
-                'packageName' => $name,
+                'packageName' => strtoupper($name),
                 'packageAmount' => $amount,
                 'packageStatus' => '1'
 
