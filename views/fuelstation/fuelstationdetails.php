@@ -55,6 +55,8 @@ if (!isset($_SESSION['user'])) {
         //SELECT bodaUserId FROM bodauser WHERE DATE(updated_at) = CURDATE();
         $dbAccess =  new DbAccess();
 
+        $details = $dbAccess->select('fuelstation', "", ['fuelstationId' => $id])[0];
+
         $fuelStationName = $dbAccess->select("fuelstation", ["fuelStationName"], ["fuelStationId" => $id])[0]['fuelStationName'];
         $totalBorrowers =  $dbAccess->selectQuery("SELECT COUNT(bodaUserId) AS total
           FROM bodauser WHERE DATE(updated_at) = CURDATE() AND bodaUserStatus=2 AND fuelStationId=$id")[0]["total"];
@@ -119,6 +121,44 @@ if (!isset($_SESSION['user'])) {
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
+                    <div class="container-fluid">
+                        <div class="">
+
+
+                            <div class="col-sm-12">
+                                <div class="statistics-details d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <p class="statistics-title">Total Amount</p>
+                                        <h3 class="rate-percentage"><?= "shs " . number_format($details['totalAmount']) ?></h3>
+
+                                    </div>
+                                    <div>
+                                        <p class="statistics-title">Current Amount</p>
+                                        <h3 class="rate-percentage"><?= "shs " . number_format($details['currentAmount']) ?></h3>
+                                    </div>
+                                    <div>
+                                        <p class="statistics-title">Bank Name</p>
+                                        <h3 class="rate-percentage"><?= $details['bankName'] ?></h3>
+                                    </div>
+                                    <div class="d-none d-md-block">
+                                        <p class="statistics-title">Bank Branch</p>
+                                        <h3 class="rate-percentage"><?= $details['bankBranch'] ?></h3>
+                                    </div>
+                                    <div class="d-none d-md-block">
+                                        <p class="statistics-title">Account Name</p>
+                                        <h3 class="rate-percentage"><?= $details['AccName'] ?></h3>
+                                    </div>
+                                    <div class="d-none d-md-block">
+                                        <p class="statistics-title">Account Number</p>
+                                        <h3 class="rate-percentage"><?= $details['AccNumber'] ?></h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
 
@@ -257,32 +297,67 @@ if (!isset($_SESSION['user'])) {
                         <!-- /.row -->
                         <!-- Main row -->
                         <div class="row">
-                            <!-- Left col -->
-                            <section class="col-lg-7 connectedSortable">
 
-
-
-
-
-                            </section>
-                            <!-- right col -->
                         </div>
                         <!-- /.row (main row) -->
                     </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- <div class="container-fluid">
+                <div class="container rounded bg-white mt-5 mb-5">
+
+
+                    <div class="col-sm-12">
+                        <div class="statistics-details d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="statistics-title">Bounce Rate</p>
+                                <h3 class="rate-percentage">32.53%</h3>
+                                <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Page Views</p>
+                                <h3 class="rate-percentage">7,682</h3>
+                                <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">New Sessions</p>
+                                <h3 class="rate-percentage">68.8</h3>
+                                <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <p class="statistics-title">Avg. Time on Site</p>
+                                <h3 class="rate-percentage">2m:35s</h3>
+                                <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <p class="statistics-title">New Sessions</p>
+                                <h3 class="rate-percentage">68.8</h3>
+                                <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <p class="statistics-title">Avg. Time on Site</p>
+                                <h3 class="rate-percentage">2m:35s</h3>
+                                <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div> -->
         </div>
-        <!-- /.content-wrapper -->
-        <?php
-        include_once("./footer/footer.php");
-        ?>
+    </div>
+    <!-- /.content-wrapper -->
+    <?php
+    include_once("../footer/footer.php");
+    ?>
 
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
