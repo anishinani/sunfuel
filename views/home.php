@@ -50,7 +50,8 @@ if (!isset($_SESSION['user'])) {
 
 		$totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
 		$totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
-		$totalDefaultedBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "2"]);
+		$totalDefaultedBodaUsers  = $dbAccess->selectQuery("SELECT COUNT(bodaUserStatus) AS total FROM bodauser  WHERE  DATE(updated_at) = CURDATE() AND bodaUserStatus=2")[0]['total'];
+		//$dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "2"]);
 		$suspendedBodaUsers =  $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
 		//die($totalInActiveBodaUsers);
 
