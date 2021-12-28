@@ -23,6 +23,7 @@ class FuelStation extends DbAccess
                 'fuelStationContactPerson' => strtoupper($person),
                 'fuelStationContactPhone' => $phone,
                 'fuelStationStatus' => '0',
+                'NIN' => strtoupper($array['nin']),
                 'frontIDPhoto' => $front,
                 'backIDPhoto' => $back,
                 'bankName' => strtoupper($array['bankname']),

@@ -1,7 +1,6 @@
 <?php
 session_start();
 $_SESSION['bool'] =  true;
-//unset($_SESSION["success"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +9,12 @@ $_SESSION['bool'] =  true;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manage Fuel Users</title>
+    <title>Manage Boda Users</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
+
     <link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -22,7 +22,6 @@ $_SESSION['bool'] =  true;
     <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
-
     <style>
         .style_button {
             background: #657836 !important;
@@ -54,6 +53,10 @@ $_SESSION['bool'] =  true;
             top: 10px !important;
             cursor: pointer;
         }
+
+        #removeAlert {
+            margin-top: 10px !important;
+        }
     </style>
 </head>
 
@@ -66,6 +69,16 @@ $_SESSION['bool'] =  true;
         include("../sidebar.php");
 
         $dbAccess =  new DbAccess();
+        if (isset($_GET['showPerson'])) {
+            $stationId =  $_GET['showPerson'];
+            //die($stationId);
+
+            $personDetails =  $dbAccess->select("fuelstation", "", ["fuelStationId" => $stationId]);
+            //var_dump($personDetails);
+            //die("here");
+        } else {
+            //die("not sent");
+        }
 
         ?>
         <!-- Main Sidebar Container -->
@@ -85,9 +98,8 @@ $_SESSION['bool'] =  true;
 
             <?php }
             unset($_SESSION['success']);
+
             ?>
-
-
 
             <!--any wrong info-->
 
@@ -97,12 +109,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Fuel Stations</h1>
+                            <h1>Fuel Station Conatct Person Details </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Fuel Stations</li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Fuel Station Conatct Person Details</li>
                             </ol>
                         </div>
                     </div>
@@ -112,75 +124,70 @@ $_SESSION['bool'] =  true;
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-
-                    <?php
-                    // $dbAccess->getConnection();
-                    // $results =  json_encode($dbAccess->select("bodauser"));
-                    //var_dump($results[0]['bodaUserName']);
-
-                    ?>
-
                     <div class="row">
                         <div class="col-12">
-                            <!--table-->
-                            <!-- /.card -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Fuel Station Table</h3>
-                                    <?php
-                                    if (in_array("create-fuelStations", $_SESSION['roles'])) {
-                                    ?>
-                                        <h4 class="float-sm-right ">
-                                            <a class="btn btn-success" href="./create.php"> Add New Station
-                                            </a>
-                                        </h4>
-                                    <?php } ?>
+
+                            <div class="container rounded bg-white mt-5 mb-5">
+                                <div class="row">
+                                    <div class="col-md-3 border-right">
+                                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                            <img class=" mt-1" width="250px" src="<?= "images/" . $personDetails[0]['frontIDPhoto']; ?>">
+                                            <span class=" font-weight-bold">Front ID Photo</span>
+                                            <span class="text-black-50"><?= $personDetails[0]['fuelStationContactPerson'] ?></span><span> </span>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                            <img class=" mt-1" width="250px" src="<?= "images/" . $personDetails[0]['backIDPhoto']; ?>">
+                                            <span class=" font-weight-bold">Back IDPhoto</span>
+                                            <span class="text-black-50"><?= $personDetails[0]['fuelStationContactPerson'] ?></span><span> </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 border-right">
+                                        <div class="p-3 py-5">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="text-right"> <?= $personDetails[0]['fuelStationContactPerson'] ?> Details</h4>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-6"><label class="labels">Name</label><input type="text" disabled class="form-control" placeholder="first name" value="<?= $personDetails[0]['fuelStationContactPerson'] ?>"></div>
+                                                <div class="col-md-6"><label class="labels">NIN Number</label><input type="text" disabled class="form-control" placeholder="first name" value="<?= $personDetails[0]['NIN'] ?>"></div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-12"><label class="labels">Mobile Number</label>
+                                                    <input type="text" class="form-control" disabled placeholder="enter phone number" value="<?= $personDetails[0]['fuelStationContactPhone'] ?>">
+                                                </div>
+                                                <div class="col-md-12"><label class="labels">Fuel Station Name</label>
+                                                    <input type="text" class="form-control" disabled value="<?= $personDetails[0]['fuelStationName'] ?>">
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="example" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th> Name</th>
-                                                <th>Contact Person</th>
-                                                <th>Contact Address</th>
-                                                <th>Contact Phone Number</th>
-                                                <th>Fuel Station Status</th>
-                                                <th>Activation Status</th>
-                                                <th width="220px">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-
-                                    </table>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-
-
-                                <!-- /.card -->
-                                <!--table-->
                             </div>
-                            <!-- /.col -->
                         </div>
-                        <!-- /.row -->
                     </div>
-                    <!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <?php include_once("../footer/footer.php"); ?>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+                </div>
+                <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <?php include_once("../footer/footer.php"); ?>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
     <!-- jQuery -->
     <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -203,6 +210,7 @@ $_SESSION['bool'] =  true;
     <script src="/creditpluswebapp/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/creditpluswebapp/dist/js/demo.js"></script>
+    <!-- Page specific script -->
 
     <!--hide alert--->
     <script type="text/javascript">
@@ -216,7 +224,6 @@ $_SESSION['bool'] =  true;
         })
     </script>
     <!--hide alert-->
-
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
@@ -232,9 +239,6 @@ $_SESSION['bool'] =  true;
                     'url': './serverside.php',
                     'type': 'post',
                 },
-                "data": {
-                    "id": 1
-                },
                 "columnDefs": [{
                     'target': [5],
                     'orderable': false,
@@ -242,9 +246,6 @@ $_SESSION['bool'] =  true;
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
-
-
-
 
 
 </body>

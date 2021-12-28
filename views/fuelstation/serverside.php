@@ -46,11 +46,13 @@ function showActions($id)
 
 
 
+
+
     if (in_array("show-fuelStation", $_SESSION['roles'])) {
         $output .= '<form method="POST" action="./fuelstationdetails.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
-      class="btn btn-primary btn-sm deleteBtn" name="details">Show</button>
+      class="btn btn-primary btn-sm deleteBtn" name="details">Station</button>
       </form>';
     }
     if (in_array("edit-fuelStation", $_SESSION['roles'])) {
@@ -66,6 +68,13 @@ function showActions($id)
         <button 
       class="btn btn-danger btn-sm deleteBtn" >Delete</button>
       </form>';
+    }
+    if (in_array("edit-fuelStation", $_SESSION['roles'])) {
+        $output .= '     <form action="contactpersondetails.php?id="' . $id . '"" method="get">
+        <button type="submit" name="showPerson"  value="' . $id . '"
+        class="btn btn-info btn-sm editbtn" >Details</button>
+   
+        </form>';
     }
 
 
