@@ -7,11 +7,12 @@
 class FuelStation extends DbAccess
 {
 
-    public function store($array)
+    public function store($array, $front, $back)
     {
         $name = $array['name'];
         $address = $array['address'];
         $person = $array['person'];
+
 
         $phone = $array['phoneNumber'];
         return $this->insert(
@@ -21,7 +22,14 @@ class FuelStation extends DbAccess
                 'fuelStationAddress' => $address,
                 'fuelStationContactPerson' => $person,
                 'fuelStationContactPhone' => $phone,
-                'fuelStationStatus' => '0'
+                'fuelStationStatus' => '0',
+                'frontIDPhoto' => $front,
+                'backIDPhoto' => $back,
+                'bankName' => $array['bankname'],
+                'bankBranch' => $array['bankbranch'],
+                'AccName' => $array['accountname'],
+                'AccNumber' => $array['accountnumber']
+
 
             ]
         );

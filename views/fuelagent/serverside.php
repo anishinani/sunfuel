@@ -58,6 +58,11 @@ while ($row = mysqli_fetch_assoc($query)) {
     class="btn btn-danger btn-sm editbtn" >DeActivate</button>
     ';
     $sub_array[] = '<div style="display:flex;align-items:center;justify-content:space-between;">
+
+    <form action="show.php?id="' . $row['fuelAgentId'] . '"" method="get">
+    <button type="submit" name="showAgent"  value="' . $row['fuelAgentId'] . '"
+    class="btn btn-info btn-sm editbtn" >show</button></form>
+
      <form action="edit.php?id="' . $row['fuelAgentId'] . '"" method="get">
      <button type="submit" name="update"  value="' . $row['fuelAgentId'] . '"
      class="btn btn-info btn-sm editbtn" >Edit</button>

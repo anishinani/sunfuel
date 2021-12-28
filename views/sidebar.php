@@ -286,15 +286,39 @@
                                     <p>View Payments</p>
                                 </a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a href="/creditpluswebapp/views/payments/create.php" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Add Payments</p>
-                                </a>
-                            </li> -->
+
 
                         </ul>
                         <!--paymensts-->
+                        <!--payments-->
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-money-bill-wave"></i>
+                            <p>
+                                Deposits
+                                <i class="fas fa-angle-left right"></i>
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/creditpluswebapp/views/payments/index.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>View Payments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/creditpluswebapp/views/payments/index.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add Deposits</p>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <!--paymensts-->
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

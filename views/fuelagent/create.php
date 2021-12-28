@@ -38,6 +38,18 @@
             cursor: pointer;
             border-radius: 10px;
         }
+
+        #loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.75) url(/creditpluswebapp/dist/img/loader.gif) no-repeat center center;
+            z-index: 10000;
+        }
     </style>
 </head>
 
@@ -158,36 +170,50 @@
                                             <input type="file" name="backPhoto" required class="form-control" accept="image/*" />
                                         </div>
                                         <!--back photo-->
+
+
                                         <!-- /.col -->
                                         <div class="col-12">
+
                                             <button type="submit" class="style_button" name="addAgent">Register Agent</button>
+                                            <!-- <img src="/creditpluswebapp/dist/img/loader.gif" width="80px" height="80px" /> -->
                                         </div>
                                         <!-- /.col -->
                                 </div>
+
                                 </form>
+                                <div class="co1-12"></div>
+                                <!-- <button id="button">Register Agent</button> -->
+                                <div id="loader">
 
+                                </div>
                             </div>
-                            <!-- /.form-box -->
-                        </div><!-- /.card -->
-                    </div>
-                    <!-- /.register-box -->
 
-                    <!--form add user-->
+
+
+                        </div>
+                        <!-- /.form-box -->
+                    </div><!-- /.card -->
                 </div>
-                <!-- /.row -->
-                <!-- Main row -->
-                <div class="row">
-                    <!-- Left col -->
-                    <section class="col-lg-7 connectedSortable">
+
+                <!-- /.register-box -->
+
+                <!--form add user-->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
 
 
-                    </section>
-                    <!-- right col -->
-                </div>
-                <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+            </section>
+            <!-- right col -->
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <?php include_once("../footer/footer.php"); ?>
@@ -235,6 +261,15 @@
     <script src=" /creditpluswebapp/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src=" /creditpluswebapp/dist/js/pages/dashboard.js"></script>
+    <script src="text/javascript">
+        const spinner = $('#loader');
+        $(function() {
+            $("#button").click(function() {
+                //spinner.show();
+                alert("clicked");
+            })
+        })
+    </script>
 </body>
 
 </html>

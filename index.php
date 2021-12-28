@@ -25,7 +25,7 @@ session_start();
 		<!-- /.login-logo -->
 		<div class="card card-outline card-primary">
 			<div class="card-header text-center">
-				<a href="../../index2.html" class="h1"><b>CREDIT </b>PLUS</a>
+				<a href="#" class="h1"><b>CREDIT </b>PLUS</a>
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
@@ -70,6 +70,7 @@ session_start();
 						<!-- /.col -->
 						<div class="col-4">
 							<button type="submit" class="btn btn-primary btn-block" name="login">Sign In</button>
+							
 						</div>
 						<!-- /.col -->
 					</div>

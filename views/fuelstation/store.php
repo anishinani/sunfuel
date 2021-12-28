@@ -23,6 +23,27 @@ if (isset($_POST['addStation'])) {
 
     $_SESSION['errors'] = array();
 
+    //store images
+    $backPhoto = $_FILES["backPhoto"]["name"];
+    $frontPhoto = $_FILES["frontPhoto"]["name"];
+    $tempBackPhoto = $_FILES["backPhoto"]["tmp_name"];
+    $tempFrontPhoto = $_FILES["frontPhoto"]["tmp_name"];
+
+    $photoOne =  time() . str_replace(" ", "_", $backPhoto);
+    $photoTwo =  time() . str_replace(" ", "_", $frontPhoto);
+
+    // die($photoTwo);
+
+    if (move_uploaded_file($tempBackPhoto, "images/" . $photoOne)) {
+        if (move_uploaded_file($tempFrontPhoto, "images/" . $photoTwo)) {
+        }
+    } else {
+        //die("Failed to move image");
+        $_SESSION['success'] = "Wrong image format not supported";
+        header("Location:index.php");
+    }
+    //store images
+
     //check errors and clean o
     foreach ($_POST as $key => $value) {
         if ($key == 'addStation') {
@@ -54,7 +75,7 @@ if (isset($_POST['addStation'])) {
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($fuelStation->store($_POST)) {
+        if ($fuelStation->store($_POST, $photoTwo, $photoOne)) {
             $activity->logActivity(
                 $_SESSION['user'],
                 "Registered fuel station",
