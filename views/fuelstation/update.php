@@ -37,9 +37,9 @@ if (isset($_POST['addStation'])) {
     }
     //check errors and clean
 
-    if ($helpers->checkEmail($_POST['email']) == NULL) {
-        array_push($_SESSION['errors'], "invalid email format");
-    }
+    // if ($helpers->checkEmail($_POST['email']) == NULL) {
+    //     array_push($_SESSION['errors'], "invalid email format");
+    // }
 
     if (count($_SESSION['errors'])) {
 

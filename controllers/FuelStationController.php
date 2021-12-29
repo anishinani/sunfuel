@@ -52,6 +52,10 @@ class FuelStation extends DbAccess
                 'fuelStationAddress' => strtoupper($address),
                 'fuelStationContactPerson' => strtoupper($person),
                 'fuelStationContactPhone' => $phone,
+                'bankName' => strtoupper($array['bankname']),
+                'bankBranch' => strtoupper($array['bankbranch']),
+                'AccName' => strtoupper($array['accountname']),
+                'AccNumber' => $array['accountnumber']
 
 
             ],

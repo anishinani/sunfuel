@@ -122,6 +122,39 @@
                                             <input type="text" name="address" required class="form-control" placeholder="enter station address" value="<?= $results[0]['fuelStationAddress']; ?>" />
                                         </div>
                                         <!--address-->
+                                        <!--bank name-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Bank Name</label>
+                                            <input type="text" name="bankname" required class="form-control" 
+                                            value="<?= $results[0]['bankName']; ?>"
+                                            placeholder="enter station bank name" 
+                                            />
+                                        </div>
+                                        <!--bank name-->
+                                        <!--Bank Branch-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Bank Branch</label>
+                                            <input type="text" name="bankbranch" 
+                                            value="<?= $results[0]['bankBranch']; ?>"
+                                            required class="form-control" placeholder="enter station Bank Branch" />
+                                        </div>
+                                        <!--Bank Branch-->
+                                        <!--Account Name-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Account Name</label>
+                                            <input type="text" name="accountname" required class="form-control" 
+                                            value="<?= $results[0]['AccName']; ?>"
+                                            placeholder="enter station Account Name" />
+                                        </div>
+                                        <!--Account Name-->
+                                        <!--Account Number-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Account Number</label>
+                                            <input type="text" name="accountnumber"
+                                            value="<?= $results[0]['AccNumber']; ?>"
+                                             required class="form-control" placeholder="enter station Account Number" />
+                                        </div>
+                                        <!--Account Number-->
                                         <!--person-->
                                         <div class="form-group mb-3">
                                             <label for="">Contact Person</label>
