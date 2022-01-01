@@ -130,6 +130,19 @@ $_SESSION['bool'] =  true;
                                 <div class="card-header">
                                     <h3 class="card-title">Boda User Table</h3>
 
+                                    <div>
+                                        <form method="post" action="./uploaddetails.php" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="my-input">Upload</label>
+                                                <input class="form-control-file" type="file" name="file">
+                                            </div>
+                                            <h4 class=" ">
+                                                <button class="btn btn-success" type="submit" name="upload">Upload
+                                                </button>
+                                            </h4>
+                                        </form>
+                                    </div>
+
                                     <?php
 
                                     if (in_array("create-bodaUsers", $_SESSION['roles'])) {
