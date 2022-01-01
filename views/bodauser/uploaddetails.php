@@ -37,13 +37,16 @@ if (isset($_POST['upload'])) {
 
                 $totalRows++;
 
-                if ($row['0'] == 'districtcode' || $row['1'] == 'countycode' || $row['2'] == 'subcountycode' || $row['3'] == 'subcountyname') {
+                if ($row['1'] == 'districtcode' || $row['2'] == 'countycode' || $row['4'] == 'subcountycode') {
                     continue;
                 }
-                $dbAccess->insert('parishes', [
-                    'districtCode' => $row['0'], 'countyCode' => $row['1'], 'subCountyCode' => $row['3'], 'parishCode' => $row['4'],
-                    'parishName' => $row['5']
-                ]);
+                if ($totalRows > 68000) {
+                    //break;
+                    $dbAccess->insert('villages', [
+                        'districtCode' => $row['1'], 'countyCode' => $row['2'], 'subCountyCode' => $row['4'], 'parishCode' => $row['5'],
+                        'villageCode' => $row['6'], 'villageName' => $row['7']
+                    ]);
+                }
             }
         } else {
             die("no data");
