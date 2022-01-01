@@ -40,13 +40,15 @@ if (isset($_POST['upload'])) {
                 if ($row['1'] == 'districtcode' || $row['2'] == 'countycode' || $row['4'] == 'subcountycode') {
                     continue;
                 }
-                if ($totalRows > 68000) {
-                    //break;
-                    $dbAccess->insert('villages', [
-                        'districtCode' => $row['1'], 'countyCode' => $row['2'], 'subCountyCode' => $row['4'], 'parishCode' => $row['5'],
-                        'villageCode' => $row['6'], 'villageName' => $row['7']
-                    ]);
-                }
+                echo "katende";
+                //if ($totalRows > 68000) {
+                //break;
+                // $dbAccess->insert('villages', [
+                //     'districtCode' => $row['1'], 'countyCode' => $row['2'], 'subCountyCode' => $row['4'], 'parishCode' => $row['5'],
+                //     'villageCode' => $row['6'], 'villageName' => $row['7']
+                // ]);
+
+                //}
             }
         } else {
             die("no data");
