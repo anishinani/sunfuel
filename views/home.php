@@ -156,8 +156,10 @@ if (!isset($_SESSION['user'])) {
 
 		//loans
 		$totalLoans = $dbAccess->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()")[0]['total'];
-		$totalPaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE() AND status=0")[0]['total'];
-		$totalunpaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE() AND status=1")[0]['total'];
+		$totalPaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE() 
+		AND status='0'")[0]['total'];
+		$totalunpaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()
+		 AND status='1'")[0]['total'];
 
 		?>
 
