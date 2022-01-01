@@ -32,22 +32,24 @@ if (isset($_POST['upload'])) {
 
         //var_dump($data);
         $totalRows = 0;
-        foreach ($data as $row) {
-            // $id =  $row['0'];
-            // $name = $row['1'];
-            // $phone = $row['4'];
-            // $balance = $row['6'];
-            //var_dump($row);
-            $totalRows++;
+        if ($data) {
+            foreach ($data as $row) {
 
-            if ($row['0'] == 'districtcode' || $row['1'] == 'countycode' || $row['2'] == 'subcountycode' || $row['3'] == 'subcountyname') {
-                continue;
+                $totalRows++;
+
+                if ($row['0'] == 'districtcode' || $row['1'] == 'countycode' || $row['2'] == 'subcountycode' || $row['3'] == 'subcountyname') {
+                    continue;
+                }
+                $dbAccess->insert('parishes', [
+                    'districtCode' => $row['0'], 'countyCode' => $row['1'], 'subCountyCode' => $row['3'], 'parishCode' => $row['4'],
+                    'parishName' => $row['5']
+                ]);
             }
-            $dbAccess->insert('parishes', [
-                'districtCode' => $row['0'], 'countyCode' => $row['1'], 'subCountyCode' => $row['3'], 'parishCode' => $row['4'],
-                'parishName' => $row['5']
-            ]);
+        } else {
+            die("no data");
         }
+
+
         echo "Total rows uploaded are " . $totalRows;
     } else {
         die("some thing went wrong");
