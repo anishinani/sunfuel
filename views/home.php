@@ -307,7 +307,7 @@ if (!isset($_SESSION['user'])) {
 							</div>
 							<div class="home__eachCardDetails">
 								<p class="statistics-title">Total UnPaid Laons</p>
-								<h3 class="rate-percentage"> <?= "shs" . number_format($totalAmount + $loanInterest - $totalPaidLoans); ?></h3>
+								<h3 class="rate-percentage"> <?= "shs" . number_format($totalAmount + $loanInterest); ?></h3>
 							</div>
 						</div>
 					</div>
