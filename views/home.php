@@ -118,48 +118,49 @@ if (!isset($_SESSION['user'])) {
 
 		include_once("./navbar/navbar.php");
 		include_once("sidebar.php");
-		include_once("../utils/dbaccess.php");
+		//include_once("../utils/lo$loanCalc.php");
+		//include_once("./controllers/LoansCalc.php");
 		//SELECT bodaUserId FROM bodauser WHERE DATE(updated_at) = CURDATE();
-		$dbAccess =  new DbAccess();
-
-
-		$totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
-		$totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
-		$totalDefaultedBodaUsers  = $dbAccess->selectQuery("SELECT COUNT(bodaUserStatus) AS total FROM bodauser  WHERE  DATE(updated_at) = CURDATE() AND bodaUserStatus=2")[0]['total'];
-		//$dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "2"]);
-		$suspendedBodaUsers =  $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
+		include_once("../utils/dbaccess.php");
+		include_once("../controllers/LoansCalc.php");
+		$loanCalc =  new LaonsCalc();
+		//$loanCalc =  new lo$loanCalc();
+		$totalActiveBodaUsers  = $loanCalc->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
+		$totalInActiveBodaUsers  = $loanCalc->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
+		$totalDefaultedBodaUsers  = $loanCalc->selectQuery("SELECT COUNT(bodaUserStatus) AS total FROM bodauser  WHERE  DATE(updated_at) = CURDATE() AND bodaUserStatus=2")[0]['total'];
+		//$loanCalc->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "2"]);
+		$suspendedBodaUsers =  $loanCalc->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
 		//die($totalInActiveBodaUsers);
 
 		//stage
-		$totalActiveStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "1"]);
-		$totalInActiveStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "0"]);
-		$totalDefaultStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "2"]);
-		$suspendedStages  = $dbAccess->countRows("stage", "stageStatus", ["stageStatus", "3"]);
+		$totalActiveStages  = $loanCalc->countRows("stage", "stageStatus", ["stageStatus", "1"]);
+		$totalInActiveStages  = $loanCalc->countRows("stage", "stageStatus", ["stageStatus", "0"]);
+		$totalDefaultStages  = $loanCalc->countRows("stage", "stageStatus", ["stageStatus", "2"]);
+		$suspendedStages  = $loanCalc->countRows("stage", "stageStatus", ["stageStatus", "3"]);
 
 		//fuel stations
-		$totalActiveFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "1"]);
-		$totalInActiveFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "0"]);
-		$suspendedFuelStations  = $dbAccess->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "3"]);
+		$totalActiveFuelStations  = $loanCalc->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "1"]);
+		$totalInActiveFuelStations  = $loanCalc->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "0"]);
+		$suspendedFuelStations  = $loanCalc->countRows("fuelstation", "fuelStationStatus", ["fuelStationStatus", "3"]);
 		//die($totalActiveFuelStations);
 
 		//fuel consumption
-		$expectedFuelPerDay = $totalActiveBodaUsers * 15000;
+		$expectedFuelPerDay = $loanCalc->expectedFuelPerDay($totalActiveBodaUsers);
+		//$totalActiveBodaUsers * 15000;
+
 		//die($expectedFuelPerDay);
-		$expectedAmountRecoveredPerDay =  ($totalActiveBodaUsers * 1000) + $expectedFuelPerDay;
-		$expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
+		// $expectedAmountRecoveredPerDay =  ($totalActiveBodaUsers * 1000) + $expectedFuelPerDay;
+		// $expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
 
 		//sum of all loans
-		$sql = "SELECT SUM(loanAmount) AS total FROM loan WHERE  DATE(updated_at) = CURDATE()";
-		$totalAmount = $dbAccess->selectQuery($sql)[0]["total"];
-		$loanInterest = $dbAccess->selectQuery("SELECT SUM(LoanInterest) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()")[0]['total'];
-		$balance = $expectedFuelPerDay - $totalAmount;
 
-		//loans
-		$totalLoans = $dbAccess->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()")[0]['total'];
-		$totalPaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE() 
-		AND status='0'")[0]['total'];
-		$totalunpaidLoans = $dbAccess->selectQuery("SELECT SUM(loanAmount) AS total FROM loan  WHERE  DATE(updated_at) = CURDATE()
-		 AND status='1'")[0]['total'];
+		$totalAmount = $loanCalc->getTotalAmountLoans();
+		$totalLoans = $loanCalc->getTotalLaons();
+		$totalPaidLoans =  $loanCalc->totalPaidLaons();
+		$totalUnpaidLoans = $loanCalc->totalUnpaidLoans();
+
+
+
 
 		?>
 
@@ -300,16 +301,12 @@ if (!isset($_SESSION['user'])) {
 								<h3 class="rate-percentage"> <?= "shs " . number_format($totalAmount); ?></h3>
 							</div>
 							<div class="home__eachCardDetails">
-								<p class="statistics-title">Total Loan Interest</p>
-								<h3 class="rate-percentage"> <?= "shs" . number_format($loanInterest) ?></h3>
-							</div>
-							<div class="home__eachCardDetails">
 								<p class="statistics-title">Total Paid Laons</p>
 								<h3 class="rate-percentage"> <?= "shs" . number_format($totalPaidLoans); ?></h3>
 							</div>
 							<div class="home__eachCardDetails">
 								<p class="statistics-title">Total UnPaid Laons</p>
-								<h3 class="rate-percentage"> <?= "shs" . number_format($totalAmount + $loanInterest); ?></h3>
+								<h3 class="rate-percentage"> <?= "shs" . number_format($totalUnpaidLoans); ?></h3>
 							</div>
 						</div>
 					</div>
