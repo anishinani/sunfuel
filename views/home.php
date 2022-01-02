@@ -1078,14 +1078,15 @@ if (!isset($_SESSION['user'])) {
 
 	<script>
 		//alert("here");
-		let chartArray = [];
+		var chartArray = [];
+
 
 		$(document).ready(function() {
-			// bodaPieChart();
 
-			// function bodaPieChart() {
 
-			//alert("data");
+
+
+
 			$.ajax({
 				url: "bodachart.php",
 				method: "POST",
@@ -1097,93 +1098,114 @@ if (!isset($_SESSION['user'])) {
 					//alert(data[0])
 					//alert(data);
 					//alert(da)
-					console.log(data);
+					//console.log(data);
 					for (let index = 0; index < data.length; index++) {
 						chartArray.push(data[index].total)
 						//alert(data[index]);
 
 
 					}
-					console.log(chartArray)
-					//console.log("am here" + data.length);
-					//console.log(data.split(","));
+					const ctx = document.getElementById('myChart').getContext('2d');
+					const myChart = new Chart(ctx, {
+						type: 'pie',
+						data: {
+							labels: ['Active Boda Users', 'Inactive Boda Users', 'Suspended Boda Users', 'Pending Payments'],
+							datasets: [{
+								label: '# of Votes',
+								data: chartArray,
+								backgroundColor: [
+									'green',
+									'blue',
+									'red',
+									'yellow',
+								],
+								borderColor: [
+									'green',
+									'blue',
+									'red',
+									'yellow',
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							scales: {
+								y: {
+									beginAtZero: true
+								}
+							}
+						}
+					});
 
-					//console.log("Am the array " + chartArray);
-
-					// let bodaDetails = JSON.parse(data).toString().split(",");
-					// chartArray.push(bodaDetails[0], bodaDetails[1], bodaDetails[2], bodaDetails[3]);
-					// alert(chartArray);
 				}
 			})
 
 
 
 		});
+	</script>
 
-		const ctx = document.getElementById('myChart').getContext('2d');
-		const myChart = new Chart(ctx, {
-			type: 'pie',
-			data: {
-				labels: ['Active Boda Users', 'Inactive Boda Users', 'Suspended Boda Users', 'Pending Payments'],
-				datasets: [{
-					label: '# of Votes',
-					data: chartArray,
-					backgroundColor: [
-						'green',
-						'blue',
-						'red',
-						'yellow',
-					],
-					borderColor: [
-						'green',
-						'blue',
-						'red',
-						'yellow',
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					y: {
-						beginAtZero: true
+	<script>
+		//alert("here");
+		var fuelArray = [];
+
+		$(document).ready(function() {
+			$.ajax({
+				url: "fuelconsumption.php",
+				method: "POST",
+				data: {
+					action: "fetch"
+				},
+				dataType: "json",
+				success: function(data) {
+					//alert("here")
+					//console.log(data);
+
+					// console.log(data);
+					for (let index = 0; index < data.length; index++) {
+						fuelArray.push(data[index].amount)
+						//alert(data[index]);
+
+
 					}
+					//fuelconsumption
+					const ctx1 = document.getElementById('fuelconsumption').getContext('2d');
+					const myChart1 = new Chart(ctx1, {
+						type: 'pie',
+						data: {
+							labels: ['Expected Fuel Consumption', 'Consumed Fuel', ],
+							datasets: [{
+								label: '# of Votes',
+								data: fuelArray,
+								backgroundColor: [
+									'green',
+									'red',
+
+								],
+								borderColor: [
+									'green',
+
+									'red',
+
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							scales: {
+								y: {
+									beginAtZero: true
+								}
+							}
+						}
+					});
+
+
+
 				}
-			}
-		});
+			})
 
-
-		// //fuelconsumption
-		// const ctx1 = document.getElementById('fuelconsumption').getContext('2d');
-		// const myChart1 = new Chart(ctx1, {
-		// 	type: 'pie',
-		// 	data: {
-		// 		labels: ['Expected Fuel Consumption', 'Consumed Fuel', ],
-		// 		datasets: [{
-		// 			label: '# of Votes',
-		// 			data: [12, 5],
-		// 			backgroundColor: [
-		// 				'green',
-		// 				'red',
-
-		// 			],
-		// 			borderColor: [
-		// 				'green',
-
-		// 				'red',
-
-		// 			],
-		// 			borderWidth: 1
-		// 		}]
-		// 	},
-		// 	options: {
-		// 		scales: {
-		// 			y: {
-		// 				beginAtZero: true
-		// 			}
-		// 		}
-		// 	}
-		// });
+		})
 	</script>
 
 </body>
