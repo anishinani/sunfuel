@@ -199,7 +199,7 @@ if (!isset($_SESSION['user'])) {
 									<span class="info-box-text">Total Loans</span>
 									<span class="info-box-number">
 										<?= $totalLoans ?>
-										<small>%</small>
+
 									</span>
 								</div>
 								<!-- /.info-box-content -->
@@ -269,62 +269,62 @@ if (!isset($_SESSION['user'])) {
 											</button>
 											<div class="dropdown-menu dropdown-menu-right" role="menu">
 												<a href="#" class="dropdown-item">Action</a>
-												<a href="#" class="dropdown-item">Another action</a>
-												<a href="#" class="dropdown-item">Something else here</a>
+												<a href="#" class="dropdown-item">Inactive Boda Users</a>
+												<a href="#" class="dropdown-item">Active Boda Users</a>
 												<a class="dropdown-divider"></a>
-												<a href="#" class="dropdown-item">Separated link</a>
+												<a href="#" class="dropdown-item">Suspended Boda Users</a>
+												<a href="#" class="dropdown-item">Pendind Payments</a>
 											</div>
 										</div>
-										<button type="button" class="btn btn-tool" data-card-widget="remove">
-											<i class="fas fa-times"></i>
-										</button>
 									</div>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
 									<div class="row">
-										<div class="col-md-8">
+										<div class="col-md-6">
 											<p class="text-center">
-												<strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+												<strong>Boda Details: <?php echo date("D/M/Y"); ?></strong>
 											</p>
 
 											<div class="chart">
 												<!-- Sales Chart Canvas -->
-												<canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+												<canvas id="myChart" height="180" style="height: 180px;"></canvas>
 											</div>
 											<!-- /.chart-responsive -->
 										</div>
 										<!-- /.col -->
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<p class="text-center">
-												<strong>Goal Completion</strong>
+												<strong>Expected fuel Consumption</strong>
 											</p>
 
-											<div class="progress-group">
-												Add Products to Cart
+											<canvas id="fuelconsumption" height="150" style="height: 150px;"></canvas>
+
+											<!-- <div class="progress-group">
+												Expected fuel Consumption Today
 												<span class="float-right"><b>160</b>/200</span>
 												<div class="progress progress-sm">
 													<div class="progress-bar bg-primary" style="width: 80%"></div>
 												</div>
-											</div>
+											</div> -->
 											<!-- /.progress-group -->
-
+											<!-- 
 											<div class="progress-group">
 												Complete Purchase
-												<span class="float-right"><b>310</b>/400</span>
+												<span class="float-right"><b>400</b>/400</span>
 												<div class="progress progress-sm">
 													<div class="progress-bar bg-danger" style="width: 75%"></div>
 												</div>
-											</div>
+											</div> -->
 
 											<!-- /.progress-group -->
-											<div class="progress-group">
+											<!-- <div class="progress-group">
 												<span class="progress-text">Visit Premium Page</span>
 												<span class="float-right"><b>480</b>/800</span>
 												<div class="progress progress-sm">
 													<div class="progress-bar bg-success" style="width: 60%"></div>
 												</div>
-											</div>
+											</div> -->
 
 											<!-- /.progress-group -->
 											<div class="progress-group">
@@ -388,7 +388,7 @@ if (!isset($_SESSION['user'])) {
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
-					
+
 
 					<!-- Main row -->
 					<div class="row">
@@ -1075,21 +1075,115 @@ if (!isset($_SESSION['user'])) {
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="/creditpluswebapp/dist/js/pages/dashboard.js"></script>
 
-	<script src="text/javascript">
-		//alert("here")
+
+	<script>
+		//alert("here");
+		let chartArray = [];
+
 		$(document).ready(function() {
-			var date = new Date();
+			// bodaPieChart();
 
-			var day = date.getDate();
-			var month = date.getMonth() + 1;
-			var year = date.getFullYear();
+			// function bodaPieChart() {
 
-			if (month < 10) month = "0" + month;
-			if (day < 10) day = "0" + day;
+			//alert("data");
+			$.ajax({
+				url: "bodachart.php",
+				method: "POST",
+				data: {
+					action: "fetch"
+				},
+				dataType: "json",
+				success: function(data) {
+					//alert(data[0])
+					//alert(data);
+					//alert(da)
+					console.log(data);
+					for (let index = 0; index < data.length; index++) {
+						chartArray.push(data[index].total)
+						//alert(data[index]);
 
-			var today = year + "-" + month + "-" + day + "T00:00";
-			$("#theDate").attr("value", today);
+
+					}
+					console.log(chartArray)
+					//console.log("am here" + data.length);
+					//console.log(data.split(","));
+
+					//console.log("Am the array " + chartArray);
+
+					// let bodaDetails = JSON.parse(data).toString().split(",");
+					// chartArray.push(bodaDetails[0], bodaDetails[1], bodaDetails[2], bodaDetails[3]);
+					// alert(chartArray);
+				}
+			})
+
+
+
 		});
+
+		const ctx = document.getElementById('myChart').getContext('2d');
+		const myChart = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				labels: ['Active Boda Users', 'Inactive Boda Users', 'Suspended Boda Users', 'Pending Payments'],
+				datasets: [{
+					label: '# of Votes',
+					data: chartArray,
+					backgroundColor: [
+						'green',
+						'blue',
+						'red',
+						'yellow',
+					],
+					borderColor: [
+						'green',
+						'blue',
+						'red',
+						'yellow',
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+
+
+		// //fuelconsumption
+		// const ctx1 = document.getElementById('fuelconsumption').getContext('2d');
+		// const myChart1 = new Chart(ctx1, {
+		// 	type: 'pie',
+		// 	data: {
+		// 		labels: ['Expected Fuel Consumption', 'Consumed Fuel', ],
+		// 		datasets: [{
+		// 			label: '# of Votes',
+		// 			data: [12, 5],
+		// 			backgroundColor: [
+		// 				'green',
+		// 				'red',
+
+		// 			],
+		// 			borderColor: [
+		// 				'green',
+
+		// 				'red',
+
+		// 			],
+		// 			borderWidth: 1
+		// 		}]
+		// 	},
+		// 	options: {
+		// 		scales: {
+		// 			y: {
+		// 				beginAtZero: true
+		// 			}
+		// 		}
+		// 	}
+		// });
 	</script>
 
 </body>
