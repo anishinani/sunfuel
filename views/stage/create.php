@@ -303,15 +303,19 @@
     <script>
         $(document).ready(function() {
             $("#county").change(function() {
-                let subcounty = $("#county").val();
+                //let subcounty = $("#county").val();
                 //alert(subcounty);
+
+                let subcounty = $("#county").val();
+                let district = $("#districts").val();
                 $.ajax({
                     url: "fetchsubcounties.php",
                     method: 'post',
                     dataType: "json",
                     data: {
                         action: "fetch",
-                        subcounty: subcounty
+                        subcounty: subcounty,
+                        district: district
                     },
                     beforeSend: function() {
                         $("#subcounty").html('<option disabled selected>select sub county</option>');
@@ -356,10 +360,14 @@
         })
     </script>
 
+
     <script>
         $(document).ready(function() {
             $("#subcounty").change(function() {
+
+                let district = $("#districts").val();
                 let parish = $("#subcounty").val();
+                let county = $("#county").val();
                 //alert(parish);
                 $.ajax({
                     url: "fetchparishes.php",
@@ -367,7 +375,9 @@
                     dataType: "json",
                     data: {
                         action: "fetch",
-                        parish: parish
+                        parish: parish,
+                        district: district,
+                        county: county
                     },
                     beforeSend: function() {
                         $("#parish").html('<option disabled selected>select parish</option>');
@@ -388,6 +398,11 @@
     <script>
         $(document).ready(function() {
             $("#parish").change(function() {
+                let district = $("#districts").val();
+                let subcounty = $("#subcounty").val();
+                let county = $("#county").val();
+
+
                 let parish = $("#parish").val();
 
 
@@ -397,7 +412,10 @@
                     dataType: "json",
                     data: {
                         action: "fetch",
-                        parish: parish
+                        parish: parish,
+                        district: district,
+                        subcounty: subcounty,
+                        county: county
                     },
                     beforeSend: function() {
                         $("#village").html('<option disabled selected>select villages</option>');
@@ -415,7 +433,6 @@
             })
         })
     </script>
-
     <script>
         $('#form').on('submit', function(e) {
             e.preventDefault();

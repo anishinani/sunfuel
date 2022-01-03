@@ -5,8 +5,12 @@ include_once("../../utils/dbaccess.php");
 $dbAccesss = new DbAccess();
 
 if (isset($_POST['action'])) {
+    // district: district,
+    // subcounty: subcounty
     $parishCode =  $dbAccesss->clean($_POST['parish']);
-    $counties =  $dbAccesss->select("parishes", "", ['subCountyCode' => $parishCode]);
+    $districtCode =  $dbAccesss->clean($_POST['district']);
+    $subCountyCode =  $dbAccesss->clean($_POST['county']);
+    $counties =  $dbAccesss->select("parishes", "", ['subCountyCode' => $parishCode, 'districtCode' => $districtCode, "countyCode" => $subCountyCode]);
 
 
     echo  json_encode($counties);
