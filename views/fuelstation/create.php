@@ -472,8 +472,8 @@
                     } else {
                         alert("some thing went wrong");
                     }
-                    $("#save").html("saving...")
-                    $("#save").attr("disabled", true);
+                    $("#save").html("Save Fuel Station")
+                    $("#save").attr("disabled", false);
                 }
             });
         });

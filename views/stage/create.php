@@ -52,6 +52,7 @@
         include("../../utils/dbaccess.php");
 
         $dbAccess =  new DbAccess();
+        $districts  =  $dbAccess->select("districts");
 
         $results  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
 
@@ -108,8 +109,60 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Register a new stage</p>
-                                    <form method="POST" action="./store.php">
+                                    <form method="POST" id="form">
 
+                                        <!--district-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station District</label>
+                                            <select id="districts" class="form-control" name="district">
+                                                <option selected disabled>select district</option>
+                                                <?php
+                                                for ($i = 0; $i < count($districts); $i++) {
+                                                ?>
+                                                    <option value="<?= $districts[$i]["districtCode"] ?>">
+                                                        <?= $districts[$i]["districtName"] ?></option>
+
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <!--district-->
+
+                                        <!--count-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station County</label>
+                                            <select id="county" class="form-control" disabled name="county">
+                                                <option disabled selected>select county</option>
+
+                                            </select>
+                                        </div>
+                                        <!--count-->
+                                        <!--subcounty-->
+                                        <div class="form-group">
+                                            <label for="subcounty">Station Subcounty</label>
+                                            <select id="subcounty" class="form-control" disabled name="subcounty">
+                                                <option>select sub county</option>
+
+                                            </select>
+                                        </div>
+                                        <!--subcounty-->
+                                        <!--parish-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station Parish</label>
+                                            <select id="parish" class="form-control" disabled name="parish">
+                                                <option selected disabled>select parish</option>
+
+                                            </select>
+                                        </div>
+                                        <!--parish-->
+                                        <!--village-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station Village</label>
+                                            <select id="village" class="form-control" disabled name="village">
+                                                <option selected disabled>select village</option>
+
+                                            </select>
+                                        </div>
+                                        <!--village-->
 
                                         <div class="form-group mb-3">
                                             <label for="">Stage Name</label>

@@ -316,21 +316,21 @@
                 // dataType: 'json',
                 contentType: false,
                 beforeSend: function() {
-                    $(form).find('span.error-text').text('');
+                    // $(form).find('span.error-text').text('');
                     $("#save").html("saving...")
                     $("#save").attr("disabled", true);
                 },
                 success: function(data) {
-                    //alert(data);
+                    alert(data);
                     if (data == "success") {
                         //alert("true");
                         location.href = "./index.php"
 
                     } else {
-                        alert("some thing went wrong");
+                        alert("some thing went wrong!! please try again");
                     }
-                    $("#save").html("saving...")
-                    $("#save").attr("disabled", true);
+                    $("#save").html("Save Boda User")
+                    $("#save").attr("disabled", false);
                 }
             });
         });

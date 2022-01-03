@@ -15,7 +15,7 @@ $activity = new ActivityLogger();
 
 
 
-if (isset($_POST['addBodaUser'])) {
+if (isset($_POST['name'])) {
 
     $_SESSION['errors'] = array();
     //var_dump($_FILES);
@@ -36,6 +36,8 @@ if (isset($_POST['addBodaUser'])) {
         $_SESSION['success'] = "Wrong image format not supported";
         header("Location:index.php");
     }
+
+
 
 
 
@@ -81,7 +83,8 @@ if (isset($_POST['addBodaUser'])) {
 
             //redirect
             $_SESSION['success'] = "Boda User Added Successfully";
-            header("Location:index.php");
+            //header("Location:index.php");
+            echo "success";
             //redirect
         } else {
             //die("Oops there was an error");
