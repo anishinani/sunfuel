@@ -282,9 +282,9 @@ if (!isset($_SESSION['user'])) {
 								<div class="card-body">
 									<div class="row">
 										<div class="col-md-6">
-											<p class="text-center">
+											<!-- <p class="text-center">
 												<strong>Boda Details: <?php echo date("D/M/Y"); ?></strong>
-											</p>
+											</p> -->
 
 											<div class="chart">
 												<!-- Sales Chart Canvas -->
