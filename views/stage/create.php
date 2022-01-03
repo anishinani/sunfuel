@@ -179,7 +179,7 @@
                                         <div class="form-group mb-3">
                                             <div class="form-group">
                                                 <label for="my-select">Fuel Station</label>
-                                                <select id="my-select" class="form-control" name="fuelStationId" disableds>
+                                                <select id="fuelStationId" class="form-control" name="fuelStationId" disabled>
                                                     <option disabled selected>select station</option>
 
                                                 </select>
@@ -315,15 +315,39 @@
                     },
                     beforeSend: function() {
                         $("#subcounty").html('<option disabled selected>select sub county</option>');
+                        // $("#fuelStationId").html('<option disabled selected>select fuel station</option>');
                     },
                     success: function(data) {
                         $("#subcounty").attr('disabled', false);
-                        //console.log(data);
-                        //alert(data);
-                        //$("#subcounty").append('<option value=' + value.subCountyCode + '>' + value.subCountyName + '</option>');
+
+
                         $.each(data, function(key, value) {
                             $("#subcounty").append('<option value=' + value.subCountyCode + '>' + value.subCountyName + '</option>');
                         });
+
+                        //fetch stations
+                        $.ajax({
+                            url: "fetchstation.php",
+                            method: 'post',
+                            dataType: "json",
+                            data: {
+                                action: "fetch",
+                                subcounty: subcounty
+                            },
+                            beforeSend: function() {
+
+                                $("#fuelStationId").html('<option disabled selected>select fuel station</option>');
+
+                            },
+                            success: function(data) {
+                                $("#fuelStationId").attr('disabled', false);
+                                $.each(data, function(key, value) {
+                                    $("#fuelStationId").append('<option value=' + value.fuelStationId + '>' + value.fuelStationName + '</option>');
+                                });
+                            }
+
+                        })
+                        //fetch stations
                     }
 
                 })
@@ -404,7 +428,7 @@
                 // dataType: 'json',
                 contentType: false,
                 beforeSend: function() {
-                    $(form).find('span.error-text').text('');
+                    // $(form).find('span.error-text').text('');
                     $("#save").html("saving...")
                     $("#save").attr("disabled", true);
                 },

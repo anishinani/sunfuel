@@ -19,7 +19,7 @@ $activity = new ActivityLogger();
 
 
 
-if (isset($_POST['addStage'])) {
+if (isset($_POST['name'])) {
 
     $_SESSION['errors'] = array();
 
@@ -58,7 +58,8 @@ if (isset($_POST['addStage'])) {
 
             //redirect
             $_SESSION['success'] = "Stage Added Successfully";
-            header("Location:index.php");
+            //header("Location:index.php");
+            echo "success";
             //redirect
         } else {
             die("Oops there was an error");

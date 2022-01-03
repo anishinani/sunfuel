@@ -13,7 +13,13 @@ class Stage extends DbAccess
             [
                 'stageName' => strtoupper($name),
                 'fuelStationId' => $id,
-                'stageStatus' => '0'
+                'stageStatus' => '0',
+                "location" => $_POST['location'],
+                'districtCode' => $_POST['district'],
+                'countyCode' => $_POST['county'],
+                'subCountyCode' => $_POST['subcounty'],
+                'parishCode' => $_POST['parish'],
+                'villageCode' => $_POST['village']
 
             ]
         );
