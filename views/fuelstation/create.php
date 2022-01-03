@@ -114,7 +114,7 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Register a new station</p>
-                                    <form method="POST" action="./store.php" enctype="multipart/form-data">
+                                    <form method="POST" action="" enctype="multipart/form-data" id="form">
 
 
                                         <!--district-->
@@ -242,7 +242,7 @@
 
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Register</button>
+                                            <button type="submit" class="style_button" name="addStation" id="save">save fuel station</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>
@@ -445,6 +445,38 @@
 
             })
         })
+    </script>
+
+    <script>
+        $('#form').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            $.ajax({
+                url: "./store.php",
+                method: $(form).attr('method'),
+                data: new FormData(form),
+                processData: false,
+                // dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    $(form).find('span.error-text').text('');
+                    $("#save").html("saving...")
+                    $("#save").attr("disabled", true);
+                },
+                success: function(data) {
+                    //alert(data);
+                    if (data == "success") {
+                        //alert("true");
+                        location.href = "./index.php"
+
+                    } else {
+                        alert("some thing went wrong");
+                    }
+                    $("#save").html("saving...")
+                    $("#save").attr("disabled", true);
+                }
+            });
+        });
     </script>
 </body>
 

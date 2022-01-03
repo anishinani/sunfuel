@@ -18,8 +18,12 @@ $activity = new ActivityLogger();
 //unset($_SESSION['errors']);
 
 
+//var_dump($_POST);
+if (isset($_POST['district'])) {
+    //var_dump($_FILES);
+    //Sdie("am here");
 
-if (isset($_POST['addStation'])) {
+    //die("here");
 
     $_SESSION['errors'] = array();
 
@@ -89,7 +93,8 @@ if (isset($_POST['addStation'])) {
 
             //redirect
             $_SESSION['success'] = "Fuel Station Added Successfully";
-            header("Location:index.php");
+            //header("Location:index.php");
+            echo "success";
             //redirect
         } else {
             //die("Oops there was an error");

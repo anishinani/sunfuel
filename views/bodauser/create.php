@@ -111,7 +111,7 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Register a new boda user</p>
-                                    <form method="POST" action="./store.php" enctype="multipart/form-data">
+                                    <form method="POST" enctype="multipart/form-data" id="form">
 
 
                                         <div class="form-group mb-3">
@@ -215,7 +215,7 @@
                                         <!--stage-->
                                         <!-- /.col -->
                                         <div class="col-12">
-                                            <button type="submit" class="style_button" name="addBodaUser">Register Boda User</button>
+                                            <button type="submit" class="style_button" name="addBodaUser" id="save">Save Boda User</button>
                                         </div>
                                         <!-- /.col -->
                                 </div>
@@ -303,6 +303,37 @@
                 }
             })
         })
+    </script>
+    <script>
+        $('#form').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            $.ajax({
+                url: "./store.php",
+                method: $(form).attr('method'),
+                data: new FormData(form),
+                processData: false,
+                // dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    $(form).find('span.error-text').text('');
+                    $("#save").html("saving...")
+                    $("#save").attr("disabled", true);
+                },
+                success: function(data) {
+                    //alert(data);
+                    if (data == "success") {
+                        //alert("true");
+                        location.href = "./index.php"
+
+                    } else {
+                        alert("some thing went wrong");
+                    }
+                    $("#save").html("saving...")
+                    $("#save").attr("disabled", true);
+                }
+            });
+        });
     </script>
 </body>
 
