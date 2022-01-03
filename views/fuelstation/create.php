@@ -104,6 +104,46 @@
                                     <form method="POST" action="./store.php" enctype="multipart/form-data">
 
 
+                                        <!--district-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station District</label>
+                                            <select id="my-select" class="form-control" name="">
+                                                <option>Text</option>
+                                            </select>
+                                        </div>
+                                        <!--district-->
+                                        <!--count-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station County</label>
+                                            <select id="my-select" class="form-control" name="">
+                                                <option>Text</option>
+                                            </select>
+                                        </div>
+                                        <!--count-->
+                                        <!--subcounty-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station Subcounty</label>
+                                            <select id="my-select" class="form-control" name="">
+                                                <option>Text</option>
+                                            </select>
+                                        </div>
+                                        <!--subcounty-->
+                                        <!--parish-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station Parish</label>
+                                            <select id="my-select" class="form-control" name="">
+                                                <option>Text</option>
+                                            </select>
+                                        </div>
+                                        <!--parish-->
+                                        <!--village-->
+                                        <div class="form-group">
+                                            <label for="my-select">Station Village</label>
+                                            <select id="my-select" class="form-control" name="">
+                                                <option>Text</option>
+                                            </select>
+                                        </div>
+                                        <!--village-->
                                         <div class="form-group mb-3">
                                             <label for="">Station Name</label>
                                             <input type="text" name="name" required class="form-control" placeholder="enter station name" />
