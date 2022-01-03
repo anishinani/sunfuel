@@ -89,6 +89,7 @@ $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['fuelStationName'];
+    $sub_array[] = $row['merchantCode'];
     $sub_array[] = $row['fuelStationContactPerson'];
     $sub_array[] = $row['fuelStationAddress'];
     $sub_array[] = $row['fuelStationContactPhone'];

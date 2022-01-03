@@ -50,6 +50,19 @@
         <?php
         include_once("../navbar/navbar.php");
         include("../sidebar.php");
+        include_once("../../utils/dbaccess.php");
+        $dbAccess = new DbAccess();
+
+
+        $districts  =  $dbAccess->select("districts");
+        // $county  =  $dbAccess->select("county");
+        // $subcounty =  $dbAccess->select("subcounty");
+        // $parishes =  $dbAccess->select("parishes");
+        // $villages =  $dbAccess->select("villages");
+
+
+
+        $stage  =  $dbAccess->select("stage", ["stageId", "stageName"]);
         ?>
 
 
@@ -107,40 +120,52 @@
                                         <!--district-->
                                         <div class="form-group">
                                             <label for="my-select">Station District</label>
-                                            <select id="my-select" class="form-control" name="">
-                                                <option>Text</option>
+                                            <select id="districts" class="form-control" name="district">
+                                                <option selected disabled>select district</option>
+                                                <?php
+                                                for ($i = 0; $i < count($districts); $i++) {
+                                                ?>
+                                                    <option value="<?= $districts[$i]["districtCode"] ?>">
+                                                        <?= $districts[$i]["districtName"] ?></option>
+
+                                                <?php } ?>
                                             </select>
                                         </div>
                                         <!--district-->
+
                                         <!--count-->
                                         <div class="form-group">
                                             <label for="my-select">Station County</label>
-                                            <select id="my-select" class="form-control" name="">
-                                                <option>Text</option>
+                                            <select id="county" class="form-control" disabled name="county">
+                                                <option disabled selected>select county</option>
+
                                             </select>
                                         </div>
                                         <!--count-->
                                         <!--subcounty-->
                                         <div class="form-group">
-                                            <label for="my-select">Station Subcounty</label>
-                                            <select id="my-select" class="form-control" name="">
-                                                <option>Text</option>
+                                            <label for="subcounty">Station Subcounty</label>
+                                            <select id="subcounty" class="form-control" disabled name="subcounty">
+                                                <option>select sub county</option>
+
                                             </select>
                                         </div>
                                         <!--subcounty-->
                                         <!--parish-->
                                         <div class="form-group">
                                             <label for="my-select">Station Parish</label>
-                                            <select id="my-select" class="form-control" name="">
-                                                <option>Text</option>
+                                            <select id="parish" class="form-control" disabled name="parish">
+                                                <option selected disabled>select parish</option>
+
                                             </select>
                                         </div>
                                         <!--parish-->
                                         <!--village-->
                                         <div class="form-group">
                                             <label for="my-select">Station Village</label>
-                                            <select id="my-select" class="form-control" name="">
-                                                <option>Text</option>
+                                            <select id="village" class="form-control" disabled name="village">
+                                                <option selected disabled>select village</option>
+
                                             </select>
                                         </div>
                                         <!--village-->
@@ -292,6 +317,135 @@
     <script src=" /creditpluswebapp/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src=" /creditpluswebapp/dist/js/pages/dashboard.js"></script>
+
+    <script>
+        //alert("here")
+        $(document).ready(function() {
+            //alert("here");
+
+            $("#districts").change(function() {
+                let district = $("#districts").val();
+                //alert(district);
+                //alert("changed")
+                $.ajax({
+                    url: "./fetchcounties.php",
+                    method: "post",
+
+                    data: {
+                        district: district,
+                        action: "fetch"
+                    },
+                    dataType: "json",
+                    beforeSend: function() {
+                        $("#county").html('<option disabled selected>select county</option>');
+                    },
+                    success: function(data) {
+                        $("#county").attr('disabled', false);
+                        $("#village").attr('disabled', true);
+                        $("#subcounty").attr('disabled', true);
+                        $("#parish").attr('disabled', true);
+
+                        $.each(data, function(key, value) {
+                            $("#county").append('<option value=' + value.countyCode + '>' + value.countyName + '</option>');
+                        });
+                    }
+
+                })
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#county").change(function() {
+                let subcounty = $("#county").val();
+                //alert(subcounty);
+                $.ajax({
+                    url: "fetchsubcounties.php",
+                    method: 'post',
+                    dataType: "json",
+                    data: {
+                        action: "fetch",
+                        subcounty: subcounty
+                    },
+                    beforeSend: function() {
+                        $("#subcounty").html('<option disabled selected>select sub county</option>');
+                    },
+                    success: function(data) {
+                        $("#subcounty").attr('disabled', false);
+                        //console.log(data);
+                        //alert(data);
+                        //$("#subcounty").append('<option value=' + value.subCountyCode + '>' + value.subCountyName + '</option>');
+                        $.each(data, function(key, value) {
+                            $("#subcounty").append('<option value=' + value.subCountyCode + '>' + value.subCountyName + '</option>');
+                        });
+                    }
+
+                })
+
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#subcounty").change(function() {
+                let parish = $("#subcounty").val();
+                //alert(parish);
+                $.ajax({
+                    url: "fetchparishes.php",
+                    method: 'post',
+                    dataType: "json",
+                    data: {
+                        action: "fetch",
+                        parish: parish
+                    },
+                    beforeSend: function() {
+                        $("#parish").html('<option disabled selected>select parish</option>');
+                    },
+                    success: function(data) {
+                        $("#parish").attr('disabled', false);
+                        $.each(data, function(key, value) {
+                            $("#parish").append('<option value=' + value.parishCode + '>' + value.parishName + '</option>');
+                        });
+                    }
+
+                })
+
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#parish").change(function() {
+                let parish = $("#parish").val();
+
+
+                $.ajax({
+                    url: "fetchvillages.php",
+                    method: 'post',
+                    dataType: "json",
+                    data: {
+                        action: "fetch",
+                        parish: parish
+                    },
+                    beforeSend: function() {
+                        $("#village").html('<option disabled selected>select villages</option>');
+                    },
+                    success: function(data) {
+                        //salert(data);
+                        $("#village").attr('disabled', false);
+                        $.each(data, function(key, value) {
+                            $("#village").append('<option value=' + value.villageCode + '>' + value.villageName + '</option>');
+                        });
+                    }
+
+                })
+
+            })
+        })
+    </script>
 </body>
 
 </html>

@@ -23,6 +23,9 @@ if (isset($_POST['addStation'])) {
 
     $_SESSION['errors'] = array();
 
+    //var_dump($_POST);
+    //die("here");
+
     //store images
     $backPhoto = $_FILES["backPhoto"]["name"];
     $frontPhoto = $_FILES["frontPhoto"]["name"];

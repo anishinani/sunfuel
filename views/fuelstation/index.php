@@ -142,6 +142,7 @@ $_SESSION['bool'] =  true;
                                         <thead>
                                             <tr>
                                                 <th> Name</th>
+                                                <th>Merchant Code</th>
                                                 <th>Contact Person</th>
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>

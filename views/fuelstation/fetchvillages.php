@@ -5,10 +5,10 @@ include_once("../../utils/dbaccess.php");
 $dbAccesss = new DbAccess();
 
 if (isset($_POST['action'])) {
-    //echo "here";
-    $countyCode =  $dbAccesss->clean($_POST['subcounty']);
-    //echo $countyCode;
-    $counties =  $dbAccesss->select("subcounty", "", ['countyCode' => $countyCode]);
+    $parishCode =  $dbAccesss->clean($_POST['parish']);
+    
+
+    $counties =  $dbAccesss->select("villages", "", ['parishCode' => $parishCode]);
 
 
     echo  json_encode($counties);
