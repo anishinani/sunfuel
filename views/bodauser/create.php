@@ -321,7 +321,7 @@
                     $("#save").attr("disabled", true);
                 },
                 success: function(data) {
-                    alert(data);
+                    //alert(data);
                     if (data == "success") {
                         //alert("true");
                         location.href = "./index.php"

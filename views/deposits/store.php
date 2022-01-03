@@ -19,11 +19,13 @@ $activity = new ActivityLogger();
 
 
 
-if (isset($_POST['addDeposit'])) {
+if (isset($_POST['amount'])) {
 
     $_SESSION['errors'] = array();
 
     //store images
+
+
 
     $frontPhoto = $_FILES["receipt"]["name"];
     $tempFrontPhoto = $_FILES["receipt"]["tmp_name"];
@@ -70,7 +72,7 @@ if (isset($_POST['addDeposit'])) {
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($deposit->store($_POST, $photoTwo, $photoOne)) {
+        if ($deposit->store($_POST, $photoTwo)) {
             $activity->logActivity(
                 $_SESSION['user'],
                 "Added deposit",
@@ -81,7 +83,8 @@ if (isset($_POST['addDeposit'])) {
 
             //redirect
             $_SESSION['success'] = "Deposit Successfully";
-            header("Location:index.php");
+            //header("Location:index.php");
+            echo "success";
             //redirect
         } else {
             die("Oops there was an error");

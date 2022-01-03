@@ -39,6 +39,10 @@
             border-radius: 10px;
         }
 
+        .none {
+            display: none;
+        }
+
         #loader {
             display: none;
             position: fixed;
@@ -106,7 +110,14 @@
                         </div>
 
                         <!--error part-->
+
+
+                        <!--errors-->
+                        <!--errors-->
                     <?php } ?>
+                    <div id="noMerchantCode">
+
+                    </div>
                     <div class="row">
                         <!--form add user -->
                         <div class="register-box m-auto col-md-8">
@@ -114,45 +125,73 @@
 
                                 <div class="card-body">
                                     <p class="login-box-msg">Add New Deposit</p>
-                                    <form method="POST" action="./store.php" enctype="multipart/form-data">
 
+                                    <div class="form-group mb-3">
+                                        <label for="">Enter Merchant Code</label>
+                                        <input type="text" name="amount" id="merchant" required class="form-control" placeholder="enter merchant code" />
+
+                                    </div>
+
+                                    <form method="POST" id="form" enctype="multipart/form-data">
+
+
+
+                                        <!--bankname-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Bank Name</label>
+                                            <input type="text" name="bankname" id="bankname" disabled required class="form-control" placeholder="enter bank anmes" />
+
+                                        </div>
+                                        <!--banknames-->
+                                        <!--Bank Branch-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Bank Branch</label>
+                                            <input type="text" name="bankbranch" disabled id="bankbranch" required class="form-control" placeholder="enter station Bank Branch" />
+                                        </div>
+                                        <!--Bank Branch-->
+                                        <!--Account Name-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Account Name</label>
+                                            <input type="text" name="accountname" id="accountname" disabled required class="form-control" placeholder="enter station Account Name" />
+                                        </div>
+                                        <!--Account Name-->
+                                        <!--Account Number-->
+                                        <div class="form-group mb-3">
+                                            <label for="">Account Number</label>
+                                            <input type="text" name="accountnumber" id="accountnumber" disabled required class="form-control" placeholder="enter station Account Number" />
+                                        </div>
+                                        <!--Account Number-->
+                                        <!--fuel station-->
+                                        <div class="form-group mb-3">
+                                            <div class="form-group">
+                                                <label for="my-select">Fuel Station</label>
+                                                <input type="text" name="stationname" id="station" disabled required class="form-control" placeholder="station name" />
+
+                                            </div>
+                                            <input class="form-control" type="hidden" name="stationId" id="stationId">
+
+                                        </div>
+                                        <!--fuel station-->
 
                                         <div class="form-group mb-3">
                                             <label for="">Amount</label>
-                                            <input type="text" name="amount" required class="form-control" placeholder="enter amount" />
+                                            <input type="text" name="amount" id="amount" disabled required class="form-control" placeholder="enter amount" />
 
                                         </div>
 
                                         <!--person-->
                                         <div class="form-group mb-3">
                                             <label for="">Deposited By</label>
-                                            <input type="text" name="name" required class="form-control" placeholder="enter names" />
+                                            <input type="text" name="name" id="depositedBy" disabled required class="form-control" placeholder="enter names" />
 
                                         </div>
                                         <!--person-->
 
-                                        <!--fuel station-->
-                                        <div class="form-group mb-3">
-                                            <div class="form-group">
-                                                <label for="my-select">Fuel Station</label>
-                                                <select id="my-select" class="form-control" name="fuelStationId">
-                                                    <option disabled selected>select station</option>
-                                                    <?php
-                                                    for ($i = 0; $i < count($results); $i++) {
-                                                    ?>
-                                                        <option value="<?= $results[$i]["fuelStationId"] ?>">
-                                                            <?= $results[$i]["fuelStationName"] ?></option>
 
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                        <!--fuel station-->
                                         <!--Receipt-->
                                         <div class="form-group mb-3">
                                             <label for=""> Upload Receipt</label>
-                                            <input type="file" name="receipt" required class="form-control" accept="image/*" />
+                                            <input type="file" name="receipt" id="file" disabled required class="form-control" accept="image/*" />
                                         </div>
                                         <!--Receipt-->
 
@@ -162,7 +201,7 @@
                                         <!-- /.col -->
                                         <div class="col-12">
 
-                                            <button type="submit" class="style_button" name="addDeposit">Add Deposit</button>
+                                            <button type="submit" class="style_button" name="addDeposit" id="save">Confirm Deposit</button>
                                             <!-- <img src="/creditpluswebapp/dist/img/loader.gif" width="80px" height="80px" /> -->
                                         </div>
                                         <!-- /.col -->
@@ -171,9 +210,7 @@
                                 </form>
                                 <div class="co1-12"></div>
                                 <!-- <button id="button">Register Agent</button> -->
-                                <div id="loader">
 
-                                </div>
                             </div>
 
 
@@ -256,6 +293,103 @@
                 alert("clicked");
             })
         })
+    </script>
+
+    <script>
+        $(document).ready(() => {
+            $('#merchant').keyup(() => {
+                //alert("here");
+                var merchantCode = $("#merchant").val();
+                //alert(merchantCode)
+                //fetch stations
+
+                if (merchantCode == "") {
+                    $("#noMerchantCode").addClass("none");
+                }
+                $.ajax({
+                    url: "fetchstation.php",
+                    method: 'post',
+                    dataType: "json",
+                    data: {
+                        action: "fetch",
+                        merchantCode: merchantCode
+                    },
+                    beforeSend: function() {
+
+                        //$("#fuelStationId").html('<option disabled selected>select fuel station</option>');
+
+                    },
+                    success: function(data) {
+                        // $("#fuelStationId").attr('disabled', false);
+                        $.each(data, function(key, value) {
+                            if (value == "invalidMerchantCode") {
+                                $("#noMerchantCode").removeClass("none");
+                                //alert("here");
+                                $("#noMerchantCode").html('<div class="alert alert-danger"><strong > Whoops! </strong> Invalid Merchant Code.<br><br></div>');
+                                $("#bankname").val("");
+                                $("#bankbranch").val("");
+                                $("#accountname").val("");
+                                $("#accountnumber").val("");
+                                $("#stationId").val("");
+                                $("#station").val("");
+                                $("amount").attr("disabled", true);
+                                $("#depositedBy").attr("disabled", true);
+                                $("#file").attr("disabled", true)
+                            } else {
+                                //alert("here");
+                                $("#noMerchantCode").addClass("none");
+                                console.log(value);
+                                //$("#fuelStationId").append('<option value=' + value.fuelStationId + '>' + value.fuelStationName + '</option>');
+                                $("#bankname").val(value.bankName);
+                                $("#bankbranch").val(value.bankName);
+                                $("#accountname").val(value.bankBranch);
+                                $("#accountnumber").val(value.AccName);
+                                $("#stationId").val(value.fuelStationId);
+                                $("#station").val(value.fuelStationName);
+                                $("#amount").attr("disabled", false);
+                                $("#depositedBy").attr("disabled", false);
+                                $("#file").attr("disabled", false)
+
+                            }
+                        });
+
+                    }
+
+                })
+                //fetch stations
+            });
+        });
+    </script>
+    <script>
+        $('#form').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            $.ajax({
+                url: "./store.php",
+                method: $(form).attr('method'),
+                data: new FormData(form),
+                processData: false,
+                // dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    // $(form).find('span.error-text').text('');
+                    $("#save").html("saving...")
+                    $("#save").attr("disabled", true);
+                },
+                success: function(data) {
+                    //alert(data);
+                    if (data == "success") {
+                        //alert("true");
+                        location.href = "./index.php"
+
+                    } else {
+                        alert("some thing went wrong!! please try again");
+                    }
+                    $("#save").html("Confirm Payment")
+                    $("#save").attr("disabled", false);
+                }
+            });
+        });
     </script>
 </body>
 

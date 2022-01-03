@@ -7,17 +7,17 @@ class Deposit extends DbAccess
 
 
         //update fuelstation
-        $amountCredentials = $this->select("fuelstation", ['currentAmount', 'totalAmount'], ['fuelStationId' => $array['fuelStationId']]);
+        $amountCredentials = $this->select("fuelstation", ['currentAmount', 'totalAmount'], ['fuelStationId' => $array['stationId']]);
         //update fuelstation 
 
         $totalAmount =  $amountCredentials[0]['totalAmount'] + $array['amount'];
         $currentAmount =  $amountCredentials[0]['currentAmount'] + $array['amount'];
-        $this->update("fuelstation", ['totalAmount' => $totalAmount, 'currentAmount' => $currentAmount], ['fuelstationId' => $array['fuelStationId']]);
+        $this->update("fuelstation", ['totalAmount' => $totalAmount, 'currentAmount' => $currentAmount], ['fuelstationId' => $array['stationId']]);
 
         return $this->insert(
             "deposits",
             [
-                'fuelStationId' => $array['fuelStationId'],
+                'fuelStationId' => $array['stationId'],
                 'depositedBy' => $array['name'],
                 'amount' => $array['amount'],
                 'receipt' => $receipt,
