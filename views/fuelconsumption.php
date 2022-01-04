@@ -25,8 +25,8 @@ function checkNUll($total)
 //echo $totalAmount;
 //die("here");
 
-array_push($expectedDetails, array("amount" => checkNull($expectedFuelPerDay)));
-array_push($expectedDetails, array("amount" => checkNull($totalAmount)));
+array_push($expectedDetails, array("data" => checkNull($expectedFuelPerDay)));
+array_push($expectedDetails, array("data" => checkNull($totalAmount)));
 
 //var_dump($expectedDetails);
 

@@ -14,7 +14,7 @@ function checkNUll($total)
         return  intval($total);
     }
 }
-//die("here");
+
 $bodaUsersDetails = [];
 $totalActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
 $totalInActiveBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
@@ -23,24 +23,12 @@ $totalDefaultedBodaUsers  = $dbAccess->countRows("bodauser", "bodaUserStatus", [
 $suspendedBodaUsers =  $dbAccess->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "3"]);
 
 
-array_push($bodaDetails, array("total" => checkNUll($totalActiveBodaUsers)));
-array_push($bodaDetails, array("total" => checkNUll($totalInActiveBodaUsers)));
-array_push($bodaDetails, array("total" => checkNUll($totalDefaultedBodaUsers)));
-array_push($bodaDetails, array("total" => checkNUll($suspendedBodaUsers)));
-
-//array_push($bodaDetails, 1);
-
-//echo $bodaDetails[0] . "," . $bodaDetails[1] . "," . $bodaDetails[2] . "," . $bodaDetails[3];
+array_push($bodaDetails, array("data" => checkNUll($totalActiveBodaUsers)));
+array_push($bodaDetails, array("data" => checkNUll($totalInActiveBodaUsers)));
+array_push($bodaDetails, array("data" => checkNUll($totalDefaultedBodaUsers)));
+array_push($bodaDetails, array("data" => checkNUll($suspendedBodaUsers)));
 
 
 echo json_encode($bodaDetails);
 
-//var_dump($bodaDetails);
 
-
-
-// if (isset($_POST['fetch'])) {
-//     echo "something";
-// } else {
-//     echo "nothing";
-// }

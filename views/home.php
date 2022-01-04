@@ -341,6 +341,99 @@ if (!isset($_SESSION['user'])) {
 							<!-- /.card -->
 						</div>
 						<!-- /.col -->
+
+						<!--stages-->
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Daily Stage Report</h5>
+
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool" data-card-widget="collapse">
+											<i class="fas fa-minus"></i>
+										</button>
+										<div class="btn-group">
+											<button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+												<i class="fas fa-wrench"></i>
+											</button>
+											<div class="dropdown-menu dropdown-menu-right" role="menu">
+
+												<a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php" class="dropdown-item">Inactive Boda Users</a>
+												<a href="/creditpluswebapp/views/bodauser/activeBodaUsers.php" class="dropdown-item">Active Boda Users</a>
+												<a class="dropdown-divider"></a>
+												<a href="#" class="dropdown-item">Suspended Boda Users</a>
+												<a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php" class="dropdown-item">Pending Payments</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-6">
+											<!-- <p class="text-center">
+												<strong>Boda Details: <?php echo date("D/M/Y"); ?></strong>
+											</p> -->
+
+											<div class="chart">
+												<!-- Sales Chart Canvas -->
+												<canvas id="stageId" height="180" style="height: 180px;"></canvas>
+											</div>
+											<!-- /.chart-responsive -->
+										</div>
+										<!-- /.col -->
+										<div class="col-md-6">
+											<p class="text-center">
+												<strong>Expected fuel Consumption</strong>
+											</p>
+
+											<canvas id="fuelconsumption" height="150" style="height: 150px;"></canvas>
+
+											<!-- <div class="progress-group">
+												Expected fuel Consumption Today
+												<span class="float-right"><b>160</b>/200</span>
+												<div class="progress progress-sm">
+													<div class="progress-bar bg-primary" style="width: 80%"></div>
+												</div>
+											</div> -->
+											<!-- /.progress-group -->
+											<!-- 
+											<div class="progress-group">
+												Complete Purchase
+												<span class="float-right"><b>400</b>/400</span>
+												<div class="progress progress-sm">
+													<div class="progress-bar bg-danger" style="width: 75%"></div>
+												</div>
+											</div> -->
+
+											<!-- /.progress-group -->
+											<!-- <div class="progress-group">
+												<span class="progress-text">Visit Premium Page</span>
+												<span class="float-right"><b>480</b>/800</span>
+												<div class="progress progress-sm">
+													<div class="progress-bar bg-success" style="width: 60%"></div>
+												</div>
+											</div> -->
+
+											<!-- /.progress-group -->
+											<div class="progress-group">
+												<!-- Send Inquiries
+												<span class="float-right"><b>250</b>/500</span>
+												<div class="progress progress-sm">
+													<div class="progress-bar bg-warning" style="width: 50%"></div>
+												</div> -->
+											</div>
+											<!-- /.progress-group -->
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+								</div>
+
+							</div>
+							<!-- /.card -->
+						</div>
+						<!--stages-->
 					</div>
 					<!-- /.row -->
 
@@ -412,68 +505,84 @@ if (!isset($_SESSION['user'])) {
 
 	<script>
 		//alert("here");
-		var chartArray = [];
+		//var chartArray = [];
 
+		//bodadetails
+		let bodaLabels = ['Active Boda Users', 'Inactive Boda Users', 'Pending Payments', 'Suspended Boda Users'];
+		var bodaUrl = "bodachart.php";
+		var chartBodaArray = [];
+		var bodaId = "myChart";
+		var backgroundColors = ['green', 'blue', 'yellow', 'red'];
+		var borderColors = ['green', 'blue', 'yellow', 'red'];
+		//bodadetails
+		//fetchconsumption
+		let fuelLabels = ['Expected Fuel Consumption', 'Consumed Fuel'];
+		let fuelUrl = "fuelconsumption.php";
+		let fuelId = "fuelconsumption";
+		let fuelBackGroundColors = ['green', 'red'];
+		let fuelBorderColors = ['green', 'red'];
+		let fuelArray = [];
+		//fetchconsumption
 
+		//fetchstages
+		let stageLabels = ['Active Stages', 'Inactive Stages', "Defaulted Stages", "Suspended Stages"];
+		let stageUrl = "fetchstages.php";
+		let stageId = "stageId";
+		let stageBackGroundColors = ['green', 'blue', 'yellow', 'red'];
+		let stageBorderColors = ['green', 'blue', 'yellow', 'red'];
+		let stageArray = [];
+		//fetchstages
+		
 		$(document).ready(function() {
+			fetchChartData(bodaLabels, bodaUrl, chartBodaArray, bodaId, backgroundColors, borderColors);
+			fetchChartData(fuelLabels, fuelUrl, fuelArray, fuelId, fuelBackGroundColors, fuelBorderColors);
+			fetchChartData(stageLabels, stageUrl, stageArray, stageId, stageBackGroundColors, stageBorderColors);
+			function fetchChartData(labels, url, chartArray, id, backGroundColors, borderColors) {
+				$.ajax({
+					url: url,
+					method: "POST",
+					data: {
+						action: "fetch"
+					},
+					dataType: "json",
+					success: function(data) {
+						//alert(data[0])
+						//alert(data);
+						//alert(data)
+						//console.log(data);
+						for (let index = 0; index < data.length; index++) {
+							chartArray.push(data[index].data)
+							//alert(data[index]);
 
 
-
-
-
-			$.ajax({
-				url: "bodachart.php",
-				method: "POST",
-				data: {
-					action: "fetch"
-				},
-				dataType: "json",
-				success: function(data) {
-					//alert(data[0])
-					//alert(data);
-					//alert(da)
-					//console.log(data);
-					for (let index = 0; index < data.length; index++) {
-						chartArray.push(data[index].total)
-						//alert(data[index]);
-
-
-					}
-					const ctx = document.getElementById('myChart').getContext('2d');
-					const myChart = new Chart(ctx, {
-						type: 'pie',
-						data: {
-							labels: ['Active Boda Users', 'Inactive Boda Users', 'Pending Payments', 'Suspended Boda Users'],
-							datasets: [{
-								label: '# of Votes',
-								data: chartArray,
-								backgroundColor: [
-									'green',
-									'blue',
-
-									'yellow',
-									'red'
-								],
-								borderColor: [
-									'green',
-									'blue',
-									'yellow',
-									'red'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: {
-							scales: {
-								y: {
-									beginAtZero: true
+						}
+						const ctx = document.getElementById(id).getContext('2d');
+						const myChart = new Chart(ctx, {
+							type: 'pie',
+							data: {
+								labels: labels,
+								datasets: [{
+									label: '# of Votes',
+									data: chartArray,
+									backgroundColor: backGroundColors,
+									borderColor: borderColors,
+									borderWidth: 1
+								}]
+							},
+							options: {
+								scales: {
+									y: {
+										beginAtZero: true
+									}
 								}
 							}
-						}
-					});
+						});
 
-				}
-			})
+					}
+				})
+
+			}
+
 
 
 
@@ -481,67 +590,67 @@ if (!isset($_SESSION['user'])) {
 	</script>
 
 	<script>
-		//alert("here");
-		var fuelArray = [];
+		// var fuelArray = [];
 
-		$(document).ready(function() {
-			$.ajax({
-				url: "fuelconsumption.php",
-				method: "POST",
-				data: {
-					action: "fetch"
-				},
-				dataType: "json",
-				success: function(data) {
-					//alert("here")
-					//console.log(data);
+		// $(document).ready(function() {
+		// 	$.ajax({
+		// 		url: "fuelconsumption.php",
+		// 		method: "POST",
+		// 		data: {
+		// 			action: "fetch"
+		// 		},
+		// 		dataType: "json",
+		// 		success: function(data) {
+		// 			//alert("here")
+		// 			//console.log(data);
 
-					// console.log(data);
-					for (let index = 0; index < data.length; index++) {
-						fuelArray.push(data[index].amount)
-						//alert(data[index]);
-
-
-					}
-					//fuelconsumption
-					const ctx1 = document.getElementById('fuelconsumption').getContext('2d');
-					const myChart1 = new Chart(ctx1, {
-						type: 'pie',
-						data: {
-							labels: ['Expected Fuel Consumption', 'Consumed Fuel', ],
-							datasets: [{
-								label: '# of Votes',
-								data: fuelArray,
-								backgroundColor: [
-									'green',
-									'red',
-
-								],
-								borderColor: [
-									'green',
-
-									'red',
-
-								],
-								borderWidth: 1
-							}]
-						},
-						options: {
-							scales: {
-								y: {
-									beginAtZero: true
-								}
-							}
-						}
-					});
+		// 			// console.log(data);
+		// 			for (let index = 0; index < data.length; index++) {
+		// 				fuelArray.push(data[index].amount)
+		// 				//alert(data[index]);
 
 
+		// 			}
+		// 			//fuelconsumption
+		// 			const ctx1 = document.getElementById('fuelconsumption').getContext('2d');
+		// 			const myChart1 = new Chart(ctx1, {
+		// 				type: 'pie',
+		// 				data: {
+		// 					labels: ['Expected Fuel Consumption', 'Consumed Fuel', ],
+		// 					datasets: [{
+		// 						label: '# of Votes',
+		// 						data: fuelArray,
+		// 						backgroundColor: [
+		// 							'green',
+		// 							'red',
 
-				}
-			})
+		// 						],
+		// 						borderColor: [
+		// 							'green',
 
-		})
+		// 							'red',
+
+		// 						],
+		// 						borderWidth: 1
+		// 					}]
+		// 				},
+		// 				options: {
+		// 					scales: {
+		// 						y: {
+		// 							beginAtZero: true
+		// 						}
+		// 					}
+		// 				}
+		// 			});
+
+
+
+		// 		}
+		// 	})
+
+		// })
 	</script>
+
 
 </body>
 
