@@ -488,21 +488,22 @@ if (!isset($_SESSION['user'])) {
 					const myChart = new Chart(ctx, {
 						type: 'pie',
 						data: {
-							labels: ['Active Boda Users', 'Inactive Boda Users', 'Suspended Boda Users', 'Pending Payments'],
+							labels: ['Active Boda Users', 'Inactive Boda Users', 'Pending Payments', 'Suspended Boda Users'],
 							datasets: [{
 								label: '# of Votes',
 								data: chartArray,
 								backgroundColor: [
 									'green',
 									'blue',
-									'red',
+
 									'yellow',
+									'red'
 								],
 								borderColor: [
 									'green',
 									'blue',
-									'red',
 									'yellow',
+									'red'
 								],
 								borderWidth: 1
 							}]
