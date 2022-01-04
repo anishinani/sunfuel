@@ -171,11 +171,7 @@
                                         </div>
                                         <!--fuel station-->
 
-                                        <div class="form-group mb-3">
-                                            <label for="">Stage Location</label>
-                                            <input type="text" name="location" required class="form-control" placeholder="enter stage location" />
 
-                                        </div>
                                         <div class="form-group mb-3">
                                             <div class="form-group">
                                                 <label for="my-select">Fuel Station</label>
