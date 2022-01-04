@@ -266,7 +266,7 @@ if (!isset($_SESSION['user'])) {
 											<div class="dropdown-menu dropdown-menu-right" role="menu">
 
 												<a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php" class="dropdown-item">Inactive Boda Users</a>
-												<a href="/creditpluswebapp/views/bodauser/activeBodaUsers.php" class="dropdown-item">Active Boda Users</a>
+												<a href="/creditpluswebapp/views/bodauser/activebodaUsers.php" class="dropdown-item">Active Boda Users</a>
 												<a class="dropdown-divider"></a>
 												<a href="#" class="dropdown-item">Suspended Boda Users</a>
 												<a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php" class="dropdown-item">Pending Payments</a>
