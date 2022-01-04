@@ -358,11 +358,11 @@ if (!isset($_SESSION['user'])) {
 											</button>
 											<div class="dropdown-menu dropdown-menu-right" role="menu">
 
-												<a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php" class="dropdown-item">Inactive Boda Users</a>
-												<a href="/creditpluswebapp/views/bodauser/activeBodaUsers.php" class="dropdown-item">Active Boda Users</a>
+												<a href="/creditpluswebapp/views/bodauser/activeStages.php" class="dropdown-item">Active Stages</a>
+												<a href="/creditpluswebapp/views/bodauser/inactiveStages.php" class="dropdown-item">Inactive Stages</a>
 												<a class="dropdown-divider"></a>
-												<a href="#" class="dropdown-item">Suspended Boda Users</a>
-												<a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php" class="dropdown-item">Pending Payments</a>
+												<a href="#" class="dropdown-item">Suspended Stages</a>
+												<a href="/creditpluswebapp/views/bodauser/defaultedStages.php" class="dropdown-item">Pending Payments</a>
 											</div>
 										</div>
 									</div>
@@ -383,9 +383,9 @@ if (!isset($_SESSION['user'])) {
 										</div>
 										<!-- /.col -->
 										<div class="col-md-6">
-											<p class="text-center">
+											<!-- <p class="text-center">
 												<strong>Expected fuel Consumption</strong>
-											</p>
+											</p> -->
 
 											<canvas id="fuelconsumption" height="150" style="height: 150px;"></canvas>
 
@@ -532,11 +532,12 @@ if (!isset($_SESSION['user'])) {
 		let stageBorderColors = ['green', 'blue', 'yellow', 'red'];
 		let stageArray = [];
 		//fetchstages
-		
+
 		$(document).ready(function() {
 			fetchChartData(bodaLabels, bodaUrl, chartBodaArray, bodaId, backgroundColors, borderColors);
 			fetchChartData(fuelLabels, fuelUrl, fuelArray, fuelId, fuelBackGroundColors, fuelBorderColors);
 			fetchChartData(stageLabels, stageUrl, stageArray, stageId, stageBackGroundColors, stageBorderColors);
+
 			function fetchChartData(labels, url, chartArray, id, backGroundColors, borderColors) {
 				$.ajax({
 					url: url,
