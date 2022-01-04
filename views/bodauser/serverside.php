@@ -59,14 +59,14 @@ function showActions($id)
 
         </form>';
     }
-    if (in_array("delete-bodaUsers", $_SESSION['roles'])) {
-        $output .= '<form method="POST" action="./delete.php">
-        <input type="hidden" name="id" value="' . $id . '"/>
-        <button 
-      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+    // if (in_array("delete-bodaUsers", $_SESSION['roles'])) {
+    //     $output .= '<form method="POST" action="./delete.php">
+    //     <input type="hidden" name="id" value="' . $id . '"/>
+    //     <button 
+    //   class="btn btn-danger btn-sm deleteBtn" >Delete</button>
 
-      </form>';
-    }
+    //   </form>';
+    // }
 
 
 
@@ -74,13 +74,28 @@ function showActions($id)
 
     return $styledOutPut;
 }
+function showStatus($status)
+{
+    switch ($status) {
+        case 0:
+            return "Inactive";
+        case 1:
+            return "Active";
+        case 2:
+            return "Pending payment";
+        case 3:
+            return "Suspended";
+        default:
+            return null;
+    }
+}
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['bodaUserName'];
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];
     $sub_array[] = $row['bodaUserRole'];
-    $sub_array[] = $row['bodaUserPhoneNumber'];
+    $sub_array[] = showStatus($row['bodaUserStatus']);
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageName'];
     $sub_array[] = $row['bodaUserStatus'] == 0 ? '

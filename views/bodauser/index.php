@@ -163,7 +163,7 @@ $_SESSION['bool'] =  true;
                                                 <th>NIN Number</th>
                                                 <th>Boda Number</th>
                                                 <th>Role</th>
-                                                <th>Phone Number</th>
+                                                <th>Boda Status</th>
 
                                                 <th>Fuel Station</th>
                                                 <th>Stage</th>
