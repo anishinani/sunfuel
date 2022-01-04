@@ -78,13 +78,13 @@ function showStatus($status)
 {
     switch ($status) {
         case 0:
-            return "Inactive";
+            return "<span style='background-color:#1c478e;border-radius:20px; padding:10px; color:#fff;'>Inactive</span> ";
         case 1:
-            return "Active";
+            return "<span style='background-color:green;border-radius:20px; padding:10px; color:#fff;'>Active</span>";
         case 2:
-            return "Pending payment";
+            return "<span style='background-color:yellow;border-radius:20px; padding:10px; color:#fff;'>Pending payment</span>";
         case 3:
-            return "Suspended";
+            return "<span style='background-color:red;border-radius:20px; padding:10px; color:#fff;'>Suspended</span>";
         default:
             return null;
     }
