@@ -358,11 +358,11 @@ if (!isset($_SESSION['user'])) {
 											</button>
 											<div class="dropdown-menu dropdown-menu-right" role="menu">
 
-												<a href="/creditpluswebapp/views/bodauser/activeStages.php" class="dropdown-item">Active Stages</a>
-												<a href="/creditpluswebapp/views/bodauser/inactiveStages.php" class="dropdown-item">Inactive Stages</a>
+												<a href="/creditpluswebapp/views/stage/activeStages.php" class="dropdown-item">Active Stages</a>
+												<a href="/creditpluswebapp/views/stage/inactiveStages.php" class="dropdown-item">Inactive Stages</a>
 												<a class="dropdown-divider"></a>
 												<a href="#" class="dropdown-item">Suspended Stages</a>
-												<a href="/creditpluswebapp/views/bodauser/defaultedStages.php" class="dropdown-item">Pending Payments</a>
+												<a href="/creditpluswebapp/views/stage/defaultedStages.php" class="dropdown-item">Pending Payments</a>
 											</div>
 										</div>
 									</div>
