@@ -25,7 +25,7 @@ if (isset($_POST['login'])) {
         //header('location:home.php?empty=required');
         //$_SESSION['message'] = 'All fields aree Required';
         //header('location:index.php');
-        echo "All fields are Required";
+        die("All fields are Required");
     }
     //die("here");
 
@@ -33,7 +33,7 @@ if (isset($_POST['login'])) {
     $validatedEmail    = $helpers->checkEmail($email);
     if ($validatedEmail == NULL) {
         //header('location:home.php');
-        echo "Invalid Credentials";
+        die("Invalid Credentials");
     } else {
         ///$auth = $user->check_login($username, $password);
         //die("login");
@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
 
         if ($auth  == NULL) {
             //$_SESSION['message'] = 'Invalid username or password';
-            echo "Invalid Credentials";
+            die("Invalid Credentials");
         } else {
 
             $activity->logActivity($auth['name'], "login", "Logged in sucessfully", $auth['email'], $auth['gender']);
@@ -73,4 +73,6 @@ if (isset($_POST['login'])) {
             //header('location:views/home.php');
         }
     }
+} else {
+     die ("Invalid Credentials");
 }
