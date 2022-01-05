@@ -41,7 +41,7 @@ session_start();
 				?>
 
 
-				<form action="login.php" method="post">
+				<form action="login.php" method="post" >
 					<div class="input-group mb-3">
 						<input type="email" class="form-control" name="email" placeholder="Email">
 						<div class="input-group-append">

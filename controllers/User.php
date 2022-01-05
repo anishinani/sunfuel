@@ -25,6 +25,7 @@ class User extends DbAccess
 
             //return $row;
             if ($this->checkPassword($password, $row['password'])) {
+                //die("results");
                 return $row;
             } else {
                 return NULL;
@@ -52,6 +53,7 @@ class User extends DbAccess
         $email = $array['email'];
         $gender  = $array['gender'];
         $roles = $array['roles'];
+        //sdie("login");
         return $this->insert(
             "administrators",
             [
