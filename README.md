@@ -10,8 +10,13 @@ localhostUrl:http://localhost
 ============================
 Login API:{envUrl}/creditpluswebapp/api/login.php
 method:post
-Required fields:login , email, password
+Required fields:login set login:login, email set email:someEmail, password set  password:somePassord
 dataType:form-data
+ 
+Testing Data
+ email:katznicho@gmail.com
+ password:12345678
+  
 OnSuccess :
   Sample Success data
 [{"name":"katende
