@@ -7,7 +7,7 @@ Status for the different users in the system
   
 serverUrl:http://appdev.creditplus.ug/
 localhostUrl:http://localhost
-============================
+
 Login API:{envUrl}/creditpluswebapp/api/login.php
 method:post
 Required fields:login set login:login, email set email:someEmail, password set  password:somePassord
@@ -27,9 +27,7 @@ On Failure
   if wrong data is provided:Inavlid Credentials
   if wrong email address:Invalid Credentials
 
-===========================
 
-==============================
 Get District API :{envUrl}/creditpluswebapp/api/getdistricts.php
 method:get
 
@@ -39,9 +37,10 @@ Sample Sucess Data
 03:09:59"},{"id":"2","districtCode":"40","districtName":"ADJUMANI","created_at":"2022-01-01
 03:10:00","updated_at":"2022-01-01
 03:10:00"}]
-===============================
 
-==============================
+
+
+
 Get Counties API :{envUrl}/creditpluswebapp/api/getcounties.php?districtCode=10
 method:get
 paramter:districtCode(data type integer)
@@ -56,9 +55,8 @@ if a wrong code is provided  :[{"message":"No counties available"}]
 if wrong districtCode is provided:[{"message":"Please provide a district code"}]
 
 
-===============================
 
-==============================
+
 Get Counties API :{envUrl}/creditpluswebapp/api/getsubcounties.php?districtCode=70&countyCode=140
 method:get
 paramter:districtCode, countyCode (both are integers)
@@ -73,9 +71,9 @@ if a wrong codes for district and county are provided or no results found :[{"me
 if wrong districtCode is provided:[{"message":"Please provide a district code"}]
 
 
-===============================
 
-==============================
+
+
 Get  Parishes API :{envUrl}/creditpluswebapp/api/getparishes.php?districtCode=70&countyCode=140&subCountyCode=1
 method:get
 paramter:districtCode, countyCode, subCountyCode (all are integers)
@@ -90,9 +88,10 @@ if a wrong code for district, county and subcounty are provided or simply no res
 if wrong parameters passed:[{"message":"Wrong Parameters Passed"}]
 
 
-===============================
 
-==============================
+
+
+
 Get  Villages API :{envUrl}/creditpluswebapp/api/getvillages.php?districtCode=88&countyCode=160&subCountyCode=7&parishCode=36
 method:get
 paramter:districtCode, countyCode, subCountyCode, parishCode (all are integers)
@@ -108,4 +107,3 @@ if a wrong code for district, county , subcounty  and parishCode are provided or
 if wrong parameters passed:[{"message":"Wrong Parameters Passed"}]
 
 
-===============================
