@@ -9,6 +9,7 @@ Status for the different users in the system
   
 serverUrl:http://appdev.creditplus.ug/
 localhostUrl:http://localhost
+baseUrl:{envUrl}/creditpluswebapp/api/
 
 ## LOGIN API
 
