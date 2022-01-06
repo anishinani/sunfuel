@@ -4,9 +4,13 @@ Status for the different users in the system
 2-pending payment
 3-suspended
 
+
+
   
 serverUrl:http://appdev.creditplus.ug/
 localhostUrl:http://localhost
+
+## LOGIN API
 
 Login API:{envUrl}/creditpluswebapp/api/login.php
 method:post
@@ -27,6 +31,7 @@ On Failure
   if wrong data is provided:Inavlid Credentials
   if wrong email address:Invalid Credentials
 
+## DISTRICTS API
 
 Get District API :{envUrl}/creditpluswebapp/api/getdistricts.php
 method:get
@@ -39,7 +44,7 @@ Sample Sucess Data
 03:10:00"}]
 
 
-
+## COUNTIES API
 
 Get Counties API :{envUrl}/creditpluswebapp/api/getcounties.php?districtCode=10
 method:get
@@ -55,7 +60,7 @@ if a wrong code is provided  :[{"message":"No counties available"}]
 if wrong districtCode is provided:[{"message":"Please provide a district code"}]
 
 
-
+## SUBCOUNTIES API
 
 Get Counties API :{envUrl}/creditpluswebapp/api/getsubcounties.php?districtCode=70&countyCode=140
 method:get
@@ -72,7 +77,7 @@ if wrong districtCode is provided:[{"message":"Please provide a district code"}]
 
 
 
-
+## PARISHES API
 
 Get  Parishes API :{envUrl}/creditpluswebapp/api/getparishes.php?districtCode=70&countyCode=140&subCountyCode=1
 method:get
@@ -91,7 +96,8 @@ if wrong parameters passed:[{"message":"Wrong Parameters Passed"}]
 
 
 
-Villages API
+## VILLAGES API
+
 Get  Villages API :{envUrl}/creditpluswebapp/api/getvillages.php?districtCode=88&countyCode=160&subCountyCode=7&parishCode=36
 method:get
 paramter:districtCode, countyCode, subCountyCode, parishCode (all are integers)
