@@ -91,7 +91,7 @@ if wrong parameters passed:[{"message":"Wrong Parameters Passed"}]
 
 
 
-<!--villages API-->
+Villages API
 Get  Villages API :{envUrl}/creditpluswebapp/api/getvillages.php?districtCode=88&countyCode=160&subCountyCode=7&parishCode=36
 method:get
 paramter:districtCode, countyCode, subCountyCode, parishCode (all are integers)
@@ -105,6 +105,8 @@ onFailure
 Failure Data samples
 if a wrong code for district, county , subcounty  and parishCode are provided or simply no results found  :[{"message":"No Villages available"}]
 if wrong parameters passed:[{"message":"Wrong Parameters Passed"}]
-<!--villages API-->
+
+
+
 
 
