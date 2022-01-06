@@ -5,7 +5,7 @@ Status for the different users in the system
 3-suspended
 
 
-
+    <p align="center">FUELBODAPROJECT MOBILE APIS DOCUMENTATION</p>
   
 serverUrl:http://appdev.creditplus.ug/
 localhostUrl:http://localhost
