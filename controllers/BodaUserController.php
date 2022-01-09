@@ -28,27 +28,45 @@ class BodaUser extends DbAccess
 
         $stage = $array["stageId"];
 
-        //var_dump("The role is " . $array['role']);
+
+
+        if (strtoupper($array["role"]) == strtoupper("Chairman")) {
+            //get the last id
+            $selectQuery = "SELECT bodaUserId FROM bodauser ORDER BY bodaUserId desc LIMIT 1";
+            //get the last id
+            $results = $this->selectQuery($selectQuery)[0]['bodaUserId'];
+
+            if ($results == NULL) {
+                $results = 1;
+            } else {
+                $results += 1;
+            }
+            if ($this->update("stage", ['chairmanId' => $results], ['stageId' => $stage])) {
+                return $this->insert(
+                    "bodauser",
+                    [
+                        'bodaUserName' => strtoupper($name),
+                        'bodaUserNIN' =>  strtoupper($nin),
+                        'bodaUserBodaNumber' => strtoupper($bodaNumber),
+                        'bodaUserPhoneNumber' => $phone,
+                        "bodaUserBackPhoto" => $back,
+                        "bodaUserFrontPhoto" => $front,
+                        "bodaUserRole" => strtoupper($array['role']),
+                        "alternativePhotoNumber" => $array['anotherNumber'],
+                        'fuelStationId' => $fuel,
+                        'stageId' => $stage,
+                        "bodaUserStatus" => "0"
+
+
+                    ]
+                );
+            }
+        }
+
+
 
         //die("done");
-        return $this->insert(
-            "bodauser",
-            [
-                'bodaUserName' => strtoupper($name),
-                'bodaUserNIN' =>  strtoupper($nin),
-                'bodaUserBodaNumber' => strtoupper($bodaNumber),
-                'bodaUserPhoneNumber' => $phone,
-                "bodaUserBackPhoto" => $back,
-                "bodaUserFrontPhoto" => $front,
-                "bodaUserRole" => strtoupper($array['role']),
-                "alternativePhotoNumber" => $array['anotherNumber'],
-                'fuelStationId' => $fuel,
-                'stageId' => $stage,
-                "bodaUserStatus" => "0"
 
-
-            ]
-        );
     }
 
 

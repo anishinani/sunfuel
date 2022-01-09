@@ -73,6 +73,7 @@ if (isset($_POST['name'])) {
     else {
         unset($_SESSION['errors']);
         if ($bodauser->store($_POST, $photoTwo, $photoOne)) {
+            
             $activity->logActivity(
                 $_SESSION['user'],
                 "Registered Boda user",
