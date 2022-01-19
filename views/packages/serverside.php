@@ -39,21 +39,21 @@ function showActions($id)
 
 
 
-    if (in_array("show-packages", $_SESSION['roles'])) {
+    if (in_array("show-packages", $_SESSION['permissions'])) {
         $output .= '<form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
     
         </form>';
     }
-    if (in_array("edit-packages", $_SESSION['roles'])) {
+    if (in_array("edit-packages", $_SESSION['permissions'])) {
         $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
     
         </form>';
     }
-    if (in_array("delete-packages", $_SESSION['roles'])) {
+    if (in_array("delete-packages", $_SESSION['permissions'])) {
         $output .= '     <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
