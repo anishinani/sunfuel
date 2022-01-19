@@ -13,6 +13,7 @@ include_once '../templates/Components.php';
 startContent();
 
 // code here
+if (!can('view-stages')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
 
 
 breadCrumbs(['title' => 'Stages', 'sub_title' => 'settings', 'previous' => 'Home', 'previous_action' => './dashboard.php']);
