@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Header of the application
  * @author ThinkxSoftware
  * **/
 include_once '../templates/SecurePageHeader.php';
