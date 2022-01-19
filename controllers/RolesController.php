@@ -3,71 +3,69 @@ class Roles extends DbAccess
 {
     public function store($array)
     {
+
         $name = $array['name'];
+
         $permissions =  $array['permissions'];
-        // var_dump($permissions);
-        // die("here in roles");
 
-        if ($this->insert(
-            "roles",
-            [
-                'roleName' => $name,
+        $id = $this->insert('roles',['name' => $name , 'created_by' => $_SESSION['auth']]);
 
-            ]
-        )) {
-            $myrole = $this->select("roles", ["roleId"], ['roleName' => $name]);
-            foreach ($permissions as $key => $permission) {
-                $this->insert('rolepermissionids', [
-                    "permissionId" => $permission,
-                    "roleId" => $myrole[0]["roleId"]
-                ]);
-            }
-            return true;
-        } else {
-            return false;
+        if(!is_int($id) || $id == 0  ) return false;
+
+        foreach($array['modules'] as $module){
+            $this->insert('role_modules',[
+                'role_id' => $id,
+                'module_id' => $module
+            ]);
         }
+
+        foreach($permissions as $permission){
+
+           $assigned[] = $this->insert('role_permissions',[
+                'role_id' => $id,
+                'feature_id' => $permission,
+                'created_by'=> $_SESSION['auth']
+            ]);
+
+        }
+
+        return $id;
+       
     }
     public function updateInfo($array)
     {
         $id = $array["roleId"];
         $name = $array['name'];
         $permissions =  $array['permissions'];
+        $modules = $array['modules'];
 
-        //select role
-        $role = $this->select("roles", ['roleName'], ["roleId" => $id])[0]["roleName"];
-        //die($role);
-        //delete user from rolepermissiontable
-        $this->delete("DELETE FROM rolepermissionids WHERE roleId = $id ");
-        //delete user from rolepermission table
-        if ($role == $name) {
-            //die("no updates");
-            foreach ($permissions as $key => $permission) {
-                $this->insert('rolepermissionids', [
-                    "permissionId" => $permission,
-                    "roleId" => $id
-                ]);
-            }
-            return true;
-        } else {
+        $update = $this->update("roles",["name" => $name],["id" => $id]);
 
-            //update roles table
-            $roles = $this->update("roles", ["roleName" => $name], ["roleId" => $id]);
+        // delete all role modules
 
-            if ($roles) {
-                foreach ($permissions as $key => $permission) {
-                    $this->insert('rolepermissionids', [
-                        "permissionId" => $permission,
-                        "roleId" => $id
-                    ]);
-                }
-                return true;
-            } else {
-                return false;
-            }
+        $this->conn->query('delete from role_permissions where role_id ='.$id);
 
-            //update rolepermissiontable
+        $this->conn->query('delete from role_modules where role_id ='.$id);
+
+        foreach($modules as $module){
+            $this->insert('role_modules',[
+                'role_id' => $id,
+                'module_id' => $module
+            ]);
+        }
+
+        foreach($permissions as $permission){
+
+           $assigned[] = $this->insert('role_permissions',[
+                'role_id' => $id,
+                'feature_id' => $permission,
+                'created_by'=> $_SESSION['auth']
+            ]);
 
         }
+        
+        return $id;
+    
     }
 
     //get all roles
