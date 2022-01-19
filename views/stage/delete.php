@@ -25,5 +25,6 @@ if ($delQuery == true) {
     $_SESSION["success"] = " Stage Deleted successfully";
     header("Location:index.php");
 } else {
-    echo "There was an error";
+    $_SESSION["error"] = "Opps! Something went wrong int the previous operation";
+    header("Location:index.php");
 }
