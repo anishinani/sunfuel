@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (!can('delete-bodausers')) echo '<script>window.open("../Errors/unAuthorized.php" , "_self")</script>';
+
+
 include("../../utils/dbaccess.php");
 include("../../utils/activityLogger.php");
 
