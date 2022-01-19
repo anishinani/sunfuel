@@ -29,7 +29,7 @@ if (isset($_POST['name'])) {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {
-                array_push($_SESSION['errors'],   $key . " " . $helpers->checkEmptyFields($value));
+                $_SESSION['errors'][$key]  =  $key ." ". $helpers->checkEmptyFields($value);
             } else {
                 $dbAccess->clean($value);
             }
@@ -62,7 +62,10 @@ if (isset($_POST['name'])) {
             echo "success";
             //redirect
         } else {
-            die("Oops there was an error");
+            $_SESSION['error'] = "Stage Was not created";
+
+            header("Location:create.php");
+
         }
     }
 } else {
