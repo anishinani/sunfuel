@@ -3,13 +3,24 @@
 
 if($_SERVER['REQUEST_METHOD'] != "POST") die;
 
+
+require_once '../../utils/session.php';
+
+if (!can('create-territories')){
+    $_SESSION['warning'] = "UnAuthorized Operation";  
+     header('Location:index.php');
+      die;
+}
+
+
 require_once("../../utils/dbaccess.php");
 require_once("../../controllers/TerritoryController.php");
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
 
 
-session_start();
+
+
 $_SESSION['errors'] = array();
 
 $dbAccess =  new DbAccess();

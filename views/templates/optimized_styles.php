@@ -48,6 +48,8 @@ $batches = array(
         '/creditpluswebapp/views/packages/index.php',
 		'/creditpluswebapp/views/deposits/index.php',
 		'/creditpluswebapp/views/payments/index.php',
+		'/creditpluswebapp/views/territories/index.php',
+
 
 
 
@@ -55,7 +57,10 @@ $batches = array(
 
 
     ],
-    'formPageScripts' => [],
+    'formPageScripts' => [
+		'/creditpluswebapp/views/territories/create.php',
+	
+	],
 
     'detailPageScripts' => []
 );
@@ -82,6 +87,10 @@ if (in_array($script_name, $batches['formPageScripts'])) {
 ?>
 
  <!-- load form supporting css and links -->
+ <link rel="stylesheet" href=" /creditpluswebapp/plugins/select2/css/select2.css">
+
+<link rel="stylesheet" href=" /creditpluswebapp/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+
 
 <?php
 }
@@ -129,10 +138,6 @@ if($script_name == "/creditpluswebapp/views/dashboard/index.php"){
 			margin-bottom: 0;
 		}
 
-		.mycard {
-			/* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important; */
-		}
-
 		.home__details {
 			display: flex;
 			justify-content: center;
@@ -140,7 +145,6 @@ if($script_name == "/creditpluswebapp/views/dashboard/index.php"){
 			padding: 20px;
 		}
 
-		.home__word {}
 
 		.home__content {
 			height: 150vh !important;
@@ -148,11 +152,7 @@ if($script_name == "/creditpluswebapp/views/dashboard/index.php"){
 			;
 		}
 
-		.eachCard {
-			/* height: 15vh !important; */
-			/* width: 100% !important;
-			box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important; */
-		}
+	
 
 		.home__eachCardDetails {
 			padding-top: 20px !important;
