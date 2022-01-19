@@ -97,12 +97,12 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>InActive Fuel Stations</h1>
+                            <h1>Fuel Stations</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
-                                <li class="breadcrumb-item active">InActive Fuel Stations</li>
+                                <li class="breadcrumb-item active">Fuel Stations</li>
                             </ol>
                         </div>
                     </div>
@@ -113,35 +113,35 @@ $_SESSION['bool'] =  true;
             <section class="content">
                 <div class="container-fluid">
 
-                    <?php
-                    // $dbAccess->getConnection();
-                    // $results =  json_encode($dbAccess->select("bodauser"));
-                    //var_dump($results[0]['bodaUserName']);
-
-                    ?>
-
                     <div class="row">
                         <div class="col-12">
                             <!--table-->
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">InActive Fuel Station Table</h3>
-
+                                    <h3 class="card-title">Fuel Station Table</h3>
+                                    <?php
+                                    if (in_array("create-fuelStations", $_SESSION['permissions'])) {
+                                    ?>
+                                        <h4 class="float-sm-right ">
+                                            <a class="btn btn-success" href="./create.php"> Add New Station
+                                            </a>
+                                        </h4>
+                                    <?php } ?>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Name</th>
+                                                <th> Name</th>
+                                                <th>Merchant Code</th>
                                                 <th>Contact Person</th>
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>
                                                 <th>Fuel Station Status</th>
                                                 <th>Activation Status</th>
-                                                <th width="130px">Actions</th>
+                                                <th width="220px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -223,8 +223,11 @@ $_SESSION['bool'] =  true;
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 'order': [],
                 'ajax': {
-                    'url': './serversideinactivefuelstation.php',
+                    'url': './serverside.php',
                     'type': 'post',
+                },
+                "data": {
+                    "id": 1
                 },
                 "columnDefs": [{
                     'target': [5],
