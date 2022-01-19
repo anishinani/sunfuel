@@ -145,7 +145,7 @@ $_SESSION['bool'] =  true;
 
                                     <?php
 
-                                    if (in_array("create-bodaUsers", $_SESSION['roles'])) {
+                                    if (in_array("create-bodaUsers", $_SESSION['permission'])) {
                                     ?>
                                         <h4 class="float-sm-right ">
                                             <a class="btn btn-success" href="./create.php"> Add New Territory
