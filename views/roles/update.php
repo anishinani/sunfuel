@@ -23,12 +23,6 @@ if (isset($_POST['updateRole'])) {
 
     $_SESSION['errors'] = array();
 
-
-    //var_dump($_POST['permissions']);
-    //die("here");
-
-
-
     //check errors and clean o
     foreach ($_POST as $key => $value) {
         if ($key == 'addRole' || $key = "permissions") {
@@ -45,7 +39,7 @@ if (isset($_POST['updateRole'])) {
     //check errors and clean
 
     if ($_POST['permissions'] == NULL) {
-        array_push($_SESSION['errors'],   "choose atleast one permission");
+        array_push($_SESSION['errors'],   "choose at least one permission");
     }
 
     //die("here");
@@ -68,12 +62,10 @@ if (isset($_POST['updateRole'])) {
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
-            //get permissions
-            $permissions = $roles->getSpecificPermissions($_POST['roleId']);
-            $_SESSION['roles'] = $permissions;
 
             //redirect
             $_SESSION['success'] = "role updated Successfully";
+
             header("Location:index.php");
             //redirect
         } else {

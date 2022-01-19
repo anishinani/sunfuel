@@ -18,7 +18,6 @@ $activity = new ActivityLogger();
 //unset($_SESSION['errors']);
 
 
-
 if (isset($_POST['addRole'])) {
 
     $_SESSION['errors'] = array();
@@ -31,7 +30,7 @@ if (isset($_POST['addRole'])) {
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
-        if ($key == 'addRole' || $key = "permissions") {
+        if ($key == 'addRole' || $key == "permissions" || $key ==  "modules") {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {
@@ -45,7 +44,7 @@ if (isset($_POST['addRole'])) {
     //check errors and clean
 
     if ($_POST['permissions'] == NULL) {
-        array_push($_SESSION['errors'],   "choose atleast one permission");
+        array_push($_SESSION['errors'],   "choose at least one permission");
     }
 
     //die("here");
@@ -53,7 +52,7 @@ if (isset($_POST['addRole'])) {
 
 
     //check session array
-    if (count($_SESSION['errors'])) {
+    if (count($_SESSION['errors']) > 0) {
 
         header("Location:create.php");
     }
