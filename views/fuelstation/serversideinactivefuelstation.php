@@ -25,7 +25,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY fuelStationId asc";
+    $sql .= " ORDER BY fuelStationId desc";
 }
 
 if ($_POST['length'] != -1) {
@@ -39,6 +39,7 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
+    $sub_array[] = $row['fuelStationId'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['fuelStationContactPerson'];
     $sub_array[] = $row['fuelStationAddress'];

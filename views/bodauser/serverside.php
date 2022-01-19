@@ -28,9 +28,10 @@ if (isset($_POST['search']['value'])) {
 if (isset($_POST['order'])) {
     $column_name = $_POST['order'][0]['column'];
     $order = $_POST['order'][0]['dir'];
+    if($column_name == "ID") $column_name = "bodaUserId"; 
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY bodaUserId asc";
+    $sql .= " ORDER BY bodaUserId desc";
 }
 
 if ($_POST['length'] != -1) {
@@ -45,29 +46,21 @@ $data = array();
 function showActions($id)
 {
     $output = '';
-    if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
+    if (in_array("view-bodausers", $_SESSION['permissions'])) {
         $output .= ' <form action="bodauserdetails.php?id="' . $id . '"" method="get">
         <button type="submit"   value="' . $id . '"
         class="btn btn-info btn-sm editbtn" name="bodadetails">show</button>
 
         </form>';
     }
-    if (in_array("edit-bodaUsers", $_SESSION['roles'])) {
+    if (in_array("edit-bodauser", $_SESSION['permissions'])) {
         $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
 
         </form>';
     }
-    // if (in_array("delete-bodaUsers", $_SESSION['roles'])) {
-    //     $output .= '<form method="POST" action="./delete.php">
-    //     <input type="hidden" name="id" value="' . $id . '"/>
-    //     <button 
-    //   class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-
-    //   </form>';
-    // }
-
+  
 
 
     $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
@@ -78,19 +71,20 @@ function showStatus($status)
 {
     switch ($status) {
         case 0:
-            return "<span style='background-color:#1c478e;border-radius:20px; padding:10px; color:#fff;'>Inactive</span> ";
+            return "<span style='background-color:#1c478e;border-radius:5px; padding:5px; color:#fff;'>Inactive</span> ";
         case 1:
-            return "<span style='background-color:green;border-radius:20px; padding:10px; color:#fff;'>Active</span>";
+            return "<span style='background-color:green;border-radius:5px; padding:5px; color:#fff;'>Active</span>";
         case 2:
-            return "<span style='background-color:#997400;border-radius:20px; padding:10px; color:#fff;'>Pending payment</span>";
+            return "<span style='background-color:#997400;border-radius:5px; padding:5px; color:#fff;'>Pending payment</span>";
         case 3:
-            return "<span style='background-color:red;border-radius:20px; padding:10px; color:#fff;'>Suspended</span>";
+            return "<span style='background-color:red;border-radius:5px; padding:5px; color:#fff;'>Suspended</span>";
         default:
             return null;
     }
 }
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
+    $sub_array[] = $row['bodaUserId'];
     $sub_array[] = $row['bodaUserName'];
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];

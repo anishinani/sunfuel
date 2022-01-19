@@ -41,7 +41,7 @@ function showActions($id)
     $output = '';
 
 
-    if (in_array("edit-roles", $_SESSION['roles'])) {
+    if (in_array("view-receipts", $_SESSION['permissions'])) {
         $output = '<form action="./showReceipt.php?id="' . $id . '"" method="get">
         <button type="submit" name="showReceipt"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Show Receipt</button>
