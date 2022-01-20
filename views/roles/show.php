@@ -1,234 +1,117 @@
 <?php
-session_start();
-$_SESSION['bool'] =  true;
+
+/**
+ * Header of the application
+ * @author ThinkxSoftware
+ * **/
+include_once '../templates/SecurePageHeader.php';
+/***
+ * reusable components to inject code into the template
+ * */
+include_once '../templates/Components.php';
+
+if (!can('edit-roles')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
+
+if (!isset($_GET['show'])) echo "<script>window.open('../Errors/404.php','_self')</script>";
+
+$role = $accessController->getRoles($_GET['show']);
+
+if (is_null($role)) echo "<script>window.open('../Errors/404.php','_self')</script>";
+
+$data = $accessController->getUserPermissions($_GET['show']);
+
+startContent();
+
+// code here
+
+
+breadCrumbs(['title' => 'Role Details', 'sub_title' => 'View Role', 'previous' => 'Home', 'previous_action' => './index.php']);
+
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
+<div class="row">
+    <!--form add user -->
+    <div class="register-box m-auto col-md-8">
+        <div class="card card-outline card-primary">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Show roles</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-    <style>
-        .style_button {
-            background: #657836 !important;
-            color: #fff;
-            width: 100% !important;
-            border: none !important;
-            height: 40px !important;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-
-        .farmer__filter {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-evenly !important;
-        }
-    </style>
-</head>
-
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-
-        <?php
-        include("../../utils/dbaccess.php");
-        include("../navbar/navbar.php");
-        include("../sidebar.php");
-
-        $dbAccess =  new DbAccess();
-
-
-        $role =  $dbAccess->select("roles", ["roleName"], ["roleId" => $_GET['show']]);
-
-        //$permission = $dbAccess->
-        $id = $_GET['show'];
-
-        $sql = "SELECT permissions.permissionName  FROM permissions 
-         INNER JOIN rolepermissionids ON rolepermissionids.permissionId = permissions.permissionId
-          WHERE rolepermissionids.roleId=$id";
-        $totalQuery = mysqli_query($dbAccess->getConnection(), $sql);
-        //var_dump($totalQuery);
-
-        ?>
-        <!-- Main Sidebar Container -->
-
-
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-
-            <!--any wrong info-->
-
-            <?php if (isset($_SESSION['success'])) { ?>
-                <div class="alert alert-success m-4" id="removeAlert">
-                    <p><?= $_SESSION['success']; ?></p>
-                    <img src="../../dist/img/remove.png" class="image__remove" alt="cross image" height="20px" width="20px">
-
-                </div>
-
-            <?php } ?>
-
-            <!--any wrong info-->
-
-            <!-- /.card -->
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Show Role</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="../roles/index.php">Home</a></li>
-                                <li class="breadcrumb-item active">Roles</li>
-                            </ol>
-                        </div>
+            <div class="card-body">
+                <p class="login-box-msg">Details</p>
+                <div>
+                    <div class="form-group mb-3">
+                        <label for="">Role</label>
+                        <input type="text" readonly name="name" required class="form-control" placeholder="enter station name" value="<?= $role['name'] ?>" />
                     </div>
-                </div><!-- /.container-fluid -->
-            </section>
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
+                    <div class="form-group mb-3">
+                        <label for="">Permissions</label>
+                        <?php
 
-                    <?php
-                    // $dbAccess->getConnection();
-                    // $results =  json_encode($dbAccess->select("bodauser"));
-                    //var_dump($results[0]['bodaUserName']);
+                        /**
+                         * module is globally available in the app
+                         * **/
+                        foreach ($modules as $module) {
+                            
+                        ?>
+                            <div class="form-check form-group">
+                                <input readonly type="checkbox" id="" class="form-check-input" name="modules[]" value="<?= $module['id'] ?>" <?=in_array($module['id'] , $data['modules'])? " checked ":'';   ?> >
+                                <label class="form-check-label" for="<?= $module['name'] ?>">
+                                    <?= $module['name'] ?>
+                                </label>
+                                <ul class="ml-2">
+                                    <?php
 
-                    ?>
+                                    foreach ($module['features'] as $permissions) {
 
-                    <div class="row">
-                        <div class="col-12">
-                            <!--table-->
-                            <!-- /.card -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Role : <?= $role[0]["roleName"]; ?></h3>
+                                    ?>
+                                        <li>
+                                            <div class="form-check">
+                                                <input readonly type="checkbox" class="form-check-input" name="permissions[]" id="" value="<?= $permissions['id'] ?>"  <?=in_array($permissions['permission'] , $data['permissions'])? " checked ": ''   ?>    >
+                                                <label class="form-check-label" for="<?= $permissions['permission'] ?>">
+                                                    <?= $permissions['permission'] ?>
+                                                </label>
+                                            </div>
+                                        </li>
+                                    <?php
+                                    }
 
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <h3>Permissions</h3>
-                                    <ul class="list-unstyled">
-                                        <?php
-                                        while ($row = $totalQuery->fetch_assoc()) {
-
-
-                                        ?>
-                                            <li>
-                                                <?= $row['permissionName'] ?>
-
-                                            </li>
-
-
-                                        <?php } ?>
-
-                                    </ul>
-
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-
-
-                                <!-- /.card -->
-                                <!--table-->
+                                    ?>
+                                </ul>
                             </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
+
+                        <?php
+                        }
+                        ?>
+
                     </div>
-                    <!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+
+                
+
+            </div>
         </div>
-        <!-- /.content-wrapper -->
-        <?php include_once("../footer/footer.php"); ?>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
-
-    <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables  & Plugins -->
-    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="../../plugins/jszip/jszip.min.js"></script>
-    <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
-    <!-- Page specific script -->
-    <script>
-        // $(function() {
-        //     $("#example1").DataTable({
-        //         "responsive": true,
-        //         "lengthChange": false,
-        //         "autoWidth": false,
-        //         "ordering": true,
-        //         "processing": true,
-        //         "serverSide": true,
-        //         "paging": true,
-        //         "ajax": "./serverside.php",
-
-        //         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        //     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-        // });
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "fnCreatedRow": function(nRow, aData, iDataIndex) {
-                    $(nRow).attr('id', aData[0]);
-                },
-                'serverSide': 'true',
-                'processing': 'true',
-                'paging': 'true',
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                'order': [],
-                'ajax': {
-                    'url': './serverside.php',
-                    'type': 'post',
-                },
-                "columnDefs": [{
-                    'target': [5],
-                    'orderable': false,
-                }]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-    </script>
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
 
 
-</body>
+<?php
 
-</html>
+
+endContent();
+
+/**
+ * footer of the application
+ * */
+include_once '../templates/footer.php';
+
+/**
+ * custom page javascript
+ * **/
+
+?>
+
+
+<?php
+endPage();
