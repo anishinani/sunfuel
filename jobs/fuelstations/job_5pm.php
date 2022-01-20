@@ -12,8 +12,6 @@
 
 /**
  */
- require '../../utils/sms.php';
-
  require './actions.php';
  /* 
  * utilities
@@ -24,8 +22,6 @@
 $conn = connection();
 
 $stations_are_ = 'active';
-
-$smsApi = new infobip();
 
 $conn->beginTransaction();
 
@@ -47,9 +43,9 @@ if($deactivate->rowCount()) $stations_are_ = 'deactivated';
 
  
 
- $todaysFloat = getTotalDeposit($conn,date_format(new DateTime(" Today 5pm "),"Y-m-d:H:i:s"));
+ $todaysFloat = getTotalDeposit($conn,date_format(new DateTime(" Today 5pm "),"Y-m-d H:i:s"));
 
- $yesterDayFloat = getTotalDeposit($conn,date_format(new DateTime(" Yesterday 5pm "),"Y-m-d:H:i:s"));
+ $yesterDayFloat = getTotalDeposit($conn,date_format(new DateTime(" Yesterday 5pm "),"Y-m-d H:i:s"));
 
 
 /**
@@ -57,9 +53,9 @@ if($deactivate->rowCount()) $stations_are_ = 'deactivated';
  * **/  
 
 
-$todayConsumption = getTotalLoans($conn,date_format(new DateTime(" Today 5pm "),"Y-m-d:H:i:s"));
+$todayConsumption = getTotalLoans($conn,date_format(new DateTime(" Today 5pm "),"Y-m-d H:i:s"));
 
-$YesterdaysConsumption = getTotalLoans($conn,date_format(new DateTime(" Yesterday 5pm "),"Y-m-d:H:i:s"));
+$YesterdaysConsumption = getTotalLoans($conn,date_format(new DateTime(" Yesterday 5pm "),"Y-m-d H:i:s"));
 
 /**
  * get fuelStation details
@@ -138,20 +134,19 @@ foreach ($stations as $station){
 
     $currentBalance = $float - $consumed;
 
-    $previousBalance = $yesterday_deposits - $yesterday_consumed;
+    $previousBalance = $yesterday_float - $yesterday_consumed;
 
 
 
     $message = $station['fuelStationName'] . ' STATEMENT AS OF '. date_format(new DateTime("Today 5pm "),"Y/M/d - h:i A");
-
-    $message .= " Previous Balance : ". number_format($previousBalance) . " UGX ";
-    $message .= " Credited Float : ".number_format(($float - $yesterday_float)) . " UGX ";
-    $message .= " Consumed Fuel : ". number_format(($consumed - $yesterday_consumed)) . " UGX ";
+    $message .= " Previous Balance : ". number_format($previousBalance) . " UGX, ";
+    $message .= " Credited Float : ".number_format(($float - $yesterday_float)) . " UGX, ";
+    $message .= " Consumed Fuel : ". number_format(($consumed - $yesterday_consumed)) . " UGX,";
     $message .= " Balance : ". number_format($currentBalance) . " UGX ";
 
-    $phoneNumber = $smsApi->formatMobileInternational($station['fuelStationContactPhone']);
+    $phoneNumber = formatPhoneNumber($station['fuelStationContactPhone']);
 
-    $smsApi->sendsms(null,$phoneNumber,$message);
+    sendSms($phoneNumber,$message);
 
 }
 
