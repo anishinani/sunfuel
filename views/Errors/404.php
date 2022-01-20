@@ -13,14 +13,13 @@ startContent();
 
 // code here
 
+?>
 
-breadCrumbs(['title' => 'Settings' , 'sub_title'=>'settings' , 'previous'=>'Home' , 'previous_action' => './dashboard.php']);
-
-
-
-
-
-
+    <div class="card container-fluid col-md-12 col-12 col-lg-12">
+        <div class="display-4 text-muted text-center">Opps! 404 Not Found</div>
+        <p class="text-center my-1">Item not found</p>
+    </div>
+<?php
 
 
 endContent();
