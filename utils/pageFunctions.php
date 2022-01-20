@@ -98,16 +98,20 @@ function  getDistricts( $as = 'options', $code=null , array $extras = null){
 function unAllocatedDistricts(){
 
     require_once '../../utils/dbaccess.php';
+
+    $dbAccess = new DbAccess;
     
     $data = unlocatedDistrictsCodes();
+
+    if( empty($data) || count($data) == 0 ) return $dbAccess->select('districts');
+
+    if(count($data) == 1) return $dbAccess->selectQuery("SELECT * FROM districts  WHERE districtCode IS NOT ".$data[0]['districtCode']);
 
     $selected = array();
 
     foreach($data as $dc) $selected[] = $dc['districtCode'];
 
-    $dbAccess = new DbAccess;
-
-    $districts = $dbAccess->selectQuery(" SELECT * FROM `districts`  WHERE districtCode NOT IN (".implode(",",$selected).") ");
+    $districts = $dbAccess->selectQuery(" SELECT * FROM districts  WHERE districtCode NOT IN (".implode(",",$selected).") ");
 
     // var_dump($districts);
     // die;
