@@ -1,6 +1,11 @@
 <?php
-session_start();
+require_once '../../utils/session.php';
 
+if (!can('edit-bodauser')){
+    $_SESSION['warning'] = "UnAuthorized Operation";  
+     header('Location:index.php');
+      die;
+}
 
 require_once("../../utils/dbaccess.php");
 

@@ -29,10 +29,12 @@ breadCrumbs(['title' => 'Fuel Agents', 'sub_title' => 'Fuel Agents', 'previous' 
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Fuel Agent Table</h3>
+                <?php if(can("create-fuelagent")): ?>
                 <h4 class="float-sm-right ">
                     <a class="btn btn-success" href="./create.php"> Add New Fuel Agent
                     </a>
                 </h4>
+                <?php endif; ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

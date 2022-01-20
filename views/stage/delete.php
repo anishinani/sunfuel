@@ -1,5 +1,11 @@
 <?php
-session_start();
+include_once '../../utils/session.php';
+
+if (!can('delete-stages')){
+     $_SESSION['warning'] = "UnAuthorized Operation";  
+      header('Location:index.php');
+       die;
+    }
 include("../../utils/dbaccess.php");
 include("../../utils/activityLogger.php");
 

@@ -48,28 +48,28 @@ function showActions($id)
 
 
 
-    if (in_array("show-fuelStation", $_SESSION['permissions'])) {
+    if (in_array("view-fuelstations", $_SESSION['permissions'])) {
         $output .= '<form method="POST" action="./fuelstationdetails.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-primary btn-sm deleteBtn" name="details">Station</button>
       </form>';
     }
-    if (in_array("edit-fuelStation", $_SESSION['permissions'])) {
+    if (in_array("edit-fuelstation", $_SESSION['permissions'])) {
         $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
    
         </form>';
     }
-    if (in_array("delete-fuelStations", $_SESSION['permissions'])) {
+    if (in_array("delete-fuelstations", $_SESSION['permissions'])) {
         $output .= '     <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-danger btn-sm deleteBtn" >Delete</button>
       </form>';
     }
-    if (in_array("edit-fuelStation", $_SESSION['permissions'])) {
+    if (in_array("edit-fuelstation", $_SESSION['permissions'])) {
         $output .= '     <form action="contactpersondetails.php?id="' . $id . '"" method="get">
         <button type="submit" name="showPerson"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Details</button>
