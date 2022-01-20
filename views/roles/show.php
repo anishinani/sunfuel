@@ -54,7 +54,7 @@ breadCrumbs(['title' => 'Role Details', 'sub_title' => 'View Role', 'previous' =
                             
                         ?>
                             <div class="form-check form-group">
-                                <input readonly type="checkbox" id="" class="form-check-input" name="modules[]" value="<?= $module['id'] ?>" <?=in_array($module['id'] , $data['modules'])? " checked ":'';   ?> >
+                                <input disabled type="checkbox" id="" class="form-check-input" name="modules[]" value="<?= $module['id'] ?>" <?=in_array($module['id'] , $data['modules'])? " checked ":'';   ?> >
                                 <label class="form-check-label" for="<?= $module['name'] ?>">
                                     <?= $module['name'] ?>
                                 </label>
@@ -66,7 +66,7 @@ breadCrumbs(['title' => 'Role Details', 'sub_title' => 'View Role', 'previous' =
                                     ?>
                                         <li>
                                             <div class="form-check">
-                                                <input readonly type="checkbox" class="form-check-input" name="permissions[]" id="" value="<?= $permissions['id'] ?>"  <?=in_array($permissions['permission'] , $data['permissions'])? " checked ": ''   ?>    >
+                                                <input disabled type="checkbox" class="form-check-input" name="permissions[]" id="" value="<?= $permissions['id'] ?>"  <?=in_array($permissions['permission'] , $data['permissions'])? " checked ": ''   ?>    >
                                                 <label class="form-check-label" for="<?= $permissions['permission'] ?>">
                                                     <?= $permissions['permission'] ?>
                                                 </label>
