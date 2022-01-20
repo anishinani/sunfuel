@@ -12,7 +12,7 @@ include_once '../templates/Components.php';
 
 if (!can('edit-fuelagent')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
 
-if (!isset($_GET['update'])) header('Location:../Errors/404.php');
+if (!isset($_GET['update'])) echo "<script>window.open('../Errors/404.php','_self')</script>";
 
 $id = $_GET["update"];
 
