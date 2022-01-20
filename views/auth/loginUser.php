@@ -6,10 +6,10 @@ require_once("../../utils/dbaccess.php");
 require_once('../../controllers/User.php');
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");
-require_once("../../controllers/RolesController.php");
+require_once "../../controllers/access/AccessController.php";
 
 $user = new User();
-$roles =  new Roles();
+$accessController =  new AccessController();
 //helper functions
 $helpers  = new HelperFunctions();
 $dbAccess =  new DbAccess();
@@ -63,16 +63,19 @@ if (isset($_POST['setPassword'])) {
             // die("here");
             $dbAccess->update("administrators", ['setPassword' => NULL], ['adminId' => $auth['adminId']]);
             $_SESSION['user'] = $auth['name'];
-            $_SESSION['userId'] = $auth['adminId'];
-            $_SESSION['roleId'] = $auth['roleId'];
-            $_SESSION['gender'] = $auth['gender'];
             $_SESSION['email'] = $auth['email'];
+            $_SESSION['auth'] = $auth['adminId'];
             //get permissions
-            $permissions = $roles->getSpecificPermissions($auth['roleId']);
-            $_SESSION['roles'] = $permissions;
-            $value = $activity->logActivity($_SESSION['user'], "set up ", "Logged in sucessfully", $_SESSION['email'], $_SESSION['gender']);
+            $permissions = $accessController->getUserPermissions($auth['roleId']);
+            $_SESSION['permissions'] = $permissions['permissions'];
 
-            header("location:../home.php");
+            $_SESSION['modules'] = $permissions['modules'];
+            
+            $value = $activity->logActivity($_SESSION['user'], "set up ","Logged in successfully", $auth['email'], $auth['adminId']);
+           
+            $_SESSION['success'] = "Welcome ".$_SESSION['user'] . '!';
+           
+            header("location:../dashboard/");
         }
     }
 }
