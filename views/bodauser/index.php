@@ -13,6 +13,7 @@ include_once '../templates/Components.php';
 startContent();
 
 // code here
+if (!can('view-bodausers')) echo '<script>window.open("../Errors/unAuthorized.php" , "_self")</script>';
 
 
 breadCrumbs(['title' => 'Boda Users', 'sub_title' => 'settings', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
