@@ -302,8 +302,9 @@ class DbAccess
             $base_query .= ' WHERE ';
 
             foreach ($columns as $column){
-
-                $base_query .= $column . ' LIKE %'.$searchParam.'%  OR';
+                if(!isset($extras[$column])) {
+                    $base_query .= $column . ' LIKE %'.$searchParam.'%  OR';
+                }
             }
 
             $base_query  = rtrim($base_query , 'OR');
@@ -340,21 +341,25 @@ class DbAccess
             foreach ($columns as $col){ 
 
                 if(isset($row[$col])){ 
-
-                    if(isset($extras[$col]) && is_callable($extras[$col])){
-                        $dataSet[] = call_user_func_array($extras[$col],["row" => $row]);
+                    if(isset($extras[$col])){
+                        $dataSet[] = call_user_func($extras[$col],$row);
                     }else{
                         $dataSet[] = $row[$col];
                     }
                 }
+                if(isset($extras[$col])){
+                    $dataSet[] = call_user_func($extras[$col],$row);
+                }
             }
 
-            if(isset($extras['showActions']) && is_callable($extras['showActions'])){
-                $dataSet[] = call_user_func_array($extras['showActions'],['row' => $row]);
-            }
+            // if(isset($extras['action']) && is_callable($extras['action'])){
+            //     $dataSet[] = call_user_func($extras['action'],$row);
+            // }
 
             $output['data'][] = $dataSet;
         }
+    
+      
 
 
         return $output;
