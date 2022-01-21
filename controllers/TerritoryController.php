@@ -30,7 +30,7 @@ class TerritoryController extends DbAccess {
        if(count($inserts) != count($data['territoryDistricts'])){
             // clearing the junk
             if(!empty($inserts)){
-               $this->deleteRow("territoryDistricts","territoryId", $id);
+               $this->deleteRow("territory_districts","territoryId", $id);
             }
 
             $this->deleteRow("territories","territoryId",$id);
@@ -55,7 +55,64 @@ class TerritoryController extends DbAccess {
     }
 
 
+    public function getTerritory($territoryId){
+
+        $data = array();
+
+        $territory = $this->select('territories',['*'] , ["territoryId" => $territoryId]);
+
+        if(count($territory) == 0) return null;
+
+        $data['territory'] = $territory[0];
+
+        $districts = $this->select('territory_districts',['*'] , ['territoryId' => $territoryId]);
+
+        $data['districts'] = $districts;
+
+        return $data;
+        
+    }
+
+    // updates the territory
+    function  updateTerritory($array){
+
+        if(!isset($array['territoryDistricts']) && count($array['territoryDistricts']) < 1) return false;
+
+        $update = $this->update("territories",['territoryName' => $array['territoryName'],"territoryManager" => $array['territoryManager']] , ["territoryId" => $array['territoryId'] ]);
+
+        $this->delete("delete from territory_districts where territoryId = ".$array['territoryId']);
+
+        $inserts = [];
+
+        foreach($array['territoryDistricts'] as $district){
+ 
+         $inserts[] = $this->insert('territory_districts',[
+             'districtCode' => $district,
+             'territoryId' => $array['territoryId'],
+             'status' => 0
+         ]);
+        }
+
+        return true;
+    }
 
 
+
+    function deleteTerritory($id){
+
+        $stmt = $this->conn->query("delete from territories where".$id);   
+
+        return true;
+
+       $stmt = $this->conn->query("delete from territory_districts where territoryId =".$id);
+
+       if(!is_bool($stmt) && $stmt->num_rows){
+
+         $stmt = $this->conn->query("delete from territories where".$id);   
+
+         return true;
+       }
+      return false;
+    }
 
 }
