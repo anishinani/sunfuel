@@ -42,6 +42,8 @@ $batches = array(
         '/creditpluswebapp/views/deposits/index.php',
         '/creditpluswebapp/views/payments/index.php',
         '/creditpluswebapp/views/territories/index.php',
+        '/creditpluswebapp/views/fuelagent/index.php',
+
 
 
 
