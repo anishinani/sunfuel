@@ -50,6 +50,7 @@ $batches = array(
 		'/creditpluswebapp/views/payments/index.php',
 		'/creditpluswebapp/views/territories/index.php',
 		'/creditpluswebapp/views/fuelagent/index.php',
+		'/creditpluswebapp/views/stage/territoryStages.php',
 
 
 
@@ -61,6 +62,8 @@ $batches = array(
     ],
     'formPageScripts' => [
 		'/creditpluswebapp/views/territories/create.php',
+		'/creditpluswebapp/views/territories/edit.php',
+
 	
 	],
 

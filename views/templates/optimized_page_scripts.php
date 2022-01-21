@@ -43,14 +43,7 @@ $batches = array(
         '/creditpluswebapp/views/payments/index.php',
         '/creditpluswebapp/views/territories/index.php',
         '/creditpluswebapp/views/fuelagent/index.php',
-
-
-
-
-
-
-
-
+        '/creditpluswebapp/views/stage/territorystages.php',
 
     ],
     'formPageScripts' => [],
