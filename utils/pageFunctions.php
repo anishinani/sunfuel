@@ -5,11 +5,11 @@
  * 
  * */ 
 
-function showActions ($row , array $actions , $key = 'id'){
+function showActions2 ($row , array $actions , $key = 'id'){
 
-    if(empty($_SESSION) || !isset($_SESSION['roles']) || empty($_SESSION['roles'])) return "";
+    if(empty($_SESSION) || !isset($_SESSION['permissions']) || empty($_SESSION['permissions'])) return "";
 
-    $roles = $_SESSION['roles'];
+    $roles = $_SESSION['permissions'];
 
     $html = "<div class='d-flex justify-content-between align-items-center'>";
 
@@ -17,14 +17,21 @@ function showActions ($row , array $actions , $key = 'id'){
 
         if(in_array($action['permission'] , $roles)){
 
-            switch($action['type']){
-                case 'edit':
-                    $html .= "<a class='btn btn-info btn-sm' href='edit.php?id=".$row[$key]." >Edit</a>";
-                break;
-                case 'delete':
-                    $html .= "<a class='btn delete-btn btn-info btn-sm' href='delete.php?id=".$row[$key]." >Delete</a>";
-                break;
+            if($action['type'] == "edit"){
+            $html .= ' <form action="edit.php?id="' . $row[$key] . '"" method="get">
+            <button type="submit" name="update"  value="' . $row[$key] . '"
+            class="btn btn-info btn-sm editbtn btn-primary" ><i class="fas fa-edit"></i> Edit</button>
+    
+            </form>';
             }
+
+            if($action['type'] == "delete"){
+                $html .= ' <form action="delete.php?id="' . $row[$key] . '"" method="post">
+                <button type="submit" name="delete"  value="' . $row[$key] . '"
+                class="btn btn-info btn-sm btn-danger" ><i class="fas fa-trash"></i>  Delete</button>
+                </form>';
+                }
+
         }
     }
     // closing the div element
@@ -73,19 +80,26 @@ function  getDistricts( $as = 'options', $code=null , array $extras = null){
 
     $dbAccess = new DbAccess;
 
-    $data = !is_null($id)? $dbAccess->select("administrators",array() , ['adminId' => $code ]) :$dbAccess->select("administrators",['*']);
+    $data = $dbAccess->select("administrators",['*']);
 
     $html = "";
+
     if($as == 'options') {
 
-        foreach($data as $district) $html .= "<option value=".$district["adminId"].">".$district["name"]."</option>";
+        foreach($data as $district){ 
+
+            $patch = $district['adminId'] ==  $code ? "selected" : ""; 
+
+            $html .= "<option  ".$patch."  value=".$district["adminId"].">".$district["name"]."</option>";}
     
         return  $html;
     }
 
     if($as == 'listItem'){
 
-        foreach($data as $district) $html .= "<li>".$district["name"]."</li>";
+        $patch = $district['adminId'] ==  $code ? "font-weight-bold" : ""; 
+
+        foreach($data as $district) $html .= "<li  class='".$patch."' >".$district["name"]."</li>";
     
         return  $html;
     }
@@ -128,4 +142,42 @@ function unlocatedDistrictsCodes(){
     $data = $dbAccess->select("territory_districts",["districtCode"]);
 
     return  $data;
+}
+
+
+function getDistrictsSelected(array $codes ){
+
+    require_once "../../utils/dbaccess.php";
+
+    $dbAccess = new DbAccess;
+
+    $un_allocated =  unlocatedDistrictsCodes();
+
+    $un_allocated = array_filter($un_allocated , function($array) use($codes) {
+        return ( !in_array($array['districtCode'] , $codes)); 
+    });
+
+    $html = "";
+
+    if(count($un_allocated) == 1){
+      $data = $dbAccess->selectQuery("SELECT * FROM districts  WHERE districtCode IS NOT ".$data[0]['districtCode']);
+    }else if(count($un_allocated) > 1){
+        $selected = [];
+
+        foreach($un_allocated as $dc) $selected[] = $dc['districtCode'];
+    
+    
+        $data = $dbAccess->selectQuery(" SELECT * FROM districts  WHERE districtCode NOT IN (".implode(",",$selected).") ");
+    
+
+    }
+   
+    foreach($data as $district){
+        $patch = in_array($district['districtCode'],$codes) ? "selected" : "";
+
+        $html .= "<option  ".$patch."   value=".$district["districtCode"].">".$district["districtName"]."</option>";
+    }
+    
+    return  $html;
+
 }
