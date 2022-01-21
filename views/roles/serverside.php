@@ -35,20 +35,20 @@ $data = array();
 
 function showActions($id)
 {
-    $output = '';
+    $output = '<div class="d-flex justify-content-between ">';
 
 
     if (in_array("edit-roles", $_SESSION['permissions'])) {
-        $output = '<form action="./show.php?id="' . $id . '"" method="get">
+        $output .= '<form action="./show.php?id="' . $id . '"" method="get">
         <button type="submit" name="show"  value="' . $id . '"
-        class="btn btn-info btn-sm editbtn" >Show</button>
+        class="btn btn-info btn-sm  " ><i class="fas fa-eye"></i></button>
     
         </form>';
     }
     if (in_array("edit-roles", $_SESSION['permissions'])) {
         $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
-        class="btn btn-info btn-sm editbtn" >Edit</button>
+        class="btn btn-primary btn-sm " title="edit" ><i class="fas fa-edit"></i></button>
     
         </form>';
     }
@@ -56,13 +56,14 @@ function showActions($id)
         $output .= '    <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
-      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+      class="btn btn-danger btn-sm " title="delete" > <i class="fas fa-trash"></i></button>
   
       </form>';
     }
 
 
-    $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
+
+    $styledOutPut =   $output . '</div>';
 
     return $styledOutPut;
 }
