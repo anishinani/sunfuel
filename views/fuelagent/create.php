@@ -10,7 +10,7 @@ include_once '../templates/SecurePageHeader.php';
  * */
 include_once '../templates/Components.php';
 
-if (!can('create-fuelagent')) header('Location:../Errors/unAuthorized.php');
+if (!can('create-fuelagent')) echo '<script>window.open("../Errors/unAuthorized.php","_self")</script>';
 
 $results  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
 
