@@ -47,10 +47,11 @@ breadCrumbs(['title' => 'Territories', 'sub_title' => 'Territories', 'previous' 
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>No.</th>
+                            <th>Id.</th>
                             <th>Territory Name</th>
                             <th>Territory Manager</th>
-                            <th>Districts</th>
+                            <th>Stages</th>
+                            <th>Fuelstations</th>
                             <th width="130px">Actions</th>
                         </tr>
                     </thead>
