@@ -5,13 +5,16 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT administrators.* ,roles.roleName FROM administrators INNER JOIN roles ON administrators.roleId = roles.roleId ";
+// $sql = "select administrators.*,roles.name,user_roles.role_id from administrators right join user_roles on administrators.adminId = user_roles.adminId right join roles on user_roles.role_id = roles.id";
+$sql = "select * from administrators";
+
 
 $totalQuery = mysqli_query($con, $sql);
 $total_all_rows = mysqli_num_rows($totalQuery);
 
-if (isset($_POST['search']['value'])) {
+if (isset($_POST['search']['value']) && !empty($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
+
     $sql .= " WHERE name like '%" . $search_value . "%'";
 }
 
@@ -34,21 +37,21 @@ function showActions($id)
     $output = '';
 
 
-    if (in_array("edit-users", $_SESSION['roles'])) {
+    if (in_array("edit-users", $_SESSION['permissions'])) {
         $output = ' <form action="./show.php?id="' . $id . '"" method="get">
         <button type="submit" name="show"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Show</button>
     
         </form>';
     }
-    if (in_array("edit-users", $_SESSION['roles'])) {
+    if (in_array("edit-users", $_SESSION['permissions'])) {
         $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
     
         </form>';
     }
-    if (in_array("delete-users", $_SESSION['roles'])) {
+    if (in_array("delete-users", $_SESSION['permissions'])) {
         $output .= '    <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
@@ -64,7 +67,11 @@ function showActions($id)
 }
 
 
+// var_dump($sql);
+
+// die;/
 $query = mysqli_query($con, $sql);
+
 $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
@@ -74,7 +81,6 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['email'];
     $sub_array[] = $row['phoneNumber'];
     $sub_array[] = $row['gender'];
-    $sub_array[] = $row['roleName'];
     $sub_array[] = showActions($row['adminId']);
     $data[] = $sub_array;
 }

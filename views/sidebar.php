@@ -70,6 +70,7 @@
                             </li>
 
                         </ul>
+                    </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -95,6 +96,36 @@
                             </li>
 
                         </ul>
+                    </li>
+
+                    <!-- territory -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-map"></i>
+                            <p>
+                                Territory
+                                <i class="fas fa-angle-left right"></i>
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/creditpluswebapp/views/territories/index.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>View Territories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/creditpluswebapp/views/territories/create.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create Territories</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <!-- territory -->
 
 
                         <!--stage user-->
@@ -123,7 +154,7 @@
                             </li>
 
                         </ul>
-
+                    </li>
                         <!--stage user-->
 
 
@@ -153,6 +184,7 @@
                             </li>
 
                         </ul>
+                    </li>
 
                         <!--boda user-->
 
@@ -182,6 +214,7 @@
                             </li>
 
                         </ul>
+                    </li>
                         <!--fuel station-->
 
                         <!--fuel station agent-->

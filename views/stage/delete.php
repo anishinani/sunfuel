@@ -1,5 +1,11 @@
 <?php
-session_start();
+include_once '../../utils/session.php';
+
+if (!can('delete-stages')){
+     $_SESSION['warning'] = "UnAuthorized Operation";  
+      header('Location:index.php');
+       die;
+    }
 include("../../utils/dbaccess.php");
 include("../../utils/activityLogger.php");
 
@@ -25,5 +31,6 @@ if ($delQuery == true) {
     $_SESSION["success"] = " Stage Deleted successfully";
     header("Location:index.php");
 } else {
-    echo "There was an error";
+    $_SESSION["error"] = "Opps! Something went wrong int the previous operation";
+    header("Location:index.php");
 }

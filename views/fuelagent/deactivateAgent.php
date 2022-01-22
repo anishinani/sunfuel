@@ -1,5 +1,11 @@
 <?php
-session_start();
+include_once '../../utils/session.php';
+
+if (!can('deactivate-fuelagent')){
+     $_SESSION['warning'] = "UnAuthorized Operation";  
+      header('Location:index.php');
+       die;
+    }
 include_once("../../utils/dbaccess.php");
 $dbAccess = new DbAccess();
 

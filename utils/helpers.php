@@ -48,7 +48,7 @@ class HelperFunctions
         if (preg_match($password, $passwordRegex)) {
             return true;
         } else {
-            return "Passsword must contain both lower case and upper case letters";
+            return "Password must contain both lower case and upper case letters";
         }
     }
 

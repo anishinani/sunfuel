@@ -1,8 +1,18 @@
 <?php
-session_start();
+
+include_once '../../utils/session.php';
+
+if (!can('activate-bodauser')){
+     $_SESSION['warning'] = "UnAuthorized Operation";  
+      header('Location:index.php');
+       die;
+    }
+
 include_once("../../utils/sms.php");
 include_once("../../utils/pin.php");
 include_once("../../utils/dbaccess.php");
+
+
 
 
 
@@ -20,7 +30,7 @@ if (isset($_POST["activate"])) {
     //check if stage is active
     $stageStatus = $dbAccess->select("stage", ["stageStatus"], ["stageId" => $stageId]);
     if (strval($stageStatus[0]['stageStatus']) == 0) {
-        $_SESSION['success'] = "Cannot activate boda user because the stage is not yet active!!Please Activate the stage";
+        $_SESSION['info'] = "Cannot activate boda user because the stage is not yet active!!Please Activate the stage";
         header("Location:index.php");
     }
     //die("done");
@@ -37,12 +47,12 @@ if (isset($_POST["activate"])) {
         header("Location:index.php");
     } else {
         //die("There is an error please try again");
-        $_SESSION['success'] = "Oops something occured please contact support or try again";
+        $_SESSION['error'] = "Oops something occurred please contact support or try again";
         header("Location:index.php");
     }
 } else {
     //die("not id found please contact support ")
-    $_SESSION['success'] = "Oops something occured please contact support or try again";
+    $_SESSION['error'] = "Oops something occurred please contact support or try again";
     header("Location:index.php");
 }
 

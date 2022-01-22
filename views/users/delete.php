@@ -1,7 +1,13 @@
 <?php
-session_start();
+
+include_once '../../utils/session.php';
+
 include("../../utils/dbaccess.php");
+
 include("../../utils/activityLogger.php");
+
+if(!can('delete-users')) header('Location:../Errors/unAuthorized.php'); 
+
 
 $activity =  new ActivityLogger();
 
@@ -23,9 +29,7 @@ $activity->logActivity(
     $_SESSION['gender']
 );
 $_SESSION["success"] = " User Deleted successfully";
+
 header("Location:index.php");
 
-// else {
-//     $_SESSION["success"] = "Something went wrong please try again";
-//     header("Location:index.php");
-// }
+

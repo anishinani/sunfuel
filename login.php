@@ -6,10 +6,10 @@ require_once("utils/dbaccess.php");
 require_once('controllers/User.php');
 require_once("utils/activityLogger.php");
 require_once("utils/helpers.php");
-require_once("controllers/RolesController.php");
+require_once "controllers/access/AccessController.php";
 
 $user = new User();
-$roles =  new Roles();
+$accessController =  new AccessController();
 //helper functions
 $helpers  = new HelperFunctions();
 
@@ -42,18 +42,22 @@ if (isset($_POST['login'])) {
 			header('location:index.php');
 		} else {
 			$_SESSION['user'] = $auth['name'];
-			$_SESSION['userId'] = $auth['adminId'];
-			$_SESSION['roleId'] = $auth['roleId'];
 			$_SESSION['gender'] = $auth['gender'];
 			$_SESSION['email'] = $auth['email'];
+			$_SESSION['auth'] = $auth['adminId'];
+
 
 			//get permissions
-			$permissions = $roles->getSpecificPermissions($auth['roleId']);
-			$_SESSION['roles'] = $permissions;
+			$permissions = $accessController->getUserPermissions($auth['roleId']);
+            $_SESSION['permissions'] = $permissions['permissions'];
+			$_SESSION['modules'] = $permissions['modules'];
 
-			$value = $activity->logActivity($_SESSION['user'], "login", "Logged in sucessfully", $_SESSION['email'], $_SESSION['gender']);
 
-			header('location:views/home.php');
+			$value = $activity->logActivity($_SESSION['user'], "login", "Logged in successfully", $_SESSION['email'], $_SESSION['gender']);
+
+			$_SESSION['success'] = 'Welcome Back ! '.$auth['name'];
+
+			header('location:views/dashboard/');
 		}
 	}
 }

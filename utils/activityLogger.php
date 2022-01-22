@@ -3,7 +3,7 @@
 
 class ActivityLogger extends DbAccess
 {
-    public  function logActivity($name, $activity, $description, $email, $gender)
+    public  function logActivity($name, $activity, $description, $email, $account_id)
     {
         // echo $db;
         $ip_address = $_SERVER['REMOTE_ADDR'];
@@ -13,7 +13,7 @@ class ActivityLogger extends DbAccess
             "email" => $email,
             "ipAddress" => $ip_address,
             'activity' => $activity,
-            'gender' => $gender,
+            'account_id' => $account_id,
             'description' => $description
 
         ]);

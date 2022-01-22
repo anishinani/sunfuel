@@ -1,5 +1,14 @@
 <?php
-session_start();
+
+require_once '../../utils/session.php';
+
+if (!can('create-bodausers')){
+    $_SESSION['warning'] = "UnAuthorized Operation";  
+     header('Location:index.php');
+      die;
+}
+
+
 require_once("../../utils/dbaccess.php");
 require_once("../../utils/activityLogger.php");
 require_once("../../utils/helpers.php");

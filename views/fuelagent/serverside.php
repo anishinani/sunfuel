@@ -26,7 +26,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY fuelAgentId asc";
+    $sql .= " ORDER BY fuelAgentId desc";
 }
 
 if ($_POST['length'] != -1) {

@@ -285,4 +285,88 @@ class DbAccess
         return $results;
     }
     //delete
+
+    /**
+     * @method selectWithPagination
+     * select data specifically for  datatable use
+     * **/ 
+    public function selectWithPagination($base_query , array $columns , array $limit ,array $extras = null , array $orderby = null ,  $searchParam = null ){
+
+        $output = array();
+        
+        $total = mysqli_num_rows(mysqli_query($this->conn , $base_query));
+
+
+        if(!is_null($searchParam)){
+            
+            $base_query .= ' WHERE ';
+
+            foreach ($columns as $column){
+                if(!isset($extras[$column])) {
+                    $base_query .= $column . ' LIKE %'.$searchParam.'%  OR';
+                }
+            }
+
+            $base_query  = rtrim($base_query , 'OR');
+        } 
+
+        if(!is_null($orderby)){
+
+            $base_query .= ' ORDER BY '.$orderby['column'] . ' '.$orderby['order'];
+        }
+
+        if($limit['length'] != -1) {
+
+            $base_query .=  ' LIMIT '.$limit['start'] . ','.$limit['length'];
+        }
+
+
+        $query = mysqli_query($this->conn , $base_query);
+
+        $output['recordsTotal'] = $total;
+
+        $output['recordsFiltered'] = !is_null($searchParam)? mysqli_num_rows($query): 0;
+
+        $output['draw'] = $extras['draw'];     
+        
+        $output['data'] = array();
+
+        
+        while($row = mysqli_fetch_assoc($query)){
+
+            // $output['data'][] = $row;
+
+            $dataSet = array();
+
+            foreach ($columns as $col){ 
+
+                if(isset($row[$col])){ 
+                    if(isset($extras[$col])){
+                        $dataSet[] = call_user_func($extras[$col],$row);
+                    }else{
+                        $dataSet[] = $row[$col];
+                    }
+                }
+                if(isset($extras[$col])){
+                    $dataSet[] = call_user_func($extras[$col],$row);
+                }
+            }
+
+            // if(isset($extras['action']) && is_callable($extras['action'])){
+            //     $dataSet[] = call_user_func($extras['action'],$row);
+            // }
+
+            $output['data'][] = $dataSet;
+        }
+    
+      
+
+
+        return $output;
+
+
+
+
+
+    }
 }

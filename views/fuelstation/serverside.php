@@ -32,7 +32,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY fuelStationId asc";
+    $sql .= " ORDER BY fuelStationId desc";
 }
 
 if ($_POST['length'] != -1) {
@@ -48,28 +48,28 @@ function showActions($id)
 
 
 
-    if (in_array("show-fuelStation", $_SESSION['roles'])) {
+    if (in_array("view-fuelstations", $_SESSION['permissions'])) {
         $output .= '<form method="POST" action="./fuelstationdetails.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-primary btn-sm deleteBtn" name="details">Station</button>
       </form>';
     }
-    if (in_array("edit-fuelStation", $_SESSION['roles'])) {
+    if (in_array("edit-fuelstation", $_SESSION['permissions'])) {
         $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
    
         </form>';
     }
-    if (in_array("delete-fuelStations", $_SESSION['roles'])) {
+    if (in_array("delete-fuelstations", $_SESSION['permissions'])) {
         $output .= '     <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-danger btn-sm deleteBtn" >Delete</button>
       </form>';
     }
-    if (in_array("edit-fuelStation", $_SESSION['roles'])) {
+    if (in_array("edit-fuelstation", $_SESSION['permissions'])) {
         $output .= '     <form action="contactpersondetails.php?id="' . $id . '"" method="get">
         <button type="submit" name="showPerson"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Details</button>
@@ -88,6 +88,7 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
+    $sub_array[] = $row['fuelStationId'];
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['merchantCode'];
     $sub_array[] = $row['fuelStationContactPerson'];

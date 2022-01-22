@@ -4,9 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-// $sql = "SELECT bodauser.*, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser 
-//  INNER JOIN fuelstation ON fuelstation.fuelStationId = bodauser.fuelStationId 
-// INNER JOIN stage ON stage.stageId=bodauser.stageId WHERE bodaUserStatus =0";
+
 $sql = "SELECT * FROM inactivebodausers";
 
 //die("here");
@@ -31,7 +29,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY bodaUserId asc";
+    $sql .= " ORDER BY bodaUserId desc";
 }
 
 if ($_POST['length'] != -1) {
@@ -45,6 +43,7 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
+    $sub_array[] = $row['bodaUserId'];
     $sub_array[] = $row['bodaUserName'];
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];

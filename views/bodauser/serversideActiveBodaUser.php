@@ -4,12 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-// $sql = "SELECT bodauser.*, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser WHERE bodauser.bodaUserStatus = '1' 
-//  INNER JOIN fuelstation ON fuelstation.fuelStationId = bodauser.fuelStationId 
-// INNER JOIN stage ON stage.stageId=bodauser.stageId ";
 
-
-//die("here");
 
 $sql = "SELECT * FROM activebodausers";
 
@@ -47,6 +42,7 @@ $count_rows = mysqli_num_rows($query);
 $data = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
+    $sub_array[] = $row['bodaUserId'];
     $sub_array[] = $row['bodaUserName'];
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];

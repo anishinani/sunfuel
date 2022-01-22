@@ -134,7 +134,8 @@ $_SESSION['bool'] =  true;
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th> Name</th>
+                                                <th>Id</th>
+                                                <th>Name</th>
                                                 <th>Contact Person</th>
                                                 <th>Contact Address</th>
                                                 <th>Contact Phone Number</th>

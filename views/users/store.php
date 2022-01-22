@@ -43,25 +43,10 @@ if (isset($_POST['addUser'])) {
 
 
     if (count($emailExists)) {
-
+        $_SESSION['error'] = "email already exists";
         array_push($_SESSION['errors'], "Email already exists Please use a different email");
         header("Location:create.php");
     }
-
-
-    //check if email exists
-    //check errors and clean
-    // if ($_POST['roles'] == NULL) {
-    //     array_push($_SESSION['errors'],   "choose atleast one role");
-    // }
-
-
-
-    //send email
-
-
-
-
 
 
     //check session array
