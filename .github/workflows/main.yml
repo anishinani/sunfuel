@@ -31,4 +31,5 @@ jobs:
         PORT: 22
         KEY: ${{ secrets.SSHKEY }}
         script: ls
+        #lets see how it goes
    
