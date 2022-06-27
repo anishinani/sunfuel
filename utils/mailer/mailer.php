@@ -6,9 +6,9 @@ require 'PHPMailerAutoload.php';
 
 class MyMail extends PHPMailer
 {
-  private $_host      = "server02.i3c.co.ug";     //'your stmp server name'
-  private $_user      = "collin.m@creditplus.ug";   //'your smtp username'
-  private $_password  = "@Collin65#";                 // 'your password'
+  private $_host      = "mail.creditplus.ug";     //'your stmp server name'
+  private $_user      = "info@creditplus.ug";   //'your smtp username'
+  private $_password  = "!Log10tan10";                 // 'your password'
   private $_name      =  "Creditplus";
 
   // echo 1111;
