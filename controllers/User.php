@@ -11,7 +11,7 @@ class User extends DbAccess
         //$dbAccess = new DbAcess();
         //$helpers =  new HelperFunctions();
         //$helpers->checkEmail()
-        $sql = "SELECT * FROM administrators WHERE email = ? ";
+        $sql = "SELECT * FROM users WHERE email = ? ";
 
         $email = $this->clean($email);
 
@@ -55,7 +55,7 @@ class User extends DbAccess
         $roles = $array['roles'];
         //sdie("login");
         return $this->insert(
-            "administrators",
+            "users",
             [
                 'name' => strtoupper($name),
                 'email' => $email,
@@ -76,11 +76,11 @@ class User extends DbAccess
     public function setPassword($email, $password, $id)
     {
 
-        $user =  $this->select("administrators", ["name", "email", "roleId", "adminId", "gender", "roleId"], ["adminId" => $id])[0];
+        $user =  $this->select("users", ["name", "email", "roleId", "adminId", "gender", "roleId"], ["adminId" => $id])[0];
         //var_dump($user);
         //die("here");
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $result = $this->update("administrators", ['password' => $hashedPassword], ["adminId" => $id]);
+        $result = $this->update("users", ['password' => $hashedPassword], ["adminId" => $id]);
         if ($result) {
             return $user;
         } else {
