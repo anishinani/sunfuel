@@ -23,7 +23,7 @@ class DbAccess
             $this->password = "";
         } else {
 
-            $this->password = '!Log10tan10';
+            $this->password = '!Log19tan88';
         }
 
         // Create connection
