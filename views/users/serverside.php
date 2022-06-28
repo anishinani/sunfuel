@@ -6,7 +6,7 @@ $con = $dbAccess->getConnection();
 
 $output = array();
 // $sql = "select administrators.*,roles.name,user_roles.role_id from administrators right join user_roles on administrators.adminId = user_roles.adminId right join roles on user_roles.role_id = roles.id";
-$sql = "select * from administrators";
+$sql = "select * from users";
 
 
 $totalQuery = mysqli_query($con, $sql);

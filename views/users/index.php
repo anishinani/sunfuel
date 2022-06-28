@@ -85,6 +85,10 @@ include_once '../templates/footer.php';
             "fnCreatedRow": function(nRow, aData, iDataIndex) {
                 $(nRow).attr('id', aData[0]);
             },
+            "lengthMenu": [
+                    [20, 50, 100, 250, 500, -1],
+                    [20, 50, 100, 250, 500, "All (Slow)"]
+                ],
             'serverSide': 'true',
             'processing': 'true',
             'paging': 'true',

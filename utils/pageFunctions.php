@@ -80,7 +80,7 @@ function  getDistricts( $as = 'options', $code=null , array $extras = null){
 
     $dbAccess = new DbAccess;
 
-    $data = $dbAccess->select("administrators",['*']);
+    $data = $dbAccess->select("users",['*']);
 
     $html = "";
 

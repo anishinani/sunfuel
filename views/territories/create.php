@@ -44,7 +44,8 @@ include_once "../../utils/pageFunctions.php";
                     </div>
                     <div class="form-group">
                         <label for="territoryDistricts"> Territory Districts</label>
-                        <select id="select-districts" class="form-control form-select" name="territoryDistricts[]" multiple>
+                        <select id="select-districts" class="form-control form-select" 
+                        name="territoryDistricts[]" multiple>
                             <?= getDistricts(); ?>
                         </select>
                         <span id="territoryManager_error" class="text-danger"></span>

@@ -8,9 +8,10 @@ include("../../utils/pageFunctions.php");
 
 $dbAccess =  new DbAccess();
 
-$sql = "SELECT `territories`.*, `administrators`.`name` AS territoryManager     FROM `territories` INNER JOIN `administrators` ON `territories`.`territoryManager` = `administrators`.`adminId`";
+$sql = "SELECT `territories`.*, `users`.`name` AS territoryManager  FROM `territories` INNER JOIN `users` ON `territories`.`territoryManager` = `users`.`adminId`";
 
 $searchParam = (!empty($_POST['search']['value'])) ? $_POST['search']['value'] : null;
+
 
 
 $output = $dbAccess->selectWithPagination(
@@ -21,7 +22,7 @@ $output = $dbAccess->selectWithPagination(
        'start' => isset($_POST['start'])?? $_POST['start']
    ),
     array(
-        'draw' => intval($_POST['draw']),
+        'draw' =>isset($_POST['draw'])? intval($_POST['draw']) : 0,
         'stages' => function($row){
           $html = "<a href='../stage/territoryStages.php?territory=".$row['territoryId']."' class='btn btn-primary btn-sm '><i class='fas fa-eye'></i> view</a>";
           return $html;    

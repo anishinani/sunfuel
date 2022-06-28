@@ -40,6 +40,8 @@ foreach ($_POST as $key => $value) {
     }
 }
 
+
+
 if($territoryController->exists($_POST['territoryName'])) $_SESSION['errors']['territoryName'] = "Sorry Territory Already Exists!";
 
 if (count($_SESSION['errors'])) {
@@ -47,6 +49,7 @@ if (count($_SESSION['errors'])) {
     header("Location:create.php");
 } else {
     unset($_SESSION['errors']);
+    
     if ($territoryController->store($_POST)) {
         $activity->logActivity(
             $_SESSION['user'],
@@ -62,6 +65,7 @@ if (count($_SESSION['errors'])) {
         echo "success";
         //redirect
     } else {
+        die("am here");
         die("Oops there was an error");
     }
 }

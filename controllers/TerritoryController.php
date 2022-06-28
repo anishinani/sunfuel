@@ -56,8 +56,9 @@ class TerritoryController extends DbAccess {
 
 
     public function getTerritory($territoryId){
-
+   
         $data = array();
+        
 
         $territory = $this->select('territories',['*'] , ["territoryId" => $territoryId]);
 

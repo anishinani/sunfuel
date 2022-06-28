@@ -19,7 +19,7 @@ if (!can('view-territories')) echo "<script>window.open('../Errors/unAuthorized.
 
 if (!isset($_GET['territory'])) echo "<script>window.open('../Errors/404.php','_self')</script>";
 
-
+ die($_GET['territory']);
 
 breadCrumbs(['title' => 'Stages', 'sub_title' => 'stages', 'previous' => 'Territories', 'previous_action' => '../territories/']);
 
