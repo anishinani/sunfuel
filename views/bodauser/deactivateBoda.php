@@ -1,11 +1,11 @@
 <?php
 include_once '../../utils/session.php';
 
-if (!can('deactivate-bodausers')){
-    $_SESSION['warning'] = "UnAuthorized Operation";  
-     header('Location:index.php');
-      die;
-   }
+// if (!can('deactivate-bodausers')){
+//     $_SESSION['warning'] = "UnAuthorized Operation";  
+//      header('Location:index.php');
+//       die;
+//    }
 
 include_once("../../utils/dbaccess.php");
 $dbAccess = new DbAccess();

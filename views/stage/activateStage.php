@@ -2,11 +2,11 @@
 
 require_once "../../utils/session.php";
 
-if (!can('activate-stages')){
-    $_SESSION['warning'] = "UnAuthorized Operation";  
-     header('Location:index.php');
-      die;
-}
+// if (!can('activate-stages')){
+//     $_SESSION['warning'] = "UnAuthorized Operation";  
+//      header('Location:index.php');
+//       die;
+// }
 
 include_once("../../utils/sms.php");
 include_once("../../utils/pin.php");
