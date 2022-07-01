@@ -36,11 +36,11 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class=" mt-1" width="250px" src="<?= "./images/" . $bodaDetails[0]['bodaUserFrontPhoto']; ?>"><span class=" font-weight-bold">Front ID Photo</span>
+                        <img class=" mt-1" width="250px" src="<?= "https://appdev.creditplus.ug/bodafuelprojectmobileappapi/storage/app/public/images/id_cards/" . $bodaDetails[0]['bodaUserFrontPhoto']; ?>"><span class=" font-weight-bold">Front ID Photo</span>
                         <span class="text-black-50"><?= $bodaDetails[0]['bodaUserName'] ?></span><span> </span>
                     </div>
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class=" mt-1" width="250px" src="<?= "./images/" . $bodaDetails[0]['bodaUserBackPhoto']; ?>">
+                        <img class=" mt-1" width="250px" src="<?= "https://appdev.creditplus.ug/bodafuelprojectmobileappapi/storage/app/public/images/id_cards/" . $bodaDetails[0]['bodaUserBackPhoto']; ?>">
                         <span class=" font-weight-bold">Back IDPhoto</span>
                         <span class="text-black-50"><?= $bodaDetails[0]['bodaUserName'] ?></span><span> </span>
                     </div>
