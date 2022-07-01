@@ -18,7 +18,7 @@ $total_all_rows = mysqli_num_rows($totalQuery);
 
 
 
-if (isset($_POST['search']['value'])) {
+if (isset($_POST['search']['value']) and strlen($_POST['search']['value'])>0) {
     $search_value = $_POST['search']['value'];
     $sql .= " OR bodaUserName like '%" . $search_value . "%'";
     $sql .= " OR bodaUserPhoneNumber like '%" . $search_value . "%'";
@@ -47,6 +47,7 @@ if ($_POST['length'] != -1 and $_POST['length'] !=NULL and isset($_POST['length'
 
 $query = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($query);
+
 $data = array();
 function showActions($id)
 {

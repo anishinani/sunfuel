@@ -98,13 +98,13 @@ $_SESSION['bool'] =  true;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                        <h1><?=$_GET['name']?>  Stage</h1>
+                        <h1>Territories</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">FuelStation</a></li>
                                 <li class="breadcrumb-item active">
-                                <?=$_GET['data']?>
+                                   Territories 
                                 </li>
                             </ol>
                         </div>
@@ -125,7 +125,7 @@ $_SESSION['bool'] =  true;
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                    <?=strtoupper($_GET['data'])?>
+                                    Fuel Stations in  a Territory Table
 
                                     </h3>
 
@@ -134,13 +134,13 @@ $_SESSION['bool'] =  true;
                                 <div class="card-body">
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
-                                            <tr>
-                                                <th>Stage Name</th>
-                                                <th>Fuel Station Name</th>
-                                                <th>Stage Status</th>
-                                                <th>Activation Actions</th>
-                                                <th width="100px">Actions</th>
-                                            </tr>
+                                <tr>
+                                    <th>Stage Name</th>
+                                    <th>Fuel Station Name</th>
+                                    <th>Station Status</th>
+                                    <th>Activation Actions</th>
+                                    <th width="150px">Actions</th>
+                                   </tr>
                                         </thead>
                                         <tbody>
 
@@ -222,7 +222,7 @@ $_SESSION['bool'] =  true;
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 'order': [],
                 'ajax': {
-                    'url': './serversideActiveStage.php?name=<?=$_GET["name"]?>&table=<?=$_GET["data"]?>',
+                    'url': './serverside_territory.php?territory=<?=$_GET['territory']?>',
                     'type': 'post',
                 },
                 "columnDefs": [{

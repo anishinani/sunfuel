@@ -32,7 +32,7 @@ breadCrumbs(['title' => 'Territory', 'sub_title' => 'stages', 'previous' => 'Ter
         <!-- /.card -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Territory Table</h3>
+                <h3 class="card-title">Stages in a Territory Table</h3>
                 <?php  if(in_array('create-stage' , $_SESSION['permissions'])): ?>
                 <!-- <h4 class="float-sm-right ">
                     <a class="btn btn-success" href="./create.php"> Add New Stage

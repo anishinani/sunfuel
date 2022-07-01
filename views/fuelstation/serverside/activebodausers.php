@@ -6,19 +6,20 @@ $con = $dbAccess->getConnection();
 
 $output = array();
 $table = null;
-if(isset($_GET['stationname'])){
-  $name = $_GET['stationname'];
+if(isset($_GET['name'])){
+  $name = $_GET['name'];
 }
 if(isset($_GET['table'])){
    $table = $_GET['table'];
 }
 $sql = "SELECT * FROM `$table` WHERE fuelStationName='$name'";
+
 $totalQuery = mysqli_query($con, $sql);
 $total_all_rows = mysqli_num_rows($totalQuery);
 
 
 
-if (isset($_POST['search']['value'])) {
+if (isset($_POST['search']['value']) and strlen($_POST['search']['value'])>0) {
     $search_value = $_POST['search']['value'];
     $sql .= " OR bodaUserName like '%" . $search_value . "%'";
     $sql .= " OR bodaUserPhoneNumber like '%" . $search_value . "%'";
