@@ -19,9 +19,9 @@ if (!can('view-territories')) echo "<script>window.open('../Errors/unAuthorized.
 
 if (!isset($_GET['territory'])) echo "<script>window.open('../Errors/404.php','_self')</script>";
 
- die($_GET['territory']);
 
-breadCrumbs(['title' => 'Stages', 'sub_title' => 'stages', 'previous' => 'Territories', 'previous_action' => '../territories/']);
+
+breadCrumbs(['title' => 'Territory', 'sub_title' => 'stages', 'previous' => 'Territories', 'previous_action' => '../territories/']);
 
 
 ?>
@@ -32,12 +32,12 @@ breadCrumbs(['title' => 'Stages', 'sub_title' => 'stages', 'previous' => 'Territ
         <!-- /.card -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Stage Table</h3>
+                <h3 class="card-title">Territory Table</h3>
                 <?php  if(in_array('create-stage' , $_SESSION['permissions'])): ?>
-                <h4 class="float-sm-right ">
+                <!-- <h4 class="float-sm-right ">
                     <a class="btn btn-success" href="./create.php"> Add New Stage
                     </a>
-                </h4>
+                </h4> -->
                 <?php endif; ?>
             </div>
             <!-- /.card-header -->

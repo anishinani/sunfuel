@@ -8,10 +8,15 @@ function activate()
 }
 
 $output = array();
-// $sql = "SELECT stage.*, fuelstation.fuelStationName FROM stage  
-// INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId WHERE stageStatus=1";
+$table = null;
+if(isset($_GET['name'])){
+  $name = $_GET['name'];
+}
+if(isset($_GET['table'])){
+   $table = $_GET['table'];
+}
+$sql = "SELECT * FROM `$table` WHERE fuelStationName='$name'";
 
-$sql = "SELECT * FROM activestages";
 
 //die("here");
 
@@ -20,7 +25,7 @@ $total_all_rows = mysqli_num_rows($totalQuery);
 
 if (isset($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
-    $sql .= " WHERE stageName like '%" . $search_value . "%'";
+    $sql .= " OR stageName like '%" . $search_value . "%'";
     $sql .= " OR stageStatus like '%" . $search_value . "%'";
     $sql .= " OR fuelStationName like '%" . $search_value . "%'";
 }
@@ -38,6 +43,7 @@ if ($_POST['length'] != -1) {
     $length = $_POST['length'];
     $sql .= " LIMIT  " . $start . ", " . $length;
 }
+
 
 
 

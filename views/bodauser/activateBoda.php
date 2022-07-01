@@ -12,10 +12,6 @@ include_once("../../utils/sms.php");
 include_once("../../utils/pin.php");
 include_once("../../utils/dbaccess.php");
 
-
-
-
-
 $sms =  new infobip();
 $pin =  new pin();
 $dbAccess = new DbAccess();

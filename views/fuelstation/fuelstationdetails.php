@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Credit Plus</title>
+    <title>Credit Plus |FuelStation</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -84,10 +84,11 @@ if (!isset($_SESSION['user'])) {
          INNER JOIN fuelstation ON fuelstation.fuelStationId = stage.fuelStationId 
           WHERE  stage.fuelStationId=$id AND stage.stageStatus=2;")[0]['total'];
 
+             
 
 
         //fuel consumption
-        $expectedFuelPerDay = $totalBorrowers * 15000;
+        $expectedFuelPerDay = $totalActiveBodaUsers * 15000;
         //die($expectedFuelPerDay);
         $expectedAmountRecoveredPerDay =  ($totalBorrowers * 1000) + $expectedFuelPerDay;
         $expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
@@ -187,7 +188,7 @@ if (!isset($_SESSION['user'])) {
 
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href='/creditpluswebapp/views/fuelstation/activeOnEachStage.php?active=active'>
+                            <a href="/creditpluswebapp/views/fuelstation/activeOnEachStage.php?stationname=<?=$fuelStationName?>&data=activebodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalActiveBodaUsers ?></h3>
@@ -205,7 +206,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php?inactive=inactive">
+                            <a href="/creditpluswebapp/views/fuelstation/activeOnEachStage.php?stationname=<?=$fuelStationName?>&data=inactivebodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalInActiveBodaUsers ?></h3>
@@ -223,7 +224,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php?defaulters=defaulters">
+                            <a href="/creditpluswebapp/views/fuelstation/activeOnEachStage.php?stationname=<?=$fuelStationName?>&data=defaultedbodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalDefaultedBodaUsers ?></h3>
@@ -241,7 +242,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/activeStages.php">
+                            <a href="/creditpluswebapp/views/stage/indexone.php?name=<?=$fuelStationName?>&data=activestages">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalActiveStages ?></h3>
@@ -259,7 +260,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/inactiveStages.php">
+                            <a href="/creditpluswebapp/views/stage/indexone.php?name=<?=$fuelStationName?>&data=inactivestages">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalInActiveStages ?></h3>
@@ -277,7 +278,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/inactiveStages.php">
+                            <a href="/creditpluswebapp/views/stage/indexone.php?name=<?=$fuelStationName?>&data=defaultedstages">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalDefaultStages ?></h3>

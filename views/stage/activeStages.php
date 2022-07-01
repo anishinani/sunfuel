@@ -16,7 +16,7 @@ startContent();
 if (!can('view-stages')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
 
 
-breadCrumbs(['title' => 'Stages', 'sub_title' => 'settings', 'previous' => 'Home', 'previous_action' => './dashboard.php']);
+breadCrumbs(['title' => 'Stages', 'sub_title' => 'stages', 'previous' => 'Home', 'previous_action' => '../dashboard/']);
 
 
 ?>
@@ -93,7 +93,7 @@ include_once '../templates/footer.php';
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             'order': [],
             'ajax': {
-                'url': './serversideActiveStage.php',
+                'url': './serverside.php',
                 'type': 'post',
             },
             "columnDefs": [{

@@ -90,7 +90,7 @@ if (!isset($_SESSION['user'])) {
 
 
         //fuel consumption
-        $expectedFuelPerDay = $totalBorrowers * 15000;
+        $expectedFuelPerDay = $totalActiveBodaUsers * 15000;
         //die($expectedFuelPerDay);
         $expectedAmountRecoveredPerDay =  ($totalBorrowers * 1000) + $expectedFuelPerDay;
         $expectedCrossProfit = $expectedAmountRecoveredPerDay - $expectedFuelPerDay;
@@ -147,7 +147,7 @@ if (!isset($_SESSION['user'])) {
 
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/activebodaUsers.php">
+                            <a href="/creditpluswebapp/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=activebodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalActiveBodaUsers ?></h3>
@@ -165,7 +165,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php">
+                            <a href="/creditpluswebapp/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=inactivebodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalInActiveBodaUsers ?></h3>
@@ -183,7 +183,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php">
+                            <a href="/creditpluswebapp/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=defaultedbodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalDefaultedBodaUsers ?></h3>

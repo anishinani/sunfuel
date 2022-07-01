@@ -106,11 +106,11 @@ $details = [];
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><?=strtoupper($_GET['data'])?>  of <?=$_GET['stationname']?> fuel station</h1>
+                            <h1><?=strtoupper($_GET['data'])?>  of <?=$_GET['stagename']?> Stage</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="./index.php">FuelStations</a></li>
+                                <li class="breadcrumb-item"><a href="./index.php">Stage</a></li>
                                 <li class="breadcrumb-item active">
                                 <?=$_GET['data']?>
 
@@ -233,7 +233,7 @@ $details = [];
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 'order': [],
                 'ajax': {
-                    'url': "./serverside/activebodausers.php?stationname=<?=$_GET['stationname']?>&table=<?=$_GET['data']?>",
+                    'url': "./serverside/stagebodaserverside.php?stagename=<?=$_GET['stagename']?>&table=<?=$_GET['data']?>",
                     'type': 'post',
                 },
                 "data": {

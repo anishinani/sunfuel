@@ -20,7 +20,7 @@ $output = array();
 $sql = "SELECT stage.*, fuelstation.fuelStationName FROM stage  
 INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
 
-//die("here");
+
 
 $totalQuery = mysqli_query($con, $sql);
 $total_all_rows = mysqli_num_rows($totalQuery);

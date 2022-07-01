@@ -1,19 +1,6 @@
 <?php
 session_start();
-include("../../utils/dbaccess.php");
-$dbAccess =  new DbAccess();
-$id =  $_SESSION['fuelDetailsId'];
-$details = [];
-// if (isset($_GET['active'])) {
-//     $details  = $dbAccess->selectQuery("SELECT bodauser.*
-//     FROM bodauser WHERE bodaUserStatus=1 AND fuelStationId=$id");
-// } else if (isset($_GET['inactive'])) {
-// } elseif (isset($_GET['defaulters'])) {
-// } else {
-//     header("Location:index.php");
-// }
-
-//unset($_SESSION["success"]);
+$_SESSION['bool'] =  true;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,11 +9,12 @@ $details = [];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CreditPlus|Active BodaUsers</title>
+    <title>Manage Boda Users</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
+
     <link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -34,7 +22,6 @@ $details = [];
     <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
-
     <style>
         .style_button {
             background: #657836 !important;
@@ -66,6 +53,10 @@ $details = [];
             top: 10px !important;
             cursor: pointer;
         }
+
+        #removeAlert {
+            margin-top: 10px !important;
+        }
     </style>
 </head>
 
@@ -73,11 +64,11 @@ $details = [];
     <div class="wrapper">
 
         <?php
-
+        include("../../utils/dbaccess.php");
         include("../navbar/navbar.php");
         include("../sidebar.php");
 
-        // $dbAccess =  new DbAccess();
+        $dbAccess =  new DbAccess();
 
         ?>
         <!-- Main Sidebar Container -->
@@ -88,15 +79,16 @@ $details = [];
 
             <!--any wrong info-->
 
-            <?php
+            <?php if (isset($_SESSION['success'])) { ?>
+                <div class="alert alert-success m-4" id="removeAlert">
+                    <p><?= $_SESSION['success']; ?></p>
+                    <img src="../../dist/img/remove.png" class="image__remove" alt="cross image" height="20px" width="20px">
 
+                </div>
 
-
-
-
+            <?php }
+            unset($_SESSION['success']);
             ?>
-
-
 
             <!--any wrong info-->
 
@@ -106,14 +98,13 @@ $details = [];
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><?=strtoupper($_GET['data'])?>  of <?=$_GET['stationname']?> fuel station</h1>
+                        <h1><?=strtoupper($_GET['data'])?>  of <?=$_GET['name']?> fuel station</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="./index.php">FuelStations</a></li>
+                                <li class="breadcrumb-item"><a href="../bodauser/index.php">Home</a></li>
                                 <li class="breadcrumb-item active">
                                 <?=$_GET['data']?>
-
                                 </li>
                             </ol>
                         </div>
@@ -126,13 +117,17 @@ $details = [];
                 <div class="container-fluid">
 
 
+
                     <div class="row">
                         <div class="col-12">
                             <!--table-->
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title"><?=strtoupper($_GET['data'])?></h3>
+                                    <h3 class="card-title">
+                                    <?=strtoupper($_GET['data'])?>
+
+                                    </h3>
 
                                 </div>
                                 <!-- /.card-header -->
@@ -140,17 +135,10 @@ $details = [];
                                     <table id="example" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th> Name</th>
-                                                <th>NIN Number</th>
-                                                <th>Boda Number</th>
-                                                <th>Role</th>
-                                                <th>Boda Status</th>
-                                                <th>Fuel Station</th>
-                                                <th>Stage</th>
-
-                                                <th>Activation Action</th>
-
+                                                <th>Stage Name</th>
+                                                <th>Fuel Station Name</th>
+                                                <th>Stage Status</th>
+                                                <th>Activation Actions</th>
                                                 <th width="100px">Actions</th>
                                             </tr>
                                         </thead>
@@ -185,6 +173,7 @@ $details = [];
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
     <!-- jQuery -->
     <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -207,7 +196,7 @@ $details = [];
     <script src="/creditpluswebapp/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/creditpluswebapp/dist/js/demo.js"></script>
-
+    <!-- Page specific script -->
     <!--hide alert--->
     <script type="text/javascript">
         $(function() {
@@ -220,8 +209,22 @@ $details = [];
         })
     </script>
     <!--hide alert-->
-
     <script>
+        // $(function() {
+        //     $("#example1").DataTable({
+        //         "responsive": true,
+        //         "lengthChange": false,
+        //         "autoWidth": false,
+        //         "ordering": true,
+        //         "processing": true,
+        //         "serverSide": true,
+        //         "paging": true,
+        //         "ajax": "./serverside.php",
+
+        //         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        //     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        // });
         $(document).ready(function() {
             $('#example').DataTable({
                 "fnCreatedRow": function(nRow, aData, iDataIndex) {
@@ -233,11 +236,8 @@ $details = [];
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 'order': [],
                 'ajax': {
-                    'url': "./serverside/activebodausers.php?stationname=<?=$_GET['stationname']?>&table=<?=$_GET['data']?>",
+                    'url': './serversideActiveStage.php?name=<?=$_GET["name"]?>&table=<?=$_GET["data"]?>',
                     'type': 'post',
-                },
-                "data": {
-                    "id": 1
                 },
                 "columnDefs": [{
                     'target': [5],
@@ -246,7 +246,6 @@ $details = [];
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
-
 
 
 </body>
