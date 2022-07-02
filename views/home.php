@@ -208,7 +208,7 @@ if (!isset($_SESSION['user'])) {
 								<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-sort-amount-up-alt"></i></span>
 
 								<div class="info-box-content">
-									<span class="info-box-text">Total Laon Amount</span>
+									<span class="info-box-text">Total Loan Amount</span>
 									<span class="info-box-number"><?= "shs " . number_format($totalAmount); ?></span>
 								</div>
 								<!-- /.info-box-content -->

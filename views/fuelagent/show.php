@@ -35,12 +35,12 @@ breadCrumbs(['title' => 'Fuel Agent', 'sub_title' => 'Fuel Agent', 'previous' =>
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class=" mt-1" width="250px" src="<?= "images/" . $fuelAgentDetails[0]['frontIDPhoto']; ?>">
+                        <img class=" mt-1" width="250px" src="<?= "https://appdev.creditplus.ug/bodafuelprojectmobileappapi/storage/app/public/images/id_cards/" . $fuelAgentDetails[0]['frontIDPhoto']; ?>">
                         <span class=" font-weight-bold">Front ID Photo</span>
                         <span class="text-black-50"><?= $fuelAgentDetails[0]['fuelAgentName'] ?></span><span> </span>
                     </div>
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class=" mt-1" width="250px" src="<?= "images/" . $fuelAgentDetails[0]['backIDPhoto']; ?>">
+                        <img class=" mt-1" width="250px" src="<?= "https://appdev.creditplus.ug/bodafuelprojectmobileappapi/storage/app/public/images/id_cards/" . $fuelAgentDetails[0]['backIDPhoto']; ?>">
                         <span class=" font-weight-bold">Back IDPhoto</span>
                         <span class="text-black-50"><?= $fuelAgentDetails[0]['fuelAgentName'] ?></span><span> </span>
                     </div>
