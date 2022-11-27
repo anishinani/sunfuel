@@ -5,7 +5,7 @@ $dbAccess =  new DbAccess();
 //get email
 if (isset($_GET['token'])) {
     $checkToken = $_GET['token'];
-    $token = $dbAccess->select("administrators", ["setPassword", "email", "adminId"], ["setPassword" => $checkToken])[0];
+    $token = $dbAccess->select("users", ["setPassword", "email", "adminId"], ["setPassword" => $checkToken])[0];
 
 
     if (count($token)) {
