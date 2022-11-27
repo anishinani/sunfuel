@@ -20,7 +20,7 @@ class DbAccess
         
         if ($ip_address == '::1') {
 
-            $this->password = "";
+            $this->password = "!Log19tan88";
         } else {
 
             $this->password = '!Log19tan88';
