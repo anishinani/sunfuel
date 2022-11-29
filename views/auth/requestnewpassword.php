@@ -24,7 +24,7 @@ if (isset($_POST['request'])) {
         header("Location:/creditpluswebapp/forgotpassword.php");
     } else {
         //check if email exists
-        $emailExists = $dbAccess->select("administrators", ["email", "adminId", "name", "gender"], ["email" => $validatedEmail]);
+        $emailExists = $dbAccess->select("users", ["email", "adminId", "name", "gender"], ["email" => $validatedEmail]);
         if (count($emailExists)) {
 
             //update
@@ -35,7 +35,7 @@ if (isset($_POST['request'])) {
             //update
 
             $localLink = "localhost/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
-            $serverLink = "http://appdev.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
+            $serverLink = "http://app.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
             $linkToSend = "";
             $ip_address = $_SERVER['REMOTE_ADDR'];
 
