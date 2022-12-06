@@ -39,7 +39,7 @@ if (isset($_POST['addUser'])) {
         }
     }
     //check if email exists
-    $emailExists = $dbAccess->select("administrators", ['email'], ["email" => $_POST['email']]);
+    $emailExists = $dbAccess->select("users", ['email'], ["email" => $_POST['email']]);
 
 
     if (count($emailExists)) {
