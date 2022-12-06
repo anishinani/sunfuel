@@ -102,7 +102,7 @@ include_once '../templates/footer.php';
                 'target': [5],
                 'orderable': false,
             }]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        })
     });
 </script>
 

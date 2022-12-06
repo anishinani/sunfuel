@@ -60,7 +60,7 @@ function showActions($id)
       </form>';
     }
 
-    $output .= '    <form method="POST" action="./delete.php">
+    $output .= '    <form method="POST" action="./userdashboard.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-info btn-sm deleteBtn" >Show</button>
