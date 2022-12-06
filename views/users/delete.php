@@ -20,7 +20,7 @@ $user_id = $_POST['id'];
 
 // $sql = "DELETE FROM  WHERE adminId='$user_id'";
 
-$dbAccess->delete("DELETE FROM administrators WHERE adminId=$user_id");
+$dbAccess->delete("DELETE FROM users WHERE adminId=$user_id");
 $activity->logActivity(
     $_SESSION['user'],
     "deleted user ",

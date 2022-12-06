@@ -60,6 +60,13 @@ function showActions($id)
       </form>';
     }
 
+    $output .= '    <form method="POST" action="./delete.php">
+        <input type="hidden" name="id" value="' . $id . '"/>
+        <button 
+      class="btn btn-info btn-sm deleteBtn" >Show</button>
+  
+      </form>';
+
 
     $styledOutPut = '<div style="display:flex;align-items:center;justify-content:space-between;">' . $output . '</div>';
 
