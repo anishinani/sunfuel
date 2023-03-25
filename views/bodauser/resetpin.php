@@ -28,7 +28,11 @@ if (isset($_POST["reset"])) {
 
     $messaage = "Hello " . $allbodaUser[0]["bodaUserName"] . " Your Pin has  been reset successfully on CreditPlus Dail *217*212# to update your pin  Remember your one time pin is " . $oneTymPin;
     $phone_numbers =    $sms->formatMobileInternational($allbodaUser[0]["bodaUserPhoneNumber"]);
-    $sms->sms_faster($messaage , $phone_numbers , 1); 
+    $res = $sms->sms_faster($messaage , $phone_numbers , 1); 
+
+        var_dump($res);
+        die("reset");
+
     if ($dbAccess->update("bodauser", ['bodaUserStatus' => '1', 'pin' => $hashedPin], ["bodaUserId" => $bodaUserId])) {
         $_SESSION['success'] = "Pin has been reset successfully";
         //redirect to the bodauser details page
