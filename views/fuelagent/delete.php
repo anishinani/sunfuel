@@ -1,11 +1,11 @@
 <?php
 include_once '../../utils/session.php';
 
-if (!can('delete-fuelagent')){
-     $_SESSION['warning'] = "UnAuthorized Operation";  
-      header('Location:index.php');
-       die;
-    }
+// if (!can('delete-fuelagent')){
+//      $_SESSION['warning'] = "UnAuthorized Operation";  
+//       header('Location:index.php');
+//        die;
+//     }
 include("../../utils/dbaccess.php");
 include("../../utils/activityLogger.php");
 
