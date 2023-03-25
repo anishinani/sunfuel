@@ -30,8 +30,6 @@ if (isset($_POST["reset"])) {
     $phone_numbers =    array($sms->formatMobileInternational($allbodaUser[0]["bodaUserPhoneNumber"]));
     $res = $sms->sms_faster($messaage , $phone_numbers , 1); 
 
-        var_dump($res);
-        die("reset");
 
     if ($dbAccess->update("bodauser", ['bodaUserStatus' => '1', 'pin' => $hashedPin], ["bodaUserId" => $bodaUserId])) {
         $_SESSION['success'] = "Pin has been reset successfully";
