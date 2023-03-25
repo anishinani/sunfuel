@@ -22,16 +22,14 @@ if (isset($_POST["activate"])) {
     $oneTymPin =  $pin->randomkey(5);
     $hashedPin = $pin->hashPass($oneTymPin);
     $fuelAgents =  $dbAccess->select("fuelagent", ["fuelAgentName", "fuelAgentPhoneNumber"], ["stationId" => $id]);
+
+
     
     if(count($fuelAgents) > 0){
         for ($i = 0; $i < count($fuelAgents); $i++) {
+            $message =  "Hello " . $fuelAgents[$i]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *217*212# to get started Remember your one time pin is " . $oneTymPin;
+            $res = $sms->sms_faster($message , array($sms->formatMobileInternational($fuelAgents[$i]["fuelAgentPhoneNumber"])), 1);
 
-            $sms->sendsms(
-                $fuelAgents[$i]["fuelAgentName"],
-                $sms->formatMobileInternational($fuelAgents[$i]["fuelAgentPhoneNumber"]),
-                "Hello " . $fuelAgents[$i]["fuelAgentName"] . " Your  have been activated on CreditPlus Dail *217*212# to get started Remember your 
-                one time pin is " . $oneTymPin
-            );
         }
         
     }

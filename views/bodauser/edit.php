@@ -10,7 +10,7 @@ include_once '../templates/SecurePageHeader.php';
  * */
 include_once '../templates/Components.php';
 
-if (!can('edit-bodausers')) echo '<script>window.open("../Errors/unAuthorized.php" , "_self")</script>';
+// if (!can('edit-bodausers')) echo '<script>window.open("../Errors/unAuthorized.php" , "_self")</script>';
 
 
 startContent();
