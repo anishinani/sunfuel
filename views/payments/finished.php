@@ -9,16 +9,21 @@ include_once("../../utils/sms.php");
 $creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
 $sms =  new infobip();
-$confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
-$data = $confirmedPayment->receive_payment_notification();
 
-$dbAccess->insert("sample", [
-    'date_time' => $_POST['date_time'],
-    'amount' => $_POST['amount'],
-    'narrative' => $_POST['narrative'],
-    'network_ref' => $_POST['network_ref'],
+
+    //use php input instead of post
+    $data = json_decode(file_get_contents('php://input'), true);
+    $externalReference = $data['externalReference'];
+    $request_id = $data['request_id'];
+    $status = $data['status'];
+    $financialTransactionId = $data['financialTransactionId'];
+    $message = $data['message'];
+    $date_time = new DateTime();
+
+$dbAccess->insert("payments", [
+    'date_time' => $date_time->format('Y-m-d H:i:s'),
+    'network_ref' => $financialTransactionId,
     'external_ref' => $_POST['external_ref'],
-    'msisdn' => $_POST['msisdn'],
     "transactionStatus" => "1"
 ]);
 
