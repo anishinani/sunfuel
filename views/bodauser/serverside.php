@@ -46,20 +46,20 @@ $data = array();
 function showActions($id)
 {
     $output = '';
-    if (in_array("view-bodausers", $_SESSION['permissions'])) {
+    // if (in_array("view-bodausers", $_SESSION['permissions'])) {
         $output .= ' <form action="bodauserdetails.php?id="' . $id . '"" method="get">
         <button type="submit"   value="' . $id . '"
         class="btn btn-info btn-sm editbtn" name="bodadetails">show</button>
 
         </form>';
-    }
-    if (in_array("edit-bodauser", $_SESSION['permissions'])) {
+    // }
+    // if (in_array("edit-bodauser", $_SESSION['permissions'])) {
         $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
 
         </form>';
-    }
+    // }
   
 
 
