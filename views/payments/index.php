@@ -30,6 +30,10 @@ breadCrumbs(['title' => 'Payments', 'sub_title' => 'Payments', 'previous' => 'Da
             <div class="card-header">
                 <h3 class="card-title">Payments Table</h3>
             </div>
+            <div class="float-right">
+                <form action="./update.php" method="POST">
+                    <button type="submit" name="update"  class="btn btn-info btn-sm editbtn">UPDATE</button>
+            </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <table id="example" class="table table-bordered table-striped">

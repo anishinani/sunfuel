@@ -9,8 +9,6 @@ include_once("../../utils/sms.php");
 $creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
 $sms =  new infobip();
-
-
     //use php input instead of post
     $data = json_decode(file_get_contents('php://input'), true);
     $externalReference = $data['externalReference'];
@@ -24,14 +22,14 @@ $sms =  new infobip();
 $dbAccess->update("payments", [
     'date_time' => $date_time->format('Y-m-d H:i:s'),
     'network_ref' => $financialTransactionId,
-    "transactionStatus" => "1"
+    "transactionStatus" => "1",
+    'status' => "completed",
 ],[
   'external_ref'=>$externalReference
 ]
 );
 
 $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $externalReference]);
-
 $details = $dbAccess->select("payments", ['msisdn', 'amount'], ["external_ref" => $externalReference]);
 
 
