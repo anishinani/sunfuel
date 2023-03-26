@@ -4,7 +4,7 @@ $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
 $output = array();
-$sql = "SELECT * FROM sample";
+$sql = "SELECT * FROM payments";
 
 // if (isset($_POST['id'])) {
 //     die("is there");
