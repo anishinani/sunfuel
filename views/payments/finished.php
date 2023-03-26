@@ -18,22 +18,25 @@ $sms =  new infobip();
     $status = $data['status'];
     $financialTransactionId = $data['financialTransactionId'];
     $message = $data['message'];
+
     $date_time = new DateTime();
 
-$dbAccess->insert("payments", [
+$dbAccess->update("payments", [
     'date_time' => $date_time->format('Y-m-d H:i:s'),
     'network_ref' => $financialTransactionId,
-    'external_ref' => $_POST['external_ref'],
     "transactionStatus" => "1"
-]);
+],[
+  'external_ref'=>$externalReference
+]
+);
 
+$results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $externalReference]);
 
-$results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $_POST['external_ref']]);
-//var_dump($results);
+$details = $dbAccess->select("payments", ['msisdn', 'amount'], ["external_ref" => $externalReference]);
 
 
 $sms->sendsms(
     "Dear Customer",
-    $sms->formatMobileInternational($_POST['msisdn']),
-    "Your payment of shs " . $_POST['amount'] . " has been received successfully"
+    $sms->formatMobileInternational($details[0]['msisdn']),
+    "Your payment of shs " . $details[0]['amount'] . " has been received successfully"
 );
