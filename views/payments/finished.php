@@ -1,7 +1,7 @@
 <?php
 //echo "successfully";
-include_once("../../utils/dbaccess.php");
-include_once("../../utils/sms.php");
+include_once("dbaccess.php");
+include_once("sms.php");
 
 $dbAccess =  new DbAccess();
 $sms =  new infobip();
