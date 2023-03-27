@@ -1,6 +1,6 @@
 <?php
-include_once("../../utils/dbaccess.php");
-include_once("../../utils/sms.php");
+include_once("dbaccess.php");
+include_once("sms.php");
 
 try {
     $dbAccess =  new DbAccess();
