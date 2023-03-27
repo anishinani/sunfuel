@@ -135,8 +135,6 @@ class infobip
         $err = curl_error($curl);
 
         curl_close($curl);
-        var_dump($response);
-        die("am here");
         if ($response) {
 
             $decodedcontent = json_decode($response);

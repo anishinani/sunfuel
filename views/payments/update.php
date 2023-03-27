@@ -29,6 +29,7 @@ try {
             $response = curl_exec($curl);
             curl_close($curl);
              $data = json_decode($response);
+             
               if(isset($data->message)){
                 if($data->message == "failure"){
                     $dbAccess->update("payments", ["status" => "failed"], ["id" => $payment['id']]);
