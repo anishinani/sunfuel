@@ -2,7 +2,6 @@
 include("../../utils/dbaccess.php");
 
 try {
-    if (isset($_POST['update'])) {
         //update the payments table
         $dbAccess =  new DbAccess();
         // get all payments where status is pending
@@ -57,7 +56,7 @@ try {
                 }
               }
         }
-    }
+    
     
     echo "done";
 } catch (\Throwable $th) {
@@ -68,4 +67,4 @@ try {
 
 
 
-//  * * * * php /path/to/your/php/script.ph
+//  * * * * * php /var/www/boda.creditplus.ug/public_html/creditpluswebapp/views/payments/update.php >> /var/www/boda.creditplus.ug/public_html/creditpluswebapp/views/payments/payment_logs.log 2>&1
