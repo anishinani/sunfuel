@@ -1,8 +1,6 @@
 <?php
 //echo "successfully";
 include_once("../../utils/dbaccess.php");
-include_once("../../utils/YoAPI.php");
-include_once("../../utils/Yo.php");
 include_once("../../utils/sms.php");
 
 

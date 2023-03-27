@@ -30,7 +30,7 @@ breadCrumbs(['title' => 'Payments', 'sub_title' => 'Payments', 'previous' => 'Da
             <div class="card-header">
                 <h3 class="card-title">Payments Table</h3>
             </div>
-            <div class="float-right">
+            <div class="d-flex justify-content-between m-2">
                 <form action="./update.php" method="POST">
                     <button type="submit" name="update"  class="btn btn-info btn-sm editbtn">UPDATE</button>
             </div>
@@ -40,7 +40,7 @@ breadCrumbs(['title' => 'Payments', 'sub_title' => 'Payments', 'previous' => 'Da
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Date Time</th>
+                             <th>Status</th>  
                             <th>Reason</th>
                             <th>Phone Number</th>
                             <th>Amount</th>

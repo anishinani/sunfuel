@@ -59,7 +59,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = count($dbAccess->select("bodauser", ['bodaUserName'], ['bodaUserPhoneNumber' => formatMobileNumber($row['msisdn'])])) ?
         $dbAccess->select("bodauser", ['bodaUserName'], ['bodaUserPhoneNumber' => formatMobileNumber($row['msisdn'])])[0]['bodaUserName'] : NULL;
-    $sub_array[] = $row['date_time'];
+    $sub_array[] = $row['status'];
     $sub_array[] = $row['narrative'];
     $sub_array[] = $row['msisdn'];
     $sub_array[] = $row['amount'];
