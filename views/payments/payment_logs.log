@@ -1,0 +1,10 @@
+donePHP Warning:  include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+PHP Warning:  include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 19
+
+Warning: Undefined array key "REMOTE_ADDR" in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 19
+done
