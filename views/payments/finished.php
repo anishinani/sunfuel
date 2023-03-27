@@ -27,6 +27,7 @@ $dbAccess->update("payments", [
 
 $results = $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $externalReference]);
 $details = $dbAccess->select("payments", ['msisdn', 'amount'], ["external_ref" => $externalReference]);
+$dbAccess->update("bodauser", ["bodaUserStatus" => "1"], ["bodaUserPhoneNumber" => formatPhoneNumber($details[0]['msisdn'])]);
 
 
 $sms->sendsms(
@@ -34,3 +35,13 @@ $sms->sendsms(
     $sms->formatMobileInternational($details[0]['msisdn']),
     "Your payment of shs " . $details[0]['amount'] . " has been received successfully"
 );
+
+
+//mssidn is the phone number with 13 digits i want to remove the first 3 digits and replace it with a zero
+function formatPhoneNumber($msisdn){
+    
+    //remove the first 3 digit and replace them with a zero
+    $msisdn = substr($msisdn, 3);
+    $msisdn = "0".$msisdn;
+    return $msisdn;
+}

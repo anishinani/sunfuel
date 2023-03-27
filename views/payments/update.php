@@ -7,6 +7,8 @@ try {
     $sms =  new infobip();
         // get all payments where status is pending
         $payments = $dbAccess->select("payments", ['id', 'msisdn', 'amount', 'external_ref'], ["status" => "pending"]);
+
+       
     
         //for each payment
         foreach ($payments as $payment) {
@@ -44,6 +46,8 @@ try {
                     $dbAccess->update("payments", ["status" => "completed"], ["id" => $payment['id']]);
                     //update the loan status to paid
                     $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $payment['external_ref']]);
+                    //update the boda status to active
+                    $dbAccess->update("bodauser", ["bodaUserStatus" => "1"], ["bodaUserPhoneNumber" => formatPhoneNumber($payment['msisdn'])]);
                     $sms->sendsms(
                         "Dear Customer",
                         $sms->formatMobileInternational($payment['msisdn']),
@@ -65,6 +69,15 @@ try {
     //throw $th;
     var_dump($th->getMessage());
     die("There was an error");
+}
+
+//mssidn is the phone number with 13 digits i want to remove the first 3 digits and replace it with a zero
+function formatPhoneNumber($msisdn){
+    
+    //remove the first 3 digit and replace them with a zero
+    $msisdn = substr($msisdn, 3);
+    $msisdn = "0".$msisdn;
+    return $msisdn;
 }
 
 
