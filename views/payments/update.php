@@ -1,9 +1,10 @@
 <?php
-include("../../utils/dbaccess.php");
+include_once("../../utils/dbaccess.php");
+include_once("../../utils/sms.php");
 
 try {
-        //update the payments table
-        $dbAccess =  new DbAccess();
+    $dbAccess =  new DbAccess();
+    $sms =  new infobip();
         // get all payments where status is pending
         $payments = $dbAccess->select("payments", ['id', 'msisdn', 'amount', 'external_ref'], ["status" => "pending"]);
     

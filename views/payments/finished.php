@@ -3,8 +3,6 @@
 include_once("../../utils/dbaccess.php");
 include_once("../../utils/sms.php");
 
-
-$creditPlusYo =  new Yo();
 $dbAccess =  new DbAccess();
 $sms =  new infobip();
     //use php input instead of post
