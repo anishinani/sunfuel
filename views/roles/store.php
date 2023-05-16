@@ -62,13 +62,13 @@ try {
             unset($_SESSION['errors']);
             if ($roles->store($_POST)) {
 
-                $activity->logActivity(
-                    $_SESSION['user'],
-                    "Created Role",
-                    "role created sucessfully",
-                    $_SESSION['email'],
-                    $_SESSION['auth']
-                );
+                // $activity->logActivity(
+                //     $_SESSION['user'],
+                //     "Created Role",
+                //     "role created sucessfully",
+                //     $_SESSION['email'],
+                //     $_SESSION['auth']
+                // );
     
                 //redirect
                 $_SESSION['success'] = "role Added Successfully";
