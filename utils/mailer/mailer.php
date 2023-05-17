@@ -6,10 +6,15 @@ require 'PHPMailerAutoload.php';
 
 class MyMail extends PHPMailer
 {
-  private $_host      = "mail.creditplus.ug";     //'your stmp server name'
+    private $_host      = "server2.thinkxcloud.com";     //'your stmp server name'
   private $_user      = "info@creditplus.ug";   //'your smtp username'
-  private $_password  = "!Log10tan10";                 // 'your password'
+  private $_password  = "W_!JPY%xGF3f";                 // 'your password'
   private $_name      =  "Creditplus";
+
+  // private $_host      = "smtp.gmail.com";     //'your stmp server name'
+  // private $_user      = "katznicho@gmail.com";   //'your smtp username'
+  // private $_password  = "uwbngqaxyzyzfyxc";                 // 'your password'
+  // private $_name  =   "Creditplus";
 
   // echo 1111;
 
@@ -99,11 +104,18 @@ class MyMail extends PHPMailer
   }
 }
 
-// $m = new MyMail();
-// $to       =  "anishinani@gmail.com";
-// // $name     =  "creditors";
-// $subject  =  "Creditplus Account Activation test";
-// $body     =  "Hello Charles,last mailer test";
-// $from     =   $m->From;
-// $result = $m->sendMail($from,$to, $subject, $body);
- // echo $result;
+try {
+  //code...
+  $m = new MyMail();
+$to       =  "pnagaba254@gmail.com";
+// $name     =  "creditors";
+$subject  =  "Creditplus Account Activation test";
+$body     =  "Hello Charles,last mailer test";
+$from     =   $m->From;
+$result = $m->sendMail($from, $to, $subject, $body);
+echo $result;
+} catch (\Throwable $th) {
+  //throw $th;
+  die($th->getMessage());
+}
+
