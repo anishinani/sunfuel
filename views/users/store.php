@@ -60,7 +60,7 @@ if (isset($_POST['addUser'])) {
         if ($user->store($_POST, $hashedPass)) {
             $email =  $_POST['email'];
             $localLink = "localhost/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
-            $serverLink = "https://app.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
+            $serverLink = "https://boda.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
             $linkToSend = "";
             $ip_address = $_SERVER['REMOTE_ADDR'];
 
