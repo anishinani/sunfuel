@@ -1,11 +1,14 @@
 <?php
+
+ try {
+    
 require_once '../../utils/session.php';
 
-if (!can('edit-stages')){
-    $_SESSION['warning'] = "UnAuthorized Operation";  
-     header('Location:index.php');
-      die;
-}
+// if (!can('edit-stages')){
+//     $_SESSION['warning'] = "UnAuthorized Operation";  
+//      header('Location:index.php');
+//       die;
+// }
 
 require_once("../../utils/dbaccess.php");
 
@@ -50,13 +53,13 @@ if (isset($_POST['addStage'])) {
     else {
         unset($_SESSION['errors']);
         if ($stage->updateInfo($_POST)) {
-            $activity->logActivity(
-                $_SESSION['user'],
-                "Updated successfullt",
-                "stage  updated  sucessfully",
-                $_SESSION['email'],
-                $_SESSION['gender']
-            );
+            // $activity->logActivity(
+            //     $_SESSION['user'],
+            //     "Updated successfullt",
+            //     "stage  updated  sucessfully",
+            //     $_SESSION['email'],
+            //     $_SESSION['gender']
+            // );
 
             //redirect
             $_SESSION['success'] = "Stage  Updated  Successfully";
@@ -69,3 +72,9 @@ if (isset($_POST['addStage'])) {
 } else {
     die("not set");
 }
+ } catch (\Throwable $th) {
+    //throw $th;
+    die($th->getMessage());
+ }
+
+ 
