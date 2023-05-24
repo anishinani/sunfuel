@@ -23,6 +23,10 @@ startContent();
 
 
 $bodaDetails =  $dbAccess->select("bodauser", "", ["bodaUserId" => $_GET['bodadetails']]);
+ 
+$user_details =  $dbAccess->select('users', [], ['adminId'=>$bodaDetails[0]['user_id']]);
+
+
 
 
 breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details', 'previous' => 'Boda Users', 'previous_action' => './index.php']);
@@ -35,7 +39,7 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
 <div class="row">
     <div class="col-12">
 
-        <div class="container rounded bg-white mt-5 mb-5">
+        <div class="rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -48,7 +52,7 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
                         <span class="text-black-50"><?= $bodaDetails[0]['bodaUserName'] ?></span><span> </span>
                     </div>
                 </div>
-                <div class="col-md-5 border-right">
+                <div class="col-md-4 border-right">
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right"> <?= $bodaDetails[0]['bodaUserName'] ?> Details</h4>
@@ -77,7 +81,8 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
 
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-2">
                     <div class="p-3 py-5">
 
                         <div class="col-md-12"><label class="labels">Fuel Station</label>
@@ -116,6 +121,27 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
                         <!-- reset pin -->
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="p-3 py-5">
+
+                        <div class="col-md-12"><label class="labels">OnBoarded By</label>
+                            <input type="text" class="form-control" disabled value="<?= $user_details[0]['name']?>">
+                        </div> <br>
+
+                        <div class="col-md-12"><label class="labels">Agent Phone Number</label>
+                            <input type="text" class="form-control" disabled value="<?= $user_details[0]['phoneNumber']?>">
+                        </div> <br>
+
+                        <div class="col-md-12"><label class="labels">Agent Email</label>
+                            <input type="text" class="form-control" disabled value="<?= $user_details[0]['email']?>">
+                        </div> <br>
+
+                        <div class="col-md-12"><label class="labels">Date OnBoard</label>
+                            <input type="text" class="form-control" disabled value="<?= $bodaDetails[0]['created_at']?>">
+                        </div> <br>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

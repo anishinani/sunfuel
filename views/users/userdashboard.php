@@ -50,25 +50,54 @@ startContent();
 
 
 ?>
+<style>
+    .cursor-pointer {
+        cursor: pointer !important;
+    }
+
+    .info-box {
+        cursor: pointer !important;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
 <div class="row">
 
     <!-- create a simple info card with value of 10 -->
     <div class="col-12 col-sm-6 col-md-3">
+
         <div class="info-box">
+
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-motorcycle"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Today's Boda Riders Onboarded</span>
-                <span class="info-box-number">
-                    <?= $today_details[0]['daily_boda_riders'] == null ? 0 : $today_details[0]['daily_boda_riders'] ?>
+                <a href="./today_riders.php?user_id=<?= $user_id ?>" class="cursor-pointer">
+                    <span class="info-box-text">Today's Boda Riders Onboarded</span>
 
-                </span>
+                    <span class="info-box-number">
+                        <?= $today_details[0]['daily_boda_riders'] == null ? 0 : $today_details[0]['daily_boda_riders'] ?>
+
+                    </span>
+
+                </a>
+
+
+
             </div>
+
+
+
             <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
     </div>
     <div class="col-12 col-sm-6 col-md-3">
+        <a href="">
+
+        </a>
         <div class="info-box">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
 
@@ -88,49 +117,61 @@ startContent();
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-stop"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Today's Stages Onboarded</span>
-                <span class="info-box-number">
-                    <?= $today_details[0]['daily_boda_stages'] == null ? 0 : $today_details[0]['daily_boda_stages'] ?>
+                <a href="./todays_stages.php?user_id=<?= $user_id ?>" class="cursor-pointer">
+                    <span class="info-box-text">Today's Stages Onboarded</span>
+                    <span class="info-box-number">
+                        <?= $today_details[0]['daily_boda_stages'] == null ? 0 : $today_details[0]['daily_boda_stages'] ?>
 
-                </span>
+                    </span>
+
+                </a>
+
             </div>
             <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
     </div>
-
-
 
 </div>
 
 <div class="row">
 
     <!-- create a simple info card with value of 10 -->
+
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-motorcycle"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">All Time Boda Riders Onboarded</span>
-                <span class="info-box-number">
-                    <?= $today_details[0]['total_boda_riders'] == null ? 0 : $today_details[0]['total_boda_riders'] ?>
+            <a href="./all_time_users.php?user_id=<?= $user_id ?>" class="cursor-pointer">
+                <div class="info-box-content">
+                    <span class="info-box-text">All Time Boda Riders Onboarded</span>
+                    <span class="info-box-number">
+                        <?= $today_details[0]['total_boda_riders'] == null ? 0 : $today_details[0]['total_boda_riders'] ?>
 
-                </span>
-            </div>
+                    </span>
+                </div>
+            </a>
+
             <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
     </div>
+
+
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
 
             <div class="info-box-content">
+
                 <span class="info-box-text">All Time Fuel Stations Onboarded</span>
                 <span class="info-box-number">
                     <?= $today_details[0]['total_fuel_stations'] == null ? 0 : $today_details[0]['total_fuel_stations'] ?>
 
                 </span>
+
+
+
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -141,11 +182,13 @@ startContent();
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-stop"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">All Time Stages Onboarded</span>
-                <span class="info-box-number">
-                    <?= $today_details[0]['total_boda_stages'] == null ? 0 : $today_details[0]['total_boda_stages'] ?>
+                <a href="./all_time_stages.php?user_id=<?= $user_id ?>" class="cursor-pointer">
+                    <span class="info-box-text">All Time Stages Onboarded</span>
+                    <span class="info-box-number">
+                        <?= $today_details[0]['total_boda_stages'] == null ? 0 : $today_details[0]['total_boda_stages'] ?>
 
-                </span>
+                    </span>
+                </a>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -171,7 +214,9 @@ startContent();
                     <thead class="thead-light">
                         <tr>
                             <th>Name</th>
-                            <th>Phone Numbeer</th>
+                            <th>Phone Number</th>
+                            <th>Fuel Station</th>
+                            <th>Stage</th>
                             <th>Date</th>
                         </tr>
                     </thead>
@@ -185,6 +230,12 @@ startContent();
                             <tr>
                                 <td><?= $row['bodaUserName'] ?></td>
                                 <td><?= $row['bodaUserPhoneNumber'] ?></td>
+                                <td>
+                                    <?= $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $bodaDetails[0]['fuelStationId']])[0]['fuelStationName'] ?>
+                                </td>
+                                <td>
+                                    <?= $dbAccess->select("stage", ['stageName'], ['stageId' => $bodaDetails[0]['stageId']])[0]['stageName'] ?>
+                                </td>
                                 <td><?= $row['created_at'] ?></td>
                             </tr>
                         <?php
@@ -218,7 +269,9 @@ startContent();
                     <thead class="thead-light">
                         <tr>
                             <th>Name</th>
-                            <th>Phone Numbeer</th>
+                            <th>Phone Number</th>
+                            <th>Fuel Station</th>
+                            <th>Stage</th>
                             <th>Date</th>
                         </tr>
                     </thead>
@@ -232,6 +285,12 @@ startContent();
                             <tr>
                                 <td><?= $row['bodaUserName'] ?></td>
                                 <td><?= $row['bodaUserPhoneNumber'] ?></td>
+                                <td>
+                                    <?= $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']])[0]['fuelStationName'] ?>
+                                </td>
+                                <td>
+                                    <?= $dbAccess->select("stage", ['stageName'], ['stageId' => $row['stageId']])[0]['stageName'] ?>
+                                </td>
                                 <td><?= $row['created_at'] ?></td>
                             </tr>
                         <?php
