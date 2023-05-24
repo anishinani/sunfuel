@@ -104,18 +104,18 @@ class MyMail extends PHPMailer
   }
 }
 
-try {
-  //code...
-  $m = new MyMail();
-$to       =  "pnagaba254@gmail.com";
-// $name     =  "creditors";
-$subject  =  "Creditplus Account Activation test";
-$body     =  "Hello Charles,last mailer test";
-$from     =   $m->From;
-$result = $m->sendMail($from, $to, $subject, $body);
-echo $result;
-} catch (\Throwable $th) {
-  //throw $th;
-  die($th->getMessage());
-}
+// try {
+//   //code...
+//   $m = new MyMail();
+// $to       =  "pnagaba254@gmail.com";
+// // $name     =  "creditors";
+// $subject  =  "Creditplus Account Activation test";
+// $body     =  "Hello Charles,last mailer test";
+// $from     =   $m->From;
+// $result = $m->sendMail($from, $to, $subject, $body);
+// echo $result;
+// } catch (\Throwable $th) {
+//   //throw $th;
+//   die($th->getMessage());
+// }
 
