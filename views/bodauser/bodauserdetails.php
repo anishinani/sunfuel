@@ -51,6 +51,15 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
                         <span class=" font-weight-bold">Back IDPhoto</span>
                         <span class="text-black-50"><?= $bodaDetails[0]['bodaUserName'] ?></span><span> </span>
                     </div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class=" mt-1" width="250px" src="<?= "https://app.creditplus.ug/bodafuelprojectmobileappapi/storage/app/public/images/id_cards/" . $bodaDetails[0]['riderPhoto']; ?>"><span class=" font-weight-bold">Rider Photo</span>
+                        <span class="text-black-50"><?= $bodaDetails[0]['bodaUserName'] ?></span><span> </span>
+                    </div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class=" mt-1" width="250px" src="<?= "https://app.creditplus.ug/bodafuelprojectmobileappapi/storage/app/public/images/id_cards/" . $bodaDetails[0]['motorcylePhoto']; ?>">
+                        <span class=" font-weight-bold">Motor Cycle Photo</span>
+                        <span class="text-black-50"><?= $bodaDetails[0]['bodaUserName'] ?></span><span> </span>
+                    </div>
                 </div>
                 <div class="col-md-4 border-right">
                     <div class="p-3 py-5">
