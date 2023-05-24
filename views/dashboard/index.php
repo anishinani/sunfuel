@@ -133,7 +133,7 @@ breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => '
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Biders On Boarded Today</span>
+                <span class="info-box-text">Riders On Boarded Today</span>
                 <span class="info-box-number"><?= count($boad_riders_onboarded_today) ?></span>
             </div>
             <!-- /.info-box-content -->
