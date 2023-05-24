@@ -66,7 +66,7 @@ breadCrumbs(['title' => 'Edit Rider Details', 'sub_title' => 'settings', 'previo
                     <!--phone-->
                     <div class="form-group mb-3">
                         <label for=""> Alternative Phone Number</label>
-                        <input type="text" name="anotherNumber" required class="form-control" placeholder="enter another number " value="<?= $results[0]["alternativePhotoNumber"] ?>" />
+                        <input type="text" name="anotherNumber"  class="form-control" placeholder="enter another number " value="<?= $results[0]["alternativePhotoNumber"] ?>" />
                     </div>
                     <!---phone-->
 

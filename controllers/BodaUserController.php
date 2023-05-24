@@ -81,6 +81,7 @@ class BodaUser extends DbAccess
          $phone = $array['phoneNumber'];
          $stage = $array["stageId"];
          $id = $array['id'];
+
          
         $res = $this->update(
             "bodauser",
@@ -96,10 +97,12 @@ class BodaUser extends DbAccess
                 'bodaUserStatus' => "0"
             ],
             ["bodaUserId" => $id]
+            
         );
-         var_dump($res);
-         die("am here");
+
+        return $res;
          } catch (\Throwable $th) {
+            die("not updated");
              var_dump($th->getMessage());
          }
 

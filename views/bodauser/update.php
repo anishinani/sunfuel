@@ -1,4 +1,11 @@
 <?php
+
+
+ try {
+    //code...
+ } catch (\Throwable $th) {
+    //throw $th;
+ }
 require_once '../../utils/session.php';
 
 if (!can('edit-bodauser')){
@@ -31,7 +38,7 @@ if (isset($_POST['addBodaUser'])) {
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
-        if ($key == 'addBodaUser' || $key == "id") {
+        if ($key == 'addBodaUser' || $key == "id" || $key="anotherNumber") {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {
@@ -44,6 +51,7 @@ if (isset($_POST['addBodaUser'])) {
     //check errors and clean
 
     if (count($_SESSION['errors'])) {
+         
         // header("Location:edit.php?update='" . $_POST['id'] . "'");
         header("Location:edit.php?update=" . $_POST['id'] . "");
     }
@@ -51,6 +59,8 @@ if (isset($_POST['addBodaUser'])) {
     else {
         unset($_SESSION['errors']);
         if ($user->updateInfo($_POST)) {
+
+              //die("updated");
             $activity->logActivity(
                 $_SESSION['user'],
                 "Updated successfully",
