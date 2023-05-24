@@ -1,5 +1,6 @@
 <?php
-session_start();
+try {
+    session_start();
 include("../../utils/dbaccess.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
@@ -74,6 +75,11 @@ function showActions($id)
 
     return $styledOutPut;
 }
+function getUser($user_id, $dbAccess){
+    $names = $dbAccess->select("users", ["name"], ['adminId'=>$user_id])[0]['name'];
+    return $names;
+}
+
 function showStatus($status)
 {
     switch ($status) {
@@ -89,6 +95,10 @@ function showStatus($status)
             return null;
     }
 }
+
+
+
+
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['bodaUserId'];
@@ -96,6 +106,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['bodaUserNIN'];
     $sub_array[] = $row['bodaUserBodaNumber'];
     $sub_array[] = $row['bodaUserRole'];
+     $sub_array[] = getUser($row['user_id'], $dbAccess);
     $sub_array[] = showStatus($row['bodaUserStatus']);
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageName'];
@@ -121,3 +132,9 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+} catch (\Throwable $th) {
+    //throw $th;
+    die($th->getMessage());
+}
+
+

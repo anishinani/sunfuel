@@ -1,15 +1,19 @@
 <?php
-session_start();
+
+try {
+    //code...
+    session_start();
 include("../../utils/dbaccess.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
-$output = array();
-$sql = "SELECT bodauser.*, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser 
- INNER JOIN fuelstation ON fuelstation.fuelStationId = bodauser.fuelStationId 
-INNER JOIN stage ON stage.stageId=bodauser.stageId";
+$current_date = date("Y-m-d");
 
-//die("here");
+$output = array();
+
+$sql = "SELECT bodauser.bodaUserName, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser 
+ INNER JOIN fuelstation ON fuelstation.fuelStationId = bodauser.fuelStationId 
+INNER JOIN stage ON stage.stageId=bodauser.stageId WHERE DATE_FORMAT(bodauser.created_at, '%Y-%m-%d') = '$current_date'";
 
 $totalQuery = mysqli_query($con, $sql);
 $total_all_rows = mysqli_num_rows($totalQuery);
@@ -121,3 +125,10 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+} catch (\Throwable $th) {
+    //throw $th;
+    var_dump($th->getMessage());
+    die("am here");
+}
+
+

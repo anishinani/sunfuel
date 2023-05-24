@@ -60,8 +60,8 @@ breadCrumbs(['title' => 'Boda Users', 'sub_title' => 'settings', 'previous' => '
                             <th>NIN Number</th>
                             <th>Boda Number</th>
                             <th>Role</th>
+                            <th>OnBoarder</th>
                             <th style="width:100px !important;">Boda Status</th>
-
                             <th>Fuel Station</th>
                             <th>Stage</th>
 

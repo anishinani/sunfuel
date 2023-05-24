@@ -51,6 +51,20 @@ $overall_boda_riders = $loanCalc->selectQuery("SELECT * FROM bodauser");
 
 breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
 ?>
+<style>
+    .cursor-pointer {
+        cursor: pointer !important;
+    }
+
+    .info-box {
+        cursor: pointer !important;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
 <!-- Info boxes -->
 <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
@@ -116,12 +130,16 @@ breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => '
     <!-- boda details -->
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
+             
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
-
+            <a href="../bodauser/index.php" class="cursor-pointer">
             <div class="info-box-content">
                 <span class="info-box-text">Total Boda Riders</span>
                 <span class="info-box-number"><?= count($overall_boda_riders) ?></span>
             </div>
+
+            </a>
+            
             <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
@@ -133,8 +151,12 @@ breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => '
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Riders On Boarded Today</span>
+                 <a href="./today_riders.php" class="cursor-pointer">
+                 <span class="info-box-text">Riders On Boarded Today</span>
                 <span class="info-box-number"><?= count($boad_riders_onboarded_today) ?></span>
+
+                 </a>
+
             </div>
             <!-- /.info-box-content -->
         </div>
