@@ -13,13 +13,13 @@ $user_id = $_POST['id'];
 
 $delQuery = $dbAccess->deleteRow("package", "packageId", $user_id);
 if ($delQuery == true) {
-    $activity->logActivity(
-        $_SESSION['user'],
-        "deleted package ",
-        "package deleted  sucessfully",
-        $_SESSION['email'],
-        $_SESSION['gender']
-    );
+    // $activity->logActivity(
+    //     $_SESSION['user'],
+    //     "deleted package ",
+    //     "package deleted  sucessfully",
+    //     $_SESSION['email'],
+    //     $_SESSION['gender']
+    // );
     $_SESSION["success"] = "Package Deleted successfully";
     header("Location:index.php");
 } else {

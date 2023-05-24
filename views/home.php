@@ -155,6 +155,13 @@ if (!isset($_SESSION['user'])) {
 		$totalPaidLoans =  $loanCalc->totalPaidLaons();
 		$totalUnpaidLoans = $loanCalc->totalUnpaidLoans();
 
+		//boda user details
+
+		$current_date = date('Y-m-d'); // Get the current date
+		$query = "SELECT * FROM bodauser WHERE  DATE_FORMAT(created_at, '%Y-%m-%d') = '$current_date'";
+		$boad_riders_onboarded_today =  $loanCalc->selectQuery($query);
+		$overall_boda_riders = $loanCalc->selectQuery("SELECT * FROM bodauser");
+
 
 
 
@@ -246,8 +253,31 @@ if (!isset($_SESSION['user'])) {
 							<!-- /.info-box -->
 						</div>
 						<!-- /.col -->
+
+						<!-- boda riders -->
+
+						<!-- boda riders -->
 					</div>
+
 					<!-- /.row -->
+
+					<!-- row -->
+					<div class="row">
+						<div class="col-12 col-sm-6 col-md-3">
+							<div class="info-box mb-3">
+								<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-sort-amount-up-alt"></i></span>
+
+								<div class="info-box-content">
+									<span class="info-box-text">Total Loan Amount</span>
+									<span class="info-box-number"><?= "shs " . number_format($totalAmount); ?></span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+							<!-- /.info-box -->
+						</div>
+
+					</div>
+					<!-- row -->
 
 					<div class="row">
 						<div class="col-md-12">

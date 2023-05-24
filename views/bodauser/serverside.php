@@ -59,6 +59,13 @@ function showActions($id)
         class="btn btn-info btn-sm editbtn" >Edit</button>
 
         </form>';
+
+        $output .= '    <form method="POST" action="./delete.php">
+        <input type="hidden" name="id" value="' . $id . '"/>
+        <button 
+      class="btn btn-danger btn-sm deleteBtn" >Delete</button>
+  
+      </form>';
     // }
   
 

@@ -73,16 +73,16 @@ class BodaUser extends DbAccess
 
     public function updateInfo($array)
     {
-        $name = $array['name'];
-        $nin = $array['nin'];
-        $bodaNumber = $array['bodaNumber'];
-        $fuel = $array['fuelStationId'];
-        $phone = $array['phoneNumber'];
-        $stage = $array["stageId"];
-        $id = $array['id'];
-        //var_dump($array['id']);
-        //die("here");
-        return $this->update(
+         try {
+         $name = $array['name'];
+         $nin = $array['nin'];
+         $bodaNumber = $array['bodaNumber'];
+         $fuel = $array['fuelStationId'];
+         $phone = $array['phoneNumber'];
+         $stage = $array["stageId"];
+         $id = $array['id'];
+         
+        $res = $this->update(
             "bodauser",
             [
                 'bodaUserName' => $name,
@@ -97,5 +97,12 @@ class BodaUser extends DbAccess
             ],
             ["bodaUserId" => $id]
         );
+         var_dump($res);
+         die("am here");
+         } catch (\Throwable $th) {
+             var_dump($th->getMessage());
+         }
+
+        
     }
 }

@@ -22,6 +22,12 @@ if (!isset($user_id)) {
 try {
     //code...
     $recents = $dbAccess->select('user_totals_per_day', [], ['user_id' => $user_id]);
+    //boda users onboarded today
+    //time is in this format 2020-08-20 00:00:00,2023-05-24 07:07:41
+    $current_date = date('Y-m-d'); // Get the current date
+    $query = "SELECT * FROM bodauser WHERE user_id = $user_id AND DATE_FORMAT(created_at, '%Y-%m-%d') = '$current_date'";
+    $today_boda_riders = $dbAccess->selectQuery($query);
+    $all_time_boda_riders = $dbAccess->select('bodauser', [], ['user_id' => $user_id]);
 } catch (\Throwable $th) {
     //throw $th;
     die($th->getMessage());
@@ -46,52 +52,52 @@ startContent();
 ?>
 <div class="row">
 
-<!-- create a simple info card with value of 10 -->
-<div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-motorcycle"></i></span>
+    <!-- create a simple info card with value of 10 -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-motorcycle"></i></span>
 
-        <div class="info-box-content">
-            <span class="info-box-text">Today's Boda Riders Onboarded</span>
-            <span class="info-box-number">
-                <?=$today_details[0]['daily_boda_riders']==null?0:$today_details[0]['daily_boda_riders']?>
+            <div class="info-box-content">
+                <span class="info-box-text">Today's Boda Riders Onboarded</span>
+                <span class="info-box-number">
+                    <?= $today_details[0]['daily_boda_riders'] == null ? 0 : $today_details[0]['daily_boda_riders'] ?>
 
-            </span>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box-content -->
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-</div>
-<div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
 
-        <div class="info-box-content">
-            <span class="info-box-text">Today's Fuel Stations Onboarded</span>
-            <span class="info-box-number">
-                <?=$today_details[0]['daily_fuel_stations']==null?0:$today_details[0]['daily_fuel_stations'] ?>
+            <div class="info-box-content">
+                <span class="info-box-text">Today's Fuel Stations Onboarded</span>
+                <span class="info-box-number">
+                    <?= $today_details[0]['daily_fuel_stations'] == null ? 0 : $today_details[0]['daily_fuel_stations'] ?>
 
-            </span>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box-content -->
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-</div>
-<div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-stop"></i></span>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-stop"></i></span>
 
-        <div class="info-box-content">
-            <span class="info-box-text">Today's Stages Onboarded</span>
-            <span class="info-box-number">
-                <?=$today_details[0]['daily_boda_stages']==null?0:$today_details[0]['daily_boda_stages']?>
+            <div class="info-box-content">
+                <span class="info-box-text">Today's Stages Onboarded</span>
+                <span class="info-box-number">
+                    <?= $today_details[0]['daily_boda_stages'] == null ? 0 : $today_details[0]['daily_boda_stages'] ?>
 
-            </span>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box-content -->
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-</div>
 
 
 
@@ -99,62 +105,155 @@ startContent();
 
 <div class="row">
 
-<!-- create a simple info card with value of 10 -->
-<div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-motorcycle"></i></span>
+    <!-- create a simple info card with value of 10 -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-motorcycle"></i></span>
 
-        <div class="info-box-content">
-            <span class="info-box-text">All Time Boda Riders Onboarded</span>
-            <span class="info-box-number">
-                <?=$today_details[0]['total_boda_riders']==null?0:$today_details[0]['total_boda_riders']?>
+            <div class="info-box-content">
+                <span class="info-box-text">All Time Boda Riders Onboarded</span>
+                <span class="info-box-number">
+                    <?= $today_details[0]['total_boda_riders'] == null ? 0 : $today_details[0]['total_boda_riders'] ?>
 
-            </span>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box-content -->
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-</div>
-<div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
 
-        <div class="info-box-content">
-            <span class="info-box-text">All Time Fuel Stations Onboarded</span>
-            <span class="info-box-number">
-                <?=$today_details[0]['total_fuel_stations']==null?0:$today_details[0]['total_fuel_stations'] ?>
+            <div class="info-box-content">
+                <span class="info-box-text">All Time Fuel Stations Onboarded</span>
+                <span class="info-box-number">
+                    <?= $today_details[0]['total_fuel_stations'] == null ? 0 : $today_details[0]['total_fuel_stations'] ?>
 
-            </span>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box-content -->
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-</div>
-<div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-stop"></i></span>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-stop"></i></span>
 
-        <div class="info-box-content">
-            <span class="info-box-text">All Time Stages Onboarded</span>
-            <span class="info-box-number">
-                <?=$today_details[0]['total_boda_stages']==null?0:$today_details[0]['total_boda_stages']?>
+            <div class="info-box-content">
+                <span class="info-box-text">All Time Stages Onboarded</span>
+                <span class="info-box-number">
+                    <?= $today_details[0]['total_boda_stages'] == null ? 0 : $today_details[0]['total_boda_stages'] ?>
 
-            </span>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box-content -->
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-</div>
 
 
 
 </div>
+
+<!-- riders onboarded today -->
+<!-- /.card -->
+<div class="card">
+
+    <!-- recently onboarded -->
+    <div class="col-xl-12">
+        <div class="card-box">
+            <h4 class="header-title mb-3">Boda riders onboarded today</h4>
+
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover table-centered m-0">
+
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone Numbeer</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        foreach ($today_boda_riders as $row) {
+
+
+                        ?>
+                            <tr>
+                                <td><?= $row['bodaUserName'] ?></td>
+                                <td><?= $row['bodaUserPhoneNumber'] ?></td>
+                                <td><?= $row['created_at'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+    <!-- recently onboarder -->
+
+</div>
+<!-- /.card -->
+<!-- riders onboareder today -->
+
+
+<!-- alltime -->
+<!-- /.card -->
+<div class="card">
+
+    <!-- recently onboarded -->
+    <div class="col-xl-12">
+        <div class="card-box">
+            <h4 class="header-title mb-3">Recent On Boardings</h4>
+
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover table-centered m-0">
+
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone Numbeer</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        foreach ($all_time_boda_riders as $row) {
+
+
+                        ?>
+                            <tr>
+                                <td><?= $row['bodaUserName'] ?></td>
+                                <td><?= $row['bodaUserPhoneNumber'] ?></td>
+                                <td><?= $row['created_at'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+    <!-- recently onboarder -->
+
+</div>
+<!-- /.card -->
+<!-- all time -->
 
 
 <div class="row">
 
     <!-- cards -->
-    
+
 
     <!-- cards -->
     <div class="col-12">
@@ -165,7 +264,7 @@ startContent();
             <!-- recently onboarded -->
             <div class="col-xl-12">
                 <div class="card-box">
-                    <h4 class="header-title mb-3">Recent On Boardings</h4>
+                    <h4 class="header-title mb-3">Over all Summary</h4>
 
                     <div class="table-responsive">
                         <table class="table table-borderless table-hover table-centered m-0">

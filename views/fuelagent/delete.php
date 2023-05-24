@@ -19,13 +19,13 @@ $user_id = $_POST['id'];
 
 $delQuery = $dbAccess->deleteRow("fuelagent", "fuelAgentId", $user_id);
 if ($delQuery == true) {
-    $activity->logActivity(
-        $_SESSION['user'],
-        "deleted fuel agent ",
-        "fuel agent deleted sucessfully",
-        $_SESSION['email'],
-        $_SESSION['gender']
-    );
+    // $activity->logActivity(
+    //     $_SESSION['user'],
+    //     "deleted fuel agent ",
+    //     "fuel agent deleted sucessfully",
+    //     $_SESSION['email'],
+    //     $_SESSION['gender']
+    // );
     $_SESSION["success"] = "Fuel Agent Deleted successfully";
     header("Location:index.php");
 } else {

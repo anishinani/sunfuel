@@ -43,6 +43,12 @@ $totalLoans = $loanCalc->getTotalLaons();
 $totalPaidLoans =  $loanCalc->totalPaidLaons();
 $totalUnpaidLoans = $loanCalc->totalUnpaidLoans();
 
+
+$current_date = date('Y-m-d'); // Get the current date
+$query = "SELECT * FROM bodauser WHERE  DATE_FORMAT(created_at, '%Y-%m-%d') = '$current_date'";
+$boad_riders_onboarded_today =  $loanCalc->selectQuery($query);
+$overall_boda_riders = $loanCalc->selectQuery("SELECT * FROM bodauser");
+
 breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
 ?>
 <!-- Info boxes -->
@@ -106,6 +112,36 @@ breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => '
         <!-- /.info-box -->
     </div>
     <!-- /.col -->
+
+    <!-- boda details -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Boda Riders</span>
+                <span class="info-box-number"><?= count($overall_boda_riders) ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+     <!-- riders on boarded today -->
+     <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Biders On Boarded Today</span>
+                <span class="info-box-number"><?= count($boad_riders_onboarded_today) ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+     <!-- riders on boarded today -->
+    <!-- boda details -->
 </div>
 <!-- /.row -->
 

@@ -23,7 +23,8 @@ $activity = new ActivityLogger();
 //unset($_SESSION['errors']);
 
 
-
+try {
+    
 if (isset($_POST['addBodaUser'])) {
 
     $_SESSION['errors'] = array();
@@ -43,7 +44,6 @@ if (isset($_POST['addBodaUser'])) {
     //check errors and clean
 
     if (count($_SESSION['errors'])) {
-
         // header("Location:edit.php?update='" . $_POST['id'] . "'");
         header("Location:edit.php?update=" . $_POST['id'] . "");
     }
@@ -56,7 +56,7 @@ if (isset($_POST['addBodaUser'])) {
                 "Updated successfully",
                 "boda user  updated  sucessfully",
                 $_SESSION['email'],
-                $_SESSION['gender']
+                $_SESSION['auth']
             );
 
             //redirect
@@ -64,9 +64,16 @@ if (isset($_POST['addBodaUser'])) {
             header("Location:index.php");
             //redirect
         } else {
-            die("Oops there was an error");
+            //die("Oops there was an error");
+
         }
     }
 } else {
     die("not set");
 }
+} catch (\Throwable $th) {
+    //throw $th;
+    die($th->getMessage());
+}
+
+

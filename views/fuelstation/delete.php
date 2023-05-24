@@ -21,13 +21,13 @@ $user_id = $_POST['id'];
 $sql = "DELETE FROM fuelstation WHERE fuelStationId='$user_id'";
 $delQuery = mysqli_query($con, $sql);
 if ($delQuery == true) {
-    $activity->logActivity(
-        $_SESSION['user'],
-        "deleted fuel station ",
-        "fuel station deleted  sucessfully",
-        $_SESSION['email'],
-        $_SESSION['gender']
-    );
+    // $activity->logActivity(
+    //     $_SESSION['user'],
+    //     "deleted fuel station ",
+    //     "fuel station deleted  sucessfully",
+    //     $_SESSION['email'],
+    //     $_SESSION['gender']
+    // );
     $_SESSION["success"] = "Deleted successfully";
     header("Location:index.php");
 } else {
