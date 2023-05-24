@@ -56,13 +56,13 @@ if (isset($_POST['addStation'])) {
     else {
         unset($_SESSION['errors']);
         if ($fuelStation->updateInfo($_POST)) {
-            $activity->logActivity(
-                $_SESSION['user'],
-                "Updated successfullt",
-                "fuel station updated  sucessfully",
-                $_SESSION['email'],
-                $_SESSION['gender']
-            );
+            // $activity->logActivity(
+            //     $_SESSION['user'],
+            //     "Updated successfullt",
+            //     "fuel station updated  sucessfully",
+            //     $_SESSION['email'],
+            //     $_SESSION['gender']
+            // );
 
             //redirect
             $_SESSION['success'] = "Fuel Station Updated  Successfully";
