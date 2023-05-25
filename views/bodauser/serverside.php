@@ -51,21 +51,18 @@ function showActions($id)
         $output .= ' <form action="bodauserdetails.php?id="' . $id . '"" method="get">
         <button type="submit"   value="' . $id . '"
         class="btn btn-info btn-sm editbtn" name="bodadetails">show</button>
-
         </form>';
     // }
     // if (in_array("edit-bodauser", $_SESSION['permissions'])) {
         $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
-
         </form>';
 
         $output .= '    <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-  
       </form>';
     // }
   

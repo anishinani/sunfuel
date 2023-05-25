@@ -61,13 +61,11 @@ breadCrumbs(['title' => 'Boda Users', 'sub_title' => 'settings', 'previous' => '
                             <th>Boda Number</th>
                             <th>Role</th>
                             <th>OnBoarder</th>
-                            <th style="width:100px !important;">Boda Status</th>
+                            <th style="width:200px !important;">Boda Status</th>
                             <th>Fuel Station</th>
                             <th>Stage</th>
-
                             <th>Activation Action</th>
-
-                            <th width="130px">Actions</th>
+                            <th width="160px">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

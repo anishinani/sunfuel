@@ -92,7 +92,7 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
                 </div>
 
                 <div class="col-md-2">
-                    <div class="p-3 py-5">
+                    <div class="py-5">
 
                         <div class="col-md-12"><label class="labels">Fuel Station</label>
                             <input type="text" class="form-control" disabled value="<?= $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $bodaDetails[0]['fuelStationId']])[0]['fuelStationName'] ?>">
@@ -130,23 +130,23 @@ breadCrumbs(['title' => 'Boda Rider Details', 'sub_title' => 'Boda Rider Details
                         <!-- reset pin -->
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div class="p-3 py-5">
+                <div class="col">
+                    <div class="py-5">
 
                         <div class="col-md-12"><label class="labels">OnBoarded By</label>
-                            <input type="text" class="form-control" disabled value="<?= $user_details[0]['name']?>">
+                            <input type="text" class="form-control" style="width:100%" disabled value="<?= $user_details[0]['name']?>">
                         </div> <br>
 
                         <div class="col-md-12"><label class="labels">Agent Phone Number</label>
-                            <input type="text" class="form-control" disabled value="<?= $user_details[0]['phoneNumber']?>">
+                            <input type="text" class="form-control" style="width:100%"  disabled value="<?= $user_details[0]['phoneNumber']?>">
                         </div> <br>
 
                         <div class="col-md-12"><label class="labels">Agent Email</label>
-                            <input type="text" class="form-control" disabled value="<?= $user_details[0]['email']?>">
+                            <input type="text" class="form-control" style="width:100%" disabled value="<?= $user_details[0]['email']?>">
                         </div> <br>
 
                         <div class="col-md-12"><label class="labels">Date OnBoard</label>
-                            <input type="text" class="form-control" disabled value="<?= $bodaDetails[0]['created_at']?>">
+                            <input type="text" class="form-control" style="width:100%" disabled value="<?= $bodaDetails[0]['created_at']?>">
                         </div> <br>
                     </div>
                 </div>
