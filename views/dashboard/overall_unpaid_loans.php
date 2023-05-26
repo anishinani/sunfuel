@@ -12,7 +12,7 @@ include_once '../templates/Components.php';
 
 if (!can('view-users')) header('Location:../Errors/unAuthorized.php');
 
-breadCrumbs(['title' => 'Over All Paid Loans', 'sub_title' => 'details', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
+breadCrumbs(['title' => 'Over All UnPaid Loans', 'sub_title' => 'details', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
 
 
 startContent();
@@ -20,7 +20,7 @@ startContent();
 //time is in this format 2020-08-20 00:00:00,2023-05-24 07:07:41
 try {
     //code...
-    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=0";
 
 $details = $dbAccess->selectQuery($sql);
 
@@ -50,8 +50,10 @@ $details = $dbAccess->selectQuery($sql);
                             <th>Boda Names</th>
                             <th>Boda User Phone Number</th>
                             <th>Stage</th>
+                            <th>Loan Amount</th>
+                            <th>Loan Interest</th>
                             <th>Loan Taken On</th>
-                            <th>Paid On</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -63,11 +65,13 @@ $details = $dbAccess->selectQuery($sql);
                             <tr>
                                 <td><?= $row['bodaUserName'] ?></td>
                                 <td><?= $row['bodaUserPhoneNumber'] ?></td>
+
                                 <td>
                                     <?= $dbAccess->select("stage", ['stageName'], ['stageId' => $row['stageId']])[0]['stageName'] ?>
                                 </td>
+                                <td><?= $row['loanAmount'] ?></td>
+                                <td><?= $row['loanInterest'] ?></td>
                                 <td><?= $row['created_at'] ?></td>
-                                <td><?= $row['updated_at'] ?></td>
                             </tr>
                         <?php
                         }

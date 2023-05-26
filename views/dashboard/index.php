@@ -244,11 +244,14 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
 
             <div class="info-box-content">
 
-                <span class="info-box-text">Total Paid Loans</span>
-                <span class="info-box-number">
-                    <?= $totalloanspaidtoday ?>
+                <a href="./today_paid_loans.php" class="cursor-pointer">
+                    <span class="info-box-text">Total Paid Loans</span>
+                    <span class="info-box-number">
+                        <?= $totalloanspaidtoday ?>
 
-                </span>
+                    </span>
+                </a>
+
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -262,11 +265,15 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cog"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total Unpaid Loans</span>
-                <span class="info-box-number">
-                    <?= $totalunloanspaidtoday ?>
+                <a href="./today_unpaid_loans.php" class="cursor-pointer">
+                    <span class="info-box-text">Total Unpaid Loans</span>
+                    <span class="info-box-number">
+                        <?= $totalunloanspaidtoday ?>
 
-                </span>
+                    </span>
+
+                </a>
+
             </div>
             <!-- /.info-box-content -->
         </div>
