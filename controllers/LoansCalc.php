@@ -48,7 +48,7 @@ class LaonsCalc extends DbAccess
     }
 
     private function getOverallInterest(){
-        $loanInterest = $this->selectQuery("SELECT SUM(LoanInterest) AS total")[0]['total'];
+        $loanInterest = $this->selectQuery("SELECT SUM(LoanInterest)  AS total from loan")[0]['total'];
         if ($loanInterest == NULL) {
             return 0.0;
         } else {
