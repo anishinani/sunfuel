@@ -32,25 +32,42 @@ class LaonsCalc extends DbAccess
 
     }
 
-    public function getTotalPaidLoansToday(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =0 AND DATE(created_at) = CURDATE()")[0]['total'];
-        if ($totalLoans == NULL) {
-            return 0;
-        } else {
-            return $totalLoans;
-        }
+    // public function getTotalPaidLoansToday(){
+    //     $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =0 AND DATE(created_at) = CURDATE()")[0]['total'];
+    //     if ($totalLoans == NULL) {
+    //         return 0;
+    //     } else {
+    //         return $totalLoans;
+    //     }
 
+    // }
+    public function getTotalPaidLoansToday() {
+        $todayStart = date('Y-m-d 00:00:00');
+        $todayEnd = date('Y-m-d 23:59:59');
+    
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan WHERE status = 0 AND created_at >= '$todayStart' AND created_at <= '$todayEnd'")[0]['total'];
+    
+        return $totalLoans ?? 0;
     }
 
-    public function getTotalUnPaidLoansToday(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1 AND DATE(created_at) = CURDATE()")[0]['total'];
-        if ($totalLoans == NULL) {
-            return 0;
-        } else {
-            return $totalLoans;
-        }
-
+    public function getTotalUnPaidLoansToday() {
+        $todayStart = date('Y-m-d 00:00:00');
+        $todayEnd = date('Y-m-d 23:59:59');
+    
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan WHERE status = 1 AND created_at >= '$todayStart' AND created_at <= '$todayEnd'")[0]['total'];
+    
+        return $totalLoans ?? 0;
     }
+
+    // public function getTotalUnPaidLoansToday(){
+    //     $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1 AND DATE(created_at) = CURDATE()")[0]['total'];
+    //     if ($totalLoans == NULL) {
+    //         return 0;
+    //     } else {
+    //         return $totalLoans;
+    //     }
+
+    // }
 
     public  function getOverallTotalLoans(){
         $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan")[0]['total'];
