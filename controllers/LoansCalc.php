@@ -13,7 +13,7 @@ class LaonsCalc extends DbAccess
     }
 
     public function getOverallTotalPaidLoans(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1")[0]['total'];
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =0")[0]['total'];
         if ($totalLoans == NULL) {
             return 0;
         } else {
@@ -23,7 +23,7 @@ class LaonsCalc extends DbAccess
     }
 
     public function getOverallTotalUnPaidLoans(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =0 ")[0]['total'];
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1 ")[0]['total'];
         if ($totalLoans == NULL) {
             return 0;
         } else {
@@ -33,7 +33,7 @@ class LaonsCalc extends DbAccess
     }
 
     public function getTotalPaidLoansToday(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1 AND DATE(created_at) = CURDATE()")[0]['total'];
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =0 AND DATE(created_at) = CURDATE()")[0]['total'];
         if ($totalLoans == NULL) {
             return 0;
         } else {
@@ -43,7 +43,7 @@ class LaonsCalc extends DbAccess
     }
 
     public function getTotalUnPaidLoansToday(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =0 AND DATE(created_at) = CURDATE()")[0]['total'];
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1 AND DATE(created_at) = CURDATE()")[0]['total'];
         if ($totalLoans == NULL) {
             return 0;
         } else {
