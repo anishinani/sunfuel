@@ -23,7 +23,7 @@ class LaonsCalc extends DbAccess
     }
 
     public function getOverallTotalUnPaidLoans(){
-        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE  status =1 ")[0]['total'];
+        $totalLoans = $this->selectQuery("SELECT COUNT(loanId) AS total FROM loan  WHERE status =1")[0]['total'];
         if ($totalLoans == NULL) {
             return 0;
         } else {

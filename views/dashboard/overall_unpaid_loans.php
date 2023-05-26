@@ -17,10 +17,10 @@ breadCrumbs(['title' => 'Over All UnPaid Loans', 'sub_title' => 'details', 'prev
 
 startContent();
 
-//time is in this format 2020-08-20 00:00:00,2023-05-24 07:07:41
+
 try {
-    //code...
-    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=0";
+    
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
 
 $details = $dbAccess->selectQuery($sql);
 
