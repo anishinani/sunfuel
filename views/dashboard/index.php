@@ -52,8 +52,8 @@ $overalltotalpaidloans =  $loanCalc->overallTotalPaidLaons();
 $overalltotalunpaidloans =  $loanCalc->overallTotalUnpaidLoans();
 $overallloanamount =  $loanCalc->getOverallTotalAmountLoans();
 
-$overallpaidloans= $loanCalc->getOverallTotalPaidLoans();
-$overallunpaidloans= $loanCalc->getOverallTotalUnPaidLoans();
+$overallpaidloans = $loanCalc->getOverallTotalPaidLoans();
+$overallunpaidloans = $loanCalc->getOverallTotalUnPaidLoans();
 
 
 
@@ -107,11 +107,15 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total Paid Loans</span>
-                <span class="info-box-number">
-                    <?= $overallpaidloans ?>
+                <a href="./overall_paid_loans.php" class="cursor-pointer">
+                    <span class="info-box-text">Total Paid Loans</span>
+                    <span class="info-box-number">
+                        <?= $overallpaidloans ?>
 
-                </span>
+                    </span>
+
+                </a>
+
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -125,11 +129,15 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cog"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total Unpaid Loans</span>
-                <span class="info-box-number">
-                    <?= $overallunpaidloans ?>
+                <a href="./overall_unpaid_loans.php" class="cursor-pointer">
+                    <span class="info-box-text">Total Unpaid Loans</span>
+                    <span class="info-box-number">
+                        <?= $overallunpaidloans ?>
 
-                </span>
+                    </span>
+
+                </a>
+
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -235,6 +243,7 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
 
             <div class="info-box-content">
+
                 <span class="info-box-text">Total Paid Loans</span>
                 <span class="info-box-number">
                     <?= $totalloanspaidtoday ?>
