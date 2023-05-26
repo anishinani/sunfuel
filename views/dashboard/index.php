@@ -43,11 +43,17 @@ $totalLoans = $loanCalc->getTotalLaons();
 $totalPaidLoans =  $loanCalc->totalPaidLaons();
 $totalUnpaidLoans = $loanCalc->totalUnpaidLoans();
 
+$totalloanspaidtoday =  $loanCalc->getTotalPaidLoansToday();
+$totalunloanspaidtoday =  $loanCalc->getTotalUnPaidLoansToday();
+
 //overall loan details
 $overalltotalloans =  $loanCalc->getOverallTotalLoans();
 $overalltotalpaidloans =  $loanCalc->overallTotalPaidLaons();
 $overalltotalunpaidloans =  $loanCalc->overallTotalUnpaidLoans();
 $overallloanamount =  $loanCalc->getOverallTotalAmountLoans();
+
+$overallpaidloans= $loanCalc->getOverallTotalPaidLoans();
+$overallunpaidloans= $loanCalc->getOverallTotalUnPaidLoans();
 
 
 
@@ -93,8 +99,43 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             </div>
             <!-- /.info-box-content -->
         </div>
+
+    </div>
+    <!-- total paid -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Paid Loans</span>
+                <span class="info-box-number">
+                    <?= $overallpaidloans ?>
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
         <!-- /.info-box -->
     </div>
+    <!-- total paid -->
+
+    <!-- total unpaid -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cog"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Unpaid Loans</span>
+                <span class="info-box-number">
+                    <?= $overallunpaidloans ?>
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- total unpaid -->
     <!-- /.col -->
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
@@ -118,7 +159,7 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-handshake"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total Paid Loans</span>
+                <span class="info-box-text">Total Paid Loan Amount</span>
                 <span class="info-box-number"><?= "shs" . number_format($overalltotalpaidloans); ?></span>
             </div>
             <!-- /.info-box-content -->
@@ -131,7 +172,7 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-check"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total UnPaid Loans</span>
+                <span class="info-box-text">Total UnPaid Loan Amount</span>
                 <span class="info-box-number"><?= "shs" . number_format($overalltotalunpaidloans); ?></span>
             </div>
             <!-- /.info-box-content -->
@@ -187,6 +228,42 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
         </div>
         <!-- /.info-box -->
     </div>
+
+    <!-- total paid -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Paid Loans</span>
+                <span class="info-box-number">
+                    <?= $totalloanspaidtoday ?>
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- total paid -->
+
+    <!-- total unpaid -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cog"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Unpaid Loans</span>
+                <span class="info-box-number">
+                    <?= $totalunloanspaidtoday ?>
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- total unpaid -->
     <!-- /.col -->
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
@@ -210,7 +287,7 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-handshake"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total Paid Loans</span>
+                <span class="info-box-text">Total Paid Loan Amount</span>
                 <span class="info-box-number"><?= "shs" . number_format($totalPaidLoans); ?></span>
             </div>
             <!-- /.info-box-content -->
@@ -223,7 +300,7 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-check"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Total UnPaid Loans</span>
+                <span class="info-box-text">Total UnPaid Loan Amount</span>
                 <span class="info-box-number"><?= "shs" . number_format($totalUnpaidLoans); ?></span>
             </div>
             <!-- /.info-box-content -->
