@@ -43,13 +43,20 @@ $totalLoans = $loanCalc->getTotalLaons();
 $totalPaidLoans =  $loanCalc->totalPaidLaons();
 $totalUnpaidLoans = $loanCalc->totalUnpaidLoans();
 
+//overall loan details
+$overalltotalloans =  $loanCalc->getOverallTotalLoans();
+$overalltotalpaidloans =  $loanCalc->overallTotalPaidLaons();
+$overalltotalunpaidloans =  $loanCalc->overallTotalUnpaidLoans();
+$overallloanamount =  $loanCalc->getOverallTotalAmountLoans();
+
+
 
 $current_date = date('Y-m-d'); // Get the current date
 $query = "SELECT * FROM bodauser WHERE  DATE_FORMAT(created_at, '%Y-%m-%d') = '$current_date'";
 $boad_riders_onboarded_today =  $loanCalc->selectQuery($query);
 $overall_boda_riders = $loanCalc->selectQuery("SELECT * FROM bodauser");
 
-breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
+breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
 ?>
 <style>
     .cursor-pointer {
@@ -65,7 +72,105 @@ breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => '
         color: inherit;
     }
 </style>
+<!-- overall summary -->
+<div class="row">
+    <div class="text-center">
+        <h3>Overall Summary</h3>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Loans</span>
+                <span class="info-box-number">
+                    <?= $overalltotalloans ?>
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-sort-amount-up-alt"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Loan Amount</span>
+                <span class="info-box-number"><?= "shs " . number_format($overallloanamount); ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- fix for small devices only -->
+    <div class="clearfix hidden-md-up"></div>
+
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-handshake"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Paid Loans</span>
+                <span class="info-box-number"><?= "shs" . number_format($overalltotalpaidloans); ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-check"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total UnPaid Loans</span>
+                <span class="info-box-number"><?= "shs" . number_format($overalltotalunpaidloans); ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- boda details -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
+            <a href="../bodauser/index.php" class="cursor-pointer">
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Boda Riders</span>
+                    <span class="info-box-number"><?= count($overall_boda_riders) ?></span>
+                </div>
+
+            </a>
+
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <!-- boda details -->
+</div>
+
+<!-- overall summary -->
 <!-- Info boxes -->
+
+<div class="row">
+    <div class="text-center">
+        <h3>Today's Summary</h3>
+    </div>
+
+</div>
+
 <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
@@ -126,43 +231,25 @@ breadCrumbs(['title' => 'Dashboard', 'sub_title' => 'Dashboard', 'previous' => '
         <!-- /.info-box -->
     </div>
     <!-- /.col -->
-
-    <!-- boda details -->
+    <!-- riders on boarded today -->
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
-             
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
-            <a href="../bodauser/index.php" class="cursor-pointer">
-            <div class="info-box-content">
-                <span class="info-box-text">Total Boda Riders</span>
-                <span class="info-box-number"><?= count($overall_boda_riders) ?></span>
-            </div>
-
-            </a>
-            
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-
-     <!-- riders on boarded today -->
-     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
 
             <div class="info-box-content">
-                 <a href="./today_riders.php" class="cursor-pointer">
-                 <span class="info-box-text">Riders On Boarded Today</span>
-                <span class="info-box-number"><?= count($boad_riders_onboarded_today) ?></span>
+                <a href="./today_riders.php" class="cursor-pointer">
+                    <span class="info-box-text">Riders On Boarded Today</span>
+                    <span class="info-box-number"><?= count($boad_riders_onboarded_today) ?></span>
 
-                 </a>
+                </a>
 
             </div>
             <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
     </div>
-     <!-- riders on boarded today -->
+    <!-- riders on boarded today -->
+
     <!-- boda details -->
 </div>
 <!-- /.row -->
