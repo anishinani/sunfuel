@@ -43,6 +43,24 @@ class User extends DbAccess
         }
     }
 
+    public function formatMobileInternational($mobile)
+    {
+        $length = strlen($mobile);
+        $m = '+256';
+        //format 1: +256752665888
+        if ($length == 13)
+            return $mobile;
+        elseif ($length == 12) //format 2: 256752665888
+            return "+" . $mobile;
+        elseif ($length == 10) //format 3: 0752665888
+            return $m .= substr($mobile, 1);
+        elseif ($length == 9) //format 4: 752665888
+            return $m .= $mobile;
+
+        return $mobile;
+    }
+
+
     //store method
     public function store($array, $hashedPass)
     {
@@ -59,7 +77,7 @@ class User extends DbAccess
             [
                 'name' => strtoupper($name),
                 'email' => $email,
-                'phoneNumber' => $phone,
+                'phoneNumber' =>formatPhoneNumber($phone),
                 'gender' => $gender,
                 'roleId' => $roles,
                 "setPassword" => $hashedPass,

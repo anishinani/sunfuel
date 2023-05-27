@@ -62,7 +62,7 @@ $allroles = $accessController->getRoles()
                             "required" => true,
                             "label" => "Phone Number",
                             "class" => "form-control" ,
-                            'placeholder' => 'Enter Phone Number'
+                            'placeholder' => 'Enter Phone Number for example +256752665888'
 
                            ));
 
@@ -74,8 +74,8 @@ $allroles = $accessController->getRoles()
                             <label for="my-select">select gender</label>
                             <select id="my-select" class="form-control" name="gender">
                                 <option selected disabled>select gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                         </div>
 
