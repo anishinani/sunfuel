@@ -226,6 +226,25 @@ breadCrumbsTwo(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'p
     </div>
 
     <!-- boda details -->
+
+          <!-- suspended boda riders -->
+          <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
+
+            <div class="info-box-content">
+                <a href="./suspended_riders.php" class="cursor-pointer">
+                    <span class="info-box-text">Suspended Boda Riders</span>
+                    <span class="info-box-number"><?= $suspended_riders ?></span>
+
+                </a>
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+     <!-- suspende boda riders -->
 </div>
 
 <!-- overall summary -->
