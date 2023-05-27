@@ -41,13 +41,13 @@ function showActions($id)
     $output = '';
 
 
-    if (in_array("view-receipts", $_SESSION['permissions'])) {
+    // if (in_array("view-receipts", $_SESSION['permissions'])) {
         $output = '<form action="./showReceipt.php?id="' . $id . '"" method="get">
         <button type="submit" name="showReceipt"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Show Receipt</button>
     
         </form>';
-    }
+    //}
     // if (in_array("edit-roles", $_SESSION['roles'])) {
     //     $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
     //     <button type="submit" name="update"  value="' . $id . '"

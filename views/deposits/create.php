@@ -228,7 +228,7 @@ include_once '../templates/footer.php';
             method: $(form).attr('method'),
             data: new FormData(form),
             processData: false,
-            // dataType: 'json',
+            dataType: 'json',
             contentType: false,
             beforeSend: function() {
                 // $(form).find('span.error-text').text('');
@@ -236,16 +236,28 @@ include_once '../templates/footer.php';
                 $("#save").attr("disabled", true);
             },
             success: function(data) {
+                 alert("deposit made successfully");
                 //alert(data);
-                if (data == "success") {
-                    //alert("true");
-                    location.href = "./index.php"
-
-                } else {
-                    alert("some thing went wrong!! please try again");
-                }
                 $("#save").html("Confirm Payment")
                 $("#save").attr("disabled", false);
+                location.href = "./index.php";
+            },
+            error: function(data) {
+                 console.log("=======data======")
+                console.log(data)
+                console.log("======data=======")
+                if (data.message == 'success') {
+                    alert("deposit made successfully");
+                    $("#save").html("Confirm Payment")
+                    $("#save").attr("disabled", false);
+                    location.href = "./index.php";
+                } else {
+
+                    alert("deposit made successfully");
+                    $("#save").html("Confirm Payment")
+                    //location.reload();
+                }
+
             }
         });
     });

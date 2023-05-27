@@ -57,11 +57,11 @@ breadCrumbs(['title' => 'Deposit Receipt', 'sub_title' => 'Deposit Receipt', 'pr
                             <div class="col-md-12"><label class="labels">Deposited On</label>
                                 <input type="text" class="form-control" disabled value="<?= $depositDetails[0]['created_at'] ?>">
                             </div>
-                            <div class="col-md-12"><label class="labels">totalAmount Since Initial Deposit</label>
+                            <div class="col-md-12"><label class="labels">Total Amount Since Initial Deposit</label>
                                 <input type="text" class="form-control" disabled value="<?= "shs " . number_format($depositDetails[0]['totalAmount'], 0) ?>">
                             </div>
                             <div class="col-md-12"><label class="labels">Current Amount</label>
-                                <input type="text" class="form-control" disabled value="<?= "sshs " . number_format($depositDetails[0]['currentAmount'], 0) ?>">
+                                <input type="text" class="form-control" disabled value="<?= "shs " . number_format($depositDetails[0]['currentAmount'], 0) ?>">
                             </div>
 
                         </div>
