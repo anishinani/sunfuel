@@ -85,7 +85,7 @@ breadCrumbs(['title' => 'Make Deposit', 'sub_title' => 'Make Deposit', 'previous
 
                     <div class="form-group mb-3">
                         <label for="">Amount</label>
-                        <input type="text" name="amount" id="amount" disabled required class="form-control" placeholder="enter amount" />
+                        <input type="number" name="amount" id="amount" disabled required class="form-control" placeholder="enter amount without commas" />
 
                     </div>
 
