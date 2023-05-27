@@ -67,6 +67,29 @@ function breadCrumbs($props)
 <?php
 }
 
+function breadCrumbsTwo($props)
+{
+?>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 style="margin-left:-20px !important;"><?= $props['title'] ?></h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="<?= $props['previous_action'] ? $props['previous_action'] : '/home' ?>"><?= $props['previous'] ?></a></li>
+            <li class="breadcrumb-item active"><?= $props['sub_title'] ?></li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+<?php
+}
+
 
 /**
  * @method startContent

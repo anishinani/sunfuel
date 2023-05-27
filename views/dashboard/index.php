@@ -70,7 +70,7 @@ $query = "SELECT * FROM bodauser WHERE  DATE_FORMAT(created_at, '%Y-%m-%d') = '$
 $boad_riders_onboarded_today =  $loanCalc->selectQuery($query);
 $overall_boda_riders = $loanCalc->selectQuery("SELECT * FROM bodauser");
 
-breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
+breadCrumbsTwo(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
  } catch (\Throwable $th) {
     //throw $th;
     var_dump($th->getMessage());
