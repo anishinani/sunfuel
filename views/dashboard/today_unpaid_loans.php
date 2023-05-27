@@ -12,7 +12,7 @@ include_once '../templates/Components.php';
 
 if (!can('view-users')) header('Location:../Errors/unAuthorized.php');
 
-breadCrumbs(['title' => 'Total Unpaid loans Total', 'sub_title' => 'details', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
+breadCrumbs(['title' => 'Total Unpaid loans ', 'sub_title' => 'details', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
 
 
 startContent();

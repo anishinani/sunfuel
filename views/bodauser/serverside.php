@@ -32,7 +32,7 @@ if (isset($_POST['order'])) {
     if($column_name == "ID") $column_name = "bodaUserId"; 
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY bodaUserId desc";
+    $sql .= " ORDER BY bodaUserId asc";
 }
 
 if ($_POST['length'] != -1) {
