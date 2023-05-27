@@ -19,11 +19,10 @@ startContent();
 
 
 try {
-    
+
     $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at, loan.status  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
 
-$details = $dbAccess->selectQuery($sql);
-
+    $details = $dbAccess->selectQuery($sql);
 } catch (\Throwable $th) {
     //throw $th;
     var_dump($th->getMessage());
@@ -54,7 +53,7 @@ $details = $dbAccess->selectQuery($sql);
                             <th>Loan Interest</th>
                             <th>Loan Status</th>
                             <th>Loan Taken On</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -73,16 +72,18 @@ $details = $dbAccess->selectQuery($sql);
                                 <td><?= $row['loanAmount'] ?></td>
                                 <td><?= $row['loanInterest'] ?></td>
                                 <td>
-                                    <!-- if loan is for today its status is unpaid other its over due -->
                                     <?php
-                                     //DATE(loan.created_at) = CURDATE()
-                                     if(DATE($row['created_at']) == date('Y-m-d')){
-                                         echo "<span class='badge badge-success'>Unpaid</span>";
-                                        }else{
-                                            echo "<span class='badge badge-danger'>Over Due</span>";
-                                        }
+                                    $createdAt = date('Y-m-d', strtotime($row['created_at']));
+                                    $currentDate = date('Y-m-d');
 
+                                    if ($createdAt < $currentDate) {
+                                        echo "<span class='badge badge-danger'>Overdue</span>";
+                                    } else {
+                                        echo "<span class='badge badge-success'>Unpaid</span>";
+                                    }
                                     ?>
+
+
                                 </td>
                                 <td><?= $row['created_at'] ?></td>
                             </tr>

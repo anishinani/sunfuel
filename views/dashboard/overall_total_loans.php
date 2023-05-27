@@ -22,7 +22,8 @@ try {
     //code...
     $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at , loan.status  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId";
 
-    $details = $dbAccess->selectQuery($sql);
+$details = $dbAccess->selectQuery($sql);
+
 } catch (\Throwable $th) {
     //throw $th;
     var_dump($th->getMessage());
@@ -71,18 +72,12 @@ try {
                                 <td><?= $row['loanInterest'] ?></td>
                                 <td>
                                     <?php
-                                    $createdAt = strtotime($row['created_at']);
-                                    $currentDate = strtotime(date('Y-m-d H:i:s'));
-
-                                    $dueDate = strtotime('+1 day', $createdAt); // Assuming the due date is 1 day after the creation date
-
-                                    if ($currentDate > $dueDate) {
-                                        echo "<span class='badge badge-danger'>Overdue</span>";
+                                    if ($row['status'] == 0) {
+                                        echo "<span class='badge badge-success'>Paid</span>";
                                     } else {
-                                        echo "<span class='badge badge-success'>Unpaid</span>";
+                                        echo "<span class='badge badge-danger'>Not Paid</span>";
                                     }
                                     ?>
-
                                 <td><?= $row['created_at'] ?></td>
                                 <td><?= $row['updated_at'] ?></td>
                             </tr>
