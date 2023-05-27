@@ -44,6 +44,7 @@ $totalPaidLoans =  $loanCalc->totalPaidLaons();
 $totalUnpaidLoans = $loanCalc->totalUnpaidLoans();
 
 $totalloanspaidtoday =  $loanCalc->getTotalPaidLoansToday();
+ 
 $totalunloanspaidtoday =  $loanCalc->getTotalUnPaidLoansToday();
 
 //overall loan details

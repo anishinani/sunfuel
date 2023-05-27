@@ -107,17 +107,17 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = showStatus($row['bodaUserStatus']);
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageName'];
-    $sub_array[] = $row['bodaUserStatus'] == 0 ? '
-    <form action="activateBoda.php" method="post">
-    <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
-    <input type="hidden" name="stageId" value="' . $row['stageId'] . '"/>
-    <button type="submit" name="activate"  
-    class="btn btn-info btn-sm editbtn" >Activate</button></form>
-    ' : '    <form action="deactivateBoda.php" method="post">
-    <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
-    <button type="submit" name="deactivate" 
-    class="btn btn-danger btn-sm editbtn" >DeActivate</button></form>
-    ';
+    // $sub_array[] = $row['bodaUserStatus'] == 0 ? '
+    // <form action="activateBoda.php" method="post">
+    // <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
+    // <input type="hidden" name="stageId" value="' . $row['stageId'] . '"/>
+    // <button type="submit" name="activate"  
+    // class="btn btn-info btn-sm editbtn" >Activate</button></form>
+    // ' : '    <form action="deactivateBoda.php" method="post">
+    // <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
+    // <button type="submit" name="deactivate" 
+    // class="btn btn-danger btn-sm editbtn" >DeActivate</button></form>
+    // ';
     $sub_array[] = showActions($row['bodaUserId']);
     $data[] = $sub_array;
 }

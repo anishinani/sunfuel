@@ -64,7 +64,6 @@ breadCrumbs(['title' => 'Boda Users', 'sub_title' => 'settings', 'previous' => '
                             <th style="width:200px !important;">Boda Status</th>
                             <th>Fuel Station</th>
                             <th>Stage</th>
-                            <th>Activation Action</th>
                             <th width="160px">Actions</th>
                         </tr>
                     </thead>
