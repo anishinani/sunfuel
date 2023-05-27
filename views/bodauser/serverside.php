@@ -85,7 +85,7 @@ function showStatus($status)
         case 1:
             return "<span style='background-color:green;border-radius:5px; padding:5px; color:#fff;'>Active</span>";
         case 2:
-            return "<span style='background-color:#997400;border-radius:5px; padding:5px; color:#fff;'>Pending payment</span>";
+            return "<span style='background-color:#997400;border-radius:5px; padding:5px; color:#fff;'>PP</span>";
         case 3:
             return "<span style='background-color:red;border-radius:5px; padding:5px; color:#fff;'>Suspended</span>";
         default:
