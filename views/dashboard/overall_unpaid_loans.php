@@ -20,7 +20,7 @@ startContent();
 
 try {
     
-    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at, loan.status  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
 
 $details = $dbAccess->selectQuery($sql);
 
@@ -52,6 +52,7 @@ $details = $dbAccess->selectQuery($sql);
                             <th>Stage</th>
                             <th>Loan Amount</th>
                             <th>Loan Interest</th>
+                            <th>Loan Status</th>
                             <th>Loan Taken On</th>
                             
                         </tr>
@@ -71,6 +72,18 @@ $details = $dbAccess->selectQuery($sql);
                                 </td>
                                 <td><?= $row['loanAmount'] ?></td>
                                 <td><?= $row['loanInterest'] ?></td>
+                                <td>
+                                    <!-- if loan is for today its status is unpaid other its over due -->
+                                    <?php
+                                     //DATE(loan.created_at) = CURDATE()
+                                     if(DATE($row['created_at']) == date('Y-m-d')){
+                                         echo "<span class='badge badge-success'>Unpaid</span>";
+                                        }else{
+                                            echo "<span class='badge badge-danger'>Over Due</span>";
+                                        }
+
+                                    ?>
+                                </td>
                                 <td><?= $row['created_at'] ?></td>
                             </tr>
                         <?php
