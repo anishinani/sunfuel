@@ -14,7 +14,9 @@ startContent();
 
 include_once "../../controllers/LoansCalc.php";
 $loanCalc =  new LaonsCalc();
-//$loanCalc =  new lo$loanCalc();
+
+ try {
+    //$loanCalc =  new lo$loanCalc();
 $totalActiveBodaUsers  = $loanCalc->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "1"]);
 $totalInActiveBodaUsers  = $loanCalc->countRows("bodauser", "bodaUserStatus", ["bodaUserStatus", "0"]);
 $totalDefaultedBodaUsers  = $loanCalc->selectQuery("SELECT COUNT(bodaUserStatus) AS total FROM bodauser  WHERE  DATE(updated_at) = CURDATE() AND bodaUserStatus=2")[0]['total'];
@@ -57,6 +59,11 @@ $overallpaidloans = $loanCalc->getOverallTotalPaidLoans();
 $overallunpaidloans = $loanCalc->getOverallTotalUnPaidLoans();
 
 
+//suspended stages
+$suspende_stages = $loanCalc->getOverallSuspendedStages();
+$suspended_riders = $loanCalc->getOverallSuspendedRiders();
+//suspende stages
+
 
 $current_date = date('Y-m-d'); // Get the current date
 $query = "SELECT * FROM bodauser WHERE  DATE_FORMAT(created_at, '%Y-%m-%d') = '$current_date'";
@@ -64,6 +71,12 @@ $boad_riders_onboarded_today =  $loanCalc->selectQuery($query);
 $overall_boda_riders = $loanCalc->selectQuery("SELECT * FROM bodauser");
 
 breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'previous' => 'Home', 'previous_action' => '#']);
+ } catch (\Throwable $th) {
+    //throw $th;
+    var_dump($th->getMessage());
+    die("here");
+ }
+
 ?>
 <style>
     .cursor-pointer {
@@ -351,6 +364,44 @@ breadCrumbs(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'prev
         <!-- /.info-box -->
     </div>
     <!-- riders on boarded today -->
+
+     <!-- suspended boda riders -->
+     <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-motorcycle"></i></span>
+
+            <div class="info-box-content">
+                <a href="./suspended_riders.php" class="cursor-pointer">
+                    <span class="info-box-text">Suspended Boda Riders</span>
+                    <span class="info-box-number"><?= $suspended_riders ?></span>
+
+                </a>
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+     <!-- suspende boda riders -->
+     
+     <!-- suspended stages -->
+     <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-stop"></i></span>
+
+            <div class="info-box-content">
+                <a href="./suspend_stages.php" class="cursor-pointer">
+                    <span class="info-box-text">Suspended Boda Stages</span>
+                    <span class="info-box-number"><?=$suspende_stages ?></span>
+
+                </a>
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+     <!-- suspended stages -->
 
     <!-- boda details -->
 </div>

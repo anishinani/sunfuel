@@ -38,6 +38,43 @@ if ($_POST['length'] != -1) {
 }
 
 
+function showStatus($status)
+{
+    switch ($status) {
+        case 0:
+            return "<span style='background-color:#1c478e;border-radius:5px; padding:5px; color:#fff;'>Inactive</span> ";
+        case 1:
+            return "<span style='background-color:green;border-radius:5px; padding:5px; color:#fff;'>Active</span>";
+        case 2:
+            return "<span style='background-color:red;border-radius:5px; padding:5px; color:#fff;'>Suspended</span>";
+        default:
+            return null;
+    }
+}
+
+function stageStatusAction($status, $row){
+    switch ($status) {
+        case 0:
+            return '<form action="activateStage.php" method="post">
+            <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
+            <button type="submit" name="activate" 
+            class="btn btn-info btn-sm editbtn" >Activate</button>';
+        case 1:
+            return '<form action="deactivateStage.php" method="post">
+            <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
+            <button type="submit" name="deactivate"  
+            class="btn btn-danger btn-sm editbtn" >DeActivate</button>';
+        case 2:
+            return '    <form action="unsuspend.php" method="post">
+            <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
+            <button type="submit" name="unsuspend""  
+            class="btn btn-warning btn-sm editbtn" >Un Suspend</button>';
+        default:
+            return null;
+    }
+}
+
+
 
 $query = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($query);
@@ -46,21 +83,8 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
     $sub_array[] = $row['stageName'];
     $sub_array[] = $row['fuelStationName'];
-    $sub_array[] = $row['stageStatus'] == 0 ? "Not Active" : "Active";
-    // $sub_array[] = count($dbAccess->select("bodauser", "", [
-    //     "bodaUserId" =>  "3"
-    // ])) ?  $dbAccess->select("bodauser", "", ["bodaUserId" => $row["chairmanId"]])[0]['bodaUserName'] : NULL;
-    $sub_array[] = $row['stageStatus'] == 0 ? '
-    <form action="activateStage.php" method="post">
-    <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
-    <button type="submit" name="activate" 
-    class="btn btn-info btn-sm editbtn" >Activate</button>
-    ' : '    <form action="deactivateStage.php" method="post">
-    <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
-    <button type="submit" name="deactivate"  
-    class="btn btn-danger btn-sm editbtn" >DeActivate</button>
-    ';
-
+    $sub_array[] = showStatus($row['stageStatus']);
+    $sub_array[] = stageStatusAction($row['stageStatus'], $row);
 
     $sub_array[] = '
     

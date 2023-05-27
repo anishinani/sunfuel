@@ -222,4 +222,28 @@ class LaonsCalc extends DbAccess
         $expectedFuelPerDay = $totalBodaUsers * 15000;
         return $expectedFuelPerDay;
     }
+
+    // suspesnded  boda riders
+    public function getOverallSuspendedRiders(){
+        $totalLoans = $this->selectQuery("SELECT COUNT(bodaUserId) AS total FROM bodauser  WHERE bodaUserStatus =3")[0]['total'];
+        if ($totalLoans == NULL) {
+            return 0;
+        } else {
+            return $totalLoans;
+        }
+
+    }
+    //suspended boda riders
+
+    //suspended stages
+    public function getOverallSuspendedStages(){
+        $totalLoans = $this->selectQuery("SELECT COUNT(stageId) AS total FROM stage  WHERE stageStatus =2")[0]['total'];
+        if ($totalLoans == NULL) {
+            return 0;
+        } else {
+            return $totalLoans;
+        }
+
+    }
+    //suspended stages
 }
