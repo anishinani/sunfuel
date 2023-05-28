@@ -58,9 +58,9 @@ $details = $dbAccess->selectQuery($sql);
                             <tr>
                                 <td><?= $row['stageName'] ?></td>
                                  <td>
-                                    <form action="activate.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $row['bodaUserId'] ?>" />
-                                        <button type="submit" name="activate" value="<?= $row['bodaUserId'] ?>" class="btn btn-success btn-sm">Activate</button>
+                                    <form action="./activate_stage.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $row['stageId'] ?>" />
+                                        <button type="submit" name="activate" value="<?= $row['stageId'] ?>" class="btn btn-success btn-sm">Activate</button>
                                     </form>
                                  </td>
                             </tr>

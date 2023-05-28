@@ -10,7 +10,11 @@ include_once '../templates/SecurePageHeader.php';
  * */
 include_once '../templates/Components.php';
 
+
+
 startContent();
+
+include_once "../templates/flashMessages.php";
 
 include_once "../../controllers/LoansCalc.php";
 $loanCalc =  new LaonsCalc();

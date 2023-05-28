@@ -65,7 +65,7 @@ $details = $dbAccess->selectQuery($sql);
                                     <?= $dbAccess->select("stage", ['stageName'], ['stageId' => $row['stageId']])[0]['stageName'] ?>
                                 </td>
                                  <td>
-                                    <form action="activate.php" method="post">
+                                    <form action="activate_rider.php" method="post">
                                         <input type="hidden" name="id" value="<?= $row['bodaUserId'] ?>" />
                                         <button type="submit" name="activate" value="<?= $row['bodaUserId'] ?>" class="btn btn-success btn-sm">Activate</button>
                                     </form>
