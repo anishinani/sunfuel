@@ -33,6 +33,11 @@ breadCrumbs(['title' => 'Payments', 'sub_title' => 'Payments', 'previous' => 'Da
             <div class="d-flex justify-content-between m-2">
                 <form action="./update.php" method="POST">
                     <button type="submit" name="update"  class="btn btn-info btn-sm editbtn">UPDATE</button>
+                </form>    
+
+                <form action="./force_update.php" method="POST">
+                    <button type="submit" name="update"  class="btn btn-info btn-sm editbtn">FORCE UPDATE</button>
+                </form>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
