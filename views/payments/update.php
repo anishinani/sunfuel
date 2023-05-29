@@ -124,18 +124,6 @@ try {
                     die("There was an error");
                 }
 
-                //mssidn is the phone number with 13 digits i want to remove the first 3 digits and replace it with a zero
-                function formatPhoneNumberTwo($msisdn)
-                {
-
-                    //remove the first 3 digit and replace them with a zero
-                    $msisdn = substr($msisdn, 3);
-                    $msisdn = "0" . $msisdn;
-                    return $msisdn;
-                }
-
-
-
                 //  * * * * * php /var/www/boda.creditplus.ug/public_html/creditpluswebapp/views/payments/update.php >> /var/www/boda.creditplus.ug/public_html/creditpluswebapp/views/payments/payment_logs.log 2>&1 $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $payment['external_ref']]);
                 //update the boda status to active
                 $dbAccess->update("bodauser", ["bodaUserStatus" => "1"], ["bodaUserPhoneNumber" => formatPhoneNumber($payment['msisdn'])]);
@@ -165,7 +153,7 @@ try {
 }
 
 //mssidn is the phone number with 13 digits i want to remove the first 3 digits and replace it with a zero
-function formatPhoneNumberTwo($msisdn)
+function formatPhoneNumber($msisdn)
 {
 
     //remove the first 3 digit and replace them with a zero

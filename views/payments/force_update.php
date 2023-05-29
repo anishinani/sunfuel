@@ -124,15 +124,6 @@ try {
                     die("There was an error");
                 }
 
-                //mssidn is the phone number with 13 digits i want to remove the first 3 digits and replace it with a zero
-                function formatPhoneNumberTwo($msisdn)
-                {
-
-                    //remove the first 3 digit and replace them with a zero
-                    $msisdn = substr($msisdn, 3);
-                    $msisdn = "0" . $msisdn;
-                    return $msisdn;
-                }
 
 
 
@@ -165,7 +156,7 @@ try {
 }
 
 //mssidn is the phone number with 13 digits i want to remove the first 3 digits and replace it with a zero
-function formatPhoneNumberTwo($msisdn)
+function formatPhoneNumber($msisdn)
 {
 
     //remove the first 3 digit and replace them with a zero
