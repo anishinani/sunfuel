@@ -208,4 +208,42 @@ Warning: include_once(./dbaccess.php): Failed to open stream: No such file or di
 PHP Warning:  include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
 
 Warning: include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
-done
+donePHP Warning:  include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+PHP Warning:  include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+donePHP Warning:  include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+PHP Warning:  include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+donePHP Warning:  include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(./dbaccess.php): Failed to open stream: No such file or directory in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+PHP Warning:  include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+
+Warning: include_once(): Failed opening './dbaccess.php' for inclusion (include_path='.:/usr/share/php') in /var/www/html/creditpluswebapp/views/payments/sms.php on line 5
+PHP Warning:  Undefined array key 0 in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+
+Warning: Undefined array key 0 in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+PHP Warning:  Trying to access array offset on value of type null in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+
+Warning: Trying to access array offset on value of type null in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 159
+
+Deprecated: explode(): Passing null to parameter #2 ($string) of type string is deprecated in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 159
+PHP Warning:  Trying to access array offset on value of type null in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 165
+
+Warning: Trying to access array offset on value of type null in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 165
+PHP Deprecated:  mysqli_real_escape_string(): Passing null to parameter #2 ($string) of type string is deprecated in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 168
+
+Deprecated: mysqli_real_escape_string(): Passing null to parameter #2 ($string) of type string is deprecated in /var/www/html/creditpluswebapp/views/payments/dbaccess.php on line 168
+PHP Warning:  Undefined array key 0 in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+
+Warning: Undefined array key 0 in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+PHP Warning:  Trying to access array offset on value of type null in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
+
+Warning: Trying to access array offset on value of type null in /var/www/html/creditpluswebapp/views/payments/update.php on line 58
