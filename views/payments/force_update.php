@@ -29,9 +29,9 @@ try {
         curl_close($curl);
         $data = json_decode($response);
 
-         var_dump("==================");
+         var_dump("==================/n");
          var_dump($data);
-         var_dump("==================");
+         var_dump("==================/n");
 
         if (isset($data->message)) {
             if ($data->message == "failure") {
