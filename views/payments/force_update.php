@@ -29,9 +29,6 @@ try {
         curl_close($curl);
         $data = json_decode($response);
 
-         var_dump("==================/n");
-         var_dump($data);
-         var_dump("==================/n");
 
         if (isset($data->message)) {
             if ($data->message == "failure") {
@@ -44,13 +41,31 @@ try {
         if (isset($data->status)) {
             if ($data->status == "SUCCEEDED") {
                 $dbAccess->update("payments", ["status" => "completed"], ["id" => $payment['id']]);
-                $dbAccess->update("bodauser", ["bodaUserStatus" => "1"], ["bodaUserPhoneNumber" => formatPhoneNumber($payment['msisdn'])]);
+                $update = $dbAccess->update("bodauser", ["bodaUserStatus" => "1"], ["bodaUserPhoneNumber" => formatPhoneNumber($payment['msisdn'])]);
+                //update the loan status to paid
+                $dbAccess->update("loan", ["status" => "0"], ["loanRef" => $payment['external_ref']]);
+
                 $sms->sendsms(
                     "Dear Customer",
                     $sms->formatMobileInternational($payment['msisdn']),
                     "Your payment of shs " . $payment['amount'] . " has been received successfully"
                 );
 
+                //check if the stage is suspended and update it to active
+                //
+                $bodauserdetails = $dbAccess->select("bodauser", ['stageId'], ["bodaUserPhoneNumber" => formatPhoneNumber($payment['msisdn'])]);
+                //get stage details
+                $stageDetails = $dbAccess->select("stage", ['stageStatus'], ["stageId" => $bodauserdetails[0]['stageId']])[0]['stageStatus'];
+                if ($stageDetails == 2 || $stageDetails == "2") {
+                    //check no boda user has a pending loan
+                    $pending_loans =  $dbAccess->select("bodauser", ['bodaUserId'], ["stageId" => $bodauserdetails[0]['stageId'], "bodaUserStatus" => "2"]);
+                    if (count($pending_loans) == 0) {
+                        //update the stage status to active
+                        $dbAccess->update("stage", ["stageStatus" => "1"], ["stageId" => $bodauserdetails[0]['stageId']]);
+                        //also activate the boda users
+                        $dbAccess->update("bodauser", ["bodaUserStatus" => "1"], ["stageId" => $bodauserdetails[0]['stageId']]);
+                    }
+                }
             } else {
                 $dbAccess->update("payments", ["status" => "pending"], ["id" => $payment['id']]);
                 //update the loan status to unpaid
