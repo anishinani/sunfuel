@@ -13,7 +13,7 @@ $output = array();
 
 $sql = "SELECT bodauser.bodaUserName, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser 
  INNER JOIN fuelstation ON fuelstation.fuelStationId = bodauser.fuelStationId 
-INNER JOIN stage ON stage.stageId=bodauser.stageId WHERE DATE(loan.created_at) = CURDATE()";
+INNER JOIN stage ON stage.stageId=bodauser.stageId WHERE DATE(bodauser.created_at) = CURDATE()";
 
 $totalQuery = mysqli_query($con, $sql);
 $total_all_rows = mysqli_num_rows($totalQuery);

@@ -10,72 +10,84 @@ include_once '../templates/SecurePageHeader.php';
  * */
 include_once '../templates/Components.php';
 
+if (!can('view-users')) header('Location:../Errors/unAuthorized.php');
+
+breadCrumbs(['title' => 'Boda Riders Today', 'sub_title' => 'details', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
+
+
 startContent();
 
-// code here
-if (!can('view-bodausers')) echo '<script>window.open("../Errors/unAuthorized.php" , "_self")</script>';
+//time is in this format 2020-08-20 00:00:00,2023-05-24 07:07:41
+try {
+    //code...
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber , bodauser.user_id, bodauser.created_at, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser 
+    INNER JOIN fuelstation ON fuelstation.fuelStationId = bodauser.fuelStationId 
+   INNER JOIN stage ON stage.stageId=bodauser.stageId WHERE DATE(bodauser.created_at) = CURDATE()";
 
+$details = $dbAccess->selectQuery($sql);
 
-breadCrumbs(['title' => 'Boda Users', 'sub_title' => 'settings', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
+} catch (\Throwable $th) {
+    //throw $th;
+    var_dump($th->getMessage());
+    die("an error ocuured");
+}
+
 
 ?>
+
+
 <div class="row">
     <div class="col-12">
         <!--table-->
         <!-- /.card -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Boda User Table</h3>
-
-                <div>
-                    <form method="post" action="./uploaddetails.php" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="my-input">Upload</label>
-                            <input class="form-control-file" type="file" name="file">
-                        </div>
-                        <h4 class=" ">
-                            <button class="btn btn-success" type="submit" name="upload">Upload
-                            </button>
-                        </h4>
-                    </form>
-                </div>
-
-                <?php
-
-                if (in_array("create-bodaUsers", $_SESSION['permissions'])) {
-                ?>
-                    <h4 class="float-sm-right ">
-                        <a class="btn btn-success" href="./create.php"> Add New Boda User
-                        </a>
-                    </h4>
-                <?php } ?>
+                <h3 class="card-title">Details Table</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive">
-                <table id="example" class="table table-bordered table-striped">
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>NIN Number</th>
-                            <th>Boda Number</th>
-                            <th>Role</th>
-                            <th style="width:100px !important;">Boda Status</th>
-
+                            <th>Boda Names</th>
+                            <th>Boda User Phone Number</th>
                             <th>Fuel Station</th>
                             <th>Stage</th>
+                            <th>OnBoarder</th>
+                            <th>OnBoarded At</th>
 
-                            <th>Activation Action</th>
-
-                            <th width="130px">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        foreach ($details as $row) {
+                        ?>
+                            <tr>
+                                <td><?= $row['bodaUserName'] ?></td>
+                                <td><?= $row['bodaUserPhoneNumber'] ?></td>
+
+                                <td>
+                                    <?= $row['stageName'] ?>
+                                </td>
+                                 <td>
+                                  <?= $row['fuelStationName'] ?>
+                                 </td>
+                                 <td>
+                                  <?= $dbAccess->select("users", ["name"], ['adminId'=>$row['user_id']])[0]['name']; ?>
+                                 </td>
+                                 <td>
+                                  <?= $row['created_at'] ?>
+                                 </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+
+
 
                     </tbody>
 
                 </table>
-                <!-- /.card-body -->
             </div>
             <!-- /.card -->
 
@@ -85,12 +97,13 @@ breadCrumbs(['title' => 'Boda Users', 'sub_title' => 'settings', 'previous' => '
         </div>
         <!-- /.col -->
     </div>
-    <!-- /.row -->
 </div>
 
-<?php
 
+<?php
 endContent();
+
+//include_once "../templates/optimized_page_scripts.php";
 
 /**
  * footer of the application
@@ -100,31 +113,40 @@ include_once '../templates/footer.php';
 /**
  * custom page javascript
  * **/
-
 ?>
+<script src="/creditpluswebapp/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/creditpluswebapp/plugins/jszip/jszip.min.js"></script>
+<script src="/creditpluswebapp/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/creditpluswebapp/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            "fnCreatedRow": function(nRow, aData, iDataIndex) {
-                $(nRow).attr('id', aData[0]);
-            },
-            'serverSide': 'true',
-            'processing': 'true',
-            'paging': 'true',
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            'order': [],
-            'ajax': {
-                'url': './serverside_today.php',
-                'type': 'post',
-            },
-            "columnDefs": [{
-                'target': [5],
-                'orderable': false,
-            }]
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
 </script>
 
 <?php
+
 endPage();
