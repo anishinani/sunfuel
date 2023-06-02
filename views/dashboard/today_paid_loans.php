@@ -20,7 +20,7 @@ startContent();
 //time is in this format 2020-08-20 00:00:00,2023-05-24 07:07:41
 try {
     //code...
-    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=0 AND DATE(loan.created_at) = CURDATE()";
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at , loan.loan_penalty FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=0 AND DATE(loan.created_at) = CURDATE()";
 
 $details = $dbAccess->selectQuery($sql);
 
@@ -52,6 +52,7 @@ $details = $dbAccess->selectQuery($sql);
                             <th>Stage</th>
                             <th>Loan Amount</th>
                             <th>Loan Interest</th>
+                            <th>Loan Penalty</th>
                             <th>Loan Taken On</th>
                             <th>Paid On</th>
                         </tr>
@@ -71,6 +72,7 @@ $details = $dbAccess->selectQuery($sql);
                                 </td>
                                 <td><?= $row['loanAmount'] ?></td>
                                 <td><?= $row['loanInterest'] ?></td>
+                                <td><?= $row['loan_penalty'] ?></td>
                                 <td><?= $row['created_at'] ?></td>
                                 <td><?= $row['updated_at'] ?></td>
                             </tr>

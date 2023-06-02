@@ -20,7 +20,7 @@ startContent();
 //time is in this format 2020-08-20 00:00:00,2023-05-24 07:07:41
 try {
     //code...
-    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at , loan.status  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId";
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at , loan.status , loan.loan_penalty FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId";
 
 $details = $dbAccess->selectQuery($sql);
 
@@ -52,6 +52,7 @@ $details = $dbAccess->selectQuery($sql);
                             <th>Stage</th>
                             <th>Loan Amount</th>
                             <th>Loan Interest</th>
+                                <th>Loan Penalty</th>
                             <th>Loan Status</th>
                             <th>Loan Taken On</th>
                             <th>Paid On</th>
@@ -70,6 +71,7 @@ $details = $dbAccess->selectQuery($sql);
                                 </td>
                                 <td><?= $row['loanAmount'] ?></td>
                                 <td><?= $row['loanInterest'] ?></td>
+                                <td><?= $row['loan_penalty'] ?></td>
                                 <td>
                                     <?php
                                     if ($row['status'] == 0) {

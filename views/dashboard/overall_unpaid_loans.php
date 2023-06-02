@@ -20,7 +20,7 @@ startContent();
 
 try {
 
-    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at, loan.status  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
+    $sql = "SELECT bodauser.bodaUserName , bodauser.bodaUserPhoneNumber, bodauser.stageId, loan.loanAmount , loan.loanInterest, loan.created_at, loan.updated_at, loan.status, loan.loan_penalty  FROM bodauser INNER JOIN loan ON bodauser.bodaUserPhoneNumber = loan.boadUserId WHERE  loan.status=1";
 
     $details = $dbAccess->selectQuery($sql);
 } catch (\Throwable $th) {
@@ -51,6 +51,7 @@ try {
                             <th>Stage</th>
                             <th>Loan Amount</th>
                             <th>Loan Interest</th>
+                            <th>Loan Penalty</th>
                             <th>Loan Status</th>
                             <th>Loan Taken On</th>
 
@@ -71,6 +72,7 @@ try {
                                 </td>
                                 <td><?= $row['loanAmount'] ?></td>
                                 <td><?= $row['loanInterest'] ?></td>
+                                <td><?= $row['loan_penalty'] ?></td>
                                 <td>
                                     <?php
                                     $createdAt = date('Y-m-d', strtotime($row['created_at']));
