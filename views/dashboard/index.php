@@ -446,11 +446,11 @@ breadCrumbsTwo(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'p
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
 
-                            <a href="/creditpluswebapp/views/bodauser/inactivebodaUsers.php" class="dropdown-item">Inactive Boda Users</a>
-                            <a href="/creditpluswebapp/views/bodauser/activebodaUsers.php" class="dropdown-item">Active Boda Users</a>
+                            <a href="/sunfuel/views/bodauser/inactivebodaUsers.php" class="dropdown-item">Inactive Boda Users</a>
+                            <a href="/sunfuel/views/bodauser/activebodaUsers.php" class="dropdown-item">Active Boda Users</a>
                             <a class="dropdown-divider"></a>
                             <a href="#" class="dropdown-item">Suspended Boda Users</a>
-                            <a href="/creditpluswebapp/views/bodauser/defaultedBodaUsers.php" class="dropdown-item">Pending Payments</a>
+                            <a href="/sunfuel/views/bodauser/defaultedBodaUsers.php" class="dropdown-item">Pending Payments</a>
                         </div>
                     </div>
                 </div>
@@ -539,8 +539,8 @@ breadCrumbsTwo(['title' => 'Analytics Dashboard', 'sub_title' => 'Dashboard', 'p
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
 
-                            <a href="/creditpluswebapp/views/stage/activeStages.php" class="dropdown-item">Active Stages</a>
-                            <a href="/creditpluswebapp/views/stage/inactiveStages.php" class="dropdown-item">Inactive Stages</a>
+                            <a href="/sunfuel/views/stage/activeStages.php" class="dropdown-item">Active Stages</a>
+                            <a href="/sunfuel/views/stage/inactiveStages.php" class="dropdown-item">Inactive Stages</a>
                             <a class="dropdown-divider"></a>
                             <a href="#" class="dropdown-item">Suspended Stages</a>
 
@@ -631,11 +631,11 @@ include_once '../templates/footer.php';
  * **/
 
 ?>
-<script src="/creditpluswebapp/plugins/chart.js/Chart.min.js"></script>
+<script src="/sunfuel/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="/creditpluswebapp/plugins/sparklines/sparkline.js"></script>
+<script src="/sunfuel/plugins/sparklines/sparkline.js"></script>
 
-<script src="/creditpluswebapp/dist/js/pages/dashboard.js"></script>
+<script src="/sunfuel/dist/js/pages/dashboard.js"></script>
 
 
 <script>

@@ -21,8 +21,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4 sideBar-color">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <img src="/creditpluswebapp/dist/img/logo.png" alt="credit plus" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Credit Plus</span>
+            <img src="/sunfuel/dist/img/logo.png" alt="SunShine Financial Services" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">SunShine Financial Services</span>
         </a>
 
         <!-- Sidebar -->
@@ -30,7 +30,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="/creditpluswebapp/dist/img/logo.png" class="img-circle elevation-2" alt="User Image">
+                    <img src="/sunfuel/dist/img/logo.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">
@@ -57,13 +57,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/users/index.php" class="nav-link">
+                                <a href="/sunfuel/views/users/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/users/create.php" class="nav-link">
+                                <a href="/sunfuel/views/users/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Users</p>
                                 </a>
@@ -83,13 +83,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/roles/index.php" class="nav-link">
+                                <a href="/sunfuel/views/roles/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Roles</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/roles/create.php" class="nav-link">
+                                <a href="/sunfuel/views/roles/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Roles</p>
                                 </a>
@@ -110,13 +110,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/territories/index.php" class="nav-link">
+                                <a href="/sunfuel/views/territories/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Territories</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/territories/create.php" class="nav-link">
+                                <a href="/sunfuel/views/territories/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Territories</p>
                                 </a>
@@ -141,13 +141,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/stage/index.php" class="nav-link">
+                                <a href="/sunfuel/views/stage/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Stage</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/stage/create.php" class="nav-link">
+                                <a href="/sunfuel/views/stage/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Boda Stage</p>
                                 </a>
@@ -171,13 +171,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/bodauser/index.php" class="nav-link">
+                                <a href="/sunfuel/views/bodauser/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Boda Riders</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/bodauser/create.php" class="nav-link">
+                                <a href="/sunfuel/views/bodauser/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Boda Users</p>
                                 </a>
@@ -201,13 +201,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/fuelstation/index.php" class="nav-link">
+                                <a href="/sunfuel/views/fuelstation/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Fuel Stations</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/fuelstation/create.php" class="nav-link">
+                                <a href="/sunfuel/views/fuelstation/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Fuel Sations</p>
                                 </a>
@@ -229,13 +229,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/fuelagent/index.php" class="nav-link">
+                                <a href="/sunfuel/views/fuelagent/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Fuel Agents</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/fuelagent/create.php" class="nav-link">
+                                <a href="/sunfuel/views/fuelagent/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Fuel Agents</p>
                                 </a>
@@ -257,13 +257,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/packages/index.php" class="nav-link">
+                                <a href="/sunfuel/views/packages/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Packages</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/packages/create.php" class="nav-link">
+                                <a href="/sunfuel/views/packages/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Packages</p>
                                 </a>
@@ -286,13 +286,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/loans/index.php" class="nav-link">
+                                <a href="/sunfuel/views/loans/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Loans</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/loans/create.php" class="nav-link">
+                                <a href="/sunfuel/views/loans/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Loans</p>
                                 </a>
@@ -314,7 +314,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/payments/index.php" class="nav-link">
+                                <a href="/sunfuel/views/payments/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Payments</p>
                                 </a>
@@ -336,13 +336,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/deposits/index.php" class="nav-link">
+                                <a href="/sunfuel/views/deposits/index.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Deposits</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/creditpluswebapp/views/deposits/create.php" class="nav-link">
+                                <a href="/sunfuel/views/deposits/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Deposits</p>
                                 </a>

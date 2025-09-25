@@ -94,4 +94,4 @@ function formatPhoneNumber($msisdn)
 
 
 
-//  * * * * * php /var/www/boda.creditplus.ug/public_html/creditpluswebapp/views/payments/update.php >> /var/www/boda.creditplus.ug/public_html/creditpluswebapp/views/payments/payment_logs.log 2>&1
+//  * * * * * php /var/www/boda.creditplus.ug/public_html/sunfuel/views/payments/update.php >> /var/www/boda.creditplus.ug/public_html/sunfuel/views/payments/payment_logs.log 2>&1

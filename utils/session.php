@@ -8,7 +8,7 @@
 
 session_start();
 
-$fallback = "Location:/creditpluswebapp/index.php";
+$fallback = "Location:/sunfuel/index.php";
 
 if(empty($_SESSION) || !isset($_SESSION['user']) || (isset($_SESSION['roles']) && empty($_SESSION['roles']))){
 
@@ -16,6 +16,7 @@ if(empty($_SESSION) || !isset($_SESSION['user']) || (isset($_SESSION['roles']) &
     session_destroy();
 
     header($fallback);
+    exit();
 }
 
 /***
@@ -30,7 +31,7 @@ if(isset($_SESSION['s_time'])){
       $_SESSION = array();
       session_destroy();
       header($fallback);
-
+      exit();
   }
 }
 

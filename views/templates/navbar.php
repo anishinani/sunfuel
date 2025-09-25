@@ -15,7 +15,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="/creditpluswebapp/views/dashboard" class="nav-link">Home</a>
+                <a href="/sunfuel/views/dashboard" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Help</a>
@@ -29,7 +29,7 @@
 
             <!-- Messages Dropdown Menu -->
             <li class="nav-item ">
-                <a href="/creditpluswebapp/logout.php"  class="nav-link"  >
+                <a href="/sunfuel/logout.php"  class="nav-link"  >
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
             </li>

@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header("Location:/creditpluswebapp/index.php");
+    header("Location:/sunfuel/index.php");
 }
 ?>
 
@@ -12,27 +12,27 @@ if (!isset($_SESSION['user'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Credit Plus</title>
+    <title>SunShine Financial Services</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/sunfuel/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/summernote/summernote-bs4.min.css">
 
 
 </head>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['user'])) {
 
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=activebodausers">
+                            <a href="/sunfuel/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=activebodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalActiveBodaUsers ?></h3>
@@ -165,7 +165,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=inactivebodausers">
+                            <a href="/sunfuel/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=inactivebodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalInActiveBodaUsers ?></h3>
@@ -183,7 +183,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=defaultedbodausers">
+                            <a href="/sunfuel/views/stage/stagebodas.php?stagename=<?=$stageName?>&data=defaultedbodausers">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalDefaultedBodaUsers ?></h3>
@@ -201,7 +201,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/stagePaidLoans.php">
+                            <a href="/sunfuel/views/stage/stagePaidLoans.php">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3><?= $totalPaidLoans ?></h3>
@@ -219,7 +219,7 @@ if (!isset($_SESSION['user'])) {
                         <!--col-->
                         <!--col-->
                         <div class="col-lg-3 col-6">
-                            <a href="/creditpluswebapp/views/stage/stageUnPaidLoan.php">
+                            <a href="/sunfuel/views/stage/stageUnPaidLoan.php">
                                 <div class="small-box bg-danger">
                                     <div class="inner">
                                         <h3><?= $totalUnPaidLoans ?></h3>
@@ -270,39 +270,39 @@ if (!isset($_SESSION['user'])) {
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
+    <script src="/sunfuel/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="/creditpluswebapp/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/sunfuel/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src="/creditpluswebapp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/sunfuel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
-    <script src="/creditpluswebapp/plugins/chart.js/Chart.min.js"></script>
+    <script src="/sunfuel/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
-    <script src="/creditpluswebapp/plugins/sparklines/sparkline.js"></script>
+    <script src="/sunfuel/plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
-    <script src="/creditpluswebapp/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="/creditpluswebapp/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="/sunfuel/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/sunfuel/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
     <!-- jQuery Knob Chart -->
-    <script src="/creditpluswebapp/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="/sunfuel/plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
-    <script src="/creditpluswebapp/plugins/moment/moment.min.js"></script>
-    <script src="/creditpluswebapp/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/sunfuel/plugins/moment/moment.min.js"></script>
+    <script src="/sunfuel/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="/creditpluswebapp/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/sunfuel/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
-    <script src="/creditpluswebapp/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="/sunfuel/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- overlayScrollbars -->
-    <script src="/creditpluswebapp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/sunfuel/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/creditpluswebapp/dist/js/adminlte.js"></script>
+    <script src="/sunfuel/dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="/creditpluswebapp/dist/js/demo.js"></script>
+    <script src="/sunfuel/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="/creditpluswebapp/dist/js/pages/dashboard.js"></script>
+    <script src="/sunfuel/dist/js/pages/dashboard.js"></script>
 
 </body>
 

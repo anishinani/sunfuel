@@ -16,15 +16,17 @@
 <!-- google fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- template css -->
-<link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.css">
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.css">
 
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Tempusdominus Bootstrap 4 -->
-<link rel="stylesheet" href="/creditpluswebapp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- iCheck -->
-<link rel="stylesheet" href="/creditpluswebapp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
-<link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
+<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<!-- SunShine Financial Services Custom Theme -->
+<link rel="stylesheet" href="../../dist/css/sunshine-theme.css">
 
 <?php
 /**
@@ -39,18 +41,18 @@ $script_name =  trim(strtolower($_SERVER['SCRIPT_NAME']));
 
 $batches = array(
     'tablePageScripts' => [
-        '/creditpluswebapp/views/users/index.php',
-        '/creditpluswebapp/views/roles/index.php',
-        '/creditpluswebapp/views/stage/index.php',
-        '/creditpluswebapp/views/stage/activeStages.php',
-        '/creditpluswebapp/views/fuelstation/index.php',
-        '/creditpluswebapp/views/bodauser/index.php',
-        '/creditpluswebapp/views/packages/index.php',
-		'/creditpluswebapp/views/deposits/index.php',
-		'/creditpluswebapp/views/payments/index.php',
-		'/creditpluswebapp/views/territories/index.php',
-		'/creditpluswebapp/views/fuelagent/index.php',
-		'/creditpluswebapp/views/stage/territoryStages.php',
+        '/sunfuel/views/users/index.php',
+        '/sunfuel/views/roles/index.php',
+        '/sunfuel/views/stage/index.php',
+        '/sunfuel/views/stage/activeStages.php',
+        '/sunfuel/views/fuelstation/index.php',
+        '/sunfuel/views/bodauser/index.php',
+        '/sunfuel/views/packages/index.php',
+		'/sunfuel/views/deposits/index.php',
+		'/sunfuel/views/payments/index.php',
+		'/sunfuel/views/territories/index.php',
+		'/sunfuel/views/fuelagent/index.php',
+		'/sunfuel/views/stage/territoryStages.php',
 
 
 
@@ -61,8 +63,8 @@ $batches = array(
 
     ],
     'formPageScripts' => [
-		'/creditpluswebapp/views/territories/create.php',
-		'/creditpluswebapp/views/territories/edit.php',
+		'/sunfuel/views/territories/create.php',
+		'/sunfuel/views/territories/edit.php',
 
 	
 	],
@@ -74,9 +76,9 @@ if (in_array($script_name, $batches['tablePageScripts'])) {
 ?>
 
     <!-- DataTables -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 <?php
 }
@@ -92,15 +94,15 @@ if (in_array($script_name, $batches['formPageScripts'])) {
 ?>
 
  <!-- load form supporting css and links -->
- <link rel="stylesheet" href=" /creditpluswebapp/plugins/select2/css/select2.css">
+ <link rel="stylesheet" href=" /sunfuel/plugins/select2/css/select2.css">
 
-<link rel="stylesheet" href=" /creditpluswebapp/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+<link rel="stylesheet" href=" /sunfuel/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
 
 
 <?php
 }
 
-if($script_name == "/creditpluswebapp/views/dashboard/index.php"){
+if($script_name == "/sunfuel/views/dashboard/index.php"){
 
 ?>
 <style>

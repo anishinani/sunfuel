@@ -11,12 +11,12 @@ $dbAccess =  new DbAccess();
 //var_dump($response);
 //die("we are done");
 $YoApi =  new YoAPI($yo->getUserName(), $yo->getPassword());
-// $localLink = "localhost/creditpluswebapp/views/payments/finished.php";
+// $localLink = "localhost/sunfuel/views/payments/finished.php";
 $sucessRedirectLink = "
 ";
 
-// $localLinkFailure = "localhost/creditpluswebapp/views/packages/failed.php";
-$failureRedirectLink = "http://appdev.creditplus.ug/creditpluswebapp/views/payments/failed.php";
+// $localLinkFailure = "localhost/sunfuel/views/packages/failed.php";
+$failureRedirectLink = "http://appdev.creditplus.ug/sunfuel/views/payments/failed.php";
 //$sucessRedirectLink = "";
 $failureRedirectLink = "";
 

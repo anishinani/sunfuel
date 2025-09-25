@@ -13,7 +13,7 @@ if(isset($_SESSION['user'])) header('Location:views/dashboard/index.php');
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Credit Plus</title>
+	<title>Sunfuel</title>
 
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,7 +30,7 @@ if(isset($_SESSION['user'])) header('Location:views/dashboard/index.php');
 		<!-- /.login-logo -->
 		<div class="card card-outline card-primary">
 			<div class="card-header text-center">
-				<a href="#" class="h1"><b>CREDIT </b>PLUS</a>
+				<a href="#" class="h1"><b>SUN</b>FUEL</a>
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">Sign in to start your session</p>

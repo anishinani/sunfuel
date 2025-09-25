@@ -1,0 +1,251 @@
+/* SunShine Financial Services Custom Theme */
+/* Orange and Black Color Scheme */
+
+:root {
+    --sunshine-orange: #FF6B35;
+    --sunshine-orange-dark: #E55A2B;
+    --sunshine-orange-light: #FF8A5B;
+    --sunshine-black: #2C2C2C;
+    --sunshine-gray: #F8F9FA;
+    --sunshine-white: #FFFFFF;
+}
+
+/* Sidebar Theme */
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover {
+    background-color: var(--sunshine-orange) !important;
+    color: var(--sunshine-white) !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link {
+    color: var(--sunshine-gray) !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover {
+    background-color: var(--sunshine-orange-light) !important;
+}
+
+/* Brand Link */
+.brand-link {
+    background-color: var(--sunshine-orange) !important;
+    border-bottom: 1px solid var(--sunshine-orange-dark) !important;
+}
+
+.brand-text {
+    color: var(--sunshine-white) !important;
+    font-weight: 600 !important;
+}
+
+/* Main Header */
+.main-header {
+    background-color: var(--sunshine-orange) !important;
+    border-bottom: 1px solid var(--sunshine-orange-dark) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--sunshine-white) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: var(--sunshine-orange-dark) !important;
+}
+
+/* Info Boxes - Update colors to match theme */
+.info-box-icon.bg-info {
+    background-color: var(--sunshine-orange) !important;
+}
+
+.info-box-icon.bg-success {
+    background-color: #28a745 !important; /* Keep green for positive metrics */
+}
+
+.info-box-icon.bg-danger {
+    background-color: var(--sunshine-black) !important;
+}
+
+.info-box-icon.bg-warning {
+    background-color: var(--sunshine-orange-light) !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--sunshine-orange) !important;
+    border-color: var(--sunshine-orange) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--sunshine-orange-dark) !important;
+    border-color: var(--sunshine-orange-dark) !important;
+}
+
+.btn-outline-primary {
+    color: var(--sunshine-orange) !important;
+    border-color: var(--sunshine-orange) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--sunshine-orange) !important;
+    border-color: var(--sunshine-orange) !important;
+}
+
+/* Cards */
+.card-primary .card-header {
+    background-color: var(--sunshine-orange) !important;
+    border-bottom: 1px solid var(--sunshine-orange-dark) !important;
+}
+
+/* Navigation Breadcrumbs */
+.breadcrumb {
+    background-color: var(--sunshine-gray) !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--sunshine-orange) !important;
+}
+
+/* Form Controls */
+.form-control:focus {
+    border-color: var(--sunshine-orange) !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25) !important;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    border: 1px solid var(--sunshine-orange-light) !important;
+}
+
+.dropdown-item:hover {
+    background-color: var(--sunshine-orange-light) !important;
+    color: var(--sunshine-white) !important;
+}
+
+/* Progress Bars */
+.progress-bar {
+    background-color: var(--sunshine-orange) !important;
+}
+
+/* Tables */
+.table-primary {
+    background-color: var(--sunshine-orange-light) !important;
+}
+
+.table-primary th {
+    background-color: var(--sunshine-orange) !important;
+    color: var(--sunshine-white) !important;
+}
+
+/* Alerts */
+.alert-primary {
+    background-color: var(--sunshine-orange-light) !important;
+    border-color: var(--sunshine-orange) !important;
+    color: var(--sunshine-black) !important;
+}
+
+/* Sidebar User Panel */
+.user-panel .info a {
+    color: var(--sunshine-white) !important;
+}
+
+/* Sidebar Navigation Tree */
+.nav-sidebar .nav-treeview > .nav-item > .nav-link {
+    color: var(--sunshine-gray) !important;
+}
+
+.nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
+    background-color: var(--sunshine-orange-light) !important;
+    color: var(--sunshine-white) !important;
+}
+
+/* Logo Styling */
+.brand-image {
+    border: 2px solid var(--sunshine-white) !important;
+}
+
+/* Dashboard Cards */
+.card {
+    border: 1px solid #dee2e6 !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(255, 107, 53, 0.15) !important;
+    border-color: var(--sunshine-orange-light) !important;
+}
+
+/* Custom SunShine accent colors for specific elements */
+.text-sunshine {
+    color: var(--sunshine-orange) !important;
+}
+
+.bg-sunshine {
+    background-color: var(--sunshine-orange) !important;
+}
+
+.border-sunshine {
+    border-color: var(--sunshine-orange) !important;
+}
+
+/* Dashboard specific styling */
+.dashboard-card {
+    transition: all 0.3s ease !important;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(255, 107, 53, 0.2) !important;
+}
+
+/* Info box hover effects */
+.info-box {
+    transition: all 0.3s ease !important;
+}
+
+.info-box:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(255, 107, 53, 0.15) !important;
+}
+
+/* Sidebar brand link hover effect */
+.brand-link:hover {
+    background-color: var(--sunshine-orange-dark) !important;
+}
+
+/* Navigation active states */
+.nav-sidebar > .nav-item > .nav-link.active {
+    background-color: var(--sunshine-orange) !important;
+    color: var(--sunshine-white) !important;
+    border-left: 3px solid var(--sunshine-white) !important;
+}
+
+/* Chart containers */
+.chart {
+    background: linear-gradient(135deg, var(--sunshine-gray) 0%, var(--sunshine-white) 100%) !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+}
+
+/* Page headers */
+.page-header {
+    border-bottom: 2px solid var(--sunshine-orange) !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 20px !important;
+}
+
+/* Custom button styles */
+.btn-sunshine {
+    background-color: var(--sunshine-orange) !important;
+    border-color: var(--sunshine-orange) !important;
+    color: var(--sunshine-white) !important;
+}
+
+.btn-sunshine:hover {
+    background-color: var(--sunshine-orange-dark) !important;
+    border-color: var(--sunshine-orange-dark) !important;
+    color: var(--sunshine-white) !important;
+}
+
+/* Loading states */
+.loading-sunshine {
+    border-color: var(--sunshine-orange) !important;
+    border-top-color: transparent !important;
+}

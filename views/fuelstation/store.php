@@ -1,7 +1,7 @@
 <?php
 include_once '../../utils/session.php';
 
-if (!can('create-fuelstation')){
+if (!can('create-fuelstations')){
      $_SESSION['warning'] = "UnAuthorized Operation";  
       header('Location:index.php');
        die;

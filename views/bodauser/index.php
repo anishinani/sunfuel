@@ -114,12 +114,13 @@ include_once '../templates/footer.php';
             'ajax': {
                 'url': './serverside.php',
                 'type': 'post',
+                'cache': false,
             },
             "columnDefs": [{
                 'target': [5],
                 'orderable': false,
             }]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
     });
 </script>
 

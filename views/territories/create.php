@@ -78,7 +78,7 @@ include_once '../templates/footer.php';
  * custom page javascript
  * **/
 ?>
-<script src=" /creditpluswebapp/plugins/select2/js/select2.min.js"></script>
+<script src=" /sunfuel/plugins/select2/js/select2.min.js"></script>
 <script type="text/javascript">
     $(function() {
         $("#select-districts").select2();

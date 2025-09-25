@@ -15,13 +15,13 @@ $_SESSION['bool'] =  true;
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/fontawesome-free/css/all.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/sunfuel/dist/css/adminlte.min.css">
 
     <style>
         .style_button {
@@ -175,27 +175,27 @@ $_SESSION['bool'] =  true;
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
+    <script src="/sunfuel/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
 
-    <script src="/creditpluswebapp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/sunfuel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables  & Plugins -->
-    <script src="/creditpluswebapp/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="/creditpluswebapp/plugins/jszip/jszip.min.js"></script>
-    <script src="/creditpluswebapp/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="/creditpluswebapp/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="/sunfuel/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/sunfuel/plugins/jszip/jszip.min.js"></script>
+    <script src="/sunfuel/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/sunfuel/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/creditpluswebapp/dist/js/adminlte.min.js"></script>
+    <script src="/sunfuel/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="/creditpluswebapp/dist/js/demo.js"></script>
+    <script src="/sunfuel/dist/js/demo.js"></script>
 
     <!--hide alert--->
     <script type="text/javascript">

@@ -1,8 +1,12 @@
 <?php
-session_start();
-include("../../utils/dbaccess.php");
-$dbAccess =  new DbAccess();
-$con = $dbAccess->getConnection();
+// Start output buffering to prevent any output before JSON
+ob_start();
+
+try {
+    session_start();
+    include("../../utils/dbaccess.php");
+    $dbAccess = new DbAccess();
+    $con = $dbAccess->getConnection();
 
 $output = array();
 $sql = "SELECT * FROM fuelstation ";
@@ -21,10 +25,8 @@ $total_all_rows = mysqli_num_rows($totalQuery);
 if (isset($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
     $sql .= " WHERE fuelStationName like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationContactPhone like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationContactPerson like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationAddress like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationStatus like '%" . $search_value . "%'";
+    $sql .= " OR fuelStationLocation like '%" . $search_value . "%'";
+    $sql .= " OR merchantCode like '%" . $search_value . "%'";
 }
 
 if (isset($_POST['order'])) {
@@ -48,28 +50,28 @@ function showActions($id)
 
 
 
-    if (in_array("view-fuelstations", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("view-fuelstations", $_SESSION['permissions'])) {
         $output .= '<form method="POST" action="./fuelstationdetails.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-primary btn-sm deleteBtn" name="details">Station</button>
       </form>';
     }
-    if (in_array("edit-fuelstation", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("edit-fuelstation", $_SESSION['permissions'])) {
         $output .= '     <form action="edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
    
         </form>';
     }
-    if (in_array("delete-fuelstations", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("delete-fuelstations", $_SESSION['permissions'])) {
         $output .= '     <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
       class="btn btn-danger btn-sm deleteBtn" >Delete</button>
       </form>';
     }
-    if (in_array("edit-fuelstation", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("edit-fuelstation", $_SESSION['permissions'])) {
         $output .= '     <form action="contactpersondetails.php?id="' . $id . '"" method="get">
         <button type="submit" name="showPerson"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Details</button>
@@ -116,4 +118,13 @@ $output = array(
     'recordsFiltered' =>   $total_all_rows,
     'data' => $data,
 );
-echo  json_encode($output);
+// Clean any output buffer and send JSON
+ob_clean();
+header('Content-Type: application/json');
+echo json_encode($output);
+} catch (\Throwable $th) {
+    // Clean output buffer and send error JSON
+    ob_clean();
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Server error: ' . $th->getMessage()]);
+}

@@ -6,20 +6,18 @@ class Stage extends DbAccess
     public function store($array)
     {
         $name = $array['name'];
-        $id = $array["fuelStationId"];
+        $fuelStationId = $array["fuelStationId"];
+        $territoryId = $array["territoryId"];
+        $location = $array["location"] ?? '';
 
         return $this->insert(
             "stage",
             [
                 'stageName' => strtoupper($name),
-                'fuelStationId' => $id,
-                'stageStatus' => '0',
-                'districtCode' => $_POST['district'],
-                'countyCode' => $_POST['county'],
-                'subCountyCode' => $_POST['subcounty'],
-                'parishCode' => $_POST['parish'],
-                'villageCode' => $_POST['village']
-
+                'stageLocation' => $location,
+                'fuelStationId' => $fuelStationId,
+                'territoryId' => $territoryId,
+                'stageStatus' => '1' // Active by default
             ]
         );
     }

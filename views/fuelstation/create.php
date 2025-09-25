@@ -10,12 +10,12 @@ include_once '../templates/SecurePageHeader.php';
  * */
 include_once '../templates/Components.php';
 
-if (!can('create-fuelstation')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
+if (!can('create-fuelstations')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
 
 startContent();
 
 // code here
-$districts  =  $dbAccess->select("districts");
+$districts  =  $dbAccess->select("territory_districts");
 
 $stage  =  $dbAccess->select("stage", ["stageId", "stageName"]);
 
@@ -40,7 +40,7 @@ breadCrumbs(['title' => 'Create Fuel Station', 'sub_title' => 'Create Fuel Stati
                             <?php
                             for ($i = 0; $i < count($districts); $i++) {
                             ?>
-                                <option value="<?= $districts[$i]["districtCode"] ?>">
+                                <option value="<?= $districts[$i]["id"] ?>">
                                     <?= $districts[$i]["districtName"] ?></option>
 
                             <?php } ?>
@@ -89,6 +89,13 @@ breadCrumbs(['title' => 'Create Fuel Station', 'sub_title' => 'Create Fuel Stati
                         <input type="text" name="name" required class="form-control" placeholder="enter station name" />
 
                     </div>
+                    <!--merchant code-->
+                    <div class="form-group mb-3">
+                        <label for="">Merchant Code</label>
+                        <input type="text" name="merchantCode" id="merchantCode" readonly class="form-control" placeholder="Auto-generated" />
+                        <small class="text-muted">Merchant code will be auto-generated</small>
+                    </div>
+                    <!--merchant code-->
                     <!--address-->
                     <div class="form-group mb-3">
                         <label for="">Station Address</label>
@@ -186,9 +193,31 @@ include_once '../templates/footer.php';
 ?>
 
 <script>
+    // Function to generate merchant code
+    function generateMerchantCode() {
+        $.ajax({
+            url: "./generate_merchant_code.php",
+            method: "POST",
+            dataType: "json",
+            success: function(data) {
+                if (data.success) {
+                    $("#merchantCode").val(data.merchantCode);
+                } else {
+                    console.error("Failed to generate merchant code");
+                }
+            },
+            error: function() {
+                console.error("Error generating merchant code");
+            }
+        });
+    }
+    
     //alert("here")
     $(document).ready(function() {
         //alert("here");
+        
+        // Generate merchant code
+        generateMerchantCode();
 
         $("#districts").change(function() {
             let district = $("#districts").val();

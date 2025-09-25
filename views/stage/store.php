@@ -2,7 +2,7 @@
 
 require_once '../../utils/session.php';
 
-if (!can('create-stages')){
+if (!can('create-stage')){
     $_SESSION['warning'] = "UnAuthorized Operation";  
      header('Location:index.php');
       die;

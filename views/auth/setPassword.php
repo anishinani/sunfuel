@@ -13,10 +13,10 @@ if (isset($_GET['token'])) {
         $id =  $token["adminId"];
         //die($useremail);
     } else {
-        header("Location:/creditpluswebapp/index.php");
+        header("Location:/sunfuel/index.php");
     }
 } else {
-    header("Location:/creditpluswebapp/index.php");
+    header("Location:/sunfuel/index.php");
 }
 
 
@@ -32,11 +32,11 @@ if (isset($_GET['token'])) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="/creditpluswebapp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/sunfuel/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/creditpluswebapp/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/sunfuel/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -109,11 +109,11 @@ if (isset($_GET['token'])) {
     <!-- /.login-box -->
 
     <!-- jQuery -->
-    <script src="/creditpluswebapp/plugins/jquery/jquery.min.js"></script>
+    <script src="/sunfuel/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="/creditpluswebapp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/sunfuel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/creditpluswebapp/dist/js/adminlte.min.js"></script>
+    <script src="/sunfuel/dist/js/adminlte.min.js"></script>
     <script type="text/javascript">
         $(function() {
             $('#here').click(function() {

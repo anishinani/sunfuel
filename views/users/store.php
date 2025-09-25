@@ -59,8 +59,8 @@ if (isset($_POST['addUser'])) {
         unset($_SESSION['errors']);
         if ($user->store($_POST, $hashedPass)) {
             $email =  $_POST['email'];
-            $localLink = "localhost/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
-            $serverLink = "https://boda.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
+            $localLink = "localhost/sunfuel/views/auth/setPassword.php?token=$hashedPass";
+            $serverLink = "https://boda.creditplus.ug/sunfuel/views/auth/setPassword.php?token=$hashedPass";
             $linkToSend = "";
             $ip_address = $_SERVER['REMOTE_ADDR'];
 

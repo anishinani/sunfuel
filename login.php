@@ -57,7 +57,7 @@ if (isset($_POST['login'])) {
 
 			$_SESSION['success'] = 'Welcome Back ! '.$auth['name'];
 
-			header('location:views/dashboard/');
+			header('location:views/dashboard/index.php');
 		}
 	}
 }

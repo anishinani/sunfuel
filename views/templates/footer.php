@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <strong>Copyright &copy; <?php echo date("Y"); ?>
-        <a target="_blank" href="#">Credit Plus</a>
+        <a target="_blank" href="#">SunShine Financial Services</a>
     </strong>
     All rights reserved.
     <strong>

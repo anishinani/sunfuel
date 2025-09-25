@@ -97,7 +97,7 @@ breadCrumbs(['title' => 'Add Fuel Agent', 'sub_title' => 'Add Fuel Agent', 'prev
                     <div class="col-12">
 
                         <button type="submit" class="style_button" name="addAgent">Register Agent</button>
-                        <!-- <img src="/creditpluswebapp/dist/img/loader.gif" width="80px" height="80px" /> -->
+                        <!-- <img src="/sunfuel/dist/img/loader.gif" width="80px" height="80px" /> -->
                     </div>
                     <!-- /.col -->
             </div>

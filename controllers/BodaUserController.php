@@ -56,11 +56,29 @@ class BodaUser extends DbAccess
                         'fuelStationId' => $fuel,
                         'stageId' => $stage,
                         "bodaUserStatus" => "0"
-
-
                     ]
                 );
+            } else {
+                return false; // Stage update failed
             }
+        } else {
+            // Handle BodaUser role
+            return $this->insert(
+                "bodauser",
+                [
+                    'bodaUserName' => strtoupper($name),
+                    'bodaUserNIN' =>  strtoupper($nin),
+                    'bodaUserBodaNumber' => strtoupper($bodaNumber),
+                    'bodaUserPhoneNumber' => $phone,
+                    "bodaUserBackPhoto" => $back,
+                    "bodaUserFrontPhoto" => $front,
+                    "bodaUserRole" => strtoupper($array['role']),
+                    "alternativePhotoNumber" => $array['anotherNumber'],
+                    'fuelStationId' => $fuel,
+                    'stageId' => $stage,
+                    "bodaUserStatus" => "0"
+                ]
+            );
         }
 
 

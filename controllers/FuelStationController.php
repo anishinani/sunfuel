@@ -13,15 +13,8 @@ class FuelStation extends DbAccess
         $address = $array['address'];
         $person = $array['person'];
 
-        //generate merchant code
-        $lastId = $this->selectQuery("SELECT fuelStationId FROM fuelstation ORDER BY fuelStationId DESC LIMIT 1")[0]['fuelStationId'];
-
-
-        if ($lastId == NULL) {
-            $lastId = 1;
-        }
-        $merchantCode  = $_POST['district'] . $_POST['county'] . $_POST['subcounty'] . $_POST['parish'] . $_POST['village'] . $lastId;
-
+        //generate merchant code - 6 digit incremental
+        $merchantCode = $array['merchantCode'] ?? $this->generateMerchantCode();
 
         //generate merchant code
 
@@ -79,5 +72,23 @@ class FuelStation extends DbAccess
             ],
             ["fuelStationId" => $array['id']]
         );
+    }
+
+    /**
+     * Generate a 6-digit incremental merchant code
+     */
+    private function generateMerchantCode()
+    {
+        // Get the highest existing merchant code
+        $sql = "SELECT MAX(CAST(merchantCode AS UNSIGNED)) as maxCode FROM fuelstation WHERE merchantCode IS NOT NULL AND merchantCode REGEXP '^[0-9]+$'";
+        $result = $this->selectQuery($sql);
+        
+        $nextCode = 1;
+        if (!empty($result) && isset($result[0]['maxCode']) && $result[0]['maxCode'] !== null) {
+            $nextCode = $result[0]['maxCode'] + 1;
+        }
+        
+        // Ensure the code is at least 6 digits
+        return str_pad($nextCode, 6, '0', STR_PAD_LEFT);
     }
 }

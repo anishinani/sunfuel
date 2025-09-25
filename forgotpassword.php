@@ -81,7 +81,7 @@ session_start();
 
             ?>
             </p>
-            <form action="/creditpluswebapp/views/auth/requestnewpassword.php" method="post">
+            <form action="/sunfuel/views/auth/requestnewpassword.php" method="post">
                 <div class="input-group mb-3">
                     <input type="email" class="form-control" placeholder="Email" name="email" required>
                     <div class="input-group-append">

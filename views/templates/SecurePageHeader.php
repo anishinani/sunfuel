@@ -9,7 +9,7 @@ require_once '../../utils/session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CreditPlus Fuel System </title>
+    <title>SunShine Financial Services </title>
     <?php 
         // load relevant style in an optimal manner
         include_once '../templates/optimized_styles.php';

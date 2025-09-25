@@ -9,7 +9,7 @@ class DbAccess
     private $password = '';
 
     //private $password = '!Log10tan10';
-    private $database = 'bodacredit';
+    private $database = 'sunfuel';
 
 
 
@@ -18,13 +18,8 @@ class DbAccess
     {
         $ip_address = $_SERVER['REMOTE_ADDR'];
         
-        if ($ip_address == '::1') {
-
-            $this->password = "!Log19tan88";
-        } else {
-
-            $this->password = '!Log19tan88';
-        }
+        // XAMPP configuration with your MySQL password
+        $this->password = '!Log19tan88';
 
         // Create connection
         //$this->conn = new mysqli($servername, $username, $password);

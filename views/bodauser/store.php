@@ -37,13 +37,13 @@ if (isset($_POST['name'])) {
     $photoOne =  time() . str_replace(" ", "_", $backPhoto);
     $photoTwo =  time() . str_replace(" ", "_", $frontPhoto);
 
-    if (move_uploaded_file($tempBackPhoto, "images/" . $photoOne)) {
-        if (move_uploaded_file($tempFrontPhoto, "images/" . $photoTwo)) {
-        }
-    } else {
-        //die("Failed to move image");
-        $_SESSION['success'] = "Wrong image format not supported";
-        header("Location:index.php");
+    $backUploadSuccess = move_uploaded_file($tempBackPhoto, "images/" . $photoOne);
+    $frontUploadSuccess = move_uploaded_file($tempFrontPhoto, "images/" . $photoTwo);
+    
+    if (!$backUploadSuccess || !$frontUploadSuccess) {
+        $_SESSION['error'] = "Failed to upload images. Please check file permissions and try again.";
+        header("Location:create.php");
+        exit();
     }
 
 
@@ -81,25 +81,22 @@ if (isset($_POST['name'])) {
     //check session array
     else {
         unset($_SESSION['errors']);
-        if ($bodauser->store($_POST, $photoTwo, $photoOne)) {
-            
+        $result = $bodauser->store($_POST, $photoTwo, $photoOne);
+        
+        if ($result) {
             $activity->logActivity(
                 $_SESSION['user'],
                 "Registered Boda user",
-                "boda user registered in sucessfully",
+                "boda user registered successfully",
                 $_SESSION['email'],
                 $_SESSION['gender']
             );
 
-            //redirect
             $_SESSION['success'] = "Boda User Added Successfully";
-            //header("Location:index.php");
             echo "success";
-            //redirect
         } else {
-            //die("Oops there was an error");
-            $_SESSION['success'] = "Something went wrong !! Please try again";
-            header("Location:index.php");
+            $_SESSION['error'] = "Failed to create boda user. Please check all required fields and try again.";
+            echo "error";
         }
     }
 } else {

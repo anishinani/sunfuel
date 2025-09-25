@@ -24,7 +24,6 @@ if (isset($_POST['search']['value']) and strlen($_POST['search']['value'])>0) {
     $sql .= " OR bodaUserName like '%" . $search_value . "%'";
     $sql .= " OR bodaUserPhoneNumber like '%" . $search_value . "%'";
     $sql .= " OR bodaUserBodaNumber like '%" . $search_value . "%'";
-    $sql .= " OR bodaUserPin like '%" . $search_value . "%'";
     $sql .= " OR fuelStationName like '%" . $search_value . "%'";
     $sql .= " OR stageName like '%" . $search_value . "%'";
     $sql .= " OR alternativePhotoNumber like '%" . $search_value . "%'";
@@ -53,14 +52,14 @@ function showActions($id)
 {
     $output = '';
     if (in_array("view-bodausers", $_SESSION['permissions'])) {
-        $output .= ' <form action="/creditpluswebapp/views/bodauser/bodauserdetails.php?id="' . $id . '"" method="get">
+        $output .= ' <form action="/sunfuel/views/bodauser/bodauserdetails.php?id="' . $id . '"" method="get">
         <button type="submit"   value="' . $id . '"
         class="btn btn-info btn-sm editbtn" name="bodadetails">show</button>
 
         </form>';
     }
     if (in_array("edit-bodauser", $_SESSION['permissions'])) {
-        $output .= ' <form action="/creditpluswebapp/views/bodauser/edit.php?id="' . $id . '"" method="get">
+        $output .= ' <form action="/sunfuel/views/bodauser/edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
 
@@ -99,12 +98,12 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = $row['fuelStationName'];
     $sub_array[] = $row['stageName'];
     $sub_array[] = $row['bodaUserStatus'] == 0 ? '
-    <form action="/creditpluswebapp/views/bodauser/activateBoda.php" method="post">
+    <form action="/sunfuel/views/bodauser/activateBoda.php" method="post">
     <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
     <input type="hidden" name="stageId" value="' . $row['stageId'] . '"/>
     <button type="submit" name="activate"  
     class="btn btn-info btn-sm editbtn" >Activate</button></form>
-    ' : '    <form action="/creditpluswebapp/views/bodauser/deactivateBoda.php" method="post">
+    ' : '    <form action="/sunfuel/views/bodauser/deactivateBoda.php" method="post">
     <input type="hidden" name="id" value="' . $row['bodaUserId'] . '"/>
     <button type="submit" name="deactivate" 
     class="btn btn-danger btn-sm editbtn" >DeActivate</button></form>

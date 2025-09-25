@@ -111,18 +111,18 @@ include_once '../templates/footer.php';
  * custom page javascript
  * **/
 ?>
-<script src="/creditpluswebapp/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="/creditpluswebapp/plugins/jszip/jszip.min.js"></script>
-<script src="/creditpluswebapp/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="/creditpluswebapp/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="/creditpluswebapp/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="/sunfuel/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/sunfuel/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/sunfuel/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/sunfuel/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/sunfuel/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/sunfuel/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/sunfuel/plugins/jszip/jszip.min.js"></script>
+<script src="/sunfuel/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/sunfuel/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/sunfuel/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/sunfuel/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/sunfuel/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
     $(function() {

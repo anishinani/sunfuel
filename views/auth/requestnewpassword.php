@@ -21,7 +21,7 @@ if (isset($_POST['request'])) {
 
     if ($validatedEmail == NULL) {
         $_SESSION['requestPasswordError'] = "wrong email format";
-        header("Location:/creditpluswebapp/forgotpassword.php");
+        header("Location:/sunfuel/forgotpassword.php");
     } else {
         //check if email exists
         $emailExists = $dbAccess->select("users", ["email", "adminId", "name", "gender"], ["email" => $validatedEmail]);
@@ -34,8 +34,8 @@ if (isset($_POST['request'])) {
             // die($updated);
             //update
 
-            $localLink = "localhost/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
-            $serverLink = "http://app.creditplus.ug/creditpluswebapp/views/auth/setPassword.php?token=$hashedPass";
+            $localLink = "localhost/sunfuel/views/auth/setPassword.php?token=$hashedPass";
+            $serverLink = "http://app.creditplus.ug/sunfuel/views/auth/setPassword.php?token=$hashedPass";
             $linkToSend = "";
             $ip_address = $_SERVER['REMOTE_ADDR'];
 
@@ -58,12 +58,12 @@ if (isset($_POST['request'])) {
                 $emailExists[0]['gender']
             );
             $_SESSION['requestPasswordSuccess'] = "A recovery password link has been sent to your email";
-            header("Location:/creditpluswebapp/forgotpassword.php");
+            header("Location:/sunfuel/forgotpassword.php");
         } else {
             $_SESSION['requestPasswordError'] = "Email doesnot exist";
-            header("Location:/creditpluswebapp/forgotpassword.php");
+            header("Location:/sunfuel/forgotpassword.php");
         }
     }
 } else {
-    header("Location:/creditpluswebapp/index.php");
+    header("Location:/sunfuel/index.php");
 }

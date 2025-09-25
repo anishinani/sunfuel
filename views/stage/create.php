@@ -13,9 +13,10 @@ include_once '../templates/Components.php';
 startContent();
 
 // code here
-$districts  =  $dbAccess->select("districts");
+if (!can('create-stage')) echo '<script>window.open("../Errors/unAuthorized.php" , "_self")</script>';
 
-$results  =  $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
+$territories = $dbAccess->select("territories", ["territoryId", "territoryName"]);
+$results = $dbAccess->select("fuelstation", ["fuelStationId", "fuelStationName"]);
 
 breadCrumbs(['title' => 'Create Stage', 'sub_title' => 'Create Stages', 'previous' => 'Stages', 'previous_action' => './index.php']);
 
@@ -31,77 +32,45 @@ breadCrumbs(['title' => 'Create Stage', 'sub_title' => 'Create Stages', 'previou
                 <p class="login-box-msg">Register a new stage</p>
                 <form method="POST" id="form">
 
-                    <!--district-->
-                    <div class="form-group">
-                        <label for="my-select">Station District</label>
-                        <select id="districts" class="form-control" name="district">
-                            <option selected disabled>select district</option>
-                            <?php
-                            for ($i = 0; $i < count($districts); $i++) {
-                            ?>
-                                <option value="<?= $districts[$i]["districtCode"] ?>">
-                                    <?= $districts[$i]["districtName"] ?></option>
-
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <!--district-->
-
-                    <!--count-->
-                    <div class="form-group">
-                        <label for="my-select">Station County</label>
-                        <select id="county" class="form-control" disabled name="county">
-                            <option disabled selected>select county</option>
-
-                        </select>
-                    </div>
-                    <!--count-->
-                    <!--subcounty-->
-                    <div class="form-group">
-                        <label for="subcounty">Station Subcounty</label>
-                        <select id="subcounty" class="form-control" disabled name="subcounty">
-                            <option>select sub county</option>
-
-                        </select>
-                    </div>
-                    <!--subcounty-->
-                    <!--parish-->
-                    <div class="form-group">
-                        <label for="my-select">Station Parish</label>
-                        <select id="parish" class="form-control" disabled name="parish">
-                            <option selected disabled>select parish</option>
-
-                        </select>
-                    </div>
-                    <!--parish-->
-                    <!--village-->
-                    <div class="form-group">
-                        <label for="my-select">Station Village</label>
-                        <select id="village" class="form-control" disabled name="village">
-                            <option selected disabled>select village</option>
-
-                        </select>
-                    </div>
-                    <!--village-->
-
                     <div class="form-group mb-3">
                         <label for="">Stage Name</label>
                         <input type="text" name="name" required class="form-control" placeholder="enter stage name" />
-
                     </div>
-                    <!--fuel station-->
-
 
                     <div class="form-group mb-3">
-                        <div class="form-group">
-                            <label for="my-select">Fuel Station</label>
-                            <select id="fuelStationId" class="form-control" name="fuelStationId" disabled>
-                                <option disabled selected>select station</option>
-
-                            </select>
-                        </div>
-
+                        <label for="">Stage Location</label>
+                        <input type="text" name="location" class="form-control" placeholder="enter stage location (optional)" />
                     </div>
+
+                    <!--territory-->
+                    <div class="form-group mb-3">
+                        <label for="territoryId">Territory</label>
+                        <select id="territoryId" class="form-control" name="territoryId" required>
+                            <option disabled selected>select territory</option>
+                            <?php
+                            for ($i = 0; $i < count($territories); $i++) {
+                            ?>
+                                <option value="<?= $territories[$i]["territoryId"] ?>">
+                                    <?= $territories[$i]["territoryName"] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <!--territory-->
+
+                    <!--fuel station-->
+                    <div class="form-group mb-3">
+                        <label for="fuelStationId">Fuel Station</label>
+                        <select id="fuelStationId" class="form-control" name="fuelStationId" required>
+                            <option disabled selected>select fuel station</option>
+                            <?php
+                            for ($i = 0; $i < count($results); $i++) {
+                            ?>
+                                <option value="<?= $results[$i]["fuelStationId"] ?>">
+                                    <?= $results[$i]["fuelStationName"] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <!--fuel station-->
 
                     <!-- /.col -->
                     <div class="col-12">
@@ -133,174 +102,20 @@ include_once '../templates/footer.php';
  * **/
 ?>
 <script>
-    //alert("here")
     $(document).ready(function() {
-        //alert("here");
-
-        $("#districts").change(function() {
-            let district = $("#districts").val();
-            //alert(district);
-            //alert("changed")
-            $.ajax({
-                url: "./fetchcounties.php",
-                method: "post",
-
-                data: {
-                    district: district,
-                    action: "fetch"
-                },
-                dataType: "json",
-                beforeSend: function() {
-                    $("#county").html('<option disabled selected>select county</option>');
-                },
-                success: function(data) {
-                    $("#county").attr('disabled', false);
-                    $("#village").attr('disabled', true);
-                    $("#subcounty").attr('disabled', true);
-                    $("#parish").attr('disabled', true);
-
-                    $.each(data, function(key, value) {
-                        $("#county").append('<option value=' + value.countyCode + '>' + value.countyName + '</option>');
-                    });
-                }
-
-            })
-        })
-    })
-</script>
-
-<script>
-    $(document).ready(function() {
-        $("#county").change(function() {
-            //let subcounty = $("#county").val();
-            //alert(subcounty);
-
-            let subcounty = $("#county").val();
-            let district = $("#districts").val();
-            $.ajax({
-                url: "fetchsubcounties.php",
-                method: 'post',
-                dataType: "json",
-                data: {
-                    action: "fetch",
-                    subcounty: subcounty,
-                    district: district
-                },
-                beforeSend: function() {
-                    $("#subcounty").html('<option disabled selected>select sub county</option>');
-                    // $("#fuelStationId").html('<option disabled selected>select fuel station</option>');
-                },
-                success: function(data) {
-                    $("#subcounty").attr('disabled', false);
-
-
-                    $.each(data, function(key, value) {
-                        $("#subcounty").append('<option value=' + value.subCountyCode + '>' + value.subCountyName + '</option>');
-                    });
-
-                    //fetch stations
-                    $.ajax({
-                        url: "fetchstation.php",
-                        method: 'post',
-                        dataType: "json",
-                        data: {
-                            action: "fetch",
-                            subcounty: subcounty
-                        },
-                        beforeSend: function() {
-
-                            $("#fuelStationId").html('<option disabled selected>select fuel station</option>');
-
-                        },
-                        success: function(data) {
-                            $("#fuelStationId").attr('disabled', false);
-                            $.each(data, function(key, value) {
-                                $("#fuelStationId").append('<option value=' + value.fuelStationId + '>' + value.fuelStationName + '</option>');
-                            });
-                        }
-
-                    })
-                    //fetch stations
-                }
-
-            })
-
-        })
-    })
-</script>
-
-
-<script>
-    $(document).ready(function() {
-        $("#subcounty").change(function() {
-
-            let district = $("#districts").val();
-            let parish = $("#subcounty").val();
-            let county = $("#county").val();
-            //alert(parish);
-            $.ajax({
-                url: "fetchparishes.php",
-                method: 'post',
-                dataType: "json",
-                data: {
-                    action: "fetch",
-                    parish: parish,
-                    district: district,
-                    county: county
-                },
-                beforeSend: function() {
-                    $("#parish").html('<option disabled selected>select parish</option>');
-                },
-                success: function(data) {
-                    $("#parish").attr('disabled', false);
-                    $.each(data, function(key, value) {
-                        $("#parish").append('<option value=' + value.parishCode + '>' + value.parishName + '</option>');
-                    });
-                }
-
-            })
-
-        })
-    })
-</script>
-
-<script>
-    $(document).ready(function() {
-        $("#parish").change(function() {
-            let district = $("#districts").val();
-            let subcounty = $("#subcounty").val();
-            let county = $("#county").val();
-
-
-            let parish = $("#parish").val();
-
-
-            $.ajax({
-                url: "fetchvillages.php",
-                method: 'post',
-                dataType: "json",
-                data: {
-                    action: "fetch",
-                    parish: parish,
-                    district: district,
-                    subcounty: subcounty,
-                    county: county
-                },
-                beforeSend: function() {
-                    $("#village").html('<option disabled selected>select villages</option>');
-                },
-                success: function(data) {
-                    //salert(data);
-                    $("#village").attr('disabled', false);
-                    $.each(data, function(key, value) {
-                        $("#village").append('<option value=' + value.villageCode + '>' + value.villageName + '</option>');
-                    });
-                }
-
-            })
-
-        })
-    })
+        // Simple form validation
+        $('#form').on('submit', function(e) {
+            var stageName = $('input[name="name"]').val();
+            var territoryId = $('select[name="territoryId"]').val();
+            var fuelStationId = $('select[name="fuelStationId"]').val();
+            
+            if (!stageName || !territoryId || !fuelStationId) {
+                e.preventDefault();
+                alert('Please fill in all required fields');
+                return false;
+            }
+        });
+    });
 </script>
 <script>
     $('#form').on('submit', function(e) {

@@ -1,9 +1,12 @@
 <?php
+// Start output buffering to prevent any output before JSON
+ob_start();
+
 try {
     session_start();
-include("../../utils/dbaccess.php");
-$dbAccess =  new DbAccess();
-$con = $dbAccess->getConnection();
+    include("../../utils/dbaccess.php");
+    $dbAccess = new DbAccess();
+    $con = $dbAccess->getConnection();
 
 $output = array();
 $sql = "SELECT bodauser.*, fuelstation.fuelStationName, stage.stageName, stage.stageId  FROM bodauser 
@@ -13,6 +16,9 @@ INNER JOIN stage ON stage.stageId=bodauser.stageId";
 //die("here");
 
 $totalQuery = mysqli_query($con, $sql);
+if (!$totalQuery) {
+    die(json_encode(['error' => 'Total query failed: ' . mysqli_error($con)]));
+}
 $total_all_rows = mysqli_num_rows($totalQuery);
 
 if (isset($_POST['search']['value'])) {
@@ -20,7 +26,6 @@ if (isset($_POST['search']['value'])) {
     $sql .= " WHERE bodaUserName like '%" . $search_value . "%'";
     $sql .= " OR bodaUserPhoneNumber like '%" . $search_value . "%'";
     $sql .= " OR bodaUserBodaNumber like '%" . $search_value . "%'";
-    $sql .= " OR bodaUserPin like '%" . $search_value . "%'";
     $sql .= " OR fuelStationName like '%" . $search_value . "%'";
     $sql .= " OR stageName like '%" . $search_value . "%'";
     $sql .= " OR bodaUserRole like '%" . $search_value . "%'";
@@ -42,19 +47,22 @@ if ($_POST['length'] != -1) {
 }
 
 $query = mysqli_query($con, $sql);
+if (!$query) {
+    die(json_encode(['error' => 'Database query failed: ' . mysqli_error($con)]));
+}
 $count_rows = mysqli_num_rows($query);
 $data = array();
 function showActions($id)
 {
     $output = '';
     // if (in_array("view-bodausers", $_SESSION['permissions'])) {
-        $output .= ' <form action="bodauserdetails.php?id="' . $id . '"" method="get">
+        $output .= ' <form action="bodauserdetails.php?id=' . $id . '" method="get">
         <button type="submit"   value="' . $id . '"
         class="btn btn-info btn-sm editbtn" name="bodadetails">show</button>
         </form>';
     // }
     // if (in_array("edit-bodauser", $_SESSION['permissions'])) {
-        $output .= ' <form action="edit.php?id="' . $id . '"" method="get">
+        $output .= ' <form action="edit.php?id=' . $id . '" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
         </form>';
@@ -73,8 +81,18 @@ function showActions($id)
     return $styledOutPut;
 }
 function getUser($user_id, $dbAccess){
-    $names = $dbAccess->select("users", ["name"], ['adminId'=>$user_id])[0]['name'];
-    return $names;
+    if ($user_id == null || $user_id == '') {
+        return 'N/A';
+    }
+    try {
+        $result = $dbAccess->select("users", ["name"], ['adminId'=>$user_id]);
+        if (!empty($result) && isset($result[0]['name'])) {
+            return $result[0]['name'];
+        }
+        return 'N/A';
+    } catch (Exception $e) {
+        return 'N/A';
+    }
 }
 
 function showStatus($status)
@@ -128,10 +146,15 @@ $output = array(
     'recordsFiltered' =>   $total_all_rows,
     'data' => $data,
 );
-echo  json_encode($output);
+// Clean any output buffer and send JSON
+ob_clean();
+header('Content-Type: application/json');
+echo json_encode($output);
 } catch (\Throwable $th) {
-    //throw $th;
-    die($th->getMessage());
+    // Clean output buffer and send error JSON
+    ob_clean();
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Server error: ' . $th->getMessage()]);
 }
 
 
