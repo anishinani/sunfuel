@@ -1,8 +1,9 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-include_once("./dbaccess.php");
+// Suppress warnings for cleaner output
+error_reporting(E_ERROR | E_PARSE);
+ini_set('display_errors', 0);
+include_once("dbaccess.php");
 
 class infobip
 {

@@ -4,7 +4,7 @@ class DbAccess
 {
     public $conn;
     private $mysqlKeyWords;
-    private $host = 'localhost';
+    private $host = '127.0.0.1';
     private $username = 'root';
     private $password = '';
 
@@ -16,7 +16,8 @@ class DbAccess
 
     public function __construct()
     {
-        $ip_address = $_SERVER['REMOTE_ADDR'];
+        // Handle both web and CLI environments
+        $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
         
         // XAMPP configuration with your MySQL password
         $this->password = '!Log19tan88';
@@ -39,7 +40,7 @@ class DbAccess
         }
         //mysqli_select_db($this->conn, $this->db_name);
 
-        $this->mysqlKeyWords = ['CURRENT_TIMESTAMP'];
+        $this->mysqlKeyWords = ['CURRENT_TIMESTAMP', 'NULL'];
     }
 
 
@@ -58,7 +59,7 @@ class DbAccess
         $q = "UPDATE $table SET ";
         if ($set) {
             foreach ($set as $key => $value) {
-                if (in_array($value, $this->mysqlKeyWords)) {
+                if (in_array($value, $this->mysqlKeyWords) || $value === NULL || $value === null) {
                     $q .= $key . " =$value,";
                 } else {
                     $q .= $key . " ='" . mysqli_real_escape_string($this->conn, $value) . "',";
@@ -94,7 +95,7 @@ class DbAccess
         foreach ($data as $key => $value) {
             $cols .= "$key,";
             // $values.="'" . mysqli_real_escape_string($this->conn, $value) . "',";
-            if (in_array($value, $this->mysqlKeyWords)) {
+            if (in_array($value, $this->mysqlKeyWords) || $value === NULL || $value === null) {
                 $values .= $value;
             } else {
                 $values .= "'" . mysqli_real_escape_string($this->conn, $value) . "',";

@@ -34,6 +34,16 @@ if(isset($_SESSION['user'])) header('Location:views/dashboard/index.php');
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
+				
+				<!-- Demo Login Credentials -->
+				<div class="alert alert-info mb-3">
+					<h6><i class="fas fa-info-circle"></i> Demo Login Credentials:</h6>
+					<small>
+						<strong>Admin:</strong> demo@sunfuel.ug / password<br>
+						<strong>System Admin:</strong> admin@sunfuel.ug / password
+					</small>
+				</div>
+				
 				<?php if (isset($_SESSION['message'])) { ?>
 					<div class="alert alert-danger m-4" id="removeAlert">
 						<p class="login-box-msg"><?= $_SESSION['message']; ?></p>

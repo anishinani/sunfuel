@@ -12,7 +12,7 @@ class Deposit extends DbAccess
 
         $totalAmount =  $amountCredentials[0]['totalAmount'] + $array['amount'];
         $currentAmount =  $amountCredentials[0]['currentAmount'] + $array['amount'];
-        $this->update("fuelstation", ['totalAmount' => $totalAmount, 'currentAmount' => $currentAmount], ['fuelstationId' => $array['stationId']]);
+        $this->update("fuelstation", ['totalAmount' => $totalAmount, 'currentAmount' => $currentAmount], ['fuelStationId' => $array['stationId']]);
 
         return $this->insert(
             "deposits",
