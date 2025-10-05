@@ -27,7 +27,7 @@ try {
 
         //check errors and clean o
         foreach ($_POST as $key => $value) {
-            if ($key == 'addDeposit') {
+            if ($key == 'addDeposit' || $key == 'amount') {
                 continue;
             } else {
                 if ($helpers->checkEmptyFields($value) != NULL) {

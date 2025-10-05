@@ -1,8 +1,12 @@
 <?php
-session_start();
-include("../../utils/dbaccess.php");
-$dbAccess =  new DbAccess();
-$con = $dbAccess->getConnection();
+// Start output buffering to prevent any output before JSON
+ob_start();
+
+try {
+    session_start();
+    include("../../utils/dbaccess.php");
+    $dbAccess = new DbAccess();
+    $con = $dbAccess->getConnection();
 
 
 
@@ -23,7 +27,7 @@ if (isset($_POST['order'])) {
     $order = $_POST['order'][0]['dir'];
     $sql .= " ORDER BY " . $column_name . " " . $order . "";
 } else {
-    $sql .= " ORDER BY id asc";
+    $sql .= " ORDER BY depositId desc";
 }
 
 if ($_POST['length'] != -1) {
@@ -41,13 +45,12 @@ function showActions($id)
     $output = '';
 
 
-    // if (in_array("view-receipts", $_SESSION['permissions'])) {
-        $output = '<form action="./showReceipt.php?id="' . $id . '"" method="get">
-        <button type="submit" name="showReceipt"  value="' . $id . '"
-        class="btn btn-info btn-sm editbtn" >Show Receipt</button>
-    
-        </form>';
-    //}
+    if (isset($_SESSION['permissions']) && in_array("view-deposit-details", $_SESSION['permissions'])) {
+        $output .= '<a href="./show.php?id=' . $id . '" class="btn btn-primary btn-sm">Details</a> ';
+    }
+    if (isset($_SESSION['permissions']) && in_array("view-deposit-receipts", $_SESSION['permissions'])) {
+        $output .= '<a href="./showReceipt.php?id=' . $id . '" class="btn btn-info btn-sm">Receipt</a>';
+    }
     // if (in_array("edit-roles", $_SESSION['roles'])) {
     //     $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
     //     <button type="submit" name="update"  value="' . $id . '"
@@ -80,13 +83,13 @@ function showActions($id)
 
 while ($row = mysqli_fetch_assoc($query)) {
     $sub_array = array();
-    $sub_array[] = $row['id'];
+    $sub_array[] = $row['depositId'];
     $sub_array[] = count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']]))
         ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']])[0]['fuelStationName'] : NULL;;
     $sub_array[] =  "shs " . number_format($row['amount'], 0);
     $sub_array[] = $row['depositedBy'];
     $sub_array[] = $row['created_at'];
-    $sub_array[] =  showActions($row['fuelStationId']);
+    $sub_array[] =  showActions($row['depositId']);
     $data[] = $sub_array;
 }
 
@@ -96,7 +99,16 @@ $output = array(
     'recordsFiltered' =>   $total_all_rows,
     'data' => $data,
 );
-echo  json_encode($output);
+// Clean any output buffer and send JSON
+ob_clean();
+header('Content-Type: application/json');
+echo json_encode($output);
+} catch (\Throwable $th) {
+    // Clean output buffer and send error JSON
+    ob_clean();
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Server error: ' . $th->getMessage()]);
+}
 
 // count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']]))
 //         ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStation']])[0]['fuelStationName'] : NULL;

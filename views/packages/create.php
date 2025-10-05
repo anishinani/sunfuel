@@ -33,7 +33,7 @@ breadCrumbs(['title' => 'Add Package', 'sub_title' => 'Add Package', 'previous' 
 
 
                     <div class="form-group mb-3">
-                        <label for="">Packag Name</label>
+                        <label for="">Package Name</label>
                         <input type="text" name="name" required class="form-control" placeholder="enter package name" />
 
                     </div>
@@ -46,7 +46,7 @@ breadCrumbs(['title' => 'Add Package', 'sub_title' => 'Add Package', 'previous' 
 
                     <!-- /.col -->
                     <div class="col-12">
-                        <button type="submit" class="style_button" name="addStation">Register Package</button>
+                        <button type="submit" class="style_button" name="addPackage">Register Package</button>
                     </div>
                     <!-- /.col -->
             </div>

@@ -1,6 +1,7 @@
 <?php
 /**
- * Deposits Index Page
+ * Float Management Dashboard
+ * Shows real-time fuel station float status
  * @author ThinkxSoftware
  */
 
@@ -17,7 +18,7 @@ $dbAccess = new DbAccess();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Deposits - SunShine Financial Services</title>
+    <title>Float Dashboard - SunShine Financial Services</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -30,6 +31,42 @@ $dbAccess = new DbAccess();
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../../dist/css/sunshine-theme.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <style>
+        .small-box {
+            border-radius: 10px;
+            position: relative;
+            display: block;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+        .small-box > .inner {
+            padding: 10px;
+        }
+        .small-box > .small-box-footer {
+            position: relative;
+            text-align: center;
+            padding: 3px 0;
+            color: #fff;
+            color: rgba(255,255,255,0.8);
+            display: block;
+            z-index: 10;
+            background: rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+        .small-box .icon {
+            transition: all .3s linear;
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            z-index: 0;
+            font-size: 90px;
+            color: rgba(0,0,0,0.15);
+        }
+        .bg-info { background-color: #17a2b8 !important; }
+        .bg-success { background-color: #28a745 !important; }
+        .bg-warning { background-color: #ffc107 !important; }
+        .bg-danger { background-color: #dc3545 !important; }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -110,7 +147,7 @@ $dbAccess = new DbAccess();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link active">
+                            <a href="index.php" class="nav-link">
                                 <i class="nav-icon fas fa-wallet"></i>
                                 <p>Deposits</p>
                             </a>
@@ -133,12 +170,13 @@ $dbAccess = new DbAccess();
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Deposits Management</h1>
+                            <h1 class="m-0">Float Dashboard</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="../dashboard/">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Deposits</li>
+                                <li class="breadcrumb-item"><a href="index.php">Deposits</a></li>
+                                <li class="breadcrumb-item active">Float Dashboard</li>
                             </ol>
                         </div>
                     </div>
@@ -148,53 +186,138 @@ $dbAccess = new DbAccess();
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
+                    
+                    <!-- Summary Cards Row -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><?php 
+                                    $stations = $dbAccess->select("fuelstation", "", "", "ORDER BY fuelStationId ASC");
+                                    echo count($stations); 
+                                    ?></h3>
+                                    <p>Total Stations</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-gas-pump"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>shs <?php 
+                                    $totalFloat = 0;
+                                    foreach ($stations as $station) {
+                                        $totalFloat += $station['currentAmount'];
+                                    }
+                                    echo number_format($totalFloat, 0); 
+                                    ?></h3>
+                                    <p>Total Float</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><?php 
+                                    $lowFloatStations = 0;
+                                    foreach ($stations as $station) {
+                                        if ($station['currentAmount'] < 100000) {
+                                            $lowFloatStations++;
+                                        }
+                                    }
+                                    echo $lowFloatStations;
+                                    ?></h3>
+                                    <p>Low Float Stations</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?php 
+                                    $criticalStations = 0;
+                                    foreach ($stations as $station) {
+                                        if ($station['currentAmount'] < 50000) {
+                                            $criticalStations++;
+                                        }
+                                    }
+                                    echo $criticalStations;
+                                    ?></h3>
+                                    <p>Critical Stations</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Float Status Table -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">All Deposits</h3>
+                                    <h3 class="card-title">Fuel Station Float Status</h3>
                                     <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="refresh">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
                                         <a href="create.php" class="btn btn-primary btn-sm">
                                             <i class="fas fa-plus"></i> Make Deposit
-                                        </a>
-                                        <a href="float_dashboard.php" class="btn btn-info btn-sm">
-                                            <i class="fas fa-chart-line"></i> Float Dashboard
                                         </a>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="depositsTable" class="table table-bordered table-striped">
+                                        <table id="floatTable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Fuel Station</th>
-                                                    <th>Amount</th>
-                                                    <th>Deposited By</th>
-                                                    <th>Date</th>
+                                                    <th>Station ID</th>
+                                                    <th>Station Name</th>
+                                                    <th>Merchant Code</th>
+                                                    <th>Bank Account</th>
+                                                    <th>Total Deposits</th>
+                                                    <th>Current Float</th>
+                                                    <th>Status</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $deposits = $dbAccess->select("deposits", "", "", "ORDER BY created_at DESC");
-                                                
-                                                foreach ($deposits as $deposit) {
-                                                    // Get fuel station name
-                                                    $station = $dbAccess->select("fuelstation", ["fuelStationName"], ["fuelStationId" => $deposit['fuelStationId']]);
-                                                    $stationName = $station ? $station[0]['fuelStationName'] : 'Unknown Station';
+                                                foreach ($stations as $station) {
+                                                    // Get total deposits for this station
+                                                    $deposits = $dbAccess->select("deposits", ["amount"], ["fuelStationId" => $station['fuelStationId']]);
+                                                    $totalDeposits = 0;
+                                                    foreach ($deposits as $deposit) {
+                                                        $totalDeposits += $deposit['amount'];
+                                                    }
+                                                    
+                                                    $currentFloat = $station['currentAmount'];
+                                                    $status = $currentFloat > 100000 ? 'success' : ($currentFloat > 50000 ? 'warning' : 'danger');
+                                                    $statusText = $currentFloat > 100000 ? 'Good' : ($currentFloat > 50000 ? 'Low' : 'Critical');
                                                     
                                                     echo "<tr>";
-                                                    echo "<td><span class='badge badge-primary'>#" . $deposit['depositId'] . "</span></td>";
-                                                    echo "<td>" . $stationName . "</td>";
-                                                    echo "<td><span class='badge badge-success'>shs " . number_format($deposit['amount'], 0) . "</span></td>";
-                                                    echo "<td>" . $deposit['depositedBy'] . "</td>";
-                                                    echo "<td>" . date('Y-m-d H:i', strtotime($deposit['created_at'])) . "</td>";
+                                                    echo "<td><span class='badge badge-primary'>" . $station['fuelStationId'] . "</span></td>";
+                                                    echo "<td>" . $station['fuelStationName'] . "</td>";
+                                                    echo "<td><span class='badge badge-info'>" . $station['merchantCode'] . "</span></td>";
+                                                    echo "<td>" . $station['bankName'] . "<br><small>" . $station['accountNumber'] . "</small></td>";
+                                                    echo "<td><span class='badge badge-success'>shs " . number_format($totalDeposits, 0) . "</span></td>";
+                                                    echo "<td><span class='badge badge-" . $status . "'>shs " . number_format($currentFloat, 0) . "</span></td>";
+                                                    echo "<td><span class='badge badge-" . $status . "'>" . $statusText . "</span></td>";
                                                     echo "<td>";
-                                                    echo "<a href='show.php?id=" . $deposit['depositId'] . "' class='btn btn-sm btn-primary me-1'>";
-                                                    echo "<i class='fas fa-eye'></i> Details</a>";
-                                                    echo "<a href='showReceipt.php?id=" . $deposit['depositId'] . "' class='btn btn-sm btn-info'>";
-                                                    echo "<i class='fas fa-receipt'></i> Receipt</a>";
+                                                    echo "<a href='create.php' class='btn btn-primary btn-sm me-1'>Add Deposit</a>";
+                                                    echo "<a href='float_details.php?station=" . $station['fuelStationId'] . "' class='btn btn-info btn-sm'>Details</a>";
                                                     echo "</td>";
                                                     echo "</tr>";
                                                 }
@@ -234,19 +357,25 @@ $dbAccess = new DbAccess();
     
     <script>
     $(document).ready(function() {
-        $('#depositsTable').DataTable({
+        $('#floatTable').DataTable({
             "responsive": true,
+            "autoWidth": false,
+            "order": [[5, "desc"]], // Sort by current float descending
             "pageLength": 25,
-            "order": [[4, "desc"]], // Sort by date descending
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "language": {
-                "search": "Search deposits:",
-                "lengthMenu": "Show _MENU_ deposits per page",
-                "info": "Showing _START_ to _END_ of _TOTAL_ deposits",
-                "infoEmpty": "No deposits found",
-                "infoFiltered": "(filtered from _MAX_ total deposits)"
+                "search": "Search stations:",
+                "lengthMenu": "Show _MENU_ stations per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ stations",
+                "infoEmpty": "No stations found",
+                "infoFiltered": "(filtered from _MAX_ total stations)"
             }
-        }).buttons().container().appendTo('#depositsTable_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#floatTable_wrapper .col-md-6:eq(0)');
+        
+        // Auto-refresh every 30 seconds
+        setInterval(function() {
+            location.reload();
+        }, 30000);
     });
     </script>
 </body>

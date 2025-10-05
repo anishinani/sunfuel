@@ -19,13 +19,13 @@ $activity = new ActivityLogger();
 
 
 
-if (isset($_POST['addStation'])) {
+if (isset($_POST['addPackage'])) {
 
     $_SESSION['errors'] = array();
 
     //check errors and clean o
     foreach ($_POST as $key => $value) {
-        if ($key == 'addStation') {
+        if ($key == 'addPackage') {
             continue;
         } else {
             if ($helpers->checkEmptyFields($value) != NULL) {

@@ -1,8 +1,12 @@
 <?php
-session_start();
-include("../../utils/dbaccess.php");
-$dbAccess =  new DbAccess();
-$con = $dbAccess->getConnection();
+// Start output buffering to prevent any output before JSON
+ob_start();
+
+try {
+    session_start();
+    include("../../utils/dbaccess.php");
+    $dbAccess = new DbAccess();
+    $con = $dbAccess->getConnection();
 
 $output = array();
 $sql = "SELECT * FROM package ";
@@ -39,21 +43,21 @@ function showActions($id)
 
 
 
-    if (in_array("show-packages", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("view-packages", $_SESSION['permissions'])) {
         $output .= '<form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
     
         </form>';
     }
-    if (in_array("edit-packages", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("edit-packages", $_SESSION['permissions'])) {
         $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Edit</button>
     
         </form>';
     }
-    if (in_array("delete-packages", $_SESSION['permissions'])) {
+    if (isset($_SESSION['permissions']) && in_array("delete-packages", $_SESSION['permissions'])) {
         $output .= '     <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
@@ -87,4 +91,13 @@ $output = array(
     'recordsFiltered' =>   $total_all_rows,
     'data' => $data,
 );
-echo  json_encode($output);
+// Clean any output buffer and send JSON
+ob_clean();
+header('Content-Type: application/json');
+echo json_encode($output);
+} catch (\Throwable $th) {
+    // Clean output buffer and send error JSON
+    ob_clean();
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Server error: ' . $th->getMessage()]);
+}

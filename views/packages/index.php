@@ -97,7 +97,7 @@ breadCrumbs(['title' => 'Packages', 'sub_title' => 'Packages', 'previous' => 'Da
                     'target': [5],
                     'orderable': false,
                 }]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
 
