@@ -149,6 +149,34 @@ session_start();
                     <a href="fuel_agent_login.php" class="btn btn-success btn-demo" target="_blank">
                         <i class="fas fa-sign-in-alt"></i> Agent Login
                     </a>
+                    <a href="agent_ussd_simulator.php" class="btn btn-outline-success btn-demo mt-2" target="_blank">
+                        <i class="fas fa-mobile-alt"></i> Agent USSD Simulator
+                    </a>
+                </div>
+            </div>
+
+            <!-- Agent USSD Simulator -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="demo-card p-4 text-center position-relative">
+                    <span class="badge badge-success status-badge">Agent USSD</span>
+                    <div class="demo-icon text-success">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <div class="demo-title">Agent USSD Simulator</div>
+                    <div class="demo-description">
+                        USSD interface for fuel agents to enter rider activation codes and confirm fuel dispatch
+                    </div>
+                    <div class="demo-features mb-3">
+                        <small class="text-muted">
+                            ✓ Enter activation code<br>
+                            ✓ Confirm dispatch<br>
+                            ✓ Check station float<br>
+                            ✓ Dial *124#
+                        </small>
+                    </div>
+                    <a href="agent_ussd_simulator.php" class="btn btn-success btn-demo" target="_blank">
+                        <i class="fas fa-play"></i> Launch Agent USSD
+                    </a>
                 </div>
             </div>
 

@@ -78,7 +78,7 @@ class AccessController extends DbAccess{
     function getUserPermissions($role){
 
 
-        $query = 'select features.permission   from role_permissions inner join features on role_permissions.feature_id = features.id where role_permissions.role_id';
+        $query = 'select features.permission from role_permissions inner join features on role_permissions.feature_id = features.id where role_permissions.role_id';
 
         $permissions =  $this->selectQuery($query ."=".$role);
 

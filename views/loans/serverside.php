@@ -1,6 +1,9 @@
 <?php
+ob_start();
+try {
 session_start();
 include("../../utils/dbaccess.php");
+require_once("../../utils/datatables_helper.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
@@ -18,13 +21,7 @@ if (isset($_POST['search']['value'])) {
     $sql .= " WHERE loanAmount like '%" . $search_value . "%'";
 }
 
-if (isset($_POST['order'])) {
-    $column_name = $_POST['order'][0]['column'];
-    $order = $_POST['order'][0]['dir'];
-    $sql .= " ORDER BY " . $column_name . " " . $order . "";
-} else {
-    $sql .= " ORDER BY loanId asc";
-}
+$sql .= datatables_order_clause($_POST['order'] ?? null, ['loanId', 'boadUserId', 'loanAmount', 'LoanInterest', 'status', 'created_at'], 'loanId ASC');
 
 if ($_POST['length'] != -1) {
     $start = $_POST['start'];
@@ -108,4 +105,7 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+} catch (Throwable $e) {
+    datatables_json_error($e);
+}
 

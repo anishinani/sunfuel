@@ -9,17 +9,17 @@ class DbAccess
     private $password = '';
 
     //private $password = '!Log10tan10';
-    private $database = 'bodacredit';
+    private $database = 'sunfuel';
 
 
 
 
     public function __construct()
     {
-
-
-            $this->password = '!Log19tan88';
-    
+        $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+        if ($ip_address === '127.0.0.1' || $ip_address === '::1') {
+            $this->password = '';
+        }
 
         // Create connection
         //$this->conn = new mysqli($servername, $username, $password);

@@ -1,6 +1,9 @@
 <?php
+ob_start();
+try {
 session_start();
 include("../../utils/dbaccess.php");
+require_once("../../utils/datatables_helper.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
@@ -18,13 +21,7 @@ if (isset($_POST['search']['value']) && !empty($_POST['search']['value'])) {
     $sql .= " WHERE name like '%" . $search_value . "%'";
 }
 
-if (isset($_POST['order'])) {
-    $column_name = $_POST['order'][0]['column'];
-    $order = $_POST['order'][0]['dir'];
-    $sql .= " ORDER BY " . $column_name . " " . $order . "";
-} else {
-    $sql .= " ORDER BY adminId asc";
-}
+$sql .= datatables_order_clause($_POST['order'] ?? null, ['adminId', 'name', 'email', 'phoneNumber', 'gender', 'roleId'], 'adminId ASC');
 
 if ($_POST['length'] != -1) {
     $start = $_POST['start'];
@@ -37,7 +34,9 @@ function showActions($id)
     $output = '';
 
 
-    if (in_array("edit-users", $_SESSION['permissions'])) {
+    $permissions = $_SESSION['permissions'] ?? [];
+
+    if (in_array("edit-users", $permissions)) {
         $output = ' <form action="./show.php?id="' . $id . '"" method="get">
         <button type="submit" name="show"  value="' . $id . '"
         class="btn btn-info btn-sm editbtn" >Show</button>
@@ -51,7 +50,7 @@ function showActions($id)
     
         </form>';
     //}
-    if (in_array("delete-users", $_SESSION['permissions'])) {
+    if (in_array("delete-users", $permissions)) {
         $output .= '    <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
@@ -99,3 +98,6 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+} catch (Throwable $e) {
+    datatables_json_error($e);
+}

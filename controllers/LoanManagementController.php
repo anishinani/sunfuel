@@ -2,13 +2,17 @@
 
 require_once __DIR__ . '/../utils/dbaccess.php';
 require_once __DIR__ . '/SMSController.php';
+require_once __DIR__ . '/../utils/SsentezoWallet.php';
+require_once __DIR__ . '/../utils/PhoneHelper.php';
 
 class LoanManagementController extends DbAccess {
     private $smsController;
+    private $wallet;
 
     public function __construct() {
         parent::__construct();
         $this->smsController = new SMSController();
+        $this->wallet = new SsentezoWallet();
     }
 
     /**
@@ -119,52 +123,15 @@ class LoanManagementController extends DbAccess {
         $paymentResult = $this->processPayment($phoneNumber, $amount, $paymentMethod);
         
         if ($paymentResult['success']) {
-            // Update loan status (only if it's a real loan, not mock)
-            if ($outstandingLoan['fuelLoanId'] != 999) {
-                $this->update('fuel_loans', [
-                    'status' => 'paid',
-                    'paidAt' => date('Y-m-d H:i:s')
-                ], ['fuelLoanId' => $outstandingLoan['fuelLoanId']]);
-            }
-
-            // Update user borrowing status
-            $this->update('bodauser', [
-                'canBorrowToday' => 1,
-                'lastLoanDate' => NULL
-            ], ['bodaUserId' => $user['bodaUserId']]);
-
-            // Record payment (only if it's a real loan, not mock)
-            if ($outstandingLoan['fuelLoanId'] != 999) {
-                try {
-                    $this->insert('payments', [
-                        'loanId' => $outstandingLoan['fuelLoanId'],
-                        'amount' => $amount,
-                        'paymentMethod' => $paymentMethod,
-                        'paymentDate' => date('Y-m-d H:i:s')
-                    ]);
-                } catch (Exception $e) {
-                    error_log("Payment Debug - Could not insert payment record: " . $e->getMessage());
-                }
-            }
-
-            // Send payment confirmation SMS (skip for testing)
-            try {
-                // $this->smsController->sendPaymentConfirmationSMS($phoneNumber, $amount);
-                error_log("Payment Debug - SMS sending skipped for testing");
-            } catch (Exception $e) {
-                error_log("Payment Debug - SMS sending failed: " . $e->getMessage());
-            }
-
-            error_log("Payment Debug - Payment successful: " . $paymentResult['transactionId']);
             return [
                 'success' => true,
-                'message' => 'Payment processed successfully',
+                'message' => 'Payment request sent. Approve the prompt on your phone.',
                 'transactionId' => $paymentResult['transactionId'],
-                'amount' => $amount
+                'amount' => $amount,
+                'status' => $paymentResult['status'] ?? 'PENDING',
             ];
         } else {
-            error_log("Payment Debug - Payment processing failed");
-            return ['success' => false, 'message' => 'Payment processing failed'];
+            return ['success' => false, 'message' => $paymentResult['message'] ?? 'Payment processing failed'];
         }
         } catch (Exception $e) {
             error_log("Payment Debug - Exception: " . $e->getMessage());
@@ -302,11 +269,12 @@ class LoanManagementController extends DbAccess {
     }
 
     private function getBodaUserByPhone($phoneNumber) {
+        $phones = PhoneHelper::sqlInList(PhoneHelper::variants($phoneNumber));
         $sql = "SELECT b.*, s.stageName, fs.fuelStationName 
                 FROM bodauser b 
                 LEFT JOIN stage s ON b.stageId = s.stageId 
                 LEFT JOIN fuelstation fs ON b.fuelStationId = fs.fuelStationId 
-                WHERE b.bodaUserPhoneNumber = '{$phoneNumber}' 
+                WHERE b.bodaUserPhoneNumber IN ({$phones})
                 AND b.bodaUserStatus = 1";
 
         $result = $this->selectQuery($sql);
@@ -325,20 +293,42 @@ class LoanManagementController extends DbAccess {
     }
 
     private function processPayment($phoneNumber, $amount, $paymentMethod) {
-        // Simulate payment processing (integrate with actual mobile money API)
-        // This is where you would integrate with MTN Mobile Money, Airtel Money, etc.
-        
-        // Simulate API call
-        sleep(1);
-        
-        // Generate transaction ID
-        $transactionId = 'PAY' . time() . rand(1000, 9999);
-        
+        if (!$this->wallet->isConfigured()) {
+            return ['success' => false, 'message' => 'Payment gateway is not configured'];
+        }
+
+        $externalReference = 'SF' . time() . rand(1000, 9999);
+
+        $this->insert('payments', [
+            'amount' => $amount,
+            'status' => 'pending',
+            'narrative' => 'Loan payment',
+            'msisdn' => $this->wallet->formatMsisdn($phoneNumber),
+            'external_ref' => $externalReference,
+        ]);
+
+        $result = $this->wallet->collectMoney(
+            $externalReference,
+            $phoneNumber,
+            $amount,
+            'Sunfuel loan payment'
+        );
+
+        if (!$result['success']) {
+            $this->update('payments', ['status' => 'failed'], ['external_ref' => $externalReference]);
+
+            return [
+                'success' => false,
+                'message' => $result['message'] ?? 'Could not initiate payment',
+            ];
+        }
+
         return [
             'success' => true,
-            'transactionId' => $transactionId,
+            'transactionId' => $externalReference,
             'amount' => $amount,
-            'phoneNumber' => $phoneNumber
+            'phoneNumber' => $phoneNumber,
+            'status' => $result['transactionStatus'] ?? 'PENDING',
         ];
     }
 

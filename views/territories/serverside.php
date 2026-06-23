@@ -8,11 +8,20 @@ include("../../utils/pageFunctions.php");
 
 $dbAccess =  new DbAccess();
 
-$sql = "SELECT `territories`.*, `users`.`name` AS territoryManager  FROM `territories` INNER JOIN `users` ON `territories`.`territoryManager` = `users`.`adminId`";
+$sql = "SELECT territories.*, users.name AS territoryManager
+        FROM territories
+        LEFT JOIN users ON territories.territoryManager = users.adminId";
 
 $searchParam = (!empty($_POST['search']['value'])) ? $_POST['search']['value'] : null;
 
 
+
+$orderColumns = ['territoryId', 'territoryName', 'territoryManager', 'stages', 'fuelstations', 'action'];
+$orderIndex = isset($_POST['order'][0]['column']) ? (int) $_POST['order'][0]['column'] : 0;
+$orderColumn = $orderColumns[$orderIndex] ?? 'territoryId';
+if (!in_array($orderColumn, ['territoryId', 'territoryName', 'territoryManager'], true)) {
+    $orderColumn = 'territoryId';
+}
 
 $output = $dbAccess->selectWithPagination(
    $sql,
@@ -40,7 +49,7 @@ $output = $dbAccess->selectWithPagination(
     )
    ,
    array(
-       'column' => !empty($_POST['order'][0]['column']) ? $_POST['order'][0]['column'] : 'territoryId',
+       'column' => $orderColumn,
        'order' => !empty($_POST['order'][0]['dir']) ? $_POST['order'][0]['dir'] : 'desc'
    ),
    $searchParam

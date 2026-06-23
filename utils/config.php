@@ -6,7 +6,7 @@
 
 $db['host'] = "localhost";
 $db['user'] = "root";
-$db['pass'] = "!Log19tan88";
+$db['pass'] = "";
 $db['name'] = "sunfuel";
 
 // ------------------------

@@ -1,112 +1,78 @@
 <?php
-include("../../utils/dbaccess.php");
-include("../../controllers/TerritoryController.php");
+ob_start();
 
+try {
+    include("../../utils/dbaccess.php");
+    require_once("../../utils/datatables_helper.php");
+    include("../../controllers/TerritoryController.php");
 
-$tc = new TerritoryController();
+    $tc = new TerritoryController();
+    $territoryId = (int) ($_GET['territory'] ?? 0);
+    $territory = $territoryId ? $tc->getTerritory($territoryId) : null;
+    $con = $tc->getConnection();
 
-$territory = $tc->getTerritory($_GET['territory']);
+    $sql = "SELECT stage.*, fuelstation.fuelStationName
+            FROM stage
+            INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
 
-$codes = [];
+    if ($territory && !empty($territory['districts'])) {
+        $districtIds = array_map('intval', array_column($territory['districts'], 'id'));
+        $districtIds = array_filter($districtIds);
+        if (!empty($districtIds)) {
+            $sql .= ' WHERE fuelstation.districtCode IN (' . implode(',', $districtIds) . ')';
+        }
+    } elseif ($territoryId > 0) {
+        $sql .= ' WHERE stage.territoryId = ' . $territoryId;
+    }
 
-foreach($territory['districts'] as $district) $codes[] = $district['districtCode'];
+    $totalQuery = mysqli_query($con, $sql);
+    if (!$totalQuery) {
+        throw new RuntimeException(mysqli_error($con));
+    }
+    $total_all_rows = mysqli_num_rows($totalQuery);
 
+    if (!empty($_POST['search']['value'])) {
+        $search_value = $_POST['search']['value'];
+        $connector = stripos($sql, ' WHERE ') !== false ? ' AND ' : ' WHERE ';
+        $sql .= $connector . "(stageName like '%" . $search_value . "%'";
+        $sql .= " OR stageStatus like '%" . $search_value . "%'";
+        $sql .= " OR fuelStationName like '%" . $search_value . "%')";
+    }
 
-$con = $tc->getConnection();
+    $sql .= datatables_order_clause(
+        $_POST['order'] ?? null,
+        ['stageName', 'fuelStationName', 'stageStatus'],
+        'stageId DESC'
+    );
 
+    if (isset($_POST['length']) && (int) $_POST['length'] !== -1) {
+        $start = (int) ($_POST['start'] ?? 0);
+        $length = (int) $_POST['length'];
+        $sql .= " LIMIT {$start}, {$length}";
+    }
 
+    $query = mysqli_query($con, $sql);
+    if (!$query) {
+        throw new RuntimeException(mysqli_error($con));
+    }
 
-$output = array();
-$sql = "SELECT stage.*, fuelstation.fuelStationName FROM stage  
-INNER JOIN fuelstation ON stage.fuelStationId = fuelstation.fuelStationId";
+    $data = [];
+    while ($row = mysqli_fetch_assoc($query)) {
+        $data[] = [
+            $row['stageName'],
+            $row['fuelStationName'],
+            ((int) $row['stageStatus'] === 0) ? 'Not Active' : 'Active',
+            '',
+            '',
+        ];
+    }
 
-
-
-$totalQuery = mysqli_query($con, $sql);
-$total_all_rows = mysqli_num_rows($totalQuery);
-
-if(count($codes) == 1) {
-    $sql .= " WHERE stage.districtCode  = " . $codes[0] ." ";
-}else{
-    $sql .= " WHERE stage.districtCode  IN (" . implode(',',$codes) ." )";
+    datatables_json_response([
+        'draw' => intval($_POST['draw'] ?? 0),
+        'recordsTotal' => $total_all_rows,
+        'recordsFiltered' => $total_all_rows,
+        'data' => $data,
+    ]);
+} catch (Throwable $e) {
+    datatables_json_error($e);
 }
-
-
-if (isset($_POST['search']['value'])) {
-    $search_value = $_POST['search']['value'];
-    $sql .= " AND ( stageName like '%" . $search_value . "%'";
-    $sql .= " OR stageStatus like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationName like '%" . $search_value . "%' ) ";
-}
-
-if (isset($_POST['order'])) {
-    $column_name = $_POST['order'][0]['column'];
-    $order = $_POST['order'][0]['dir'];
-    $sql .= " ORDER BY " . $column_name . " " . $order . "";
-} else {
-    $sql .= " ORDER BY stageId desc";
-}
-
-if ($_POST['length'] != -1) {
-    $start = $_POST['start'];
-    $length = $_POST['length'];
-    $sql .= " LIMIT  " . $start . ", " . $length;
-}
-
-
-
-$query = mysqli_query($con, $sql);
-$count_rows = mysqli_num_rows($query);
-$data = array();
-while ($row = mysqli_fetch_assoc($query)) {
-    $sub_array = array();
-    $sub_array[] = $row['stageName'];
-    $sub_array[] = $row['fuelStationName'];
-    $sub_array[] = $row['stageStatus'] == 0 ? "Not Active" : "Active";
-   
-    $sub_array[] = $row['stageStatus'] == 0 ? '
-    <form action="activateStage.php" method="post">
-    <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
-    <button type="submit" name="activate" 
-    class="btn btn-info btn-sm editbtn" >Activate</button>
-    ' : '    <form action="deactivateStage.php" method="post">
-    <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
-    <button type="submit" name="deactivate"  
-    class="btn btn-danger btn-sm editbtn" >DeActivate</button>
-    ';
-
-
-    $sub_array[] = '
-    
-    <div style="display:flex;align-items:center;justify-content:space-between;">
-    </form>
-    <form method="POST" action="./StageDetails.php">
-      <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
-      <button 
-    class="btn btn-primary btn-sm deleteBtn" name="stageDetails" >Show</button>
-
-    </form>
-
-    <form action="edit.php?id="' . $row['stageId'] . '"" method="get">
-    <button type="submit" name="update"  value="' . $row['stageId'] . '"
-    class="btn btn-info btn-sm editbtn" >Edit</button>
-
-    </form>
-    <form method="POST" action="./delete.php">
-      <input type="hidden" name="id" value="' . $row['stageId'] . '"/>
-      <button 
-    class="btn btn-danger btn-sm deleteBtn" >Delete</button>
-
-    </form>
-    </div>';
-    $data[] = $sub_array;
-}
-
-
-$output = array(
-    'draw' => intval($_POST['draw']),
-    'recordsTotal' => $count_rows,
-    'recordsFiltered' =>   $total_all_rows,
-    'data' => $data,
-);
-echo  json_encode($output);

@@ -1,6 +1,9 @@
 <?php
+ob_start();
+try {
 session_start();
 include("../../utils/dbaccess.php");
+require_once("../../utils/datatables_helper.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
@@ -15,13 +18,7 @@ if (isset($_POST['search']['value']) && !empty($_POST['search']['value'])) {
     $sql .= " WHERE name like '%" . $search_value . "%'";
 }
 
-if (isset($_POST['order'])) {
-    $column_name = $_POST['order'][0]['column'];
-    $order = $_POST['order'][0]['dir'];
-    $sql .= " ORDER BY " . $column_name . " " . $order . "";
-} else {
-    $sql .= " ORDER BY id desc";
-}
+$sql .= datatables_order_clause($_POST['order'] ?? null, ['id', 'name', 'description', 'created_at'], 'id DESC');
 
 if ($_POST['length'] != -1) {
     $start = $_POST['start'];
@@ -38,21 +35,25 @@ function showActions($id)
     $output = '<div class="d-flex justify-content-between ">';
 
 
-    if (in_array("edit-roles", $_SESSION['permissions'])) {
+    $permissions = $_SESSION['permissions'] ?? [];
+
+    if (in_array("edit-roles", $permissions)) {
         $output .= '<form action="./show.php?id="' . $id . '"" method="get">
         <button type="submit" name="show"  value="' . $id . '"
         class="btn btn-info btn-sm  " ><i class="fas fa-eye"></i></button>
     
         </form>';
     }
-    if (in_array("edit-roles", $_SESSION['permissions'])) {
+    $permissions = $_SESSION['permissions'] ?? [];
+
+    if (in_array("edit-roles", $permissions)) {
         $output .= '    <form action="./edit.php?id="' . $id . '"" method="get">
         <button type="submit" name="update"  value="' . $id . '"
         class="btn btn-primary btn-sm " title="edit" ><i class="fas fa-edit"></i></button>
     
         </form>';
     }
-    if (in_array("delete-roles", $_SESSION['permissions'])) {
+    if (in_array("delete-roles", $permissions)) {
         $output .= '    <form method="POST" action="./delete.php">
         <input type="hidden" name="id" value="' . $id . '"/>
         <button 
@@ -82,4 +83,7 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+} catch (Throwable $e) {
+    datatables_json_error($e);
+}
 

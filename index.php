@@ -40,10 +40,18 @@ if(isset($_SESSION['user'])) header('Location:views/dashboard/index.php');
 					<h6><i class="fas fa-info-circle"></i> Demo Login Credentials:</h6>
 					<small>
 						<strong>Admin:</strong> demo@sunfuel.ug / password<br>
-						<strong>System Admin:</strong> admin@sunfuel.ug / password
+						<strong>System Admin:</strong> admin@sunfuel.ug / admin123
 					</small>
 				</div>
-				
+
+				<button type="button" class="btn btn-primary btn-block mb-2" onclick="quickLogin('admin@sunfuel.ug', 'admin123')">
+					Login as System Admin
+				</button>
+				<button type="button" class="btn btn-outline-primary btn-block mb-3" onclick="quickLogin('demo@sunfuel.ug', 'password')">
+					Login as Admin
+				</button>
+
+				<p class="text-center text-muted mb-3">— or sign in manually —</p>
 				<?php if (isset($_SESSION['message'])) { ?>
 					<div class="alert alert-danger m-4" id="removeAlert">
 						<p class="login-box-msg"><?= $_SESSION['message']; ?></p>
@@ -57,6 +65,7 @@ if(isset($_SESSION['user'])) header('Location:views/dashboard/index.php');
 
 
 				<form action="login.php" method="post" >
+					<input type="hidden" name="login" value="1">
 					<div class="input-group mb-3">
 						<input type="email" class="form-control" name="email" placeholder="Email">
 						<div class="input-group-append">
@@ -110,6 +119,13 @@ if(isset($_SESSION['user'])) header('Location:views/dashboard/index.php');
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.min.js"></script>
+	<script>
+		function quickLogin(email, password) {
+			document.querySelector('input[name="email"]').value = email;
+			document.querySelector('input[name="password"]').value = password;
+			document.querySelector('form').submit();
+		}
+	</script>
 </body>
 
 </html>

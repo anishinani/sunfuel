@@ -1,54 +1,23 @@
 <?php
-include_once("../../utils/YoAPI.php");
-include_once("../../utils/Yo.php");
-include_once("../../utils/dbaccess.php");
-include_once("../../utils/pin.php");
 
-$yo = new Yo();
+require_once __DIR__ . '/../../utils/dbaccess.php';
+require_once __DIR__ . '/../../utils/SsentezoWallet.php';
+require_once __DIR__ . '/../../utils/pin.php';
+
+$wallet = new SsentezoWallet();
 $pin = new pin();
-$dbAccess =  new DbAccess();
-//$response = $yo->withdraw("50000", "256772093837", "Withdraw for testing purposes");
-//var_dump($response);
-//die("we are done");
-$YoApi =  new YoAPI($yo->getUserName(), $yo->getPassword());
-// $localLink = "localhost/sunfuel/views/payments/finished.php";
-$sucessRedirectLink = "
-";
 
-// $localLinkFailure = "localhost/sunfuel/views/packages/failed.php";
-$failureRedirectLink = "http://appdev.creditplus.ug/sunfuel/views/payments/failed.php";
-//$sucessRedirectLink = "";
-$failureRedirectLink = "";
+if (!$wallet->isConfigured()) {
+    die('Configure Ssentezo Wallet credentials under Integrations > Wallet Settings.');
+}
 
-// $ip_address = $_SERVER['REMOTE_ADDR'];
+$externalReference = 'SFTEST' . time() . $pin->randomkey(4);
+$result = $wallet->collectMoney(
+    $externalReference,
+    '256759983853',
+    1000,
+    'Sunfuel payment test'
+);
 
-// if ($ip_address == '::1') {
-
-//     $sucessRedirectLink = $localLink;
-//     $failureRedirectLink = $localLinkFailure;
-// } else {
-
-//     $sucessRedirectLink = $serverLink;
-//     $failureRedirectLink =  $serverLinkFailure;
-// }
-
-//$YoApi->get_instant_notification_url()
-
-//SET YOUR URL
-// $YoApi->set_URL($yo->getModel());
-$YoApi->set_instant_notification_url($sucessRedirectLink);
-$YoApi->set_failure_notification_url($failureRedirectLink);
-$YoApi->set_nonblocking("TRUE");
-
-$rand = $pin->randomkey(5);
-$externalReference =  "256759983853" . $rand;
-$hashed = $pin->hashPass($externalReference);
-$YoApi->set_external_reference($hashed);
-
-//depost money;
-$results = $YoApi->ac_deposit_funds("256759983853", "1000", "Testing purposes");
-
-$dbAccess->insert("sample", ["external_ref" => $hashed]);
-
-var_dump($results);
-//die("here");
+header('Content-Type: application/json');
+echo json_encode($result, JSON_PRETTY_PRINT);

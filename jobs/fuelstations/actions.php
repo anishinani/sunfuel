@@ -39,57 +39,12 @@ function connection()
 
 
 
-function sendSms($to,$msg){
+function sendSms($to, $msg)
+{
+    require_once __DIR__ . '/../../utils/sms.php';
 
-
-    error_reporting(E_ALL);
-
-    ini_set('display_errors', 1);
-
-    require_once '../../utils/dbaccess.php';
-
-
-    $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "http://apidocs.speedamobile.com/api/SendSMS?api_id=API34247417254&api_password=!Log10tan10&sms_type=P&encoding=T&sender_id=CREDITPLUS&phonenumber=" . $to . "&textmessage=" . urlencode($msg),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-
-        ));
-
-        $response = curl_exec($curl);
-
-        $err = curl_error($curl);
-
-        curl_close($curl);
-        if ($response) {
-
-            $decodedcontent = json_decode($response);
-
-
-            $data['tel'] = $to;
-            $data['message'] = $msg;
-
-            $data['message_id'] = $decodedcontent->{'message_id'};
-            $data['success_code'] = $decodedcontent->{'remarks'};
-            $data['status'] = $decodedcontent->{'status'};
-
-            $db = new DbAccess();
-            $table = "sms_gateway";
-            $db->insert($table, $data);
-
-        } else {
-            die("not sent");
-            return 0;
-
-        }
-
-
+    $sms = new SmsService();
+    return $sms->sendsms('SUNFUEL', $to, $msg);
 }
 
 

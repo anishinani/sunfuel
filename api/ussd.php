@@ -11,19 +11,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 require_once '../utils/dbaccess.php';
 require_once '../utils/sms.php';
+require_once '../utils/PhoneHelper.php';
 require_once '../controllers/FuelLoanController.php';
+require_once '../controllers/LoanManagementController.php';
 
 class USSDHandler extends DbAccess {
     private $phoneNumber;
     private $sessionId;
     private $message;
     private $fuelLoanController;
+    private $loanController;
     private $sms;
 
     public function __construct() {
         parent::__construct();
         $this->fuelLoanController = new FuelLoanController();
-        $this->sms = new infobip();
+        $this->loanController = new LoanManagementController();
+        $this->sms = new SmsService();
         
         // Get USSD parameters
         $this->phoneNumber = $_POST['phoneNumber'] ?? '';
@@ -31,25 +35,11 @@ class USSDHandler extends DbAccess {
         $this->message = $_POST['message'] ?? '';
         
         // Clean phone number
-        $this->phoneNumber = $this->cleanPhoneNumber($this->phoneNumber);
+        $this->phoneNumber = PhoneHelper::toInternational($this->phoneNumber);
     }
 
     private function cleanPhoneNumber($phone) {
-        // Remove any non-numeric characters except +
-        $phone = preg_replace('/[^0-9+]/', '', $phone);
-        
-        // Convert to international format
-        if (strpos($phone, '+256') === 0) {
-            return substr($phone, 1); // Remove + for storage
-        } elseif (strpos($phone, '256') === 0) {
-            return $phone;
-        } elseif (strpos($phone, '0') === 0 && strlen($phone) == 10) {
-            return '256' . substr($phone, 1);
-        } elseif (strlen($phone) == 9) {
-            return '256' . $phone;
-        }
-        
-        return $phone;
+        return PhoneHelper::toInternational($phone);
     }
 
     public function handleRequest() {
@@ -137,6 +127,10 @@ class USSDHandler extends DbAccess {
     }
 
     private function handleMainMenu($input) {
+        if ($input === '') {
+            return $this->showMainMenu();
+        }
+
         switch ($input) {
             case '1':
                 return $this->handleFuelRequestMenu();
@@ -154,27 +148,14 @@ class USSDHandler extends DbAccess {
     }
 
     private function handleFuelRequestMenu() {
-        // Check if user can borrow today
+        $canBorrow = $this->loanController->canUserBorrowToday($this->phoneNumber);
+        if (!$canBorrow['canBorrow']) {
+            return $this->sendResponse($canBorrow['reason'], true);
+        }
+
         $user = $this->getBodaUser();
         if (!$user) {
             return $this->sendResponse("User not found. Please contact support.", true);
-        }
-
-        // Check time restrictions
-        if (!$this->canBorrowNow()) {
-            $startTime = $this->getBorrowStartTime();
-            $endTime = $this->getBorrowEndTime();
-            return $this->sendResponse("Fuel requests allowed from {$startTime} to {$endTime}. Current time: " . date('H:i'), true);
-        }
-
-        // Check if user has outstanding loan
-        if (!$user['canBorrowToday']) {
-            return $this->sendResponse("You have an outstanding loan. Please pay first to borrow again.", true);
-        }
-
-        // Check if user already borrowed today
-        if ($user['lastLoanDate'] == date('Y-m-d')) {
-            return $this->sendResponse("You have already borrowed fuel today. One loan per day allowed.", true);
         }
 
         $this->updateSession('fuel_request', ['step' => 'confirm']);
@@ -228,12 +209,15 @@ class USSDHandler extends DbAccess {
             return $this->sendResponse("User not found. Please contact support.", true);
         }
 
-        $outstandingLoan = $this->getOutstandingLoan($user['bodaUserId']);
+        $outstandingLoan = $this->loanController->getOutstandingLoan($user['bodaUserId']);
         if (!$outstandingLoan) {
             return $this->sendResponse("No outstanding loans found.", true);
         }
 
-        $this->updateSession('payment', ['loanId' => $outstandingLoan['fuelLoanId']]);
+        $this->updateSession('payment', [
+            'loanId' => $outstandingLoan['fuelLoanId'],
+            'totalAmount' => $outstandingLoan['totalAmount'],
+        ]);
         
         $menu = "PAY LOAN\n";
         $menu .= "Amount: " . number_format($outstandingLoan['totalAmount']) . " UGX\n";
@@ -251,17 +235,19 @@ class USSDHandler extends DbAccess {
 
         switch ($input) {
             case '1':
-                // Process payment via mobile money
-                $result = $this->fuelLoanController->processMobileMoneyPayment(
-                    $this->phoneNumber,
-                    $userData['loanId']
-                );
-                
+                $amount = (float) ($userData['totalAmount'] ?? 0);
+                if ($amount <= 0) {
+                    return $this->sendResponse('No outstanding loan amount found. Please try again.', true);
+                }
+
+                $result = $this->loanController->processLoanPayment($this->phoneNumber, $amount);
+
                 if ($result['success']) {
-                    $response = "Payment successful!\n";
+                    $response = "Payment request sent.\n";
                     $response .= "Amount: " . number_format($result['amount']) . " UGX\n";
-                    $response .= "You can now borrow fuel tomorrow.";
-                    
+                    $response .= "Approve the prompt on your phone.\n";
+                    $response .= "Ref: " . $result['transactionId'];
+
                     return $this->sendResponse($response, true);
                 } else {
                     return $this->sendResponse($result['message'], true);
@@ -282,7 +268,9 @@ class USSDHandler extends DbAccess {
             return $this->sendResponse("User not found. Please contact support.", true);
         }
 
-        $outstandingLoan = $this->getOutstandingLoan($user['bodaUserId']);
+        $outstandingLoan = $this->loanController->getOutstandingLoan($user['bodaUserId']);
+        
+        $this->updateSession('balance');
         
         $menu = "ACCOUNT BALANCE\n";
         $menu .= "Name: " . $user['bodaUserName'] . "\n";
@@ -330,11 +318,12 @@ class USSDHandler extends DbAccess {
     }
 
     private function getBodaUser() {
+        $phones = PhoneHelper::sqlInList(PhoneHelper::variants($this->phoneNumber));
         $sql = "SELECT b.*, s.stageName, p.maxLoanAmount, p.interestRate 
                 FROM bodauser b 
                 LEFT JOIN stage s ON b.stageId = s.stageId 
                 LEFT JOIN package p ON b.packageId = p.packageId 
-                WHERE b.bodaUserPhoneNumber = '{$this->phoneNumber}' 
+                WHERE b.bodaUserPhoneNumber IN ({$phones})
                 AND b.bodaUserStatus = 1";
         
         $result = $this->selectQuery($sql);

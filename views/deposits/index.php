@@ -1,253 +1,103 @@
 <?php
+
 /**
  * Deposits Index Page
  * @author ThinkxSoftware
  */
+include_once '../templates/SecurePageHeader.php';
+include_once '../templates/Components.php';
 
-// Start session manually
-session_start();
+if (!can('view-deposits')) {
+    echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
+}
 
-// Include database access
-require_once("../../utils/dbaccess.php");
-$dbAccess = new DbAccess();
+startContent();
+
+breadCrumbs(['title' => 'Deposits Management', 'sub_title' => 'Deposits', 'previous' => 'Dashboard', 'previous_action' => '../dashboard/']);
+
+$deposits = $dbAccess->selectQuery("SELECT * FROM deposits ORDER BY created_at DESC");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Deposits - SunShine Financial Services</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="../../plugins/jqvmap/jqvmap.min.css">
-    <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="../../dist/css/sunshine-theme.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-</head>
-
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../dashboard/" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index.php" class="nav-link">Deposits</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">All Deposits</h3>
+                <div class="card-tools">
+                    <?php if (can('create-deposits')): ?>
+                        <a href="create.php" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Make Deposit
+                        </a>
+                    <?php endif; ?>
+                    <a href="float_dashboard.php" class="btn btn-info btn-sm">
+                        <i class="fas fa-chart-line"></i> Float Dashboard
                     </a>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="#" class="brand-link">
-                <img src="../../dist/img/logo.png" alt="SunShine Financial Services" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">SunShine Financial Services</span>
-            </a>
-            <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="../../dist/img/logo.png" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">System Administrator</a>
-                    </div>
-                </div>
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
-                        <li class="nav-item">
-                            <a href="../dashboard/" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../users/index.php" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../territories/index.php" class="nav-link">
-                                <i class="nav-icon fas fa-map"></i>
-                                <p>Territories</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../fuelstation/index.php" class="nav-link">
-                                <i class="nav-icon fas fa-gas-pump"></i>
-                                <p>Fuel Stations</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../stage/index.php" class="nav-link">
-                                <i class="nav-icon fas fa-road"></i>
-                                <p>Stages</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../bodauser/index.php" class="nav-link">
-                                <i class="nav-icon fas fa-motorcycle"></i>
-                                <p>Boda Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link active">
-                                <i class="nav-icon fas fa-wallet"></i>
-                                <p>Deposits</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../packages/index.php" class="nav-link">
-                                <i class="nav-icon fas fa-box"></i>
-                                <p>Packages</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
-        <!-- Content Wrapper -->
-        <div class="content-wrapper">
-            <!-- Content Header -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Deposits Management</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="../dashboard/">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Deposits</li>
-                            </ol>
-                        </div>
-                    </div>
                 </div>
             </div>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">All Deposits</h3>
-                                    <div class="card-tools">
-                                        <a href="create.php" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-plus"></i> Make Deposit
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="depositsTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fuel Station</th>
+                                <th>Amount</th>
+                                <th>Deposited By</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($deposits as $deposit):
+                                $station = $dbAccess->select("fuelstation", ["fuelStationName"], ["fuelStationId" => $deposit['fuelStationId']]);
+                                $stationName = $station ? $station[0]['fuelStationName'] : 'Unknown Station';
+                            ?>
+                                <tr>
+                                    <td><span class="badge badge-primary">#<?= $deposit['depositId'] ?></span></td>
+                                    <td><?= htmlspecialchars($stationName) ?></td>
+                                    <td><span class="badge badge-success">shs <?= number_format($deposit['amount'], 0) ?></span></td>
+                                    <td><?= htmlspecialchars($deposit['depositedBy']) ?></td>
+                                    <td><?= date('Y-m-d H:i', strtotime($deposit['created_at'])) ?></td>
+                                    <td>
+                                        <a href="show.php?id=<?= $deposit['depositId'] ?>" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i> Details
                                         </a>
-                                        <a href="float_dashboard.php" class="btn btn-info btn-sm">
-                                            <i class="fas fa-chart-line"></i> Float Dashboard
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="depositsTable" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Fuel Station</th>
-                                                    <th>Amount</th>
-                                                    <th>Deposited By</th>
-                                                    <th>Date</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $deposits = $dbAccess->select("deposits", "", "", "ORDER BY created_at DESC");
-                                                
-                                                foreach ($deposits as $deposit) {
-                                                    // Get fuel station name
-                                                    $station = $dbAccess->select("fuelstation", ["fuelStationName"], ["fuelStationId" => $deposit['fuelStationId']]);
-                                                    $stationName = $station ? $station[0]['fuelStationName'] : 'Unknown Station';
-                                                    
-                                                    echo "<tr>";
-                                                    echo "<td><span class='badge badge-primary'>#" . $deposit['depositId'] . "</span></td>";
-                                                    echo "<td>" . $stationName . "</td>";
-                                                    echo "<td><span class='badge badge-success'>shs " . number_format($deposit['amount'], 0) . "</span></td>";
-                                                    echo "<td>" . $deposit['depositedBy'] . "</td>";
-                                                    echo "<td>" . date('Y-m-d H:i', strtotime($deposit['created_at'])) . "</td>";
-                                                    echo "<td>";
-                                                    echo "<a href='show.php?id=" . $deposit['depositId'] . "' class='btn btn-sm btn-primary me-1'>";
-                                                    echo "<i class='fas fa-eye'></i> Details</a>";
-                                                    echo "<a href='showReceipt.php?id=" . $deposit['depositId'] . "' class='btn btn-sm btn-info'>";
-                                                    echo "<i class='fas fa-receipt'></i> Receipt</a>";
-                                                    echo "</td>";
-                                                    echo "</tr>";
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        <?php if (can('view-deposit-receipts')): ?>
+                                            <a href="showReceipt.php?id=<?= $deposit['depositId'] ?>" class="btn btn-sm btn-info">
+                                                <i class="fas fa-receipt"></i> Receipt
+                                            </a>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
-            </section>
+            </div>
         </div>
-
-        <!-- Footer -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2025 <a href="#">SunShine Financial Services</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.0.0
-            </div>
-        </footer>
     </div>
+</div>
 
-    <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="../../plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.js"></script>
-    
-    <script>
-    $(document).ready(function() {
-        $('#depositsTable').DataTable({
-            "responsive": true,
-            "pageLength": 25,
-            "order": [[4, "desc"]], // Sort by date descending
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "language": {
-                "search": "Search deposits:",
-                "lengthMenu": "Show _MENU_ deposits per page",
-                "info": "Showing _START_ to _END_ of _TOTAL_ deposits",
-                "infoEmpty": "No deposits found",
-                "infoFiltered": "(filtered from _MAX_ total deposits)"
-            }
-        }).buttons().container().appendTo('#depositsTable_wrapper .col-md-6:eq(0)');
+<?php
+endContent();
+include_once '../templates/footer.php';
+?>
+
+<script>
+$(document).ready(function() {
+    $('#depositsTable').DataTable({
+        responsive: true,
+        pageLength: 25,
+        order: [[4, 'desc']],
+        language: {
+            search: 'Search deposits:',
+            lengthMenu: 'Show _MENU_ deposits per page',
+            info: 'Showing _START_ to _END_ of _TOTAL_ deposits',
+            infoEmpty: 'No deposits found',
+            infoFiltered: '(filtered from _MAX_ total deposits)'
+        }
     });
-    </script>
-</body>
-</html>
+});
+</script>
+
+<?php endPage(); ?>

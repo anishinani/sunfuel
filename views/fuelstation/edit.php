@@ -1,254 +1,134 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Fuel Station</title>
+/**
+ * Header of the application
+ * @author ThinkxSoftware
+ * **/
+include_once '../templates/SecurePageHeader.php';
+/***
+ * reusable components to inject code into the template
+ * */
+include_once '../templates/Components.php';
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href=" /sunfuel/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/daterangepaicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href=" /sunfuel/plugins/summernote/summernote-bs4.min.css">
-    <style>
-        .style_button {
-            background: #1c478e !important;
-            color: #fff;
-            width: 100% !important;
-            border: none !important;
-            height: 40px !important;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-    </style>
-</head>
+if (!can('edit-fuelstation')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
 
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        <?php
-        include_once("../navbar/navbar.php");
-        include_once("../sidebar.php");
-        include("../../utils/dbaccess.php");
-        include("../../utils/activityLogger.php");
-        $activity =  new ActivityLogger();
-        $dbAccess =  new DbAccess();
+//select from db by id
+if (isset($_GET['update'])) {
+    $id = $_GET["update"];
+    $results = $dbAccess->select("fuelstation", "", ["fuelStationId" => $id]);
+}
 
-        //select from db by id
-        if (isset($_GET['update'])) {
-            $id = $_GET["update"];
-            //die("The id is " . $id);
-            $results  = $dbAccess->select("fuelstation", "", ["fuelStationId" => $id]);
-            //var_dump($results[0]['fuelStationName']);
-        }
-        ?>
+startContent();
+
+breadCrumbs(['title' => 'Edit Fuel Station', 'sub_title' => 'Edit Fuel Station', 'previous' => 'Fuel Stations', 'previous_action' => './index.php']);
+
+?>
+<?php if (isset($_SESSION['errors'])) { ?>
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            <?php
+            foreach ($_SESSION['errors'] as $key => $value) {
+                echo "<li>" . $value . "</li>";
+            }
+            ?>
+        </ul>
+    </div>
+<?php } ?>
+
+<div class="row">
+    <!--form add user -->
+    <div class="register-box m-auto col-md-8">
+        <div class="card card-outline card-primary">
+
+            <div class="card-body">
+                <p class="login-box-msg">Edit station</p>
+                <form method="POST" action="./update.php">
 
 
+                    <div class="form-group mb-3">
+                        <label for="">Station Name</label>
+                        <input type="text" name="name" required class="form-control" placeholder="enter station name" value="<?= $results[0]['fuelStationName']; ?>" />
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">fuel station</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- error part -->
-                    <?php if (isset($_SESSION['errors'])) { ?>
-
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                <?php
-                                foreach ($_SESSION['errors'] as $key => $value) {
-                                    echo "<li>" . $value . "</li>";
-                                }
-                                ?>
-                            </ul>
-                        </div>
-
-                        <!--error part-->
-                    <?php }
-
-                    ?>
-                    <div class="row">
-                        <!--form add user -->
-                        <div class="register-box m-auto col-md-8">
-                            <div class="card card-outline card-primary">
-
-                                <div class="card-body">
-                                    <p class="login-box-msg">Edit station</p>
-                                    <form method="POST" action="./update.php">
-
-
-                                        <div class="form-group mb-3">
-                                            <label for="">Station Name</label>
-                                            <input type="text" name="name" required class="form-control" placeholder="enter station name" value="<?= $results[0]['fuelStationName']; ?>" />
-
-                                        </div>
-                                        <!--address-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Addresss</label>
-                                            <input type="text" name="address" required class="form-control" placeholder="enter station address" value="<?= $results[0]['fuelStationAddress']; ?>" />
-                                        </div>
-                                        <!--address-->
-                                        <!--bank name-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Bank Name</label>
-                                            <input type="text" name="bankname" required class="form-control" 
-                                            value="<?= $results[0]['bankName']; ?>"
-                                            placeholder="enter station bank name" 
-                                            />
-                                        </div>
-                                        <!--bank name-->
-                                        <!--Bank Branch-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Bank Branch</label>
-                                            <input type="text" name="bankbranch" 
-                                            value="<?= $results[0]['bankBranch']; ?>"
-                                            required class="form-control" placeholder="enter station Bank Branch" />
-                                        </div>
-                                        <!--Bank Branch-->
-                                        <!--Account Name-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Account Name</label>
-                                            <input type="text" name="accountname" required class="form-control" 
-                                            value="<?= $results[0]['AccName']; ?>"
-                                            placeholder="enter station Account Name" />
-                                        </div>
-                                        <!--Account Name-->
-                                        <!--Account Number-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Account Number</label>
-                                            <input type="text" name="accountnumber"
-                                            value="<?= $results[0]['AccNumber']; ?>"
-                                             required class="form-control" placeholder="enter station Account Number" />
-                                        </div>
-                                        <!--Account Number-->
-                                        <!--person-->
-                                        <div class="form-group mb-3">
-                                            <label for="">Contact Person</label>
-                                            <input type="text" name="person" required class="form-control" placeholder="enter person name" value="<?= $results[0]['fuelStationContactPerson']; ?>" />
-
-                                        </div>
-                                        <!--person-->
-
-                                        <!--phone-->
-                                        <div class="form-group mb-3">
-                                            <label for=""> Contact Phone Number</label>
-                                            <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['fuelStationContactPhone']; ?>" />
-                                        </div>
-                                        <!---phone-->
-
-                                        <!--hidden-->
-                                        <input type="hidden" name="id" value="<?= $_GET['update']; ?>" />
-                                        <!--hidden-->
-                                        <!-- /.col -->
-                                        <div class="col-12">
-                                            <button type="submit" class="style_button" name="addStation">Update Fuel Station</button>
-                                        </div>
-                                        <!-- /.col -->
-                                </div>
-                                </form>
-
-                            </div>
-                            <!-- /.form-box -->
-                        </div><!-- /.card -->
                     </div>
-                    <!-- /.register-box -->
+                    <!--address-->
+                    <div class="form-group mb-3">
+                        <label for="">Addresss</label>
+                        <input type="text" name="address" required class="form-control" placeholder="enter station address" value="<?= $results[0]['fuelStationAddress']; ?>" />
+                    </div>
+                    <!--address-->
+                    <!--bank name-->
+                    <div class="form-group mb-3">
+                        <label for="">Bank Name</label>
+                        <input type="text" name="bankname" required class="form-control"
+                            value="<?= $results[0]['bankName']; ?>"
+                            placeholder="enter station bank name"
+                        />
+                    </div>
+                    <!--bank name-->
+                    <!--Bank Branch-->
+                    <div class="form-group mb-3">
+                        <label for="">Bank Branch</label>
+                        <input type="text" name="bankbranch"
+                            value="<?= $results[0]['bankBranch']; ?>"
+                            required class="form-control" placeholder="enter station Bank Branch" />
+                    </div>
+                    <!--Bank Branch-->
+                    <!--Account Name-->
+                    <div class="form-group mb-3">
+                        <label for="">Account Name</label>
+                        <input type="text" name="accountname" required class="form-control"
+                            value="<?= $results[0]['AccName']; ?>"
+                            placeholder="enter station Account Name" />
+                    </div>
+                    <!--Account Name-->
+                    <!--Account Number-->
+                    <div class="form-group mb-3">
+                        <label for="">Account Number</label>
+                        <input type="text" name="accountnumber"
+                            value="<?= $results[0]['AccNumber']; ?>"
+                            required class="form-control" placeholder="enter station Account Number" />
+                    </div>
+                    <!--Account Number-->
+                    <!--person-->
+                    <div class="form-group mb-3">
+                        <label for="">Contact Person</label>
+                        <input type="text" name="person" required class="form-control" placeholder="enter person name" value="<?= $results[0]['fuelStationContactPerson']; ?>" />
 
-                    <!--form add user-->
-                </div>
-                <!-- /.row -->
-                <!-- Main row -->
-                <div class="row">
-                    <!-- Left col -->
-                    <section class="col-lg-7 connectedSortable">
+                    </div>
+                    <!--person-->
 
+                    <!--phone-->
+                    <div class="form-group mb-3">
+                        <label for=""> Contact Phone Number</label>
+                        <input type="text" name="phoneNumber" required class="form-control" placeholder="enter phone number name" value="<?= $results[0]['fuelStationContactPhone']; ?>" />
+                    </div>
+                    <!---phone-->
 
-                    </section>
-                    <!-- right col -->
-                </div>
-                <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <?php include_once("../footer/footer.php"); ?>
+                    <!--hidden-->
+                    <input type="hidden" name="id" value="<?= $_GET['update']; ?>" />
+                    <!--hidden-->
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <button type="submit" class="style_button" name="addStation">Update Fuel Station</button>
+                    </div>
+                    <!-- /.col -->
+            </div>
+            </form>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
 
-    <!-- jQuery -->
-    <script src="/sunfuel/plugins/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src=" /sunfuel/plugins/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src=" /sunfuel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="/sunfuel/plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src=" /sunfuel/plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src=" /sunfuel/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src=" /sunfuel/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src=" /sunfuel/plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src=" /sunfuel/plugins/moment/moment.min.js"></script>
-    <script src=" /sunfuel/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src=" /sunfuel/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src=" /sunfuel/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src=" /sunfuel/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src=" /sunfuel/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src=" /sunfuel/dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src=" /sunfuel/dist/js/pages/dashboard.js"></script>
-</body>
+<?php
 
-</html>
+endContent();
+
+/**
+ * footer of the application
+ * */
+include_once '../templates/footer.php';
+
+endPage();

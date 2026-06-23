@@ -1,254 +1,107 @@
 <?php
-session_start();
-include("../../utils/dbaccess.php");
-$dbAccess =  new DbAccess();
-$id =  $_SESSION['fuelDetailsId'];
+
+/**
+ * Header of the application
+ * @author ThinkxSoftware
+ * **/
+include_once '../templates/SecurePageHeader.php';
+/***
+ * reusable components to inject code into the template
+ * */
+include_once '../templates/Components.php';
+
+$id = $_SESSION['fuelDetailsId'];
 $details = [];
-// if (isset($_GET['active'])) {
-//     $details  = $dbAccess->selectQuery("SELECT bodauser.*
-//     FROM bodauser WHERE bodaUserStatus=1 AND fuelStationId=$id");
-// } else if (isset($_GET['inactive'])) {
-// } elseif (isset($_GET['defaulters'])) {
-// } else {
-//     header("Location:index.php");
-// }
 
-//unset($_SESSION["success"]);
+if (!can('view-fuelstations')) echo "<script>window.open('../Errors/unAuthorized.php','_self')</script>";
+
+startContent();
+
+breadCrumbs(['title' => $_GET['stationname'] . ' FUEL STATION', 'sub_title' => $_GET['data'], 'previous' => 'Fuel Stations', 'previous_action' => './index.php']);
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<div class="row">
+    <div class="col-12">
+        <!--table-->
+        <!-- /.card -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><?= strtoupper($_GET['data']) ?></h3>
 
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th> Name</th>
+                            <th>NIN Number</th>
+                            <th>Boda Number</th>
+                            <th>Role</th>
+                            <th>Boda Status</th>
+                            <th>Fuel Station</th>
+                            <th>Stage</th>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CreditPlus|Active BodaUsers</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/sunfuel/plugins/fontawesome-free/css/all.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="/sunfuel/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="/sunfuel/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="/sunfuel/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/sunfuel/dist/css/adminlte.min.css">
+                            <th>Activation Action</th>
 
-    <style>
-        .style_button {
-            background: #657836 !important;
-            color: #fff;
-            width: 100% !important;
-            border: none !important;
-            height: 40px !important;
-            cursor: pointer;
-            border-radius: 10px;
-        }
+                            <th width="100px">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-        .farmer__filter {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-evenly !important;
-        }
+                    </tbody>
 
-        .platform {
-            display: none !important;
-        }
+                </table>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
 
-        .content-wrapper {
-            position: relative !important;
-        }
-
-        .image__remove {
-            position: absolute !important;
-            right: 30px !important;
-            top: 10px !important;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-
-        <?php
-
-        include("../navbar/navbar.php");
-        include("../sidebar.php");
-
-        // $dbAccess =  new DbAccess();
-
-        ?>
-        <!-- Main Sidebar Container -->
-
-
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-
-            <!--any wrong info-->
-
-            <?php
-    
-
-
-
-
-            ?>
-
-
-
-            <!--any wrong info-->
 
             <!-- /.card -->
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1><?=$_GET['stationname']?> FUEL STATION</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="./index.php">FuelStations</a></li>
-                                <li class="breadcrumb-item active">
-                                <?=$_GET['data']?>
-
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-
-
-                    <div class="row">
-                        <div class="col-12">
-                            <!--table-->
-                            <!-- /.card -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title"><?=strtoupper($_GET['data'])?></h3>
-
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="example" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th> Name</th>
-                                                <th>NIN Number</th>
-                                                <th>Boda Number</th>
-                                                <th>Role</th>
-                                                <th>Boda Status</th>
-                                                <th>Fuel Station</th>
-                                                <th>Stage</th>
-
-                                                <th>Activation Action</th>
-
-                                                <th width="100px">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-
-                                    </table>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-
-
-                                <!-- /.card -->
-                                <!--table-->
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+            <!--table-->
         </div>
-        <!-- /.content-wrapper -->
-        <?php include_once("../footer/footer.php"); ?>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+        <!-- /.col -->
     </div>
-    <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="/sunfuel/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
+    <!-- /.row -->
+</div>
 
-    <script src="/sunfuel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables  & Plugins -->
-    <script src="/sunfuel/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="/sunfuel/plugins/jszip/jszip.min.js"></script>
-    <script src="/sunfuel/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="/sunfuel/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="/sunfuel/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="/sunfuel/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="/sunfuel/dist/js/demo.js"></script>
+<?php
 
-    <!--hide alert--->
-    <script type="text/javascript">
-        $(function() {
-            $('.image__remove').click(function() {
-                //alert('clicked')
-                // $("#content-wrap").addClass('platform');
-                $("#removeAlert").addClass('platform');
+endContent();
 
-            })
-        })
-    </script>
-    <!--hide alert-->
+/**
+ * footer of the application
+ * */
+include_once '../templates/footer.php';
 
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "fnCreatedRow": function(nRow, aData, iDataIndex) {
-                    $(nRow).attr('id', aData[0]);
-                },
-                'serverSide': 'true',
-                'processing': 'true',
-                'paging': 'true',
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                'order': [],
-                'ajax': {
-                    'url': "./serverside/activebodausers.php?name=<?=$_GET['stationname']?>&table=<?=$_GET['data']?>",
-                    'type': 'post',
-                },
-                "data": {
-                    "id": 1
-                },
-                "columnDefs": [{
-                    'target': [5],
-                    'orderable': false,
-                }]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-    </script>
+?>
 
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "fnCreatedRow": function(nRow, aData, iDataIndex) {
+                $(nRow).attr('id', aData[0]);
+            },
+            'serverSide': 'true',
+            'processing': 'true',
+            'paging': 'true',
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            'order': [],
+            'ajax': {
+                'url': "./serverside/activebodausers.php?name=<?= $_GET['stationname'] ?>&table=<?= $_GET['data'] ?>",
+                'type': 'post',
+            },
+            "data": {
+                "id": 1
+            },
+            "columnDefs": [{
+                'target': [5],
+                'orderable': false,
+            }]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script>
 
-
-</body>
-
-</html>
+<?php
+endPage();

@@ -1,33 +1,32 @@
 <?php
-include_once("../../utils/dbaccess.php");
-include_once("../../utils/YoAPI.php");
-include_once("../../utils/Yo.php");
 
-$creditPlusYo =  new Yo();
-$dbAccess =  new DbAccess();
-$confirmedPayment =  new YoAPI($creditPlusYo->getUserName(),  $creditPlusYo->getPassword());
-$data = $confirmedPayment->receive_payment_failure_notification();
-//sprint_r($data);
+require_once __DIR__ . '/../../utils/dbaccess.php';
 
-//var_dump($_POST);
+$dbAccess = new DbAccess();
+$data = json_decode(file_get_contents('php://input'), true);
 
-$result = $dbAccess->update(
-    "sample",
-    [
-        'failedDate' => $_POST['transaction_init_date'],
-        'transactionStatus' => "0"
-    ],
-    ['external_ref' => $_POST['failed_transaction_reference']]
-);
+if (!is_array($data)) {
+    http_response_code(400);
+    exit('Invalid callback payload');
+}
 
-// 'failed_transaction_reference' => $_POST['failed_transaction_reference'],
+$callback = $data['data'] ?? $data;
+$externalReference = $callback['externalReference']
+    ?? ($data['externalReference'] ?? ($_POST['failed_transaction_reference'] ?? null));
 
-// var_dump($_POST);
+if (!$externalReference) {
+    http_response_code(400);
+    exit('Missing external reference');
+}
 
-$result = $dbAccess->insert("failedTransaction", [
-    'is_verified' => "1",
-    'failed_transaction_reference' => $_POST['failed_transaction_reference'],
-    'transaction_init_date' =>  $_POST['transaction_init_date']
+$dbAccess->update('payments', [
+    'status' => 'failed',
+    'transactionStatus' => '0',
+], [
+    'external_ref' => $externalReference,
 ]);
 
-// var_dump($result);
+$dbAccess->update('loan', ['status' => '1'], ['loanRef' => $externalReference]);
+
+http_response_code(200);
+echo 'OK';

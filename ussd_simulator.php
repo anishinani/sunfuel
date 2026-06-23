@@ -16,8 +16,19 @@ if (!isset($_SESSION['ussd_session'])) {
 }
 
 require_once 'utils/dbaccess.php';
+require_once 'utils/PhoneHelper.php';
 require_once 'controllers/FuelLoanController.php';
 require_once 'controllers/LoanManagementController.php';
+
+$db = new DbAccess();
+$bodaUsers = $db->selectQuery(
+    "SELECT bodaUserId, bodaUserName, bodaUserPhoneNumber, bodaUserStatus
+     FROM bodauser
+     ORDER BY bodaUserName ASC"
+);
+$defaultPhone = !empty($bodaUsers)
+    ? PhoneHelper::toInternational($bodaUsers[0]['bodaUserPhoneNumber'])
+    : '';
 
 class USSDSimulator {
     private $db;
@@ -215,10 +226,10 @@ class USSDSimulator {
                     
                     if ($result['success']) {
                         return [
-                            'response' => "✅ Payment successful!\n\n" .
-                                         "💰 Amount: " . number_format($amount) . " UGX\n" .
-                                         "🆔 Transaction ID: " . $result['transactionId'] . "\n\n" .
-                                         "🎉 You can now borrow fuel tomorrow!",
+                            'response' => "Payment request sent.\n\n" .
+                                         "Amount: " . number_format($amount) . " UGX\n" .
+                                         "Approve the prompt on your phone.\n" .
+                                         "Ref: " . $result['transactionId'],
                             'endSession' => true
                         ];
                     } else {
@@ -323,11 +334,12 @@ class USSDSimulator {
     }
 
     private function getBodaUser($phone) {
+        $phones = PhoneHelper::sqlInList(PhoneHelper::variants($phone));
         $sql = "SELECT b.*, s.stageName, fs.fuelStationName 
                 FROM bodauser b 
                 LEFT JOIN stage s ON b.stageId = s.stageId 
                 LEFT JOIN fuelstation fs ON b.fuelStationId = fs.fuelStationId 
-                WHERE b.bodaUserPhoneNumber = '{$phone}' 
+                WHERE b.bodaUserPhoneNumber IN ({$phones})
                 AND b.bodaUserStatus = 1";
 
         $result = $this->db->selectQuery($sql);
@@ -370,7 +382,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     try {
         $simulator = new USSDSimulator();
         $input = $_POST['input'] ?? '';
-        $phone = $_POST['phone'] ?? '256700654321'; // Default demo phone
+        $phone = $_POST['phone'] ?? $defaultPhone;
         
         $result = $simulator->handleRequest($input, $phone);
         
@@ -510,28 +522,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         <!-- Phone Selector -->
         <div class="phone-selector">
-            <strong>Select Demo User:</strong>
+            <strong>Select Boda Rider:</strong>
             <div class="demo-users">
-                <button class="btn btn-sm btn-outline-primary user-btn" onclick="selectPhone('256700654321')">
-                    Demo Boda User<br><small>256700654321</small>
-                </button>
-                <button class="btn btn-sm btn-outline-secondary user-btn" onclick="selectPhone('256700111111')">
-                    Test User 1<br><small>256700111111</small>
-                </button>
-                <button class="btn btn-sm btn-outline-secondary user-btn" onclick="selectPhone('256700222222')">
-                    Test User 2<br><small>256700222222</small>
-                </button>
+                <?php if (empty($bodaUsers)): ?>
+                    <p class="text-muted mb-0 small">No boda users in the database.</p>
+                <?php else: ?>
+                    <?php foreach ($bodaUsers as $index => $user):
+                        $phone = PhoneHelper::toInternational($user['bodaUserPhoneNumber']);
+                        $statusLabel = (int) $user['bodaUserStatus'] === 1 ? 'Active' : 'Inactive';
+                        $btnClass = $index === 0 ? 'btn-outline-primary' : 'btn-outline-secondary';
+                    ?>
+                        <button class="btn btn-sm <?= $btnClass ?> user-btn"
+                                onclick="selectPhone('<?= htmlspecialchars($phone) ?>')">
+                            <?= htmlspecialchars($user['bodaUserName']) ?><br>
+                            <small><?= htmlspecialchars($phone) ?> (<?= $statusLabel ?>)</small>
+                        </button>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
             <div class="mt-2">
                 <button class="btn btn-warning btn-sm" onclick="resetSession()">
                     <i class="fas fa-refresh"></i> Reset Session
                 </button>
+                <a href="agent_ussd_simulator.php" class="btn btn-success btn-sm">
+                    <i class="fas fa-user-tie"></i> Agent USSD Simulator
+                </a>
             </div>
         </div>
 
         <!-- Session Info -->
         <div class="session-info">
-            <span id="sessionPhone">Phone: 256700654321</span> | 
+            <span id="sessionPhone">Phone: <?= htmlspecialchars($defaultPhone ?: 'N/A') ?></span> |
             <span id="sessionStatus">Session: Active</span>
         </div>
 
@@ -584,7 +605,7 @@ Enter your choice:
                             <div class="col-md-6">
                                 <h6>How to Use:</h6>
                                 <ul>
-                                    <li>Select a demo user phone number</li>
+                                    <li>Select a boda rider from the database</li>
                                     <li>Use the keypad or type numbers</li>
                                     <li>Follow the USSD menu prompts</li>
                                     <li>Test the complete fuel loan workflow</li>
@@ -602,8 +623,10 @@ Enter your choice:
                         </div>
                         
                         <div class="alert alert-info mt-3">
-                            <strong>Note:</strong> This simulator works with the actual fuel loan system. 
-                            Generated activation codes can be used in the fuel agent portal for testing.
+                            <strong>Note:</strong> This simulator works with the actual fuel loan system.
+                            Generated activation codes can be confirmed by the agent via
+                            <a href="agent_ussd_simulator.php" class="alert-link">Agent USSD Simulator</a>
+                            or the <a href="fuel_agent_login.php" class="alert-link">Fuel Agent Portal</a>.
                         </div>
                     </div>
                 </div>
@@ -615,7 +638,7 @@ Enter your choice:
     <script src="plugins/bootstrap/js/bootstrap.min.js?v=<?php echo time(); ?>"></script>
     
     <script>
-        let currentPhone = '256700654321';
+        let currentPhone = <?= json_encode($defaultPhone) ?>;
         let sessionActive = true;
 
         function selectPhone(phone) {

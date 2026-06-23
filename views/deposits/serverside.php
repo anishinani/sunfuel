@@ -5,6 +5,7 @@ ob_start();
 try {
     session_start();
     include("../../utils/dbaccess.php");
+    require_once("../../utils/datatables_helper.php");
     $dbAccess = new DbAccess();
     $con = $dbAccess->getConnection();
 
@@ -17,18 +18,18 @@ $sql = "SELECT * FROM deposits";
 $totalQuery = mysqli_query($con, $sql);
 $total_all_rows = mysqli_num_rows($totalQuery);
 
-if (isset($_POST['search']['value'])) {
+if (!empty($_POST['search']['value'])) {
     $search_value = $_POST['search']['value'];
     $sql .= " WHERE depositedBy like '%" . $search_value . "%'";
+    $sql .= " OR amount like '%" . $search_value . "%'";
+    $sql .= " OR description like '%" . $search_value . "%'";
 }
 
-if (isset($_POST['order'])) {
-    $column_name = $_POST['order'][0]['column'];
-    $order = $_POST['order'][0]['dir'];
-    $sql .= " ORDER BY " . $column_name . " " . $order . "";
-} else {
-    $sql .= " ORDER BY depositId desc";
-}
+$sql .= datatables_order_clause(
+    $_POST['order'] ?? null,
+    ['depositId', 'fuelStationId', 'amount', 'depositedBy', 'created_at'],
+    'depositId DESC'
+);
 
 if ($_POST['length'] != -1) {
     $start = $_POST['start'];
@@ -87,7 +88,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $sub_array[] = count($dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']]))
         ? $dbAccess->select("fuelstation", ['fuelStationName'], ['fuelStationId' => $row['fuelStationId']])[0]['fuelStationName'] : NULL;;
     $sub_array[] =  "shs " . number_format($row['amount'], 0);
-    $sub_array[] = $row['depositedBy'];
+    $sub_array[] = $row['depositedBy'] ?? ($row['description'] ?? 'N/A');
     $sub_array[] = $row['created_at'];
     $sub_array[] =  showActions($row['depositId']);
     $data[] = $sub_array;

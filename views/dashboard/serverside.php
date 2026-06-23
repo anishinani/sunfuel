@@ -1,6 +1,9 @@
 <?php
+ob_start();
+try {
 session_start();
 include("../../utils/dbaccess.php");
+require_once("../../utils/datatables_helper.php");
 $dbAccess =  new DbAccess();
 $con = $dbAccess->getConnection();
 
@@ -19,20 +22,15 @@ if (isset($_POST['search']['value'])) {
     $sql .= " WHERE bodaUserName like '%" . $search_value . "%'";
     $sql .= " OR bodaUserPhoneNumber like '%" . $search_value . "%'";
     $sql .= " OR bodaUserBodaNumber like '%" . $search_value . "%'";
-    $sql .= " OR bodaUserPin like '%" . $search_value . "%'";
-    $sql .= " OR fuelStationName like '%" . $search_value . "%'";
-    $sql .= " OR stageName like '%" . $search_value . "%'";
+    $sql .= " OR alternativePhotoNumber like '%" . $search_value . "%'";
     $sql .= " OR bodaUserRole like '%" . $search_value . "%'";
 }
 
-if (isset($_POST['order'])) {
-    $column_name = $_POST['order'][0]['column'];
-    $order = $_POST['order'][0]['dir'];
-    if($column_name == "ID") $column_name = "bodaUserId"; 
-    $sql .= " ORDER BY " . $column_name . " " . $order . "";
-} else {
-    $sql .= " ORDER BY bodaUserId desc";
-}
+$sql .= datatables_order_clause(
+    $_POST['order'] ?? null,
+    ['bodaUserId', 'bodaUserName', 'bodaUserNIN', 'bodaUserBodaNumber', 'bodaUserRole', 'bodaUserStatus', 'fuelStationName', 'stageName'],
+    'bodaUserId DESC'
+);
 
 if ($_POST['length'] != -1) {
     $start = $_POST['start'];
@@ -121,3 +119,6 @@ $output = array(
     'data' => $data,
 );
 echo  json_encode($output);
+} catch (Throwable $e) {
+    datatables_json_error($e);
+}

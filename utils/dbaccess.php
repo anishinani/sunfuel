@@ -19,8 +19,10 @@ class DbAccess
         // Handle both web and CLI environments
         $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
         
-        // XAMPP configuration with your MySQL password
-        $this->password = '!Log19tan88';
+        // XAMPP default: root with no password on localhost
+        if ($ip_address === '127.0.0.1' || $ip_address === '::1') {
+            $this->password = '';
+        }
 
         // Create connection
         //$this->conn = new mysqli($servername, $username, $password);

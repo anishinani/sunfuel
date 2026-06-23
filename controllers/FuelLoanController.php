@@ -2,13 +2,17 @@
 
 require_once __DIR__ . '/../utils/dbaccess.php';
 require_once __DIR__ . '/../utils/sms.php';
+require_once __DIR__ . '/../utils/SsentezoWallet.php';
+require_once __DIR__ . '/../utils/PhoneHelper.php';
 
 class FuelLoanController extends DbAccess {
     private $sms;
+    private $wallet;
 
     public function __construct() {
         parent::__construct();
-        $this->sms = new infobip();
+        $this->sms = new SmsService();
+        $this->wallet = new SsentezoWallet();
     }
 
     /**
@@ -123,6 +127,7 @@ class FuelLoanController extends DbAccess {
                     'interestRate' => $interestRate,
                     'interestAmount' => $interestAmount,
                     'totalAmount' => $totalAmount,
+                    'fuelStationId' => $activation['fuelStationId'],
                     'stationName' => $station['fuelStationName'],
                     'expiresAt' => $activation['expiresAt'],
                     'createdAt' => $activation['createdAt']
@@ -226,7 +231,9 @@ class FuelLoanController extends DbAccess {
             }
 
             // Verify user owns this loan
-            if ($loan['bodaUserPhoneNumber'] != $phoneNumber) {
+            if ($loan['bodaUserPhoneNumber'] != $phoneNumber
+                && PhoneHelper::toLocal($loan['bodaUserPhoneNumber']) !== PhoneHelper::toLocal($phoneNumber)
+                && PhoneHelper::toInternational($loan['bodaUserPhoneNumber']) !== PhoneHelper::toInternational($phoneNumber)) {
                 return ['success' => false, 'message' => 'Unauthorized payment'];
             }
 
@@ -235,36 +242,16 @@ class FuelLoanController extends DbAccess {
                 return ['success' => false, 'message' => 'Loan already paid'];
             }
 
-            // Simulate mobile money payment (integrate with actual mobile money API)
-            $paymentResult = $this->simulateMobileMoneyPayment($phoneNumber, $loan['totalAmount']);
+            // Initiate mobile money collection via Ssentezo Wallet
+            $paymentResult = $this->initiateMobileMoneyCollection($phoneNumber, $loan['totalAmount'], $loanId);
             
             if ($paymentResult['success']) {
-                // Update loan status
-                $this->update('fuel_loans', [
-                    'status' => 'paid',
-                    'paidAt' => date('Y-m-d H:i:s')
-                ], ['fuelLoanId' => $loanId]);
-
-                // Update user borrowing status
-                $this->update('bodauser', [
-                    'canBorrowToday' => 1
-                ], ['bodaUserId' => $loan['bodaUserId']]);
-
-                // Record payment
-                $this->insert('payments', [
-                    'loanId' => $loanId,
-                    'amount' => $loan['totalAmount'],
-                    'paymentMethod' => 'mobile_money',
-                    'paymentDate' => date('Y-m-d H:i:s')
-                ]);
-
-                // Send payment confirmation SMS
-                $this->sendPaymentConfirmationSMS($phoneNumber, $loan['totalAmount']);
-
                 return [
                     'success' => true,
                     'amount' => $loan['totalAmount'],
-                    'transactionId' => $paymentResult['transactionId']
+                    'transactionId' => $paymentResult['transactionId'],
+                    'message' => $paymentResult['message'] ?? 'Approve the payment prompt on your phone.',
+                    'status' => $paymentResult['status'] ?? 'PENDING',
                 ];
             } else {
                 return ['success' => false, 'message' => $paymentResult['message']];
@@ -337,11 +324,12 @@ class FuelLoanController extends DbAccess {
      * Get boda user by phone number
      */
     private function getBodaUserByPhone($phoneNumber) {
+        $phones = PhoneHelper::sqlInList(PhoneHelper::variants($phoneNumber));
         $sql = "SELECT b.*, s.stageName, fs.fuelStationName 
                 FROM bodauser b 
                 LEFT JOIN stage s ON b.stageId = s.stageId 
                 LEFT JOIN fuelstation fs ON b.fuelStationId = fs.fuelStationId 
-                WHERE b.bodaUserPhoneNumber = '{$phoneNumber}' 
+                WHERE b.bodaUserPhoneNumber IN ({$phones})
                 AND b.bodaUserStatus = 1";
 
         $result = $this->selectQuery($sql);
@@ -418,23 +406,46 @@ class FuelLoanController extends DbAccess {
     }
 
     /**
-     * Simulate mobile money payment (replace with actual API integration)
+     * Collect payment from customer via Ssentezo Wallet.
      */
-    private function simulateMobileMoneyPayment($phoneNumber, $amount) {
-        // This is a simulation - integrate with actual mobile money API
-        // For now, we'll simulate a successful payment
-        
-        // Simulate API call delay
-        sleep(1);
-        
-        // Generate transaction ID
-        $transactionId = 'TXN' . time() . rand(1000, 9999);
-        
+    private function initiateMobileMoneyCollection($phoneNumber, $amount, $loanId) {
+        if (!$this->wallet->isConfigured()) {
+            return ['success' => false, 'message' => 'Payment gateway is not configured'];
+        }
+
+        $externalReference = 'SF' . time() . rand(1000, 9999);
+
+        $this->insert('payments', [
+            'amount' => $amount,
+            'status' => 'pending',
+            'narrative' => 'Fuel loan payment',
+            'msisdn' => $this->wallet->formatMsisdn($phoneNumber),
+            'external_ref' => $externalReference,
+        ]);
+
+        $result = $this->wallet->collectMoney(
+            $externalReference,
+            $phoneNumber,
+            $amount,
+            'Sunfuel loan payment'
+        );
+
+        if (!$result['success']) {
+            $this->update('payments', ['status' => 'failed'], ['external_ref' => $externalReference]);
+
+            return [
+                'success' => false,
+                'message' => $result['message'] ?? 'Could not initiate payment',
+            ];
+        }
+
         return [
             'success' => true,
-            'transactionId' => $transactionId,
+            'transactionId' => $externalReference,
             'amount' => $amount,
-            'phoneNumber' => $phoneNumber
+            'phoneNumber' => $phoneNumber,
+            'status' => $result['transactionStatus'] ?? 'PENDING',
+            'message' => 'Payment request sent. Approve the prompt on your phone.',
         ];
     }
 
